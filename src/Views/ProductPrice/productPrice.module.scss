@@ -1,0 +1,14 @@
+.product-price {
+  margin: 0;
+  line-height: 1;
+  &__price {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 140%;
+    letter-spacing: 0.04em;
+    margin: 0;
+    color: #1d1b1e;
+  }
+  &__prev-price {
+  }
+}

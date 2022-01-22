@@ -1,0 +1,65 @@
+@mixin ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+@mixin flex($type) {
+  display: flex;
+  @if ($type == 'lc') {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @if ($type == 'sc') {
+    justify-content: space-between;
+    align-items: center;
+  }
+  @if ($type == 'rc') {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @if ($type == 'cc') {
+    justify-content: center;
+    align-items: center;
+  }
+  @if ($type == 'ct') {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  @if ($type == 'lt') {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @if ($type == 'st') {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @if ($type == 'rt') {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+
+@mixin tablet-lg {
+    @media screen and (max-width: 1024px) {
+      @content;
+    }
+  }
+.payment-methods {
+  &__list {
+    @include ul;
+    @include flex(lc);
+    &-item {
+      margin-right: 10px;
+      &:last-child {
+        margin: 0;
+      }
+      &-icon {
+        --icon-width: 58px;
+        --icon-height: 40px;
+      }
+    }
+    @include tablet-lg {
+      justify-content: center;
+    }
+  }
+}

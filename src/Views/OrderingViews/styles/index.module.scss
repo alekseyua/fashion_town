@@ -1,0 +1,646 @@
+@import '../../../styles/variables/index.scss';
+@import '../../../styles/fonts/index.scss';
+
+.ordering {
+  &__icon {
+    margin-right: 10px;
+  }
+  &__desc {
+    font-size: 12px;
+    color: $p2;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  &__button {
+    height: 58px;
+    width: 228px;
+    border-radius: 2px;
+    @include flex(cc);
+    margin-right: 4px;
+    margin-bottom: 4px;
+    background-color: $g;
+    &::part(base) {
+      color: $a2;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    &:hover {
+      background-color: $a2;
+      &::part(base) {
+        color: $w;
+      }
+    }
+    &-active {
+      cursor: default;
+    }
+    &-active,
+    &-active:hover {
+      background: $w;
+      border: 2px solid $a2;
+      &::part(base) {
+        color: $a2;
+      }
+    }
+    &_wrap {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+  }
+  &_cards {
+    margin-top: 60px;
+    margin-bottom: 84px;
+    padding-left: 30px;
+    padding-right: 30px;
+    @include mobile {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    @include mobile-sm {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  &_card {
+    border: 1px solid $g;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr 447px;
+    grid-gap: 10px;
+    margin-bottom: 10px;
+    @include tablet-lg {
+      grid-template-columns: 1fr;
+    }
+    &-left {
+      @include flex(lt);
+      padding: 10px;
+    }
+    &__image {
+      width: 78px;
+      height: 110px;
+      min-width: 78px;
+      min-height: 110px;
+      object-fit: cover;
+      margin-right: 10px;
+      padding: 2px;
+      background-color: $g;
+    }
+    &__desc {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 18px;
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+    &__tooltip {
+      --gx-tooltip-background-color: var(--gx-color-white);
+      --gx-tooltip-arrow-size: 13px;
+      &::part(base) {
+        font-size: 10px;
+        line-height: 140%;
+        color: $p;
+        max-width: 210px;
+        padding: 10px;
+        border: 2px solid #f3eff3;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.11);
+      }
+    }
+    &__change {
+      &_text {
+        font-size: 12px;
+        color: $b;
+      }
+    }
+  }
+  &_comment {
+    display: flex;
+    flex-direction: column;
+    &__field {
+      background-color: $g;
+      height: 100%;
+      padding: 10px;
+      overflow-y: auto;
+      &-comment {
+        max-width: 100%;
+        display: block;
+        word-wrap: break-word;
+        margin-bottom: 15px;
+      }
+      &-files {
+        max-width: 100%;
+        display: block;
+        word-wrap: break-word;
+        &-img {
+          width: 75px;
+          height: 96px;
+          margin-right: 10px;
+          padding: 3px;
+          cursor: pointer;
+          overflow: hidden;
+          background: var(--gx-color-gray);
+        }
+      }
+      // Scrollbar styles
+      // moz
+      scrollbar-color: rgba(147, 52, 104, 0.3) rgba(252, 210, 215, 0.3); /* «цвет ползунка» «цвет полосы скроллбара» */
+      scrollbar-width: thin;
+      // webkit
+      &::-webkit-scrollbar {
+        width: 4px;
+        background-color: rgba(40, 37, 52, 0.1); /* «цвет полосы скроллбара» */
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(147, 52, 104, 0.3); /* «цвет ползунка» */
+      }
+    }
+    &__send {
+      height: 36px;
+      background: rgba(243, 239, 243, 0.3);
+      box-shadow: inset -2px 0px 4px rgba(0, 0, 0, 0.04), inset 2px 0px 4px rgba(0, 0, 0, 0.04);
+      @include flex(sc);
+    }
+    &__input {
+      width: 100%;
+      &::part(base) {
+        background-color: rgba(243, 239, 243, 0.3);
+        border: none;
+      }
+    }
+    &__buttons {
+      display: flex;
+    }
+  }
+  &_pay {
+    background-color: rgba(243, 239, 243, 0.3);
+    padding: 60px 30px 45px 30px;
+    @include mobile {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    &__head {
+      &_wrap {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  &_delivery {
+    background-color: rgba(243, 239, 243, 0.3);
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    @include mobile {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    &__form {
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-bottom: 40px;
+      background-color: $w;
+      @include mobile {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      &_top {
+        background-color: $w;
+        padding: 20px;
+        @include mobile {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+      &_attention {
+        padding: 10px 20px;
+        background-color: $pil;
+        margin-bottom: 14px;
+      }
+      &_btn {
+        &::part(base) {
+          width: 228px;
+          height: 44px;
+          border: 2px solid $p;
+          border-radius: 2px;
+          &:hover {
+            background-color: $p;
+          }
+        }
+        &::part(label) {
+          @include flex(cc);
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: 700;
+          color: $p;
+          &:hover {
+            color: $w;
+          }
+        }
+        &-active {
+          &::part(base) {
+            border: 2px solid var(--gx-color-darckgray);
+            background-color: $p;
+            color: $w;
+          }
+          &::part(label) {
+            color: $w;
+          }
+        }
+      }
+      &_head {
+        @extend %cab-h1;
+        border-top: 2px solid $g;
+        padding-top: 20px;
+        margin-bottom: 30px;
+      }
+      &_wrap {
+        @include row(10);
+        margin-bottom: 30px;
+      }
+      &_left,
+      &_right {
+        @include col(6, 10);
+        @include tablet-md {
+          @include col(12, 10);
+        }
+
+       *{
+        margin-bottom: 23px;
+       }
+      }
+      &_subhead {
+        @extend %cab-h3;
+        color: #8692a6;
+        margin-bottom: 10px;
+      }
+      &_input {
+        &::part(base) {
+          border: 2px solid $pil;
+          border-radius: 6px;
+          color: $p2;
+          height: 58px;
+          @include flex(lc);
+        }
+        &::part(label) {
+          font-size: 14px;
+          &::after {
+            content: (' *');
+            color: $rd;
+          }
+        }
+        &:hover {
+          &::part(base) {
+            border: 2px solid $a2;
+            box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+          }
+        }
+        &-success {
+          &::part(base) {
+            background-color: rgba(255, 166, 176, 0.1);
+            border: none;
+          }
+        }
+        &_slot {
+          &-hidden {
+            visibility: hidden;
+          }
+          &-visible {
+            text-align: right;
+            color: $rd;
+            visibility: visible;
+          }
+        }
+        &_icon {
+          &-hidden {
+            display: none;
+          }
+          &-visible {
+            display: block;
+          }
+        }
+      }
+      &_textarea {
+        margin-bottom: 30px;
+        &::part(base) {
+          background-color: rgba(243, 239, 243, 0.3);
+          box-shadow: inset -2px 0px 4px rgba(0, 0, 0, 0.1), inset 2px 0px 4px rgba(0, 0, 0, 0.1);
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+  &_address {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: rgba(243, 239, 243, 0.3);
+    @include mobile {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    &__search {
+      margin-bottom: 10px;
+      &::part(base) {
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid $g;
+      }
+    }
+    &__card {
+      display: flex;
+      padding: 20px;
+      background-color: $w;
+      margin-bottom: 10px;
+      border: 2px solid transparent;
+      &:hover {
+        border: 2px solid $a2;
+      }
+      &::part(base) {
+        align-items: start;
+        // {
+
+        // }
+      }
+      &[checked] {
+        &::part(checked-icon) {
+          color: black;
+        }
+      }
+      &::part(checked-icon) {
+        border: 1px solid $p;
+        border-radius: 50%;
+        // border-color: $p;
+        background-color: $w;
+        // color: $p;
+        &:focus {
+          color: $p;
+        }
+      }
+
+      &::part(control) {
+        border-color: $p;
+        &:focus {
+          color: $p;
+        }
+      }
+      &_address {
+        @extend %cab-h4;
+        margin-top: 0;
+        margin-bottom: 5px;
+        word-break: break-word;
+      }
+      &_client {
+        margin: 0;
+        font-size: 14px;
+      }
+      &_newbtn {
+        width: 100%;
+        &::part(base) {
+          width: 100%;
+          @include flex(lc);
+          height: 58px;
+          border: none;
+          color: $a2;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+        &:hover {
+          &::part(base) {
+            background-color: $a2;
+            color: $w;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Стили из src/Views/ProductHorizontalCard/styles/index.module.scss
+// Начало
+
+.product {
+  &__wrapper {
+    &-block {
+      display: flex;
+      justify-content: flex-start;
+      &_right {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+  &__image_thumb {
+    width: 72px;
+    height: 97px;
+    object-fit: cover;
+    padding: 4px;
+    margin-right: 10px;
+    background-color: var(--gx-color-gray);
+  }
+  &__base_info {
+    display: flex;
+    flex-direction: column;
+    font-family: Noto Sans;
+    font-style: normal;
+    width: 100%;
+    &__brand {
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 140%;
+      letter-spacing: 0.07em;
+      color: var(--gx-color-pink);
+      text-transform: uppercase;
+    }
+    &__title {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 140%;
+      color: var(--gx-color-primary);
+      word-break: break-word;
+    }
+    &__size {
+      font-size: 12px;
+      line-height: 140%;
+      color: var(--gx-color-darkgray2);
+    }
+    &__color {
+      font-size: 12px;
+      line-height: 140%;
+      color: var(--gx-color-darkgray2);
+    }
+    &-black {
+      color: var(--gx-color-primary);
+      margin-left: 3px;
+      &_lt {
+        color: var(--gx-color-primary);
+        margin-left: 3px;
+        text-decoration: line-through;
+      }
+    }
+    &-red {
+      color: var(--gx-color-red);
+      margin-left: 3px;
+    }
+  }
+  &__sales_info {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: Noto Sans;
+    font-style: normal;
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      @include mobile {
+        flex-wrap: wrap;
+      }
+      &-column {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+      }
+    }
+
+    &-terms {
+      font-size: 12px;
+      line-height: 140%;
+      letter-spacing: 0.04em;
+      margin-right: 5px;
+      color: var(--gx-color-darkgray2);
+      @include mobile {
+        margin-left: auto;
+      }
+    }
+    &-current_price {
+      margin-right: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 120%;
+      color: var(--gx-color-primary);
+      &-empty {
+        // margin-right: 45px;
+        font-weight: normal;
+        font-size: 12px;
+        text-decoration: line-through;
+      }
+      @include mobile {
+        margin-right: auto;
+      }
+    }
+    &-new_price {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 120%;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gx-color-red);
+    }
+  }
+  &__count {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    &-input {
+      &::part(input) {
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: transparent;
+        }
+      }
+      &::part(input) {
+        margin: 0;
+        padding-left: 5px;
+        width: 65px;
+        text-align: center;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          -moz-appearance: textfield;
+          margin: 0;
+        }
+      }
+      &::part(base) {
+        border: 1px solid #f3eff3;
+        box-sizing: border-box;
+        border-radius: 0px;
+
+        &:focus-within {
+          border-radius: 4px;
+          box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+    &__in_stock {
+      padding: 0 6px;
+      margin-top: 10px;
+      font-weight: 500;
+      text-transform: none;
+      font-family: 'Nato Sans', sans-serif;
+      font-size: 10px;
+      line-height: 14px;
+      width: fit-content;
+      letter-spacing: 0.03em;
+      color: var(--gx-color-accent2);
+      background: rgba(247, 244, 252, 0.75);
+      border: 1px solid var(--gx-color-accent2);
+      z-index: 2;
+    }
+    &-text {
+      padding-top: 5px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 100%;
+      letter-spacing: 0.04em;
+      color: var(--gx-color-primary);
+    }
+  }
+  &__current_currency {
+    font-weight: bold;
+    font-size: 16px;
+    // padding-top: 13px;
+    line-height: 120%;
+    text-align: right;
+    margin-right: 15px;
+    color: var(--gx-color-primary);
+  }
+  &__delete {
+    --icon-width: 10px;
+    --icon-height: 10px;
+    padding-left: 14px;
+    &::part(base) {
+      position: relative;
+      top: -10px;
+      padding: 0;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    @include mobile {
+      display: none;
+    }
+    &-mobile {
+      display: none;
+      margin-left: auto;
+      height: min-content;
+      &::part(base) {
+        padding: 0;
+      }
+      @include mobile {
+        display: block;
+      }
+      &_icon {
+        --icon-width: 15px;
+        --icon-height: 15px;
+      }
+    }
+  }
+}

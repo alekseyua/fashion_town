@@ -1,0 +1,61 @@
+@mixin flex($type) {
+  display: flex;
+  @if ($type == 'lc') {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @if ($type == 'sc') {
+    justify-content: space-between;
+    align-items: center;
+  }
+  @if ($type == 'rc') {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @if ($type == 'cc') {
+    justify-content: center;
+    align-items: center;
+  }
+  @if ($type == 'ct') {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  @if ($type == 'lt') {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @if ($type == 'st') {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @if ($type == 'rt') {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+.more-link {
+  width: 100%;
+  @include flex(cc);
+  &__link {
+    position: relative;
+    padding: 0 14px;
+    margin: 0px 0 20px 0;
+    font-family: 'Nato Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--gx-color-accent);
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      bottom: -10px;
+      width: 100%;
+      height: 4px;
+      background-color: var(--gx-color-accent2);
+    }
+  }
+}

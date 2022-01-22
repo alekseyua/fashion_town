@@ -1,0 +1,25 @@
+%font {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  --icon-width: 15px;
+  --icon-height: 15px;
+  &__back-btn {
+  }
+  &__steps-text {
+    @extend %font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 140%;
+    text-align: right;
+    text-transform: uppercase;
+    color: var(--gx-color-darkgray);
+  }
+}

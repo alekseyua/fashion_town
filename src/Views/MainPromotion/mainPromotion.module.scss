@@ -1,0 +1,108 @@
+@import '../../styles/variables/index.scss';
+
+.main-promotion {
+  &-wrapper {
+    position: fixed;
+    top: 108px;
+    left: 0;
+    height: 45px;
+    width: 100%;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    background-image: url(../../images/PromotionAndDiscount/young.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1000;
+    @include tablet-lg {
+      display: none;
+    }
+
+    &__bg {
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      height: 100%;
+      // opacity: 0.7;
+      background: var(--gx-color-accent);
+      mix-blend-mode: darken;
+    }
+  }
+
+  &__list {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    @include flex(cc);
+    min-height: 44px;
+
+    &-item {
+      font-size: 14px;
+      color: var(--gx-color-white);
+      line-height: 140%;
+      letter-spacing: 0.04em;
+      list-style: none;
+      text-align: center;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      &::after {
+        content: '|';
+        display: inline-block;
+        padding: 0 12px;
+      }
+      &:last-child {
+        &::after {
+          content: '';
+          padding: 0;
+        }
+      }
+      a {
+        color: var(--gx-color-white);
+        &:hover,
+        &:active,
+        &:focus {
+          color: var(--gx-color-white);
+        }
+      }
+    }
+  }
+
+  &__close {
+    --icon-width: 16px;
+    --icon-height: 16px;
+    --gx-spacing-medium: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 60px;
+    background: none;
+    border: none;
+    outline: none;
+    opacity: 0.5;
+    z-index: 20;
+    transition: 0.3s;
+    box-shadow: none;
+    --gx-input-height-medium: auto;
+
+    &::part(base) {
+      color: var(--gx-color-white);
+      line-height: 1;
+      height: auto;
+      box-shadow: none;
+    }
+
+    // todo: убрать box-shadow у кнопки
+    &:active,
+    &:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
