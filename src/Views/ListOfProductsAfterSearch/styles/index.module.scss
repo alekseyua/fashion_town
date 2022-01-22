@@ -1,0 +1,36 @@
+@import '../../../styles/variables/index.scss';
+@import '../../../styles/fonts/index.scss';
+
+.catalog {
+  &-search {
+    display: flex;
+    justify-content: flex-end;
+    font-family: Noto Sans;
+    font-size: 12px;
+    line-height: 140%;
+    color: #282534;
+    margin: 0px;
+    &__line {
+      height: 2px;
+      background: #282534;
+      margin: 10px auto;
+    }
+    &__header {
+      font-family: Noto Sans;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 140%;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.02em;
+      color: #282534;
+      margin-top: 28px;
+    }
+  }
+  &-container{
+    margin: auto 13.5%;
+    @include mobile {
+      margin: auto 10px;
+    }
+  }
+}

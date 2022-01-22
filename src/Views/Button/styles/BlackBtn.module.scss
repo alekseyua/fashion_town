@@ -1,0 +1,27 @@
+@import '../../../styles/variables/index.scss';
+.btn {
+  --gx-transition-fast: 0.3s;
+  --gx-input-height-medium: auto;
+  &::part(base) {
+    position: relative;
+    padding-top: 17px;
+    padding-bottom: 18px;
+    outline: none;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--gx-color-white);
+    letter-spacing: 1px;
+    border: 2px solid var(--gx-color-primary);
+    background: var(--gx-color-primary);
+    border-radius: 2px;
+    min-width: 240px;
+
+    &:hover {
+      background: #4B444B;
+    }
+    &:active {
+      background: #282534;
+    }
+  }
+}

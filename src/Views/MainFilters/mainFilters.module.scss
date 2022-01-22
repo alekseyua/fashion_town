@@ -1,0 +1,15 @@
+@import "../../styles/variables/index.scss";
+
+.main-filters {
+    &__list {
+        @include tabs;
+        ::part(base) {
+            width: auto;
+        }
+        @include tablet-lg {
+            justify-content: unset;
+            overflow: auto;
+            padding: 0;            
+        }
+    }
+}

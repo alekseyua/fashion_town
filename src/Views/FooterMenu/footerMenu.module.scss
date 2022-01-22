@@ -1,0 +1,38 @@
+@import '../../styles/variables/index.scss';
+@import '../../styles/fonts/index.scss';
+
+.footer-menu {
+  &__title {
+    @include h(3);
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #8f8c98;
+  }
+  &__list {
+    @include ul;
+
+    &-item {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: $a;
+      a{
+        color: var(--gx-color-accent);
+        &:hover {
+          color: var(--gx-color-accent2);
+        }
+      }
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+    @include tablet-lg {
+      display: flex;
+      justify-content: space-around;
+    }
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

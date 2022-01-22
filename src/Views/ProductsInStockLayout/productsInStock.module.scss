@@ -1,0 +1,35 @@
+@import '../../styles/variables/index.scss';
+@import '../../styles/fonts/index.scss';
+
+.products-in-stock {
+  &-wrap {
+    padding-bottom: 41px;
+    // @include padding-for-mobile;
+    padding-left: 10px;
+    padding-right: 20px;
+  }
+  &__title {
+    margin-bottom: 20px;
+  }
+  &-content {
+    padding-top: 10px;
+  }
+  &__list {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-flow: row;
+    gap: 10px;
+    margin-bottom: 50px;
+    grid-template-rows: minmax(388px, 1fr);
+    @include tablet-lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @include tablet-md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

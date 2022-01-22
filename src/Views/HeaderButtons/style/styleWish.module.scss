@@ -1,0 +1,32 @@
+.count-wish{
+    color: rgb(0, 0, 0);
+    position: absolute;
+    font-size: 14px;
+    bottom: -3px;
+    right: -4px;
+    font-weight: bold;
+    text-shadow: 1px -1px 2px rgb(88, 23, 23);
+    z-index: 2;
+    @media screen and (max-width:568px) {
+        right: 20px;
+    }
+    @media screen and (max-width:480px) {
+        right: 10px;
+    }
+    @media screen and (max-width:480px) {
+        right: 5px;
+    }
+    &:after{
+        content: "";
+        position: absolute;
+        right: -6px;
+        top: 0;
+        min-width: 20px;
+        min-height: 20px;
+        background-color: rgb(243, 202, 202);
+        border-radius: 50%;
+        z-index: -1;
+
+    }
+}
+

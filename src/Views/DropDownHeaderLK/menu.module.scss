@@ -1,0 +1,72 @@
+.wrapper {
+  position: relative;
+  max-width: 276px;
+  width: 276px;
+  left: -15px;
+  --gx-color-primary-95: #f7f4fc;
+  &-menu::part(base) {
+    width: 100%;
+    
+  }
+  
+  &-menu {
+    
+    a {
+      color: var(--gx-color-primary);
+    }
+    &-bage {
+      font-family: Roboto sans-serif;
+      font-style: normal;
+      --gx-color-primary-50: var(--gx-color-lightpink);
+      &::part(base) {
+        color: var(--gx-color-primary);
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+  
+}
+
+.inner-notif{
+  display: flex;
+  justify-content: space-between;
+}
+
+.notif{
+  animation-duration: 5s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  position: absolute;
+  right: 20px;
+  top: -10px;
+}
+
+.icomoon{
+  color: rgb(233, 119, 13);
+  position: absolute;
+  top: 15px;
+  opacity: 0.5;
+  right: 5px;
+}
+
+
+@keyframes slidein {
+  from {
+    font-size: 5px;
+    color: rgb(216, 67, 87);
+  }
+
+  50%{
+    color: rgb(155, 70, 70);
+  }
+
+  to {
+    color: rgb(238, 69, 69);
+    font-size: 30px;
+  }
+}
+
+// .test{
+//   background-color: #000;
+// }

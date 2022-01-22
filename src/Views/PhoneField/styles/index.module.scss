@@ -1,0 +1,50 @@
+.varian {
+  &-input {
+    margin-bottom: 10px;
+    &::part(base) {
+    }
+    &::part(dropdown) {
+      display: none;
+    }
+    &::part(input) {
+      padding-left: 10px;
+      border-color: var(--gx-color-darkgray);
+      border-width: 2px;
+      border-radius: 6px;
+      height: 56px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+  &-input_small {
+    margin-bottom: 10px;
+    &::part(dropdown) {
+      display: none;
+    }
+    &::part(input) {
+      padding-left: 10px;
+      border-color: var(--gx-color-darkgray);
+      border-width: 2px;
+      border-radius: 2px;
+      height: 44px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.label {
+  &-input_small {
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 140%;
+    color: var(--gx-color-primary2);
+    opacity: 0.75;
+    margin-top: 10px;
+
+    display: inline-block;
+    width: 100%;
+  }
+}

@@ -1,0 +1,29 @@
+.btn {
+  --gx-transition-fast: 0.3s;
+  --gx-input-height-medium: auto;
+  width: 100%;
+  /* margin-top: 15px; */
+  height: 0px;
+
+  &::part(base) {
+    outline: none;
+    font-weight: normal;
+    font-size: 12px;
+    padding-left: 0;
+    color: var(--gx-color-red);
+    border: 2px solid transparent;
+    background: transparent;
+    text-align: left;
+    letter-spacing: 0.04em;
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
+    &:hover {
+      opacity: 0.9;
+    }
+    &:active {
+      outline: none;
+    }
+  }
+}

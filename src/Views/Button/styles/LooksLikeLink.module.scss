@@ -1,0 +1,33 @@
+@import '../../../styles/variables/index';
+@import '../../../styles/fonts/index';
+
+.btn {
+  --gx-transition-fast: 0.3s;
+  --gx-input-height-medium: auto;
+
+  &::part(base) {
+    outline: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 0;
+    color: var(--gx-color-blue);
+    border: 2px solid transparent;
+    background: transparent;
+    text-align: right;
+    letter-spacing: 0.04em;
+    &:hover {
+      opacity: 0.9;
+    }
+    &:active {
+      opacity: 1;
+      outline: none;
+      border: 0;
+      box-shadow: none;
+    }
+  }
+}
+
+.input-mt_20 {
+  margin-bottom: 20px;
+}

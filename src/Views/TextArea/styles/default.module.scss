@@ -1,0 +1,46 @@
+@import '../../../styles/variables/index.scss';
+@import '../../../styles/fonts/index.scss';
+
+.input {
+  &[disabled] {
+    &::part(base) {
+      --gx-input-color-disabled: rgba(40, 37, 52, 0.5);
+      border-color: var(--gx-color-gray);
+      background-color: var(--gx-color-gray);
+      &:focus-within {
+        border-radius: 4px;
+        border-color: var(--gx-color-darkgray);
+      }
+    }
+  }
+  &::part(base) {
+    border-color: $dg;
+    border-width: 2px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    opacity: 1;
+
+    &:focus-within {
+      border-radius: 4px;
+      border-color: $dg2;
+    }
+  }
+  &::part(label) {
+    @extend %text-small;
+    display: block;
+    color: $p;
+    opacity: 0.75;
+  }
+  &::part(textarea) {
+    @extend %font;
+    font-size: 14px;
+    &::placeholder {
+      color: $dg2;
+      opacity: 1;
+    }
+  }
+  &::part(suffix) {
+    --icon-width: 16px;
+    --icon-height: 16px;
+  }
+}

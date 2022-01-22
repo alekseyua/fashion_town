@@ -1,0 +1,85 @@
+//@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+$red-base: #ed4956;
+$red-shadow: #d83d50;
+$grey: #dbdbdb;
+$background: #b8e3ff;
+
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+//   user-select: none;
+// }
+
+// body {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   height: 100vh;
+//   overflow: hidden;
+//   background: $background;
+// }
+
+.main {
+  position: absolute;
+  //background-color: #000;
+  right: -45px;
+  top: -15px;
+  z-index: 1;
+}
+
+.Button {
+  //width: 200px;
+    width: 90px;
+    height: 60px;
+    position: relative;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+  
+
+  .st0 {
+    fill: $red-base;
+
+  }
+
+  .st1 {
+    fill: $red-shadow;
+  }
+
+  #button {
+    cursor: pointer;
+    pointer-events: all;
+    
+  }
+}
+
+.Count {
+  position: absolute;
+  right: 25px;
+  top: -1px;
+  font-family: "Pacifico";
+  font-size: 22px;
+  color: white;
+  filter: drop-shadow(-3px 3px 0 $red-shadow);
+  pointer-events: none;
+}
+
+.Heart {
+  position: absolute;
+  width: 25px;
+  left: 33px;
+  top: 15px;
+  filter: drop-shadow(0 3px 5px $red-shadow);
+  pointer-events: none;
+
+  .st0 {
+    fill: white;
+  }
+
+  .st1 {
+    fill: $grey;
+  }
+}

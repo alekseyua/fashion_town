@@ -1,0 +1,44 @@
+@import '../../styles/variables/index.scss';
+
+.main-categories {
+  padding: 48px 0 8px;
+  @include padding-for-mobile;
+
+  &-wrap {
+    padding-top: 20px;
+    @include row(15);
+    @include mobile {
+      margin: 0;
+    }
+    align-items: stretch;
+  }
+  &-card {
+    @include col(4, 0);
+    @include mobile {
+      @include col(12, 0);
+    }
+
+    &:last-of-type h2.main-categories__title {
+      color: var(--gx-color-accent2);
+    }
+    height: 100%;
+  }
+  @include categoryCard;
+  a:hover {
+    color: var(--gx-color-primary);
+    .accent {
+      color: var(--gx-color-accent);
+    }
+  }
+}
+.main-categories h2.main-categories__title {
+  color: var(--gx-color-primary);
+  @include tablet-lg {
+    font-size: 3vw;
+    padding: 0;
+  }
+  @include mobile {
+    font-size: 8vw;
+    padding-bottom: 15px;
+  }
+}

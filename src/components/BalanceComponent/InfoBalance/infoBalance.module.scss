@@ -1,0 +1,20 @@
+.balance{
+
+    &__now{
+        font-size: 16px;
+        &--red{
+            &>span{
+                color:red;
+                font-weight: 900;
+            }
+        }
+    }
+    &__all-price{
+        font-size: 16px;
+        font-weight: 700;
+        &>span{
+            font-size: 18px;
+            color: chartreuse;
+        }
+    }
+}

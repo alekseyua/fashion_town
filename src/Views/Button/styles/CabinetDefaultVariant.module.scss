@@ -1,0 +1,31 @@
+@import '../../../styles/variables/index';
+@import '../../../styles/fonts/index';
+
+.btn {
+    --gx-transition-fast: .2s;
+    --gx-input-height-medium: auto;
+
+    &::part(base) {
+        @include flex('cc');
+        padding: 4px 20px;
+        outline: none;
+        color: $w;
+        border: 0;
+        background: $p;
+        box-shadow: none;
+        border-radius: 2px;
+        @extend %text-btn;
+        width: 100%;
+        min-width: 180px;
+
+        &:hover {
+            background: #4B444B;
+            color: $w;
+        }
+        &:active {
+            color: $w;
+            background: #282534;
+            outline: none;
+        }
+    }
+}

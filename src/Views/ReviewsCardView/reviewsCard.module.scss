@@ -1,0 +1,215 @@
+@mixin mobile {
+  @media screen and (max-width: 568px) {
+    @content;
+  }
+}
+@mixin tablet-md {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin flex($type) {
+  display: flex;
+  @if ($type == 'lc') {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @if ($type == 'sc') {
+    justify-content: space-between;
+    align-items: center;
+  }
+  @if ($type == 'rc') {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @if ($type == 'cc') {
+    justify-content: center;
+    align-items: center;
+  }
+  @if ($type == 'ct') {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  @if ($type == 'lt') {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @if ($type == 'st') {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @if ($type == 'rt') {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+
+.modal {
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.reviews-card {
+  position: relative;
+  padding: 20px;
+  letter-spacing: 0.04em;
+  height: 100%;
+  @include mobile {
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+  &-block {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+  }
+  &__header,
+  &__footer {
+    @include flex(sc);
+    align-items: flex-end;
+    &-left,
+    &-right {
+      @include flex(lc);
+    }
+    @include mobile {
+      &-right {
+        position: absolute;
+        bottom: 15px;
+      }
+    }
+  }
+  &__header {
+    margin-bottom: 10px;
+    @include mobile {
+      display: block;
+    }
+  }
+  &__username {
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  &__tag {
+    @include flex(lc);
+    &-name {
+      padding: 0 5px;
+      margin-left: 2px;
+      border: 2px solid var(--gx-color-lightpink);
+      border-radius: 12px;
+      font-size: 12px;
+      color: var(--gx-color-accent);
+      @include tablet-md {
+        display: none;
+      }
+    }
+    &-img {
+      --icon-width: 14px;
+      --icon-height: 20px;
+    }
+  }
+  &__product-page {
+    color: var(--gx-color-primary);
+    font-size: 12px;
+    border-bottom: 1px dashed var(--gx-color-primary);
+  }
+  &__date {
+    margin-left: 20px;
+    font-size: 12px;
+    color: var(--gx-color-darkgray2);
+  }
+  &__rating {
+    @include flex(lc);
+    &-item {
+      --icon-width: 20px;
+      --icon-height: 20px;
+      margin-right: 4px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+  &__content {
+    margin-top: 7px;
+    margin-bottom: 20px;
+  }
+  &__thumbnails {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  &__photo {
+    width: 75px;
+    height: 96px;
+    margin-right: 10px;
+    padding: 3px;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--gx-color-gray);
+    &-img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__video {
+    width: 75px;
+    height: 96px;
+    margin-right: 10px;
+    padding: 3px;
+    background: var(--gx-color-gray);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 80px;
+      background: rgba(40, 37, 52, 0.6);
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      z-index: 2;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url('../../images/ReviewsCard/play.svg');
+    }
+  }
+  &__like {
+    @include flex(lc);
+    align-items: flex-end;
+    cursor: pointer;
+    &-img {
+      --icon-width: 20px;
+      --icon-height: 20px;
+      color: var(--gx-color-darkgray);
+      margin-right: 8px;
+      &-liked {
+        color: var(--gx-color-red);
+      }
+    }
+    &-count {
+      font-size: 12px;
+      line-height: 1;
+    }
+  }
+}

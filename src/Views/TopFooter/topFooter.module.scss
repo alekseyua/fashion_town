@@ -1,0 +1,105 @@
+@mixin tablet-lg {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin laptop-sm {
+  @media screen and (max-width: 1366px) {
+    @content;
+  }
+}
+
+@mixin laptop-md {
+  @media screen and (max-width: 1440px) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media screen and (max-width: 568px) {
+    @content;
+  }
+}
+@mixin padding-for-mobile {
+  @include laptop-md {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @include mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
+
+@mixin flex($type) {
+  display: flex;
+  @if ($type == 'lc') {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @if ($type == 'sc') {
+    justify-content: space-between;
+    align-items: center;
+  }
+  @if ($type == 'rc') {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @if ($type == 'cc') {
+    justify-content: center;
+    align-items: center;
+  }
+  @if ($type == 'ct') {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  @if ($type == 'lt') {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @if ($type == 'st') {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @if ($type == 'rt') {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+
+.top-footer {
+  padding-top: 75px;
+  padding-bottom: 60px;
+  background-color: var(--gx-color-gray2);
+  @include padding-for-mobile;
+  @include tablet-lg {
+    padding-top: 40px;
+  }
+  &-wrap {
+    @include flex(st);
+    @include tablet-lg {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  &__center {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 145px;
+    padding-top: 6px;
+    @include laptop-sm {
+      grid-gap: 5vw;
+    }
+    @include tablet-lg {
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap: 5px;
+      width: 100%;
+      padding-top: 34px;
+      padding-bottom: 20px;
+    }
+    @include mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

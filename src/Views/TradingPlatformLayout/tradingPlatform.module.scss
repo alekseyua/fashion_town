@@ -1,0 +1,316 @@
+@mixin row($mr) {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -#{$mr}px;
+  margin-right: -#{$mr}px;
+}
+
+@mixin col($colsize, $mrg) {
+  width: calc(100% / 12 * #{$colsize} - #{$mrg * 2}px - 0.1px);
+  margin-left: #{$mrg}px;
+  margin-right: #{$mrg}px;
+  word-wrap: break-word;
+}
+
+@mixin ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+@mixin flex($type) {
+  display: flex;
+  @if ($type == 'lc') {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @if ($type == 'sc') {
+    justify-content: space-between;
+    align-items: center;
+  }
+  @if ($type == 'rc') {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @if ($type == 'cc') {
+    justify-content: center;
+    align-items: center;
+  }
+  @if ($type == 'ct') {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  @if ($type == 'lt') {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @if ($type == 'st') {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @if ($type == 'rt') {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+
+@mixin flexcol($type: 't', $wrap: 'w') {
+  display: flex;
+  flex-direction: column;
+  @if ($type == 't') {
+    justify-content: flex-start;
+  }
+  @if ($type == 's') {
+    justify-content: space-between;
+  }
+  @if ($wrap == 'w') {
+    flex-wrap: wrap;
+  }
+  @if ($type == 'n') {
+    flex-wrap: nowrap;
+  }
+}
+
+@mixin laptop-lg {
+  @media screen and (max-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin laptop-md {
+  @media screen and (max-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin laptop-sm {
+  @media screen and (max-width: 1366px) {
+    @content;
+  }
+}
+
+@mixin tablet-lg {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin tablet-md {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 568px) {
+    @content;
+  }
+}
+
+@mixin mobile-lg {
+  @media screen and (max-width: 375px) {
+    @content;
+  }
+}
+
+@mixin mobile-md {
+  @media screen and (max-width: 360px) {
+    @content;
+  }
+}
+
+@mixin mobile-sm {
+  @media screen and (max-width: 321px) {
+    @content;
+  }
+}
+@mixin padding-for-mobile {
+  @include laptop-md {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @include mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.trading-platform {
+  position: relative;
+  background-color: var(--gx-color-primary);
+  color: var(--gx-color-white);
+  overflow: hidden;
+  // height: calc(100vh - 160px);
+  &-wrap {
+    @include row(15);
+  }
+  &__content {
+    min-height: 688px;
+    position: relative;
+    padding: 117px 0 71px 0;
+    @include col(6, 15);
+    @include flexcol('s');
+    align-items: center;
+    text-align: center;
+    z-index: 0;
+    @include padding-for-mobile;
+    @include tablet-lg {
+      width: 100%;
+    }
+    @include tablet-md {
+      padding-top: 30px;
+    }
+  }
+  &__info {
+    @include flexcol();
+    width: 100%;
+    align-items: center;
+  }
+  &__title {
+    font-size: 56px;
+    padding: 0px 0 3px;
+    max-width: 520px;
+    width: 100%;
+    letter-spacing: 2.5px;
+    font-weight: normal;
+    border-bottom: 1px solid rgba(#fff, 0.2);
+    @include tablet-md {
+      font-size: calc(7vw + 10px);
+      margin-top: 30px;
+    }
+  }
+  &__subtitle {
+    max-width: 400px;
+    color: var(--gx-color-lightpink);
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 160%;
+    letter-spacing: 0.6px;
+    padding-top: 0px;
+    @include tablet-md {
+      font-size: calc(1vw + 10px);
+      margin-top: 30px;
+    }
+  }
+  &__text {
+    max-width: 400px;
+    margin: 23px 0 21px;
+    font-family: 'Cormorant Garamond', sans-serif;
+    font-size: 24px;
+    line-height: 130%;
+  }
+  &__links,
+  &__filters {
+    @include flex('cc');
+    color: var(--gx-color-primary);
+  }
+  &__filters {
+    @include mobile {
+      flex-wrap: wrap;
+    }
+  }
+  &__buttons {
+    @include flex('cc');
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 460px;
+    width: 100%;
+    @include mobile {
+      flex-direction: column;
+      min-height: 170px;
+    }
+  }
+  &__btn-icon {
+    --icon-width: 17.8px;
+    --icon-height: 20px;
+    margin: 0;
+    margin-right: 15px;
+    color: var(--gx-color-accent);
+  }
+  &__link {
+    display: block;
+    padding: 16px 42px;
+    border: 2px solid var(--gx-color-gray2);
+    border-radius: 2px;
+    background-color: var(--gx-color-white);
+    text-align: center;
+    min-width: 220px;
+    &:hover {
+      color: var(--gx-color-accent2);
+      border-color: var(--gx-color-accent2);
+    }
+    &:active {
+      color: var(--gx-color-white);
+      background-color: var(--gx-color-accent2);
+      border-color: var(--gx-color-accent2);
+    }
+  }
+  &__filter {
+    display: block;
+    margin-right: 10px;
+    padding: 15px 30px;
+    border: 2px solid rgba(252, 210, 215, 0.5);
+    border-radius: 30px;
+    color: var(--gx-color-lightpink);
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 140%;
+    &:last-child {
+      margin: 0;
+    }
+    &:hover {
+      border-color: var(--gx-color-lightpink);
+      color: var(--gx-color-lightpink);
+    }
+    &:active {
+      background-color: var(--gx-color-lightpink);
+      color: var(--gx-color-primary);
+    }
+    @include mobile {
+      margin-top: 20px;
+      &:last-child {
+        margin-top: 20px;
+      }
+    }
+  }
+  &__image {
+    position: absolute;
+    content: '';
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: -15px;
+    img {
+      object-fit: cover;
+      height: 100%;
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      height: 100%;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      left: -3px;
+      background-image: url('../../images/TradingPlatform/arc.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: 0;
+      @include tablet-lg {
+        display: none;
+      }
+    }
+    @media screen and (max-width: 1200px) {
+      width: 41%;
+    }
+    @include tablet-lg {
+      width: 100%;
+      position: static;
+    }
+  }
+}

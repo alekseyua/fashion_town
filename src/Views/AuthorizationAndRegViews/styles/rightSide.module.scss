@@ -1,0 +1,50 @@
+@mixin laptop-sm {
+  @media screen and (max-width: 1366px) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media screen and (max-width: 568px) {
+    @content;
+  }
+}
+.wrapper {
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  padding: 60px 60px 60px 135px;
+  @include laptop-sm {
+    padding: 60px 0 60px 0;
+  }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 135px 66px 135px;
+  bottom: 0px;
+  position: absolute;
+  @include laptop-sm {
+    position: static;
+    padding: 0 0 60px 0;
+  }
+  & a {
+    text-decoration: underline;
+    margin-top: 10px;
+  }
+}
+.right__side {
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+  justify-content: space-between;
+  @include laptop-sm {
+    align-items: center;
+  }
+@include mobile {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+}
