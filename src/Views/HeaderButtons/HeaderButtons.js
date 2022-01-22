@@ -13,7 +13,7 @@ import Logo from '../Logo';
 import { searchIcon, userIcon, favoriteIcon, cartIcon, catalogIcon } from '../../images/index';
 import {
   LANG_DATA,
-  CURRENCIES_DATA,
+  CURRENCIES_DATA, 
   COOKIE_KEYS,
   ONE_YEARS,
   DEFAULT_CURRENCIES,
@@ -44,6 +44,9 @@ const HeaderButtons = ({
   searchValue,
   currencies,
 }) => {
+  
+  
+
 
   const {
     page_type_cart,
@@ -67,16 +70,18 @@ const HeaderButtons = ({
     options: LANG_DATA,
   };
   const getCurrencies = () => {
+    console.log('currenciescurrenciescurrencies',currencies);
     if (currencies) {
       return currencies[0];
     } else {
       return DEFAULT_CURRENCIES;
     }
   };
-  const defaultCurrenciesSingle = getCurrencies();
+  const defaultCurrenciesSingle = getCurrencies;
+  const currencyDefault = getCookie(COOKIE_KEYS.CURRENCIES);
   const defaultCurrenciesData = {
     isOpen: false,
-    active: currencyDefault ? currencyDefault : defaultCurrenciesSingle,
+    active: currencyDefault ? currencyDefault : defaultCurrenciesSingle(),
     options: currencies
       ? currencies.map((el) => {
         return {
@@ -93,7 +98,6 @@ const HeaderButtons = ({
   const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
   const [searchInputShow, setSearchInputShow] = useState(false);
 
-  const currencyDefault = getCookie(COOKIE_KEYS.CURRENCIES);
 
 
   const searchBgRef = React.createRef(null);
@@ -110,13 +114,11 @@ const HeaderButtons = ({
 
   const setCurrenciesData = (data) => {
     console.log('setCurrenciesData')
-
     setCookie(COOKIE_KEYS.CURRENCIES, data.active, ONE_YEARS);
     setCurrencies(data);
   };
   const hideLangDropDown = (e) => {
     console.log('hideLangDropDown')
-
     seLangData({
       ...langData,
       isOpen: false,
@@ -124,16 +126,13 @@ const HeaderButtons = ({
   };
   const hideCurrenciesDropDown = (e) => {
     console.log('hideCurrenciesDropDown')
-
     setCurrenciesData({
       ...currenciesData,
       isOpen: false,
     });
-
   };
   const handleClickSearchBtn = () => {
     console.log('handleClickSearchBtn')
-
     setSearchInputShow((prevState) => !prevState);
   };
   const handleClickSearchRoot = (e) => {
@@ -144,15 +143,12 @@ const HeaderButtons = ({
     }
   };
 
-
   const handleKeyPress = (e) => {
     console.log('handleKeyPress')
     if (e.key === 'Escape') {
       setSearchInputShow(false);
     }
   };
-
-
 
   useEffect(() => {
     console.log('work handleKeyPress header button');
@@ -165,15 +161,10 @@ const HeaderButtons = ({
   // =======================================================================================================
   const { stateCountWish } = useStoreon('stateCountWish');
   const { stateCountCart } = useStoreon('stateCountCart');
-
-
-  // const [ countWish, setCountWish ] = useState()
-  console.log('stateCountWish.mywishCount', stateCountWish.mywishCount, '-----------');
+        //впосля нужно протестить сколько раз вызывается 36
+ // console.log('stateCountWish.mywishCount', stateCountWish.mywishCount, '-----------');
   //  console.log('stateCountCart.countCart',stateCountCart.countCart,'-----------');
 
-  // useEffect(()=>{
-  //   setCountWish(stateCountWish.mywishCount)
-  // })
   // =======================================================================================================
   return (
     <div

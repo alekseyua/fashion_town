@@ -19,7 +19,7 @@ const YouMayLike = ({ in_category }) => {
     observer: true,
     observeSlideChildren: true,
   };
-console.log('in_category',in_category);
+//console.log('in_category',in_category);
   useEffect(() => { 
     console.log('in_category',in_category);
     setlistAlreadySaw(in_category);

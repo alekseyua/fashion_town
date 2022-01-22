@@ -298,7 +298,7 @@ export const stateCountCart = store => {
   const initialValue = {countCart : 0}
   store.on('@init', () => ({ stateCountCart: initialValue }));
   store.on('stateCountCart/add', ({ stateCountCart }, obj) => {
-    console.log('obj',obj);
+   // console.log('obj',obj);
     return {
       stateCountCart: {
         countCart: obj.in_cart,
