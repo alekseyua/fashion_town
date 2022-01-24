@@ -34,7 +34,7 @@ const CheckBox = ({
   ...props
 }) => {
   //todo: чтоб не светился ошибками сделаю мега костыль не бейте пж
-  if (!checked) checked = false;
+  if (!checked) checked = false
   const classNameCustom = classNames({
     [getVariantStyleCheckbox(variant)]: true,
     [DefaultStyle[className]]: !!className,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GxButton, GxIcon } from '@garpix/garpix-web-components-react';
 import Text from '../../../components/Text';
 import { color } from '../../../images';
@@ -6,7 +6,18 @@ import classNames from 'classnames';
 import style from '../styles/index.module.scss';
 
 const defaultItem = [1, 2, 3, 4, 5, 6];
-const ColorsItems = ({ items = [], selectedColor, selectColorHandle }) => {
+const ColorsItems = ({ items = [], setColorsn, colorsn }) => {
+  const [gropsColors, setGropsColors] = useState([])
+console.log('colorsn',colorsn);
+  useEffect(() => {
+    let params = []
+    params = colorsn.id? items.map(el=>el.id === colorsn.id?{...el, ...colorsn} : {...el, selected : false}) : items
+console.log('params',params);
+
+    setGropsColors(params)
+  }, [items.length, colorsn.id])
+
+  
 
   return (
     <div className={style['prodpage-colors']}>
@@ -15,38 +26,42 @@ const ColorsItems = ({ items = [], selectedColor, selectColorHandle }) => {
           <span>
             <Text text="color" />: &nbsp;
           </span>
-          {selectedColor ? selectedColor.title : 'Выберите цвет'}
+          {colorsn.id ? colorsn.title : 'Выберите цвет'}
         </>
       </p>
       <ul className={style['prodpage-colors__items']}>
         {items.length === 0
           ? defaultItem.map((el, i) => {
-              return (
-                <li key={i} className={style['prodpage-colors__item']}>
-                  <GxButton
-                    disabled={'disabled'}
-                    key={el.id}
-                    className={classNames({
-                      [style['prodpage-colors__btn']]: true,
-                      sceleton: true,
-                    })}
-                    variant="text"
-                    style={{ backgroundColor: 'gray', borderRadius: '1px' }}
-                  ></GxButton>
-                </li>
-              );
-            })
+            return (
+              <li key={i} className={style['prodpage-colors__item']}>
+                <GxButton
+                  disabled={'disabled'}
+                  key={el.id}
+                  className={classNames({
+                    [style['prodpage-colors__btn']]: true,
+                    sceleton: true,
+                  })}
+                  variant="text"
+                  style={{ backgroundColor: 'gray', borderRadius: '1px' }}
+                ></GxButton>
+              </li>
+            );
+          })
           : null}
-        {items.map((el) => {
+        {gropsColors.map((el) => {
+          // colorsn?setColorsn(el):null
           return (
-            <li key={el.id} className={style['prodpage-colors__item']}>
+            <li
+              key={el.id}
+              className={style['prodpage-colors__item']}
+            >
               <GxButton
                 key={el.id}
                 className={classNames({
                   [style['prodpage-colors__btn']]: true,
-                  [style['active']]: (selectedColor && selectedColor.id === el.id) || el.selected,
+                  [style['active']]: (colorsn && colorsn.id === el.id) || el.selected,
                 })}
-                onClick={() => selectColorHandle(el)}
+                onClick={() => setColorsn({...el, selected : true})}
                 variant="text"
                 style={{ backgroundColor: el.color, borderRadius: '1px' }}
               ></GxButton>

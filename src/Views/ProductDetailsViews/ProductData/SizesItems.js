@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GxButton, GxTooltip, GxIcon, GxModal } from '@garpix/garpix-web-components-react';
 import { fire, hanger } from '../../../images';
 import classNames from 'classnames';
@@ -6,6 +6,7 @@ import style from '../styles/index.module.scss';
 import MainFiltersCustom from '../../MainFiltersCustom';
 import { ROLE } from '../../../const';
 import { v4 } from 'uuid';
+import { useStoreon } from 'storeon/react';
 
 const defaultSizes = [1, 2, 3, 4, 5, 6];
 const SizesItems = ({
@@ -13,23 +14,29 @@ const SizesItems = ({
   in_stock_count,
   sizes,
   openTableModal,
-  selectedSize,
-  selectedColor,
-  selectSizesHandle,
-  role_configuration,
   product_rc,
   collections = [],
-  selectСollection,
   selectedCollection,
   addCollectionHandler,
   is_collection,
   setStatusSeletedItem,
-  profile,
+  sizesn, 
+  setSizesn,
 }) => {
   const [selectedSizeList, setselectedSizeList] = useState(false);
-  const { role = { number: 2 } } = role_configuration;
-  const { number } = role;
-
+  
+  const { userPage } = useStoreon('userPage')
+  const { role } = userPage.profile;
+  const [ gropsSizes, setGropsSizes ] = useState([]);
+  
+  //делаем активной размер 
+  useEffect(() => {
+    let params = []
+    params = sizesn.id? sizes.map(el=>el.id === sizesn.id?{...el, ...sizesn} : {...el, selected : false}) : sizes
+    setGropsSizes(params)
+  }, [sizes.length, sizesn.id])
+  
+  
   const sceletSizesRender = () => {
     return defaultSizes.map((el) => {
       return (
@@ -40,12 +47,12 @@ const SizesItems = ({
               [style['prodpage-sizes__size-button']]: true,
               sceleton: true,
             })}
-          ></GxButton>
+            ></GxButton>
         </li>
       );
     });
   };
-
+  
   const renderSizesSky = (data) => {
     return (
       <ul
@@ -60,7 +67,7 @@ const SizesItems = ({
             <li key={el.id} className={style['prodpage-sizes__item']}>
               <GxButton
                 /*  disabled={!el.enabled} */
-                onClick={() => selectSizesHandle(el)}
+                onClick={() => setSizesn({...el, selected: true})}
                 className={classNames({
                   [style['prodpage-sizes__size-button']]: true,
                   [style['active']]: el.selected,
@@ -158,10 +165,13 @@ const SizesItems = ({
     );
   };
 
+
   const renderSizesFromCollectionOrSky = () => {
+    // скорей всего модальное окно
     if (modalView) {
-      return renderSizesSky(sizes);
+      return renderSizesSky(gropsSizes);
     }
+    // с колекциями будим разбиратся данные не прокидывал но объявил
     if (selectedCollection) {
       if (!selectedCollection.is_grid) {
         return renderListSizes(selectedCollection);
@@ -172,9 +182,12 @@ const SizesItems = ({
       if (!selectedCollection && collections.length) {
         return loderForCollection();
       }
-      return renderSizesSky(sizes);
+      // не колекция 
+      return renderSizesSky(gropsSizes);
     }
   };
+
+
   return (
     <div className={style['prodpage-sizes']}>
       {!modalView ? (
@@ -194,11 +207,11 @@ const SizesItems = ({
         </p>
       ) : null}
             {/* добавляем кнопку для добавления сбора если сбор 0 */}
-      {number === ROLE.DROPSHIPPER && !collections.length && is_collection ? (
+      {role === ROLE.DROPSHIPPER && !collections.length && is_collection ? (
           <React.Fragment>
             <div className={style['add-collection']}>
             <GxButton
-                    onClick={() => addCollectionHandler(selectedSize, selectedColor)}
+                    onClick={() => setSizesn()}//addCollectionHandler(selectedSize, selectedColor)}
                     className={style['prodpage-range__button']}
                   >
                     +
@@ -211,7 +224,7 @@ const SizesItems = ({
             </div>
           </React.Fragment>
       )
-      :(number === ROLE.DROPSHIPPER && collections.length ? (
+      :(role === ROLE.DROPSHIPPER && collections.length ? (
         <React.Fragment>
           <div className={style['prodpage-range__box']}>
             <p className={style['prodpage-range__title']}>Условие покупки:</p>

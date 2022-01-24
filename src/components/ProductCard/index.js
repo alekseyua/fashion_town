@@ -52,118 +52,136 @@ const ProductCard = ({
   const { stateValuePoly } = useStoreon('stateValuePoly');
   const { dataProductFromId } = useStoreon('dataProductFromId');
   const { role_configuration } = useStoreon('role_configuration'); //currenssies role_configuration
-  const { wishlistAl, dispatch } = useStoreon('wishlistAl');
-  const [isShowModal, setisShowModal] = useState(false);
-  const [ newPrice, setNewPrice ] = useState(prices);
+  const { wishlistAl } = useStoreon('wishlistAl');
+  
+  const { stateCountWish, dispatch }    = useStoreon('stateCountWish');
+
+  const [isShowModal, setisShowModal]   = useState(false);
+  const [newPrice, setNewPrice]         = useState(prices);
   const [modalContent, setModalContent] = useState({
     content: null,
   });
 
-   //засовываем обновление данных с карточки товара об моих желаниях
-  const update = (data) => {
-    dispatch('stateValuePoly/change',{stateWish:true})
-       apiProfile
-         .getWishlist()
-         .then((res)=>{
-           dispatch('wishlistAl/update', res);
-         })
-         .catch((err)=>{
-           console.log('ERROR getWishList');
-         })
-   }
+
+
+
+  
+  //засовываем обновление данных с карточки товара об моих желаниях
+  // const update = (data) => {
+  //   dispatch('stateValuePoly/change', { stateWish: true })
+  //   apiProfile
+  //     .getWishlist()
+  //     .then((res) => {
+  //       dispatch('wishlistAl/update', res);
+  //     })
+  //     .catch((err) => {
+  //       console.log('ERROR getWishList');
+  //     })
+  // }
+
   const setModalStates = () => {
     getProductDetails();
     setisShowModal(true);
   };
-  const setWishlistToLocalStorage = (product) => {
-    const wishListFromLocalStorage = getLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST);
-    if (!wishListFromLocalStorage) {
-      return setLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST, JSON.stringify([product]));
-    }
-    let newValue = [];
-    if (wishListFromLocalStorage) {
-      newValue = [...wishListFromLocalStorage];
-      newValue.push(product);
-    } else {
-      newValue.push(product);
-    }
+  // const setWishlistToLocalStorage = (product) => {
+  //   const wishListFromLocalStorage = getLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST);
+  //   if (!wishListFromLocalStorage) {
+  //     return setLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST, JSON.stringify([product]));
+  //   }
+  //   let newValue = [];
+  //   if (wishListFromLocalStorage) {
+  //     newValue = [...wishListFromLocalStorage];
+  //     newValue.push(product);
+  //   } else {
+  //     newValue.push(product);
+  //   }
 
-    setLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST, JSON.stringify(newValue));
-  };
-  const [ nowFavorite, setNowFavorite ] = useState(favorite);
+  //   setLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST, JSON.stringify(newValue));
+  // };
+   const [nowFavorite, setNowFavorite] = useState(favorite);
 
-
+  // -****************************добавление/удаление в мои желания***********работает проверено*******************************************************
   const setLikeProductCard = () => {
     console.log('click wish');
+    
     const params = {
       product: id,
     };
+
     if (!nowFavorite) {
       //setWishlistToLocalStorage(id);
       apiProfile
         .postWishlist(params)
         .then((res) => {
-
+          //console.log(`ok add ${id}`);
+          dispatch('stateCountWish/add', {...stateCountWish, count : stateCountWish.count + 1 })
           setNowFavorite(!nowFavorite)
-          update(res);
+          //update(res);
         })
         .catch((err) => {
+          console.log(`err no add ${id}`);
           console.log(`ERROR deleteWishlist(${err})`);
         });
-    } else {  
+    } else {
       apiProfile
         .deleteWishlist(id)
         .then((res) => {
-
-
+          //console.log(`ok delete wish ${id}`);
+          dispatch('stateCountWish/add', {...stateCountWish, count : stateCountWish.count - 1 })
           setNowFavorite(!nowFavorite)
-          update(res)
+          //update(res)
         })
-        .catch((err) => console.log(`ERROR deleteWishlist(${err})`));
+        .catch((err) => {
+          console.log(`err no dell wish ${id}`);          
+          console.log(`ERROR deleteWishlist(${err})`)
+        });
     }
+
   };
-  
-// *********************превю товара***********************************************
-const [productModalData, setproductModalData] = useState({
-  productId: id,
-  profileId: 0,
-  adding_type: 'item',
-  breadcrumbs: [],
-  reviews_statistic: {},
-  reviewsCount: 1,
-  title: 'title',
-  brand: 'brand',
-  prices: {
-    more_3_item_price: 100,
-    more_5_item_price: 100,
-    old_price: 100,
-    price: 100,
-  },
-  recommended_price: 0,
-  colors: [],
-  sizes: [],
-  is_new: false,
-  in_stock_count: false,
-  is_bestseller: false,
-  is_in_stock: 0,
-  role_configuration: { role: { number: 1 } },// role: { number: 1 } была указана 1 исправил на 0 если не регестрирован
-  is_closeout: false,
-  is_liked: false,
-  media: [],
-  in_cart_count: 0,
-  site_configuration: {},
-});
-const closeModal = () => {
-  setisShowModal(false);
-  setModalContent({
-    content: null,
+  // *********************превю товара***********************************************
+  const [productModalData, setproductModalData] = useState({
+    productId: id,
+    profileId: 0,
+    adding_type: 'item',
+    breadcrumbs: [],
+    reviews_statistic: {},
+    reviewsCount: 1,
+    title: 'title',
+    brand: 'brand',
+    prices: {
+      more_3_item_price: 100,
+      more_5_item_price: 100,
+      old_price: 100,
+      price: 100,
+    },
+    recommended_price: 0,
+    colors: [],
+    sizes: [],
+    is_new: false,
+    in_stock_count: false,
+    is_bestseller: false,
+    is_in_stock: 0,
+    role_configuration: { role: { number: 1 } },// role: { number: 1 } была указана 1 исправил на 0 если не регестрирован
+    is_closeout: false,
+    is_liked: false,
+    media: [],
+    in_cart_count: 0,
+    site_configuration: {},
+    product_rc:'90',
   });
-};
+  const closeModal = () => {
+    setisShowModal(false);
+    setModalContent({
+      content: null,
+    });
+  };
+
+
   const getProductDetails = () => {
     apiContent
       .getProduct(id)
       .then((res) => {
-        console.log('++++1+++++');
+        console.log('++++api---getProductDetails+++++',res);
         setModalContent({
           content: (
             <ModalContentViews.ModalWrapper customClassName={'modal-min_wrap'}>
@@ -197,30 +215,31 @@ const closeModal = () => {
                   site_configuration={{}}
                   profile={profile}
                   is_collection={res.is_collection}
+                  product_rc={res.product_rc}
                 />
               </ModalContentViews.ContentBlock>
             </ModalContentViews.ModalWrapper>
           ),
         });
-        update();
+        // update();
       })
       .catch((err) => {
         closeModal();
       });
   };
-// *************************************************************************************
-  useEffect(()=>{
+  // *************************************************************************************
+  useEffect(() => {
     setNewPrice(prices);
-  },[
+  }, [
     prices.old_price,
     prices.price,
   ])
 
-  useEffect(()=>{
-   // getProductDetails()
-  },[nowFavorite])
+  useEffect(() => {
+    // getProductDetails()
+  }, [nowFavorite])
 
-// *************************************************************************************
+  // *************************************************************************************
   return (
     <React.Fragment>
       <GxModal

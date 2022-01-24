@@ -32,12 +32,21 @@ const Card = ({
   const { brand, color, id: producId, image, in_stock_count, size, title } = product;
 
   const [countProducts, setCountProducts] = useState(qty)
+  const [select, setSelect] = useState()
+  //const [select, setSelect] = useState()
+
+
+ useEffect(()=>{
+  setSelect(selected)
+},[selected])
+
+// console.log('select_3',select)
+
   const updateQty = (qty) => {
     updateProductFromCart({
       id: id,
       selected: selected,
       qty: qty,
-      //oldQty: counterProduct,
       oldQty: countProducts,
     });
   };
@@ -66,15 +75,17 @@ const Card = ({
 
   }
 
-
+// console.log('select',select);
   return (
     <div className={style['wrapper']}>
       <div className={style['product__wrapper-block']}>
         <CheckBox
-          checked={selected}
+          checked={select}
           className={'product__selected_checkbox'}
           onClick={(e) => {
             const value = e.target.checked;
+            // console.log('select_2',value , select);
+            selected !== value ? setSelect(!select) : null
             if (value !== null && selected !== value)
               updateProductFromCart({
                 id: id,

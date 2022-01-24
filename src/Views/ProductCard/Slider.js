@@ -50,10 +50,12 @@ const Slider = ({ images, sizes, product_rc, url, profile, id}) => {
               key={i}
               to={url}
               onClick={() => {
-                console.log('click',id);
+                console.log('click PRODUCT',id);
+              dispatch('reqestIdProduct/add', id)
               
-               dispatch('dataProductFromId/set', id)
-               dispatch('stateValuePoly/change', {alreadySaw:true})
+
+              //  dispatch('dataProductFromId/set', id)
+              //  dispatch('stateValuePoly/change', {alreadySaw:true})
 
                 //return (window.location.href = url);
               }}

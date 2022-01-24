@@ -8,7 +8,7 @@ import { dataBalance } from './ComponentStore/Balance';
 export const cart = (store) => {
   store.on('@init', () => ({ cart: {}, totalPrice: 0 }));
   store.on('cart/update', ({ cart }, obj) => {
-  //  //console.log("cart/update")
+    //  //console.log("cart/update")
     const { product } = obj;
     const { id } = product;
     const newCart = { ...cart };
@@ -18,7 +18,7 @@ export const cart = (store) => {
     };
   });
   store.on('cart/remove', ({ cart }, { id }) => {
-  //  //console.log("cart/remove")
+    //  //console.log("cart/remove")
     const newCart = { ...cart };
     delete newCart[id];
     return {
@@ -30,7 +30,7 @@ export const cart = (store) => {
 export const wishlist = (store) => {
   store.on('@init', () => ({ wishlist: {} }));
   store.on('wishlist/update', ({ wishlist }, obj) => {
-  //  //console.log("wishlist/update")
+    //  //console.log("wishlist/update")
     const { product } = obj;
     const { id } = product;
     const newWishlist = { ...wishlist };
@@ -40,7 +40,7 @@ export const wishlist = (store) => {
     };
   });
   store.on('wishlist/remove', ({ wishlist }, { id }) => {
-  //  //console.log("wishlist/remove")
+    //  //console.log("wishlist/remove")
     const newWishlist = { ...wishlist };
     delete newWishlist[id];
     return {
@@ -50,14 +50,14 @@ export const wishlist = (store) => {
 };
 
 export const user = (store) => {
-   store.on('@init', () => ({ currentUser: null }));
+  store.on('@init', () => ({ currentUser: null }));
   ////console.log("user/save")
   store.on('user/save', ({ currentUser }, user) => ({
-    
+
     currentUser: { ...currentUser, ...user },
   }));
-  store.on('user/get', async ({}, { callback }) => {
-  // //console.log("user/get")
+  store.on('user/get', async ({ }, { callback }) => {
+    // //console.log("user/get")
     try {
       const data = await api.getCurrentUser();
       store.dispatch('user/save', {
@@ -74,14 +74,14 @@ export const user = (store) => {
 
 export const page = (store) => {
   store.on('@init', () => ({ page: undefined }));
-  store.on('page/set', ({}, { page }) => {
+  store.on('page/set', ({ }, { page }) => {
     return {
       page,
       currentUser: page?.data?.page?.user
         ? {
-            ...page.data.page.user,
-            status: true,
-          }
+          ...page.data.page.user,
+          status: true,
+        }
         : { status: false },
     };
   });
@@ -108,7 +108,7 @@ export const role_configuration = (store) => {
     },
   }));
   store.on('role_configuration/update', ({ role_configuration }, obj) => {
-   //console.log("role_configuration/update store")
+    //console.log("role_configuration/update store")
     return {
       role_configuration: obj,
     };
@@ -160,17 +160,17 @@ export const currenssies = (store) => {
 
 export const cartAl = store => {
 
-  store.on('@init', () => ({cartAl : 0}));
+  store.on('@init', () => ({ cartAl: 0 }));
 
-  store.on('cartAl/add', ({cartAl}, obj) => {
-    return {cartAl : obj}      
+  store.on('cartAl/add', ({ cartAl }, obj) => {
+    return { cartAl: obj }
   })
 
-  store.on('cartAl/update', ({cartAl}, obj) => {
+  store.on('cartAl/update', ({ cartAl }, obj) => {
     // console.log('newCartobj', obj)
     // console.log('newCartobj', cartAl)
     //cartAl.cartitem_set.map(el =>{
-     // else.id
+    // else.id
     //})
     // const { product } = obj;
     // const { id } = product;
@@ -184,110 +184,115 @@ export const cartAl = store => {
 }
 
 
-export const userPage = store => {
-  store.on('@init', () => ({userPage : 0}));
-  store.on('userPage/add',({userPage}, obj) => {
-    return {userPage : obj}
-  })
-}
-
 
 export const orderFunc = (store) => {
-  store.on('@init', ()=>({orderFunc:false}));
-  store.on('orderFunc/state', ({orderFunc},obj) => {
-    return {orderFunc : obj};
+  store.on('@init', () => ({ orderFunc: false }));
+  store.on('orderFunc/state', ({ orderFunc }, obj) => {
+    return { orderFunc: obj };
   })
 }
 
 //корзина заказов для опта -> что будет засунуто в оформление заказа
-export const valueStock = store =>{
-  store.on('@init', ()=>({valueStock:[]}));
-  store.on('valueStock/add', ({valueStock}, obj)=>{
-    return { valueStock : obj}
+export const valueStock = store => {
+  store.on('@init', () => ({ valueStock: [] }));
+  store.on('valueStock/add', ({ valueStock }, obj) => {
+    return { valueStock: obj }
   })
 }
 
 // данные wishlist записываем в хранилище
-export const wishlistAl = (store) =>{
-  store.on('@init', ()=>({wishlistAl:[]}))
-  store.on('wishlistAl/update', ({wishlistAl},obj)=>{
-    return {wishlistAl:obj}
+export const wishlistAl = (store) => {
+  store.on('@init', () => ({ wishlistAl: [] }))
+  store.on('wishlistAl/update', ({ wishlistAl }, obj) => {
+    return { wishlistAl: obj }
   })
 }
 
 //
-export const orderCountryPayment = store =>{
-  store.on('@init', ()=>({orderCountryPayment:[]}));
-  store.on('orderCountryPayment/add', ({orderCountryPayment}, obj)=>{
-    return {orderCountryPayment : obj}
+export const orderCountryPayment = store => {
+  store.on('@init', () => ({ orderCountryPayment: [] }));
+  store.on('orderCountryPayment/add', ({ orderCountryPayment }, obj) => {
+    return { orderCountryPayment: obj }
   })
 }
 
 export const stateValuePoly = store => {
   const initialValue = {
-    stateCart : false,
-    stateWish : false,
-    stateColorIncrement : false,
-    stateColorDiscrement : false,
-    stateBtnDisable : true,
-    stateCurrency : false,
-    statePayment : false,
-    stateOrder : false,
-    stateDelOrder : false,
-    stateDelOrderItems : false,
-    stateProductId : false,
-    alreadySaw:false,
+    stateCart: false,
+    stateWish: false,
+    stateColorIncrement: false,
+    stateColorDiscrement: false,
+    stateBtnDisable: true,
+    stateCurrency: false,
+    statePayment: false,
+    stateOrder: false,
+    stateDelOrder: false,
+    stateDelOrderItems: false,
+    stateProductId: false,
+    alreadySaw: false,
   }
-  store.on('@init', ()=>({stateValuePoly: initialValue}))
-  store.on('stateValuePoly/change', ({stateValuePoly}, obj)=>{
+  store.on('@init', () => ({ stateValuePoly: initialValue }))
+  store.on('stateValuePoly/change', ({ stateValuePoly }, obj) => {
 
     return {
-      stateValuePoly : 
-            {
-              ...stateValuePoly,
-              stateCart : obj.stateCart || null,
-              stateWish : obj.stateWish || null,
-              stateColorIncrement : obj.stateColorIncrement || null,
-              stateColorDiscrement : obj.stateColorDiscrement || null,
-              stateBtnDisable : obj.stateBtnDisable || null,
-              stateCurrency : obj.stateCurrency || null,
-              statePayment : obj.statePayment || null,
-              stateOrder : obj.stateOrder || null,
-              stateDelOrder : obj.stateDelOrder || null,
-              stateDelOrderItems : obj.stateDelOrderItems || null,
-              stateProductId : obj.stateProductId || null,
-              alreadySaw : obj.alreadySaw || null,
+      stateValuePoly:
+      {
+        ...stateValuePoly,
+        stateCart: obj.stateCart || false,
+        stateWish: obj.stateWish || false,
+        stateColorIncrement: obj.stateColorIncrement || false,
+        stateColorDiscrement: obj.stateColorDiscrement || false,
+        stateBtnDisable: obj.stateBtnDisable || false,
+        stateCurrency: obj.stateCurrency || false,
+        statePayment: obj.statePayment || false,
+        stateOrder: obj.stateOrder || false,
+        stateDelOrder: obj.stateDelOrder || false,
+        stateDelOrderItems: obj.stateDelOrderItems || false,
+        stateProductId: obj.stateProductId || false,
+        alreadySaw: obj.alreadySaw || false,
 
-            }
+      }
     }
   })
 }
 
 export const dataProductFromId = store => {
-  store.on('@init', ()=>({dataProductFromId:0}));
-  store.on('dataProductFromId/set', ({dataProductFromId}, obj)=>{
-    return {dataProductFromId : obj}
-    
+  store.on('@init', () => ({ dataProductFromId: 0 }));
+  store.on('dataProductFromId/set', ({ dataProductFromId }, obj) => {
+    return { dataProductFromId: obj }
+
   })
 }
 
-export const orderCreate = store =>{
-  store.on('@init', ()=>({orderCreate:[]}));
-  store.on('orderCreate/add', ({orderCreate}, obj)=>{
-    console.log('orderCreate',obj);
+export const orderCreate = store => {
+  store.on('@init', () => ({ orderCreate: [] }));
+  store.on('orderCreate/add', ({ orderCreate }, obj) => {
+    console.log('orderCreate', obj);
     return (orderCreate = obj)
+  })
+}
+
+export const userPage = store => {
+  store.on('@init', () => ({ userPage: 0 }));
+  store.on('userPage/add', ({ userPage }, obj) => {
+    return { userPage: obj }
   })
 }
 
 //--------------------21.01.2022--------------------------------
 //количество в моих желаниях иконка
 export const stateCountWish = store => {
-  const initialValue = {mywishCount : 0}
+  const initialValue = {
+    count: 0,
+    mywishResult: []
+  }
   store.on('@init', () => ({ stateCountWish: initialValue }));
   store.on('stateCountWish/add', ({ stateCountWish }, obj) => {
+    // console.log('obj mywishCount', obj);
     return {
       stateCountWish: {
-        mywishCount: obj.count,
+        count: obj.count,
+        results: obj.results
       }
     }
   })
@@ -295,18 +300,137 @@ export const stateCountWish = store => {
 //--------------------21.01.2022--------------------------------
 //количество в карзине иконка
 export const stateCountCart = store => {
-  const initialValue = {countCart : 0}
+  const initialValue = { 
+    in_cart: 0,
+    is_performed: false,
+    total_price: 0,
+    delivery_price: 0,
+    total_discount: 0,
+    selected: 0,
+    cartitem_set: [],
+    in_stock: [],
+    created_at: "",  
+  }
+  store.on('@init', () => ({ stateCountRestart: false }));
+  store.on('stateCountRestart/add', ({ stateCountRestart }, obj) => {
+    console.log('obj', obj);
+    return { stateCountRestart: obj }
+  })
   store.on('@init', () => ({ stateCountCart: initialValue }));
   store.on('stateCountCart/add', ({ stateCountCart }, obj) => {
-   // console.log('obj',obj);
+    console.log('obj count cart =',obj);
     return {
       stateCountCart: {
-        countCart: obj.in_cart,
+        in_cart: obj.in_cart,
+        is_performed: obj.is_performed,
+        total_price: obj.total_price,
+        delivery_price: obj.delivery_price,
+        total_discount: obj.total_discount,
+        selected: obj.selected,
+        cartitem_set: obj.cartitem_set,
+        in_stock: obj.in_stock,
+        created_at: obj.created_at,
       }
     }
   })
 }
+//--------------------22.01.2022--------------------------------
+//данные товара для превью
+    //**********получаем ID товара для запроса************* */
+export const reqestIdProduct = store => {
+  store.on('@init', () => ( {reqestIdProduct:null} ));
+  store.on('reqestIdProduct/add', ({ reqestIdProduct }, obj) => {
+    // console.log('STORE reqestIdProduct',obj);
+    return {reqestIdProduct : obj}
+  })
+}
 
+export const stateInPreveiwGoods = store => {
+  const initialValue = {
+    brand: "",
+    category: "",
+    collections: [],
+    colors: [],
+    content: "",
+    created_at: "",
+    extra: "",
+    id: 0,
+    in_cart_count: 4,
+    in_stock_count: 0,
+    is_bestseller: false,
+    is_closeout: false,
+    is_collection: true,
+    is_in_stock: false,
+    is_liked: true,
+    is_new: false,
+    media: [],
+    ordering: 0,
+    page_type: 0,
+    prices: {
+      price: 0,
+      more_3_item_price: 0,
+      more_5_item_price: 0,
+    },
+    product_rc: "",
+    review: {
+      all_count: 0,
+      all_count_percent: 0
+    },
+    seo_author: "",
+    seo_description: "",
+    seo_image: null,
+    seo_keywords: "",
+    seo_og_type: "",
+    seo_title: "",
+    short_content: "",
+    sizes: [],
+    slug: "",
+    title: "",
+    updated_at: "",
+  }
+  store.on('@init', () => ({ stateInPreveiwGoods: initialValue }));
+  store.on('stateInPreveiwGoods/add', ({ stateInPreveiwGoods }, obj) => {
+    // console.log('STORE stateInPreveiwGoods',obj);
+    return {
+      stateInPreveiwGoods: obj
+      //  {
+      //   brand: obj.brand,
+      //   category: obj.category,
+      //   collections: obj.collections,
+      //   colors: [...obj.colors],
+      //   content: obj.content,
+      //   created_at: obj.created_at,
+      //   extra: obj.extra,
+      //   id: obj.id,
+      //   in_cart_count: obj.in_cart_count,
+      //   in_stock_count: obj.in_stock_count,
+      //   is_bestseller: obj.is_bestseller,
+      //   is_closeout: obj.is_closeout,
+      //   is_collection: obj.is_collection,
+      //   is_in_stock: obj.is_in_stock,
+      //   is_liked: obj.is_liked,
+      //   is_new: obj.is_new,
+      //   media: obj.media,
+      //   ordering: obj.ordering,
+      //   page_type: obj.page_type,
+      //   prices: obj.prices,
+      //   product_rc: obj.product_rc,
+      //   review: obj.review,
+      //   seo_author: obj.seo_author,
+      //   seo_description: obj.seo_description,
+      //   seo_image: obj.seo_image,
+      //   seo_keywords: obj.seo_keywords,
+      //   seo_og_type: obj.seo_og_type,
+      //   seo_title: obj.seo_title,
+      //   short_content: obj.short_content,
+      //   sizes: obj.sizes,
+      //   slug: obj.slug,
+      //   title: obj.title,
+      //   updated_at: obj.updated_at,
+      // }
+    }
+  })
+}
 
 export const storeonParams = [
   orderCountryPayment,
@@ -331,5 +455,7 @@ export const storeonParams = [
   // --------
   stateCountWish,
   stateCountCart,
+  stateInPreveiwGoods,
+  reqestIdProduct,
 ];
 

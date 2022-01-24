@@ -67,13 +67,28 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   const { valueStock } = useStoreon('valueStock');
   const { cartAl } = useStoreon('cartAl');
   const { stateValuePoly } = useStoreon('stateValuePoly');
+  const { stateCountCart } = useStoreon('stateCountCart');
+  const { stateCountRestart } = useStoreon('stateCountRestart');
+
   // ******************************
   const [goodsStateDropAndRetail, setGoodsStateDropAndRetail] = useState({});
   const [goodsStateOpt, setGoodsStateOpt] = useState({});
-
-
+  const [in_cart, setIn_cart] = useState();
+  const [is_performed, setIs_performed] = useState();
+  const [total_price, setTotal_price] = useState();
+  const [delivery_price, setDelivery_price] = useState();
+  const [total_discount, setTotal_discount] = useState();
+  const [selected, setSelected] = useState();
+  const [getCart, setGetCart] = useState(stateCountCart);
+  // const [] = useState();
+  // const [] = useState();
+  // const [] = useState();
+  // const [] = useState();
+  // const [] = useState();
+  // const [] = useState();
 
   const [fullItemCartChecked, setFullItemCartChecked] = useState(false);
+  const [fullItemCartCheckedState, setFullItemCartCheckedState] = useState(false);
   const [agreeWitheRegulations, setAgreeWitheRegulations] = useState(true);
   const [cartData, setCartData] = useState(initialCartData);
   // const [selectElementInCartFromWhosale, setSelectElementInCartFromWhosale] = useState(initialCartData);
@@ -83,9 +98,35 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
     show: false,
     callback: null,
   });
-  // *****************************
   const currentCurrcensies = String(currenssies).toUpperCase();
   const rightSideWrapper = useRef(null);
+  const [stateClickBtn, setStateClickBtn] = useState(false)
+
+  // *****************************
+
+  useEffect(() => {
+    setIn_cart(stateCountCart.in_cart)
+  }, [stateCountCart.in_cart])
+  useEffect(() => {
+    // console.log('status is_performed', stateCountCart.is_performed);
+    setIs_performed(stateCountCart.is_performed)
+  }, [stateCountCart.is_performed])
+  useEffect(() => {
+    setTotal_price(stateCountCart.total_price)
+  }, [stateCountCart.total_price])
+  useEffect(() => {
+    setDelivery_price(stateCountCart.delivery_price)
+  }, [stateCountCart.delivery_price])
+  useEffect(() => {
+    setTotal_discount(stateCountCart.total_discount)
+  }, [stateCountCart.total_discount])
+  useEffect(() => {
+    setSelected(stateCountCart.selected)
+  }, [stateCountCart.selected])
+  useEffect(() => {
+    console.log('запрос при старте или при изминениях состояния stateCountCart');
+    setGetCart(stateCountCart)
+  }, [stateCountCart])
 
   const setValuesDecoration = (res) => {
     if (role === ROLE.WHOLESALE) {
@@ -94,8 +135,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       setValue(serializeCardDataToFormValue(res.cartitem_set));
     }
   };
-
-
   const closeModal = () => {
     setmodalStates({
       ...modalStates,
@@ -103,166 +142,179 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       show: false,
     });
   };
-
   //***************************************************************** */
-  const [stateClickBtn, setStateClickBtn] = useState(false)
-  const getCartData = () => {
-    dispatch('stateValuePoly', { stateCurrency: true })
-    !stateClickBtn ? setStateClickBtn(true) : setStateClickBtn(false);
-  };
+  // const getCartData = () => {
+  //   console.log('requst');
+  //   dispatch('stateValuePoly', { stateCurrency: true })
+  //   !stateClickBtn ? setStateClickBtn(true) : setStateClickBtn(false);
+  // };
 
   useEffect(() => {
-    apiCart
-      .getCartData()
-      .then((res) => {
-        /**================================================================================================================= */
+    console.log('-----------------получение getCartData render -----------')
+    console.log('stateValuePoly.stateCurrency', stateValuePoly.stateCurrency);
+    console.log('stateClickBtn', stateClickBtn);
 
+    // apiCart
+    //   .getCartData()
+    //   .then(res => {
+    //     console.log('$$$$$$$$-',res);
+    //     setGetCart(res)
+    //   });
 
-
-        if (role === ROLE.WHOLESALE) {//если опт
-          //  console.log('work new massive opt', res)
-          let goods = {
-            collectiion: [],
-            is_pack: [],
-            in_stock: [],
-            other_goods: []
-          }
-          // **********cartitem_set -> is_pack
-          let resultsIs_pack = [];
-          let finishResultIs_pack = [];
-
-
-          Object.keys(res.cartitem_set).length ?
-            (
-              resultsIs_pack = res.cartitem_set.map(items => {
-                let result = items.items.map(res => res.is_pack);// if res.is_pack то получаем pack
-                                                                 // if !res.is_pack то получаем все остальные значение
-                if (result[0])return items  
-              })
-              )
-              : "null";
-              
-              Object.keys(resultsIs_pack).length ?
-              finishResultIs_pack = resultsIs_pack.filter(el => el ? el.items : null)
-              : null
-              // **********cartitem_set -> Nois_pack
-
-              let resultsNoIs_pack = [];
-              let finishResultNoIs_pack = [];
-
-              Object.keys(res.cartitem_set).length ?
-                (
-                  resultsNoIs_pack = res.cartitem_set.map(items => {
-                    let result = items.items.map(res => !res.is_pack);// if res.is_pack то получаем pack
-                                                                    // if !res.is_pack то получаем все остальные значение
-                    if (result[0])return items  
-                  })
-                  )
-                  : "null";
-                  
-                  Object.keys(resultsNoIs_pack).length ?
-                  finishResultNoIs_pack = resultsNoIs_pack.filter(el => el ? el : null)
-                  : null
-
-                 // console.log('hhhhhhhhhhhhh' , finishResultNoIs_pack);
-          // **********in_stock -> is_pack
-          let resultsIn_stock = [];
-          Object.keys(res.in_stock).length ?
-            resultsIn_stock = res.in_stock.filter(items => items.is_pack)
-            : null
-          // **********result is_pack
-          let goodsInPack = [];
-          if(Object.keys(finishResultIs_pack).length && Object.keys(resultsIn_stock).length){
-            goodsInPack = [...finishResultIs_pack[0].items, ...resultsIn_stock]
-          }else if(Object.keys(finishResultIs_pack).length){
-            goodsInPack = [...finishResultIs_pack[0].items]
-          }else{
-            (Object.keys(resultsIn_stock).length)?
-            goodsInPack = [...resultsIn_stock]
-            : null;
-            }
-
-
-            // goodsInPack=[]
-          // **********in_stock
-          let inStockNoInpack = [];
-          Object.keys(res.in_stock).length ?
-            inStockNoInpack = res.in_stock.filter(el => !el.is_pack)
-            : null
-          // **********
-          // **********collection ????????
-          let collectionGoods = [];
-
-
-          goods = {
-            collectiion: collectionGoods,
-            is_pack: goodsInPack,
-            in_stock: inStockNoInpack,
-            other_goods: finishResultNoIs_pack //res.cartitem_set
-          }
-          setGoodsStateOpt(goods)
-
-        } else {//если дроп/розница
-          let goods = {
-            other_goods: [],
-            in_stock: [],
-          }
-          let goodsInStock = [];
-          let goodsOther = []
-          res.in_stock.length > 0
-            ? goodsInStock.push(res.in_stock)
-            : res.cartitem_set
-              ? goodsOther = res.cartitem_set.filter(item => item)
-              : null
-          goods = {
-            other_goods: goodsOther,
-            in_stock: goodsInStock,
-          }
-          setGoodsStateDropAndRetail(goods);
-
-        }
-
-
-
-
-
-        /**================================================================================================================= */
-
-
-
-
-        setCartData(res);
-        newMassiveProducts(res)
-        setValuesDecoration(res);
-        dispatch('stateValuePoly', { stateCurrency: false })
-        dispatch('cartAl/add', res);
-      });
   }, [stateValuePoly.stateCurrency, stateClickBtn])
 
+  useEffect(() => {
+    console.log('--------------фильтрация карточек--------------')
+
+    if (getCart.in_cart > 0) {
+      console.log('--------------фильтрация карточек если доступна карзина--------------')
+
+      if (role === ROLE.WHOLESALE) {//если опт
+
+        setIs_performed(getCart.is_performed)
+
+        let goods = {
+          collectiion: [],
+          is_pack: [],
+          in_stock: [],
+          other_goods: []
+        }
+        // **********cartitem_set -> is_pack
+        let resultsIs_pack = [];
+        let finishResultIs_pack = [];
+
+        Object.keys(getCart.cartitem_set).length ?
+          (resultsIs_pack = getCart.cartitem_set.map(items => {
+            let result = items.items.map(res => res.is_pack);// if res.is_pack то получаем pack
+
+            // if !res.is_pack то получаем все остальные значение
+            if (result[0]) return items
+          })
+          ) : "null";
+
+        Object.keys(resultsIs_pack).length ?
+          finishResultIs_pack = resultsIs_pack.filter(el => el ? el.items : null)
+          : null
+        //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
+        Object.keys(finishResultIs_pack).length && fullItemCartCheckedState ?
+          finishResultIs_pack = finishResultIs_pack.map(res => {
+            let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
+            setFullItemCartCheckedState(false)
+            //  updateProductFromCart()
+            return { ...res, items }
+          }) : null
+        // -----------------------------------------------
+
+        // **********cartitem_set -> Nois_pack
+
+        let resultsNoIs_pack = [];
+        let finishResultNoIs_pack = [];
+
+        Object.keys(getCart.cartitem_set).length ?
+          (
+            resultsNoIs_pack = getCart.cartitem_set.map(items => {
+              let result = items.items.map(res => !res.is_pack);// if res.is_pack то получаем pack
+              // if !res.is_pack то получаем все остальные значение
+              if (result[0]) return items
+            })
+          )
+          : "null";
+
+        Object.keys(resultsNoIs_pack).length ?
+          finishResultNoIs_pack = resultsNoIs_pack.filter(el => el ? el : null)
+          : null
 
 
+        //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
+        Object.keys(resultsNoIs_pack).length && fullItemCartCheckedState ?
+          finishResultNoIs_pack = finishResultNoIs_pack.map(res => {
+            let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
+            setFullItemCartCheckedState(false)
+            // updateProductFromCart()
+            return { ...res, items }
+          }) : null
+        // ----------------------------------------------
 
 
+        // **********in_stock -> is_pack
+        let resultsIn_stock = [];
+        Object.keys(getCart.in_stock).length ?
+          resultsIn_stock = getCart.in_stock.filter(items => items.is_pack)
+          : null
+
+        //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
+        Object.keys(getCart.in_stock).length && fullItemCartCheckedState ?
+          resultsIn_stock = resultsIn_stock.map(el => ({ ...el, selected: fullItemCartChecked }))
+          : null
+        // ----------------------------------------------
+
+        // **********result is_pack
+        let goodsInPack = [];
+
+        if (Object.keys(finishResultIs_pack).length && Object.keys(resultsIn_stock).length) {
+          goodsInPack = [...finishResultIs_pack[0].items, ...resultsIn_stock]
+        } else if (Object.keys(finishResultIs_pack).length) {
+          goodsInPack = [...finishResultIs_pack[0].items]
+        } else {
+          (Object.keys(resultsIn_stock).length) ?
+            goodsInPack = [...resultsIn_stock]
+            : null;
+        }
+
+        // goodsInPack=[]
+        // **********in_stock
+        let inStockNoInpack = [];
+        Object.keys(getCart.in_stock).length ?
+          inStockNoInpack = getCart.in_stock.filter(el => !el.is_pack)
+          : null
+        //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
+
+        Object.keys(getCart.in_stock).length && fullItemCartCheckedState ?
+          inStockNoInpack = inStockNoInpack.map(el => ({ ...el, selected: fullItemCartChecked }))
+          : null
+        // ----------------------------------------------
 
 
+        // **********collection ????????
+        let collectionGoods = [];
+        goods = {
+          collectiion: collectionGoods,
+          is_pack: goodsInPack,
+          in_stock: inStockNoInpack,
+          other_goods: finishResultNoIs_pack //res.cartitem_set
+        }
+        setGoodsStateOpt(goods)
 
+      } else {//если дроп/розница
+        let goods = {
+          other_goods: [],
+          in_stock: [],
+        }
+        let goodsInStock = [];
+        let goodsOther = []
+        getCart.in_stock.length > 0
+          ? goodsInStock.push(getCart.in_stock)
+          : getCart.cartitem_set
+            ? goodsOther = getCart.cartitem_set.filter(item => item)
+            : null
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        fullItemCartCheckedState ?
+          console.log('делаем для дропа и розницы выделение checkbox')
+          : null
+        goods = {
+          other_goods: goodsOther,
+          in_stock: goodsInStock,
+        }
+        setGoodsStateDropAndRetail(goods);
+      }
+      /**================================================================================================================= */
+      setCartData(getCart);
+      newMassiveProducts(getCart)
+      setValuesDecoration(getCart)
+      dispatch('stateValuePoly', { stateCurrency: false })
+      dispatch('cartAl/add', getCart)
+    }
+  }, [getCart, fullItemCartChecked])
 
   const [massiveCart, setMassiveCart] = useState(initialMassiveCart);
 
@@ -278,9 +330,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
     const newCartDataIn_stock = [];
     let newIs_pack = [];
     produc.cartitem_set.filter(items => {
-
       items.is_pack ? newIs_pack.push(items.items) : newCartDataCartitem_set.push(items);
-
     })
 
     produc.in_stock.filter(items => {
@@ -295,19 +345,23 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   };
   // ******************************************************************************************************
   const deleteProductFromCart = (id) => {
-    apiCart
-      .deleteCartData({
-        item_id: id,
-      })
-      .then((res) => {
-        // getCartData();
-        updateProductFromCart()
-      })
-      .catch((err) => {
-        console.log("err deleteProductFromCart", err);
-      });
+    console.log('iiiidddddd', id);
+    dispatch('stateCountRestart/add', !stateCountRestart)
+    // apiCart
+    //   .deleteCartData({
+    //     item_id: id,
+    //   })
+    //   .then((res) => {
+    //     // getCartData();
+    //     // updateProductFromCart()
+    //   })
+    //   .catch((err) => {
+    //     console.log("err deleteProductFromCart", err);
+    //   });
   };
 
+  // создание нового массива с єлементами которые выбраны для удаления
+  // **********************************************************/
   const getEnabledCartItems = (items) => {
     let result = [];
     items.forEach((el) => {
@@ -329,12 +383,12 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       return setTooltipNoSelectedProductsOpen(true);
     }
     confirmDeleteCartItem(() => {
-      console.log('selectedCartItem',selectedCartItem)
+      console.log('selectedCartItem', selectedCartItem)
       apiCart
         .multipleDeleteFromCart({ items: selectedCartItem })
         .then((res) => {
-          //viewCartCountOrder('desc', selectedCartItem)
-          getCartData();
+          console.log('multipleDeleteFromCart');
+          dispatch('stateCountRestart/add', !stateCountRestart)
           closeModal();
         })
         .catch((err) => {
@@ -351,18 +405,32 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       callback: callback,
     });
   };
+  // **********************************************************/
 
   // при нажатии + или - в корзине происходит добавление или удаление товара
   const updateProductFromCart = (data = []) => {
+    console.log('data=====', data);
+  //   dispatch('stateCountCart/add',{
+  //     ...stateCountCart,
+  //     in_cart : (stateCountCart.in_cart - data.oldQty + data.qty)
+  // })
+
+      let res = {
+        ...stateCountCart,
+      in_cart : (stateCountCart.in_cart - data.oldQty + data.qty)
+      }
+      console.log('stateCountCart',stateCountCart)
+
+
     //обнавляем состояние карзины на сервере и в хранилище 
-    apiCart
-      .updateCartData([...data])
-      .then((res) => {
-        getCartData();
-      })
-      .catch((err) => {
-        console.error('ERROR обнавляем состояние карзины на сервере и в хранилище');
-      });
+    // apiCart
+    //   .updateCartData([...data])
+    //   .then((res) => {
+        
+    //   })
+    //   .catch((err) => {
+    //     console.error('ERROR обнавляем состояние карзины на сервере и в хранилище');
+    //   });
   };
 
   //фунция обновления количества товараа " вкорзине -> карточке тоавара"
@@ -420,31 +488,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
     return results;
   };
 
-  //!onCange for select all checkbox
-  const changeSelectedFilter = useCallback((e) => {
-    let checked;
-    if (ROLE.WHOLESALE === role) {
-      
-      const allCartItems = getAllCartItemsFromWhoasale(cartData.cartitem_set, cartData.in_stock);
-      checked = checkFullSelectedElements(allCartItems);
-    } else {
-      checked = checkFullSelectedElements(values);
-    }
-    console.log('useCallback',checked);
-    apiCart
-      .selectOrUnSelectAllItemCart(!checked)
-      .then((res) => {
-        setFullItemCartChecked(!checked);
-        getCartData();
-        setTooltipNoSelectedProductsOpen(false);
-      });
-  },[checkout_slug]);
-
-  useEffect(() => {
-    getCartData();
-
-  }, [checkout_slug]);//checkout_slug=order
-
   if (!massiveCart.cartitem_set.length && !massiveCart.is_pack.length && !massiveCart.in_stock.length) {
     return <DefaultCartPreview page_type_catalog={page_type_catalog} />;
   }
@@ -453,9 +496,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
   let testArr = massiveCart.cartitem_set.find(el => el.title === "Lara")
   // console.log('massiveCart.cartitem_set',testArr);
-
-
-
+  // console.log('is_performed', is_performed);
   return (
     <Container>
       <GxModal
@@ -494,13 +535,13 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
               // cartData.cartitem_set.length || cartData.in_stock.length
               // ?cartData.cartitem_set.length + cartData.in_stock.length
               // :0})
-              cartData.in_cart})
+              stateCountCart.in_cart})
           </Title>
           <CartViews.SelectedFilter
-            checked={fullItemCartChecked}
-            changeSelectedFilter={changeSelectedFilter}
             multipleDeleteFromCart={multipleDeleteFromCart}
             tooltipOpen={tooltipNoSelectedProductsOpen}
+            setFullItemCartChecked={setFullItemCartChecked}
+            setFullItemCartCheckedState={setFullItemCartCheckedState}
           />
           <CartViews.WrapperCards>
 
@@ -508,8 +549,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
             {/* ************************************************************************************************ */}
 
 
-            {/* massiveCart.cartitem_set.map((el, i) => {
-                    карточка товара в корзине для опта */}
+            {/* карточка товара в корзине для опта */}
 
             {(role === ROLE.WHOLESALE) ?
 
@@ -603,7 +643,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                 <Text text={'you.order'} />
               </CartViews.Text>
               <CartViews.Text type={'text-sub'}>
-                {cartData.selected} <Text text={'product.s'} />
+                {selected} <Text text={'product.s'} />
               </CartViews.Text>
             </CartViews.BlockRightSide>
             <CartViews.BlockRightSide>
@@ -611,7 +651,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                 <Text text={'order.cost'} />
               </CartViews.Text>
               <CartViews.Text type={'text-default_currency'}>
-                {cartData.total_price ?? 0} {currentCurrcensies}
+                {total_price ?? 0} {currentCurrcensies}
               </CartViews.Text>
             </CartViews.BlockRightSide>
             {ROLE.RETAIL === role ? (
@@ -622,7 +662,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                   </CartViews.Text>
 
                   <CartViews.Text type={'text-red'}>
-                    {cartData.total_discount} {currentCurrcensies}
+                    {total_discount} {currentCurrcensies}
                   </CartViews.Text>
                 </CartViews.BlockRightSide>
 
@@ -631,7 +671,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                     <Text text={'shipping'} />
                   </CartViews.Text>
                   <CartViews.Text type={'text-default_currency'}>
-                    {cartData.delivery_price} {currentCurrcensies}
+                    {delivery_price} {currentCurrcensies}
                   </CartViews.Text>
                 </CartViews.BlockRightSide>
               </div>
@@ -645,12 +685,12 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                 <Text text={'total.payable'} />:
               </CartViews.Text>
               <CartViews.Text type={'text-title'}>
-                {cartData.total_price ?? 0} {currentCurrcensies}
+                {total_price ?? 0} {currentCurrcensies}
               </CartViews.Text>
             </CartViews.BlockRightSide>
 
             <CartViews.LinkToFirmalization
-              enabled={agreeWitheRegulations && cartData.is_performed}
+              enabled={agreeWitheRegulations && is_performed}
               to={checkout_slug}
             >
               <Text text={'go.to.registration'} />
@@ -689,104 +729,3 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
 export default React.memo(Cart);
 
-
-
-
-// {massiveCart.cartitem_set.map((el, i) => {
-//   // карточка товара в корзине для опта
-//   if (role === ROLE.WHOLESALE) {
-//     const isVisibleLine = massiveCart.cartitem_set.length - 1 !== i;
-//         // console.log('cart role user WHOLESALE: 3=', role);     
-//         return (
-//           <ProductWhosaleHorizontalCard
-//             key={el.id}
-//             {...el}
-//             currentCurrcensies={currentCurrcensies}
-//              isVisibleLine={isVisibleLine}
-//             deleteProductFromCart={deleteProductFromCart}
-//             updateProductFromCart={contextUpdateProductFromCard}
-//           />
-//         );
-//   } else {
-//             // 
-//         // console.log('cart role user RETAIL: 1,DROPSHIPPER: 2 =', role);
-//         // console.log(`amount cart product ${i}`);
-//           return (
-//           // карточка товара в корзине для дропа и розницы
-//             <ProductHorizontalCard
-//               key={el.id}
-//               {...el}
-//               role={role}
-//               currentCurrcensies={currentCurrcensies}
-//               values={values[el.id]}
-//               deleteProductFromCart={deleteProductFromCart}
-//               updateProductFromCart={contextUpdateProductFromCard}
-
-//             />
-//           );
-
-//     }
-
-
-//     { massiveCart.is_pack.map((el, i) => {
-//     const isVisibleLine = massiveCart.is_pack.length - 1 !== i;
-
-//       if (ROLE.WHOLESALE === role && massiveCart.is_pack.length){ 
-//         // console.log('massiveCart.is_pack-1');
-//       return (
-//       <ProductWhosaleIsPackHorizontalCard
-//         currentCurrcensies={currentCurrcensies}
-//         deleteProductFromCart={deleteProductFromCart}
-//         updateProductFromCart={contextUpdateProductFromCard}
-//         items={massiveCart.is_pack}
-//         is_pack={true}
-//       />
-//       )
-//       } 
-//       // else {
-//       //   console.log('massiveCart.is_pack-2');
-//       //   return (
-//       //     // карточка товара в корзине для дропа и розницы
-//       //       <ProductHorizontalCard
-//       //         key={el.id}
-//       //         {...el}
-//       //         role={role}
-//       //         currentCurrcensies={currentCurrcensies}
-//       //         values={values[el.id]}
-//       //         deleteProductFromCart={deleteProductFromCart}
-//       //         updateProductFromCart={contextUpdateProductFromCard}
-//       //       />
-//       //     );
-
-//       //   }
-
-//       })}
-
-//     })}
-
-//     {/* рисует карточку заказа если опт и в наличии */}
-//     {(ROLE.WHOLESALE === role && massiveCart.in_stock.length)?
-//           <>
-//           <CartViews.Line />
-//           <CartViews.Text type={'text-brand'}>Товары в наличии</CartViews.Text>
-//           </>
-//     :null
-//     }
-//     {
-//     (ROLE.WHOLESALE === role && massiveCart.in_stock.length)?
-
-//     massiveCart.in_stock.map((el, i) => {
-//       const isVisibleLine = massiveCart.in_stock.length - 1 !== i;
-//       // console.log('massiveCart.in_stock',massiveCart.in_stock)
-//       return (
-//           <ProductWhosaleInStockHorizontalCard
-//             currentCurrcensies={currentCurrcensies}
-//             deleteProductFromCart={deleteProductFromCart}
-//             updateProductFromCart={contextUpdateProductFromCard}
-//             el={el}
-//           />
-//       )
-//     })
-//     :null
-
-// }

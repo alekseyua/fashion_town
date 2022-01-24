@@ -46,130 +46,204 @@ const apiOrder = api.orderApi;
 const SectionProdPage = ({
   modalView,
   url,
-  brand,
   productId,
   profileId,
-  breadcrumbs,
-  title,
-  prices: pricesProp,
-  recommended_price,
-  colors: colorsProp,
-  sizes: sizesProp,
-  is_new,
-  in_stock_count: in_stock_countProp,
-  is_bestseller,
   adding_type,
-  is_in_stock,
-  product_rc: product_rcProp,
-  is_closeout,
-  role_configuration,
-  is_liked: is_likedProp,
-  in_cart_count: in_cart_countProp,
+  breadcrumbs,
+  reviews_statistic,
+  reviewsCount,
+  title,
+  brand,
+  prices,
+  recommended_price,
+  colors = [],
+  sizes = [],
   review,
-  media: mediaProp,
+  is_new,
+  in_stock_count,
+  is_bestseller,
+  is_in_stock,
+  is_closeout,
+  is_liked,
+  media = [],
+  in_cart_count,
+  is_collection,
+  // collections, ждёмс колекций
+  product_rc,
+  role_configuration,
   site_configuration,
-  collections = false,
+
   ...props
 }) => {
+
+ 
   const history = useHistory();
-  const { currenssies }                                         = useStoreon('currenssies'); //currenssies
-  const [modalStates, setmodalStates]                           = useState({ show: false });
-  const { cartAl, dispatch }                                   = useStoreon('cartAl')
+  const { currenssies } = useStoreon('currenssies'); //currenssies
+  const [modalStates, setmodalStates] = useState({ show: false });
+  const { cartAl, dispatch } = useStoreon('cartAl')
+
+   //------------------------------------------------------------------------
+   const { stateCountWish } = useStoreon('stateCountWish')
+   const { stateInPreveiwGoods } = useStoreon('stateInPreveiwGoods')
+   const { reqestIdProduct } = useStoreon('reqestIdProduct')
+   const { stateCountRestart } = useStoreon('stateCountRestart')
+// 
   const [customModalStates, setCustomModalStates] = useState({
     show: false,
     addClass: 'modal-add_to_cart',
     content: null,
   });
   const [selectedCollection, setselectedCollection] = useState(false);
-  const [productRequiredData, setproductRequiredData] = useState({
-    prices: pricesProp,
-    in_stock_count: in_stock_countProp,
-    is_liked: is_likedProp,
-    in_cart_count: in_cart_countProp,
-    media: mediaProp,
-    product_rc: product_rcProp,
-    collections: collections,
-  });
-  const [sizes, setSizes] = useState([]);
-  const [colors, setColors] = useState([]);
 
-  const updateProdDataPage = (params = {}) => {
-    disabledAllFilters();
+  const [colorsn, setColorsn] = useState([]);
+  const [sizesn, setSizesn] = useState([]);
+  const [collectionsHook, setCollectionsHook] = useState([]);
+  const [packHook, setPackHook] = useState([]);
+  const [urlHook, setUrlHook] = useState([]);
+  const [brandHook, setBrandHook] = useState([]);
+  const [titleHook, setTitleHook] = useState();
+  // const [contentHook, setСontentHook] = useState();
+  const [recommended_priceHook, setRecommended_priceHook] = useState();
+  const [pricesHook, setPricesHook] = useState();
+  const [is_newHook, setIs_newHook] = useState(false);
+  const [is_closeoutHook, setIs_closeoutHook] = useState(false);
+  const [in_stock_countHook, setIn_stock_countHook] = useState(false);
+  const [is_bestsellerHook, setIs_bestsellerHook] = useState(false);
+  const [is_in_stockHook, setIs_in_stockHook] = useState(false);
+  const [is_likedHook, setIs_likedHook] = useState(false);
+  const [product_rcHook, setProduct_rcHook] = useState();
+  const [in_cart_countHook, setIn_cart_countHook] = useState();
+  const [reviews_statisticHook, setReviews_statisticHook] = useState();
+  const [reviewsCountHook, setReviewsCountHook] = useState();
+  const [reviewHook, setReviewHook] = useState();
+  const [mediaHook, setMediaHook] = useState();
+
+  //   //заганяем начальные значения 
+  // цвет
+
+
+
+  useEffect(() => {
+    let color = colors.filter(el => el.selected)
+    colors.length ? setColorsn(color[0]) : null
+  }, [colors.length])
+  // размер
+  useEffect(() => {
+    let size = sizes.filter(el => el.selected)
+    sizes.length ? setSizesn(size[0]) : null
+  }, [sizes.length])
+  // брэнд brand
+  useEffect(() => {
+    brand ? setBrandHook(brand) : null
+  }, [brand])
+  // контент content
+  // useEffect(() => {
+  //   content ? setСontentHook(content) : null
+  // }, [content])
+  // количество в карзине товара in_cart_count
+  useEffect(() => {
+    console.log('in_cart_count',in_cart_count);
+    in_cart_count ? setIn_cart_countHook(in_cart_count) : null
+  }, [in_cart_count])
+   // рекомендованая цена товара recommended_price
+  useEffect(() => {
+    recommended_price ? setRecommended_priceHook(recommended_price) : null
+  }, [recommended_price])
+    // ссылка на Url
+    useEffect(() => {
+      url? setUrlHook(url) : null
+    }, [url])
+  // титулка название товара Title
+  useEffect(() => {
+    title ? setTitleHook(title) : null
+  }, [title])
+  // прайс Prices ?????????????????????????????????
+  useEffect(() => {
+    prices ? setPricesHook(prices) : null
+  }, [prices])
+  // в категории новый Is_new
+  useEffect(() => {
+    setIs_newHook(is_new)
+  }, [is_new])
+ // Is_closeout
+ useEffect(() => {
+  setIs_closeoutHook(is_closeout)
+}, [is_closeout])
+  // количества товаров в наличии In_stock_count
+  useEffect(() => {
+    in_stock_count ? setIn_stock_countHook(in_stock_count) : null
+  }, [in_stock_count])
+  // бесцелер Is_bestseller
+  useEffect(() => {
+    setIs_bestsellerHook(is_bestseller)
+  }, [is_bestseller])
+  // являится ли товар в наличии Is_in_stock
+  useEffect(() => {
+    setIs_in_stockHook(is_in_stock)
+  }, [is_in_stock])
+ // описание продукта Product_rc
+ useEffect(() => {
+  product_rc ? setProduct_rcHook(product_rc) : null
+}, [product_rc])
+ // в мои желания Is_liked
+ useEffect(() => {
+  setIs_likedHook(is_liked)
+}, [is_liked])
+ //  Review reviews_statistic
+ useEffect(() => {
+  reviews_statistic ? setReviews_statisticHook(reviews_statistic) : null//????????????????????????
+}, [reviews_statistic])
+ //  Review reviewsCount
+useEffect(() => {
+  reviewsCount ? setReviewsCountHook(reviewsCount) : null//????????????????????????
+}, [reviewsCount])
+ //  Review
+ useEffect(() => {
+  review ? setReviewHook(review) : null//????????????????????????
+}, [review])
+ // фото товара Media
+ useEffect(() => {
+  media.length ? setMediaHook(media) : null
+}, [media.length])
+
+  //    //создаём запрос для данных при изменении цвета или размера
+  //    //****************************************************************** */
+  useEffect(() => {
+    let params = {
+      color: colorsn.id,
+      size: sizesn.id,
+      productId: productId,
+      //collection : null,
+      // pack ??????
+    }
+    colorsn.id || sizesn.id?(
     apiContent
       .getProduct(productId, params)
       .then((res) => {
-        setSizes(res.sizes);
-        setColors(res.colors);
-        setproductRequiredData({
-          ...productRequiredData,
-          prices: res.prices,
-          in_stock_count: res.in_stock_count,
-          is_liked: res.is_liked,
-          in_cart_count: res.in_cart_count,
-          media: res.media,
-          product_rc: res.product_rc,
-          // collections: res.collections,
-        });
-        setinitialValues({
-          selectedColor: getDefaultSelectedSky(res.colors),
-          selectedSize: getDefaultSelectedSky(res.sizes),
-          countProduct: res.in_stock_count,
-        });
+        let color = res.colors.filter(el => el.selected)
+        setColorsn(color[0])
+        let size = res.sizes.filter(el => el.selected)
+        setSizesn(size[0])
+        setIn_cart_countHook(res.in_cart_count)
+        setIs_likedHook(res.is_liked)
       })
-      .catch(err=>console.error(`ERROR getProduct(productId, params) ${err}`));
-  };
+      .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
+    ):null
 
-  const getDefaultSelectedSky = (data) => {
-    let result;
-    data.forEach((element) => {
-      if (element.selected) {
-        result = element;
-      }
-    });
-    return result;
-  };
-
-  const [initialValues, setinitialValues] = useState({
-    selectedColor: getDefaultSelectedSky(colorsProp),
-    selectedSize: getDefaultSelectedSky(sizesProp),
-    countProduct: 0,
-    selectedCollection: null,
-  });
-
-  const lables = [
-    {
-      icon: labelSale,
-      isVisible: is_closeout,
-    },
-    {
-      icon: labelNew,
-      isVisible: is_new,
-    },
-    {
-      icon: labelHit,
-      isVisible: is_bestseller,
-    },
-    {
-      icon: labelOnsale,
-      isVisible: is_in_stock,
-      modifyClass: 'long',
-    },
-  ];
-
+  }, [colorsn.id, sizesn.id])
+  // //****************************************************************** */
   const openTableModal = () => {
     setmodalStates({
       ...modalStates,
       show: true,
     });
   };
-
   const closeModal = () => {
     setmodalStates({
       ...modalStates,
       show: false,
     });
   };
-
   const closeCustomModal = () => {
     setCustomModalStates({
       ...customModalStates,
@@ -177,37 +251,44 @@ const SectionProdPage = ({
     });
   };
 
-  const submitProduct = (data) => {
-    // console.log(`data`, data);
-  };
+    const submitProduct = (data) => {
+      console.log(`submitProduct`, data);
+    };
 
+  //   // проверено работает возможно надо допилить в случае ошибки обновление карточки подумаем ????
+  //   //*************************************************************** */
   const addWishlistProduct = (productId, profileId) => {
-    if (!productRequiredData.is_liked) {
-
+    if (!is_likedHook) {
       apiProfile
         .postWishlist({
           product: productId,
           profile: profileId,
         })
-        .then(res=>{
-          dispatch('stateValuePoly/change',{stateWish : true})
-          console.log(`ADD postWishlist ${res}`)
+        .then(res => {
+          dispatch('stateCountWish/add', { ...stateCountWish, count: stateCountWish.count + 1 })
+          setIs_likedHook(!is_likedHook)
         })
-        .catch(err=>console.log(`ERROR response ${err}`) );
+        .catch(err => {
+          console.log(`err no add ${productId}`);
+          console.log(`ERROR response ${err}`)
+        });
     } else {
       apiProfile
         .deleteWishlist(productId, {
           product: productId,
           profile: profileId,
         })
-        .then(res=>{
-          dispatch('stateValuePoly/change',{stateWish : true})
-          console.log(`DEL postWishlist ${res}`)
+        .then(res => {
+          setIs_likedHook(!is_likedHook)
+          dispatch('stateCountWish/add', { ...stateCountWish, count: stateCountWish.count - 1 })
         })
-        .catch(err=>console.log(`ERROR response ${err}`))
+        .catch(err => {
+          console.log(`err no dell wish ${productId}`);
+          console.log(`ERROR response ${err}`)
+        })
     }
   };
-
+  //   //******************сделать попап******************************* */
   const openModalSuccessAddToCart = (currentColor, currentSize) => {
     setCustomModalStates({
       ...customModalStates,
@@ -231,72 +312,39 @@ const SectionProdPage = ({
       ),
     });
   };
-  const [ changeColorBtn, setChangeColorBtn ] = useState({red : false, green : false});
-  const addToCart = ({ count, currentSize, currentColor, successCallback, openModalSucces }) => {
-    
+
+  const [changeColorBtn, setChangeColorBtn] = useState({ red: false, green: false });
+  const addToCart = ({ count, openModalSucces }) => {
+
+
     const params = {
-      product: productId,
-      color: currentColor.id ?? null,
-      size: currentSize.id ?? null,
+      product: productId,//????????reqestIdProduct
+      color: colorsn.id,
+      size: sizesn.id,
       qty: count,
       // is_pack: adding_type !== 'item',
     };
-
     apiCart
       .addToCart(params)
       .then((res) => {
-        apiContent.getProduct(productId, params).then((res) => {
-        });
-        //******************************** */
-        dispatch('stateValuePoly/change',{stateColorIncrement : false})
-        dispatch('stateValuePoly/change',{stateColorDiscrement : false})
-        dispatch('stateValuePoly/change',{stateCart : true});
-        setChangeColorBtn({red : false, green : false});
-        successCallback(res);
-        if (openModalSucces && cartAl.in_cart===0) {
-          // successCallback(res);
-          openModalSuccessAddToCart(currentColor, currentSize);
+        console.log('add-add-add', res)
+        setChangeColorBtn({ red: false, green: false });
+        setIn_cart_countHook(count)
+        if (openModalSucces && cartAl.in_cart === 0) {
+          openModalSuccessAddToCart(colorsn, sizesn);
         }
       })
       .catch((err) => {
+        // нужно сделать попап для ошибки добавления и удаления количества товара в превью
         const response = err.response;
         if (response) {
           if (response.status === ERROR_STATUS.FORBIDDEN) {
             return (history.push(site_configuration.page_type_reg));
           }
         }
-      });
-  };
+        dispatch('stateCountRestart/add', !stateCountRestart)
 
-  useEffect(()=>{
-    
-  },[])
-
-  const disabledAllFilters = () => {};
-
-  const updateDetailsProdSection = (selectedSize, selectedColor, selectedCollection) => {
-    if (selectedCollection) {
-      return updateProdDataPage({
-        collection: selectedCollection.id,
       });
-    }
-    if (selectedSize && !selectedColor) {
-      updateProdDataPage({
-        size: selectedSize.id,
-      });
-    }
-    if (selectedColor && !selectedSize) {
-      // setselectedCollection(false);
-      updateProdDataPage({
-        color: selectedColor.id,
-      });
-    }
-    if (selectedColor && selectedSize) {
-      updateProdDataPage({
-        color: selectedColor.id,
-        size: selectedSize.id,
-      });
-    }
   };
 
   const setSizesFromCollection = (data) => {
@@ -326,11 +374,11 @@ const SectionProdPage = ({
     setselectedCollection(data);
   };
 
-  const addCollectionHandler = (selectedSize, selectedColor) => {
+  const addCollectionHandler = (sizesn, colorsn) => {
     const fd = new FormData();
     fd.set('product', productId);
-    fd.set('size', selectedSize.id);
-    fd.set('color', selectedColor.id);
+    fd.set('size', sizesn.id);
+    fd.set('color', colorsn.id);
     apiOrder.createFakeEmptyCollection(fd).then((res) => {
       const newCollections = productRequiredData.collections;
       productRequiredData.collections.push(res.data);
@@ -341,78 +389,66 @@ const SectionProdPage = ({
     });
   };
 
-  useEffect(() => {
-    setSizes(sizesProp);
-    setColors(colorsProp);
-    setinitialValues({
-      ...initialValues,
-      selectedColor: getDefaultSelectedSky(colorsProp),
-      selectedSize: getDefaultSelectedSky(sizesProp),
-    });
-  }, [colorsProp, sizesProp]);
-
-  useEffect(() => {
-    setproductRequiredData({
-      ...productRequiredData,
-      prices: pricesProp,
-      in_stock_count: in_stock_countProp,
-      is_liked: is_likedProp,
-      in_cart_count: in_cart_countProp,
-      media: mediaProp,
-      product_rc: product_rcProp,
-      collections: collections,
-    });
-  }, [
-    pricesProp,
-    in_stock_countProp,
-    is_likedProp,
-    in_cart_countProp,
-    mediaProp,
-    product_rcProp,
-    collections,
-  ]);
-
-  useEffect(() => {
-    if (productRequiredData.collections && !selectedCollection) {
-      if (productRequiredData.collections.length)
-        setSizesFromCollection(productRequiredData.collections[0]);
-    }
-  }, [productRequiredData.collections]);
-
-  useEffect(() => {
-    // openModalSuccessAddToCart();
-  }, []);
 
 
+  //   useEffect(() => {
+  //     console.log('test setproductRequiredData render');
+  //     setproductRequiredData({
+  //       ...productRequiredData,
+  //       prices: pricesProp,
+  //       in_stock_count: in_stock_countProp,
+  //       is_liked: is_likedProp,
+  //       in_cart_count: in_cart_countProp,
+  //       media: mediaProp,
+  //       product_rc: product_rcProp,
+  //       collections: collections,
+  //     });
+  //   }, [
+  //     pricesProp,
+  //     in_stock_countProp,
+  //     is_likedProp,
+  //     in_cart_countProp,
+  //     mediaProp,
+  //     product_rcProp,
+  //     collections,
+  //   ]);
 
+  //   useEffect(() => {
+  //     if (productRequiredData.collections && !selectedCollection) {
+  //       if (productRequiredData.collections.length)
+  //         setSizesFromCollection(productRequiredData.collections[0]);
+  //     }
+  //   }, [productRequiredData.collections]);
 
+  //   useEffect(() => {
+  //     // openModalSuccessAddToCart();
+  //   }, []);
 
-
-
-
-
+  const lables = [
+    {
+      icon: labelSale,
+      isVisible: is_closeoutHook,
+    },
+    {
+      icon: labelNew,
+      isVisible: is_newHook,
+    },
+    {
+      icon: labelHit,
+      isVisible: is_bestsellerHook,
+    },
+    {
+      icon: labelOnsale,
+      isVisible: is_in_stockHook,
+      modifyClass: 'long',
+    },
+  ];
 
 
   return (
-    <Formik enableReinitialize initialValues={initialValues} onSubmit={submitProduct}>
+    <Formik enableReinitialize onSubmit={submitProduct}>
       {({ handleSubmit, setFieldValue, handleChange, values, errors }) => {
-        const selectColorHandle = (data) => {
-          setFieldValue('selectedColor', data);
-          updateDetailsProdSection(undefined, data);
-        };
 
-        const selectSizesHandle = (data) => {
-          setFieldValue('selectedSize', data);
-          updateDetailsProdSection(data, values.selectedColor);
-        };
-
-        const successCallback = (dataResponse) => {
-          updateDetailsProdSection(values.selectedSize, values.selectedColor);
-        };
-
-        const selectСollection = (data) => {
-          setSizesFromCollection(data);
-        };
         return (
           <GxForm noValidate onGx-submit={handleSubmit}>
             <ProductDetailsViews.SectionProdPage modalView={modalView}>
@@ -440,7 +476,7 @@ const SectionProdPage = ({
                     <ModalContentViews.ContentBlock>
                       <AsyncWorldStandardSizesChart
                         site_configuration={site_configuration}
-                        productTableVariant
+                        // productTableVariant ????????????????????
                       />
                     </ModalContentViews.ContentBlock>
                   </ModalContentViews.ModalWrapper>
@@ -449,7 +485,7 @@ const SectionProdPage = ({
                 <ProductDetailsViews.DataProductRow modalView={modalView}>
                   <ProductDetailsViews.DataProductLeft>
                     <PreviewSlider
-                      imageOrVideoSet={productRequiredData.media}
+                      imageOrVideoSet={mediaHook}
                       defaultImage={defaultProductCard}
                     />
                   </ProductDetailsViews.DataProductLeft>
@@ -457,15 +493,15 @@ const SectionProdPage = ({
                     <ProductDetailsViews.RatingProduct
                       productId={productId}
                       profileId={profileId}
-                      is_liked={productRequiredData.is_liked}
+                      is_liked={is_likedHook}
                       addWishlistProduct={addWishlistProduct}
-                      reviews_statistic={review}
-                      title={title}
+                      reviews_statistic={reviewHook}
+                      title={titleHook}
                     />
-                    <ProductDetailsViews.BrandName name={brand} />
-                    {title && title !== 'title' ? (
+                    <ProductDetailsViews.BrandName name={brandHook} />
+                    {titleHook && titleHook !== 'title' ? (
                       <Title variant={'prodpage__title'} type={'h1'}>
-                        {title}
+                        {titleHook}
                       </Title>
                     ) : (
                       <SceletonBlock />
@@ -473,42 +509,36 @@ const SectionProdPage = ({
 
                     <AsyncLabels items={lables} />
                     <AsyncPricesContainer
-                      prices={productRequiredData.prices}
+                      prices={pricesHook}
                       role_configuration={role_configuration}
                       currenssies={currenssies}
-                      recommended_price={recommended_price}
-                      in_cart_count={productRequiredData.in_cart_count}
+                      recommended_price={recommended_priceHook}
+                      in_cart_count={in_cart_countHook}
                     />
                     <AsyncColorsButton
-                      selectColorHandle={selectColorHandle}
-                      selectedColor={values.selectedColor}
                       items={colors}
+                      setColorsn={setColorsn}
+                      colorsn={colorsn}
                     />
                     <AsyncSizesButton
                       modalView={modalView}
-                      selectSizesHandle={selectSizesHandle}
-                      selectedSize={values.selectedSize}
-                      selectedColor={values.selectedColor}
                       openTableModal={openTableModal}
-                      product_rc={productRequiredData.product_rc}
-                      in_stock_count={productRequiredData.in_stock_count}
-                      collections={productRequiredData.collections}
-                      selectedCollection={selectedCollection}
-                      selectСollection={selectСollection}
+                      product_rc={product_rcHook}
+                      in_stock_count={in_stock_countHook}
+                      collections={collectionsHook}
                       sizes={sizes}
                       addCollectionHandler={addCollectionHandler}
                       role_configuration={role_configuration}
+                      setSizesn={setSizesn}
+                      sizesn={sizesn}
                     />
                     <AsyncControlButtons
-                      countProduct={values.countProduct}
-                      currentSize={values.selectedSize}
-                      currentColor={values.selectedColor}
-                      in_cart_count={productRequiredData.in_cart_count}
-                      successCallback={successCallback}
+                      countProduct={in_stock_countHook}
+                      in_cart_count={in_cart_countHook}
                       addToCart={addToCart}
                       modalView={modalView}
-                      collections={productRequiredData.collections}
-                      url={url}
+                      collections={collectionsHook}
+                      url={urlHook}
                       changeColorBtn={changeColorBtn}
                       setChangeColorBtn={setChangeColorBtn}
                     />

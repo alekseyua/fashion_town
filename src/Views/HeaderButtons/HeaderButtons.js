@@ -265,7 +265,7 @@ const HeaderButtons = ({
                 src={favoriteIcon}
                 label={Text({ text: 'wishlist' })}
               />
-              {stateCountWish.mywishCount ? <div className={styleWish['count-wish']}>{stateCountWish.mywishCount}</div> : null}
+              {stateCountWish.count ? <div className={styleWish['count-wish']}>{stateCountWish.count}</div> : null}
             </NavLink>
 
             {/* //!cart */}
@@ -278,14 +278,14 @@ const HeaderButtons = ({
               data-cy={'header_cart'}
             >
               <GxIcon src={cartIcon} label={Text({ text: 'cart' })} />
-              {stateCountCart.countCart ? (
+              {stateCountCart.in_cart ? (
                 <div
                   className={classNames({
                     [style['header-buttons__badge']]: true,
-                    [style['empty']]: !`${stateCountCart.countCart}`,
+                    [style['empty']]: !`${stateCountCart.in_cart}`,
                   })}
                 >
-                  {stateCountCart.countCart}
+                  {stateCountCart.in_cart}
                 </div>
               ) : null}
             </NavLink>

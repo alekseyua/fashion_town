@@ -22,21 +22,32 @@ const apiProfile = api.profileApi;
 const apiContent = api.contentApi;
 const defaultImageSet = [productCard1, productCard2, productCard3];
 
-const WishlistComponent = ({ breadcrumbs, initfilters, role, page_type_catalog }) => {
-const { wishlistAl } = useStoreon('wishlistAl');
-const [wishlistAlCount, setWishlistAlCount] = useState(0)
-const [listMyWish, setListMyWish] = useState([]);
+const WishlistComponent = ({ breadcrumbs, initfilters, page_type_catalog }) => {
+  const { stateCountWish, dispatch } = useStoreon('stateCountWish');
+  const { userPage } = useStoreon('userPage');
 
+  const [wishlistAlCount, setWishlistAlCount] = useState(0)
+  const [listMyWish, setListMyWish] = useState([]);
 
-useEffect(()=>{
-  wishlistAl.results
-  ?setListMyWish(wishlistAl.results)
-  :setListMyWish([]);
+  const { role } = userPage.profile;
 
-  wishlistAl.results
-  ?setWishlistAlCount(wishlistAl.count)
-  :setListMyWish(0);
-},[wishlistAl.results])
+  useEffect(() => {
+    // console.log('wishlistAl.results', stateCountWish.results);
+    apiProfile
+      .getWishlist()
+      .then((res) => {
+        res.results
+          ? setListMyWish(res.results)
+          : setListMyWish([]);
+        dispatch('stateCountWish/add', res);
+      })
+      .catch((err) => {
+        console.log('ERROR getWishList');
+      })
+    stateCountWish.results
+      ? setWishlistAlCount(stateCountWish.count)
+      : setListMyWish(0);
+  }, [stateCountWish.count])
 
 
   return (
