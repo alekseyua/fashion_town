@@ -126,6 +126,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   useEffect(() => {
     console.log('запрос при старте или при изминениях состояния stateCountCart');
     setGetCart(stateCountCart)
+    setIs_performed(stateCountCart.is_performed)
   }, [stateCountCart])
 
   const setValuesDecoration = (res) => {
@@ -143,36 +144,12 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
     });
   };
   //***************************************************************** */
-  // const getCartData = () => {
-  //   console.log('requst');
-  //   dispatch('stateValuePoly', { stateCurrency: true })
-  //   !stateClickBtn ? setStateClickBtn(true) : setStateClickBtn(false);
-  // };
 
   useEffect(() => {
-    console.log('-----------------получение getCartData render -----------')
-    console.log('stateValuePoly.stateCurrency', stateValuePoly.stateCurrency);
-    console.log('stateClickBtn', stateClickBtn);
-
-    // apiCart
-    //   .getCartData()
-    //   .then(res => {
-    //     console.log('$$$$$$$$-',res);
-    //     setGetCart(res)
-    //   });
-
-  }, [stateValuePoly.stateCurrency, stateClickBtn])
-
-  useEffect(() => {
-    console.log('--------------фильтрация карточек--------------')
-
     if (getCart.in_cart > 0) {
       console.log('--------------фильтрация карточек если доступна карзина--------------')
-
       if (role === ROLE.WHOLESALE) {//если опт
-
         setIs_performed(getCart.is_performed)
-
         let goods = {
           collectiion: [],
           is_pack: [],
@@ -182,7 +159,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         // **********cartitem_set -> is_pack
         let resultsIs_pack = [];
         let finishResultIs_pack = [];
-
         Object.keys(getCart.cartitem_set).length ?
           (resultsIs_pack = getCart.cartitem_set.map(items => {
             let result = items.items.map(res => res.is_pack);// if res.is_pack то получаем pack
@@ -200,7 +176,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           finishResultIs_pack = finishResultIs_pack.map(res => {
             let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
             setFullItemCartCheckedState(false)
-            //  updateProductFromCart()
             return { ...res, items }
           }) : null
         // -----------------------------------------------
@@ -209,33 +184,27 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
         let resultsNoIs_pack = [];
         let finishResultNoIs_pack = [];
-
         Object.keys(getCart.cartitem_set).length ?
-          (
-            resultsNoIs_pack = getCart.cartitem_set.map(items => {
-              let result = items.items.map(res => !res.is_pack);// if res.is_pack то получаем pack
-              // if !res.is_pack то получаем все остальные значение
-              if (result[0]) return items
-            })
-          )
-          : "null";
+          (resultsNoIs_pack = getCart.cartitem_set.map(items => {
+            let result = items.items.map(res => !res.is_pack);// if res.is_pack то получаем pack
+            // if !res.is_pack то получаем все остальные значение
+            if (result[0]) return items
+          })
+          ) : "null";
 
+        // ???????????? под вопросом может не работать как надо нужно проследить
         Object.keys(resultsNoIs_pack).length ?
           finishResultNoIs_pack = resultsNoIs_pack.filter(el => el ? el : null)
           : null
-
 
         //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
         Object.keys(resultsNoIs_pack).length && fullItemCartCheckedState ?
           finishResultNoIs_pack = finishResultNoIs_pack.map(res => {
             let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
             setFullItemCartCheckedState(false)
-            // updateProductFromCart()
             return { ...res, items }
           }) : null
         // ----------------------------------------------
-
-
         // **********in_stock -> is_pack
         let resultsIn_stock = [];
         Object.keys(getCart.in_stock).length ?
@@ -250,7 +219,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
         // **********result is_pack
         let goodsInPack = [];
-
         if (Object.keys(finishResultIs_pack).length && Object.keys(resultsIn_stock).length) {
           goodsInPack = [...finishResultIs_pack[0].items, ...resultsIn_stock]
         } else if (Object.keys(finishResultIs_pack).length) {
@@ -261,8 +229,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
             : null;
         }
 
-        // goodsInPack=[]
-        // **********in_stock
+        // **********in_stock -> no_is_pack
         let inStockNoInpack = [];
         Object.keys(getCart.in_stock).length ?
           inStockNoInpack = getCart.in_stock.filter(el => !el.is_pack)
@@ -273,7 +240,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           inStockNoInpack = inStockNoInpack.map(el => ({ ...el, selected: fullItemCartChecked }))
           : null
         // ----------------------------------------------
-
+        // console.log('inStockNoInpack',inStockNoInpack);
 
         // **********collection ????????
         let collectionGoods = [];
@@ -283,7 +250,54 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           in_stock: inStockNoInpack,
           other_goods: finishResultNoIs_pack //res.cartitem_set
         }
+
         setGoodsStateOpt(goods)
+        // проверяем наличее чеков у всех карточек, создаём новый массив и отправляем запрос на бэк
+        if (fullItemCartCheckedState) {
+          let updateProduct = []
+          let updateProduct1 = []
+          let updateProduct2 = []
+          let updateProduct3 = []
+          let allArr1 = []
+          let allArr2 = []
+          let allArr3 = []
+          let allArr4 = []
+
+          //собираем в массив все элементы cartitem_set NoIs_pack
+          updateProduct = finishResultNoIs_pack.map(items => {
+            let res = items.items.filter(el => el.selected)
+            return res
+          })
+          updateProduct1 = updateProduct.filter(el => el.length)
+          for (let i = 0; i < updateProduct1.length; i++) {
+            allArr1 = [...allArr1, ...updateProduct1[i]]
+          }
+          //собираем в массив все элементы cartitem_set Is_pack
+          finishResultIs_pack
+          updateProduct2 = finishResultIs_pack.map(items => {
+            let res = items.items.filter(el => el.selected)
+            return res
+          })
+          updateProduct3 = updateProduct2.filter(el => el.length)
+          for (let i = 0; i < updateProduct3.length; i++) {
+            allArr2 = [...allArr2, ...updateProduct3[i]]
+          }
+          //собираем в массив все элементы in_stock -> is_pack
+          allArr3 = resultsIn_stock.filter(el => el.selected)
+
+          //собираем в массив все элементы in_stock -> no_is_pack
+          allArr4 = inStockNoInpack.filter(el => el.selected)
+
+
+          // console.log('updateProduct',updateProduct4);
+
+
+          let updateProductAllArr = [...allArr1, ...allArr2, ...allArr3, ...allArr4]
+          console.log('i', updateProductAllArr);
+
+          updateProductFromCart(updateProductAllArr)
+        }
+
 
       } else {//если дроп/розница
         let goods = {
@@ -310,9 +324,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       /**================================================================================================================= */
       setCartData(getCart);
       newMassiveProducts(getCart)
-      setValuesDecoration(getCart)
-      dispatch('stateValuePoly', { stateCurrency: false })
-      dispatch('cartAl/add', getCart)
     }
   }, [getCart, fullItemCartChecked])
 
@@ -346,12 +357,16 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   // ******************************************************************************************************
   const deleteProductFromCart = (id) => {
     console.log('iiiidddddd', id);
-    dispatch('stateCountRestart/add', !stateCountRestart)
+
+
+
+
     // apiCart
     //   .deleteCartData({
     //     item_id: id,
     //   })
     //   .then((res) => {
+    // dispatch('stateCountRestart/add', !stateCountRestart) ///???????????????
     //     // getCartData();
     //     // updateProductFromCart()
     //   })
@@ -361,7 +376,15 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   };
 
   // создание нового массива с єлементами которые выбраны для удаления
-  // **********************************************************/
+  // ***********дублируется код про проверку выделен ли чек, для удаления*****************************/
+  const getAllCartItemsFromWhoasale = (cartitem_set = [], in_stock = []) => {
+    let results = [...in_stock];
+    for (let i = 0; i < cartitem_set.length; i++) {
+      const element = cartitem_set[i];
+      results.push(...element.items);
+    }
+    return results;
+  };
   const getEnabledCartItems = (items) => {
     let result = [];
     items.forEach((el) => {
@@ -369,15 +392,14 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
     });
     return result;
   };
-
   const multipleDeleteFromCart = () => {
     let selectedCartItem;
     // условие для мульти удаления
     if (role === ROLE.WHOLESALE) {
-      const allCartItems = getAllCartItemsFromWhoasale(cartData.cartitem_set, cartData.in_stock);
+      const allCartItems = getAllCartItemsFromWhoasale(getCart.cartitem_set, getCart.in_stock);
       selectedCartItem = getEnabledCartItems(allCartItems);
     } else {
-      selectedCartItem = getEnabledCartItems(cartData.cartitem_set);
+      selectedCartItem = getEnabledCartItems(getCart.cartitem_set);
     }
     if (!selectedCartItem.length) {
       return setTooltipNoSelectedProductsOpen(true);
@@ -397,7 +419,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         });
     });
   };
-
   const confirmDeleteCartItem = (callback) => {
     setmodalStates({
       ...modalStates,
@@ -410,27 +431,28 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   // при нажатии + или - в корзине происходит добавление или удаление товара
   const updateProductFromCart = (data = []) => {
     console.log('data=====', data);
-  //   dispatch('stateCountCart/add',{
-  //     ...stateCountCart,
-  //     in_cart : (stateCountCart.in_cart - data.oldQty + data.qty)
-  // })
-
-      let res = {
+    //заганяем данные локальное хранилище
+    data[0] ? (
+      dispatch('stateCountCart/add', {
         ...stateCountCart,
-      in_cart : (stateCountCart.in_cart - data.oldQty + data.qty)
-      }
-      console.log('stateCountCart',stateCountCart)
+        in_cart: (stateCountCart.in_cart - data[0].oldQty + data[0].qty)
+      })
+    ) : null
+    //обнавляем состояние карзины на сервере и в хранилище если обшибка допилить выдать попап и обновлять карзину
+    apiCart
+      .updateCartData([...data])
+      .then((res) => {
+        console.log('gggg', res);
+    setIs_performed(res.is_performed)
 
-
-    //обнавляем состояние карзины на сервере и в хранилище 
-    // apiCart
-    //   .updateCartData([...data])
-    //   .then((res) => {
-        
-    //   })
-    //   .catch((err) => {
-    //     console.error('ERROR обнавляем состояние карзины на сервере и в хранилище');
-    //   });
+        dispatch('stateCountCart/add', {
+          ...stateCountCart,
+          ...res
+        })
+      })
+      .catch((err) => {
+        console.error('ERROR обнавляем состояние карзины на сервере и в хранилище');
+      });
   };
 
   //фунция обновления количества товараа " вкорзине -> карточке тоавара"
@@ -476,16 +498,8 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         if (!element.selected) return false;
       }
     }
-    return true;
-  };
 
-  const getAllCartItemsFromWhoasale = (cartitem_set = [], in_stock = []) => {
-    let results = [...in_stock];
-    for (let i = 0; i < cartitem_set.length; i++) {
-      const element = cartitem_set[i];
-      results.push(...element.items);
-    }
-    return results;
+    return true;
   };
 
   if (!massiveCart.cartitem_set.length && !massiveCart.is_pack.length && !massiveCart.in_stock.length) {

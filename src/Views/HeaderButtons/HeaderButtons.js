@@ -97,12 +97,19 @@ const HeaderButtons = ({
   const [langData, seLangData] = useState(defaultLangData);
   const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
   const [searchInputShow, setSearchInputShow] = useState(false);
-
-
+  // ___________________________________________________________________________
+  const { stateCountWish } = useStoreon('stateCountWish');
+  const { stateCountCart } = useStoreon('stateCountCart');
+  const [ countInCar, setCountInCar] = useState();
 
   const searchBgRef = React.createRef(null);
   const role = userPage.profile;
 
+
+
+  useEffect(()=>{
+    setCountInCar(stateCountCart.in_cart)
+  },[stateCountCart.in_cart])
 
   useEffect(() => {
     setCurrencyNow(dataBalance.currency)
@@ -159,8 +166,7 @@ const HeaderButtons = ({
   }, []);
 
   // =======================================================================================================
-  const { stateCountWish } = useStoreon('stateCountWish');
-  const { stateCountCart } = useStoreon('stateCountCart');
+
         //впосля нужно протестить сколько раз вызывается 36
  // console.log('stateCountWish.mywishCount', stateCountWish.mywishCount, '-----------');
   //  console.log('stateCountCart.countCart',stateCountCart.countCart,'-----------');
@@ -278,14 +284,14 @@ const HeaderButtons = ({
               data-cy={'header_cart'}
             >
               <GxIcon src={cartIcon} label={Text({ text: 'cart' })} />
-              {stateCountCart.in_cart ? (
+              {countInCar !==0 ? (
                 <div
                   className={classNames({
                     [style['header-buttons__badge']]: true,
-                    [style['empty']]: !`${stateCountCart.in_cart}`,
+                    [style['empty']]: !`${countInCar}`,
                   })}
                 >
-                  {stateCountCart.in_cart}
+                  {countInCar}
                 </div>
               ) : null}
             </NavLink>
