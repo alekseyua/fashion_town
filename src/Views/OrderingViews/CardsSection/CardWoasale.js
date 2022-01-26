@@ -1,67 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { categoryCard1, paperclip, send } from '../../../images';
-import { GxButton, GxIcon, GxInput, GxTooltip } from '@garpix/garpix-web-components-react';
+import React from 'react';
+import { GxTooltip } from '@garpix/garpix-web-components-react';
 import Text from '../../../components/Text';
 import CheckBox from '../../../Views/CheckBox';
 import CartViews from '../../../Views/CartViews';
-import ImageUpload from '../../../components/ImageUpload';
 import api from '../../../api';
 import style from '../styles/index.module.scss';
-import { useStoreon } from 'storeon/react';
 import { Link } from 'react-router-dom';
 
 const apiCart = api.cartApi;
 
-const CardWoasale = ({ currenssies, title, is_performed, condition, items, isVisibleLine }) => {
-  const { stateValuePoly, dispatch } = useStoreon('stateValuePoly');
-  const fileInputRef = React.useRef(null);
-  const [ inputText, setInputText ] = useState('');
-  const [ amountFile, setAmountFile ] = useState(null);
-  const fd = new FormData();
-  const [state, setstate] = useState({
-    files: [],
-  });
-  
-  const sendCommentFromTextField = (id) => {
-    fd.set('comment', inputText);
-    fd.set('id', id);
-    apiCart
-      .cartAddComment(fd)
-      .then(res=>{
-        console.log(`RESAULT cartAddComment "sendCommentFromTextField" CardWoasale ${res}`);
-        dispatch('stateValuePoly/change',{
-          stateCart : true,
-        });
-      })
-      .catch(err=>{
-        console.error(`ERROR cartAddComment CardWoasale err`,err);
-      });
-  };
-
-  const sendFilesFromFileField = (id, data) => {
-    fd.set('id', id);
-    fd.set('files', data);
-    apiCart
-      .cartAddComment(fd)
-      .then(res=>{
-        console.log(`RESAULT updateCartData "sendFilesFromFileField" CardWoasale ${res}`);
-      })
-      .catch(err=>{
-        console.error(`ERROR updateCartData CardWoasale ${err}`);
-      });
-  };
-          //добавляем в массив загруженые файлы
-  const changeFilesAddField = (id, data) => {
-    setstate({
-      ...state,
-      files: data,
-    });
-  };
-
-  // меняем текст коммента
-  const changeCommentTextField = (e, id) => {
-    setInputText(e.target.value)
-  };
+const CardWoasale = ({ 
+  currenssies, 
+  title, 
+  is_performed, 
+  condition, 
+  items, 
+  isVisibleLine }) => {
   
   const changeAgreement = (e, id) => {
     const checked = e.target.checked;
@@ -79,27 +33,6 @@ const CardWoasale = ({ currenssies, title, is_performed, condition, items, isVis
         console.error(`ERROR updateCartData CardWoasale`,err);
       });
   };
-
-
-
-  const renderImageSet = (data, serializeFileList) => {
-    const image = serializeFileList(data);
-    return image.map((el, i) => {
-      return (
-        <img
-          key={i}
-          crossOrigin="anonymous"
-          className={style['ordering_comment__field-files-img']}
-          src={el}
-        />
-      );
-    });
-  };
-
-
-  useEffect(()=>{
-      setAmountFile(state.files.length)
-  },[state])
 
 
   return (
@@ -193,86 +126,7 @@ const CardWoasale = ({ currenssies, title, is_performed, condition, items, isVis
                 </div>
               </div>
             </div>
-            <ImageUpload>
-              {({
-                preview,
-                onSelectFile,
-                onSelectFiles,
-                selectedFile,
-                isDragActive,
-                getRootProps,
-                serializeFileList,
-              }) => {
-                if (!Array.isArray(preview) && preview) {
-                  preview = [preview];
-                }
 
-                return (
-                  <div className={style['ordering_comment']}>
-                    <div className={style['ordering_comment__field']}>
-                      <div className={style['ordering_comment__field-comment']}  onClick={(e)=>console.log("sss",e.current.value)} >
-                        {inputText}
-                        {/* {state.comment_render[id]} */}
-                      </div>
-                      <div className={style['ordering_comment__field-files']}>
-                        {/* {state.files[id] && renderImageSet(state.files[id], serializeFileList)} */}
-                      </div>
-                    </div>
-                    <div className={style['ordering_comment__send']}>
-                      <GxInput
-                        onGx-change={(e) => changeCommentTextField(e, id)}
-                        placeholder={"Оставить комментарий к товару"}
-                        className={style['ordering_comment__input']}
-                      >
-                      </GxInput>
-                      <div className={style['ordering_comment__buttons']}>
-                        <GxButton
-                          variant="text"
-                          id={id}
-                          size="sm"
-                          circle
-                          onClick={(e) => {
-                            if (e.target.childNodes.length) {
-                              e.target.childNodes[0].click();
-                            }
-                          }}
-                        >
-                          <input
-                            multiple
-                            ref={fileInputRef}
-                            className={'hidden'}
-                            id="image"
-                            type="file"
-                            accept=".png, .jpg, .jpeg, .mp4"
-                            name={'image'}
-                            onChange={(event) => {
-                              const files = event.currentTarget.files;
-                              changeFilesAddField(id, files);
-                              sendFilesFromFileField(id, files);
-                            }}
-                          />
-                          <GxIcon src={paperclip} />
-                            {amountFile ? (
-                              <gx-badge type="warning" pill>
-                                {amountFile}
-                              </gx-badge>
-                            ) : null}
-                          {/* <GxIcon src={paperclip} /> */}
-                        </GxButton>
-                        <GxButton
-                         onClick={() => sendCommentFromTextField(id)}
-                          variant="text"
-                          size="sm"
-                          circle
-                        >
-                          <GxIcon src={send} />
-                        </GxButton>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }}
-            </ImageUpload>
           </div>
         );
       })}
