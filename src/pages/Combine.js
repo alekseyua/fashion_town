@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Fetcher } from '@garpix/fetcher';
 import { useStoreon } from 'storeon/react';
 import Home from './Home';
@@ -143,53 +143,13 @@ const PAGE_TYPES = {
 const Combine = (props) => {
 
   const { currenssies, dispatch } = useStoreon('currenssies');
-  
+  const { stateCountCart } = useStoreon('stateCountCart')
+
   const setRoleConfiguration = ({ role_configuration, id }) => {
-    if (id === 19){
-      api 
-      .orderApi
-      .getCountry()
-      .then(res=>{
-        dispatch('orderCountryPayment/add', res)
-      })
-      .catch(err=>{
-        console.error(`ERROR ${err}`);
-      })
-    }
-    
+
     dispatch('role_configuration/update', role_configuration);
-    
-    
-    
-    //При загрузке страницы данные с бэка о закупке ложим в хранилище
-    
-    useEffect(()=>{
-      // //********************************************************************************* */ 
-      // api
-      // .cartApi
-      // .getCartData()
-      // .then(res=>{
-      //   dispatch('cartAl/add',res)
-      // }
-      //   )
-      // .catch(err=>console.log("ERROR CONNECT!!!!", err))  
-      // //********************************************************************************* */ 
-      // api
-      // .getUserBalance({
-      //   "currency" : currenssies
-      // })
-      // .then(res=> {
-      //   dispatch('dataBalance/set',res)})
-      // .catch(err=>console.error(`ERROR BALANCE ${err}`))
+  };
 
-
-
-
-
-      },[props])
-  }; 
-  const {cartAl} = useStoreon('cartAl')
-  
   return (
     /*
     ** происходит формирование страницы 
@@ -198,31 +158,28 @@ const Combine = (props) => {
     */
     <Fetcher {...props} paramsKey={'0'}>
       {
-      (data = {}, error, status) => {
- 
-        let pageType, page;
-        if (status === 'failed') {
-          
-          return status;
-        } else {
-          page = data.page;
-          pageType = data.pageType;
-        }
-        if (pageType === undefined || pageType === null) {
-          return null;
-        }
-        const Page = PAGE_TYPES[pageType];
-        if (!Page) {
-          const DevPage = PAGE_TYPES['development-page'];
-          return <DevPage {...page} {...props} />;
-        }
-        // console.log("status ", status);
-        //  console.log("page ", page);
-            page?dispatch('userPage/add',page):null;
-            page?setRoleConfiguration(page):null;
-            //console.log('dataBalance combine',dataBalance);
-        return <Page {...page} {...props} cartUpdate={cartAl} />;
-      }}
+        (data = {}, error, status) => {
+
+          let pageType, page;
+          if (status === 'failed') {
+
+            return status;
+          } else {
+            page = data.page;
+            pageType = data.pageType;
+          }
+          if (pageType === undefined || pageType === null) {
+            return null;
+          }
+          const Page = PAGE_TYPES[pageType];
+          if (!Page) {
+            const DevPage = PAGE_TYPES['development-page'];
+            return <DevPage {...page} {...props} />;
+          }
+          page ? dispatch('userPage/add', page) : null;
+          page ? setRoleConfiguration(page) : null;
+          return <Page {...page} {...props} cartUpdate={stateCountCart} />;
+        }}
     </Fetcher>
   );
 };

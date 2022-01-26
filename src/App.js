@@ -34,16 +34,9 @@ console.log('запрос карзины',stateCountRestart);
     api
       .cartApi
       .getCartData()
-      .then(res => {
-        dispatch('stateCountCart/add', res);
-      }
-      )
+      .then(res => dispatch('stateCountCart/add', res))
       .catch(err => console.log("ERROR CONNECT!!!!", err))
-  }, [
-    stateCountRestart,
-    // stateValuePoly.stateCart,
-    // stateValuePoly.stateCurrency,
-  ])
+  }, [stateCountRestart])
   // console.log('stateValuePoly.stateCart**********', stateValuePoly.stateCart);
 
   //********************************************************************************* */ 
@@ -73,10 +66,7 @@ console.log('запрос карзины',stateCountRestart);
       .profileApi
       .getWishlist()
       .then((res) => {
-
-        //  dispatch('wishlistAl/update', res);
         dispatch('stateCountWish/add', res);
-
       })
       .catch((err) => {
         console.log('ERROR getWishList');
@@ -87,15 +77,20 @@ console.log('запрос карзины',stateCountRestart);
   // },[stateValuePoly.stateWish, stateValuePoly.stateCurrency])
   
   //********************************************************************************* */ 
-  // useEffect(() => {
-  //   console.log('--------------reqestIdProduct--------------',reqestIdProduct)
-  //   reqestIdProduct?
-  //   api.contentApi
-  //     .getProduct(reqestIdProduct)
-  //     .then(res => dispatch('stateInPreveiwGoods/add',res) )
-  //     .catch(err => console.warn(`ERROR getProduct ${reqestIdProduct}`))
-  //   : null
-  // }, [reqestIdProduct])
+  useEffect(() => {
+  
+      console.log('поидее один ращ должно было подтянуть когда перешли на страницу');
+      api
+        .orderApi
+        .getCountry()
+        .then(res => {
+          dispatch('orderCountryPayment/add', res)
+        })
+        .catch(err => {
+          console.error(`ERROR ${err}`);
+        })
+   
+   }, [])
   
   //********************************************************************************* */ 
   

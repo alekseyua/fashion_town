@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Title from '../../Views/Title';
 import Text from '../Text';
 import CartViews from '../../Views/CartViews';
@@ -94,7 +94,7 @@ const OrderComponent = ({
 
   //************************************** */
   const history = useHistory();
-  const { cartAl, dispatch } = useStoreon('cartAl');
+  const { stateCountCart, dispatch } = useStoreon('stateCountCart');
   const { stateValuePoly } = useStoreon('stateValuePoly');
   const { dataBalance } = useStoreon('dataBalance')
   const { orderCountryPayment } = useStoreon('orderCountryPayment');
@@ -238,8 +238,9 @@ const OrderComponent = ({
   };
 
   // **************************************************************************************************************************************
-  const getNowCurrencyNowCountry = () => {
+  const getNowCurrencyNowCountry = useCallback(() => {
     if (fieldCountryOut !== 'country') {
+      console.log('gggggggggggggggggggggg',fieldCountryOut);
       orderApi
         .getCountryDeliviry(
           { "country": fieldCountryOut, "currency": currenssies }
@@ -250,7 +251,7 @@ const OrderComponent = ({
         })
         .catch(err => console.error(`ERROR!!!!! ${err}`))
     }
-  }
+  },[priceNowDilevery])
   // **********создаём заказ с отправкой на сервер***************************************************************************************************************
 
   const creteOrder = (values) => {
@@ -571,9 +572,9 @@ const OrderComponent = ({
 
   useEffect(() => {
 
-    if (cartAl !== 0) {
+    if (stateCountCart !== 0) {
       let newCartAlPerfomed = {};
-      if (cartAl.is_performed) {
+      if (stateCountCart.is_performed) {
         let res_cartitem_set = [];
         let res_in_stock = [];
         let cart_items = [];
@@ -653,13 +654,13 @@ const OrderComponent = ({
 
         // здесь мы перебираем все элементы в массиве которые имеют отметку и соответствуют условиям збора
         if (role === ROLE.WHOLESALE) {
-          cartAl.cartitem_set.map(el => {
+          stateCountCart.cartitem_set.map(el => {
             el.is_performed
               ? res_cartitem_set.push(createDataItemsOptDrop(el))
               : null
           })
         } else {
-          cartAl.cartitem_set.map(el => {
+          stateCountCart.cartitem_set.map(el => {
             el.selected
               ? res_cartitem_set.push(el)
               : null
@@ -688,7 +689,7 @@ const OrderComponent = ({
           }
         }
         //собираем данные по категории товар в наличии
-        cartAl.in_stock.map(el => {
+        stateCountCart.in_stock.map(el => {
           el.selected ? res_in_stock.push(creteDataInstock(el)) : null;
         })
         //************************************ */
@@ -698,19 +699,19 @@ const OrderComponent = ({
         //************************************ */
         newCartAlPerfomed = {
           cartitem_set: res_cartitem_set,
-          created_at: cartAl.created_at,
-          delivery_price: cartAl.delivery_price,
-          id: cartAl.id,
-          in_cart: cartAl.in_cart,
+          created_at: stateCountCart.created_at,
+          delivery_price: stateCountCart.delivery_price,
+          id: stateCountCart.id,
+          in_cart: stateCountCart.in_cart,
           in_stock: res_in_stock,
-          is_performed: cartAl.is_performed,
-          selected: cartAl.selected,
-          total_discount: cartAl.total_discount,
-          total_order_price: cartAl.total_order_price,
-          total_price: cartAl.total_price,
-          updated_at: cartAl.updated_at,
+          is_performed: stateCountCart.is_performed,
+          selected: stateCountCart.selected,
+          total_discount: stateCountCart.total_discount,
+          total_order_price: stateCountCart.total_order_price,
+          total_price: stateCountCart.total_price,
+          updated_at: stateCountCart.updated_at,
           cart_items: res_cartitem_set,
-          price: cartAl.total_price,
+          price: stateCountCart.total_price,
           delivery: { price: 0 },
           render: true,
         }
@@ -757,10 +758,11 @@ const OrderComponent = ({
       >
         {({ handleSubmit, handleChange, values, errors, setFieldValue, touched }) => {
           //запускаем анимацию кнопки создания заказа и отправка на бэк запроса
-          // handleChange = (data) => {
-          // }
+           handleChange = (data) => {
+             getNowCurrencyNowCountry();
+
+           }
           const [fieldCountry, setFieldCountry] = useState('country')
-          getNowCurrencyNowCountry();
           setFieldCountryOut(fieldCountry)
 
           // statusFildValue ? values = {...values, add_goods_order_id : statusFildValue} : null
@@ -793,13 +795,13 @@ const OrderComponent = ({
                   <Text text="ordering" />
                 </Title>
                   <>
-                    <GxButton
+                    {/* <GxButton
                       onClick={testingBtn}
                       to='#'
                       variant='black_btn_full_width'
                     >
                       отправить запрос для тестирования  
-                    </GxButton>
+                    </GxButton> */}
                   </>
                 {
 
@@ -850,6 +852,7 @@ const OrderComponent = ({
                             setFieldValue={setFieldValue}
                             openModalAddAddress={openModalAddAddress}
                             setFieldCountry={setFieldCountry}
+                            handleChange={handleChange}                            
                           />
                         </>
                         ):<></>

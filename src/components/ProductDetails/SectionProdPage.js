@@ -80,7 +80,7 @@ const SectionProdPage = ({
   const history = useHistory();
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const [modalStates, setmodalStates] = useState({ show: false });
-  const { cartAl, dispatch } = useStoreon('cartAl')
+  const { stateCountCart, dispatch } = useStoreon('stateCountCart')
 
    //------------------------------------------------------------------------
    const { stateCountWish } = useStoreon('stateCountWish')
@@ -142,7 +142,6 @@ const SectionProdPage = ({
   // }, [content])
   // количество в карзине товара in_cart_count
   useEffect(() => {
-    console.log('in_cart_count',in_cart_count);
     in_cart_count ? setIn_cart_countHook(in_cart_count) : null
   }, [in_cart_count])
    // рекомендованая цена товара recommended_price
@@ -327,10 +326,9 @@ useEffect(() => {
     apiCart
       .addToCart(params)
       .then((res) => {
-        console.log('add-add-add', res)
         setChangeColorBtn({ red: false, green: false });
         setIn_cart_countHook(count)
-        if (openModalSucces && cartAl.in_cart === 0) {
+        if (openModalSucces && stateCountCart.in_cart === 0) {
           openModalSuccessAddToCart(colorsn, sizesn);
         }
       })

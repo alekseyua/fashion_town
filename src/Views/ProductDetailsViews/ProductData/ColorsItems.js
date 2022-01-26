@@ -8,12 +8,9 @@ import style from '../styles/index.module.scss';
 const defaultItem = [1, 2, 3, 4, 5, 6];
 const ColorsItems = ({ items = [], setColorsn, colorsn }) => {
   const [gropsColors, setGropsColors] = useState([])
-console.log('colorsn',colorsn);
   useEffect(() => {
     let params = []
     params = colorsn.id? items.map(el=>el.id === colorsn.id?{...el, ...colorsn} : {...el, selected : false}) : items
-console.log('params',params);
-
     setGropsColors(params)
   }, [items.length, colorsn.id])
 

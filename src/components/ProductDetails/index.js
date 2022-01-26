@@ -87,9 +87,6 @@ const ProductPreview = ({
   });
 
 
-// dispatch('cartAl/add', prodSectionsProp);
-
-
   const closeModal = () => {
     setModalStates({
       ...modalStates,

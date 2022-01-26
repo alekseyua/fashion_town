@@ -29,7 +29,7 @@ const Layout = ({
 //Views -> index
 
 if ( profile === undefined ){
-  window.location.reload();
+  ()=> window.location.reload();
 }
 
   const cabinet_data = {

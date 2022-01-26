@@ -158,33 +158,6 @@ export const currenssies = (store) => {
   });
 };
 
-export const cartAl = store => {
-
-  store.on('@init', () => ({ cartAl: 0 }));
-
-  store.on('cartAl/add', ({ cartAl }, obj) => {
-    return { cartAl: obj }
-  })
-
-  store.on('cartAl/update', ({ cartAl }, obj) => {
-    // console.log('newCartobj', obj)
-    // console.log('newCartobj', cartAl)
-    //cartAl.cartitem_set.map(el =>{
-    // else.id
-    //})
-    // const { product } = obj;
-    // const { id } = product;
-    // const newCart = { ...cart };
-    // newCart[id] = obj;
-    // return {
-    //   cart: { ...newCart },
-    // };      
-  })
-
-}
-
-
-
 export const orderFunc = (store) => {
   store.on('@init', () => ({ orderFunc: false }));
   store.on('orderFunc/state', ({ orderFunc }, obj) => {
@@ -311,26 +284,33 @@ export const stateCountCart = store => {
     in_stock: [],
     created_at: "",  
   }
+  // переменная запрос на обновление карзины
   store.on('@init', () => ({ stateCountRestart: false }));
   store.on('stateCountRestart/add', ({ stateCountRestart }, obj) => {
     console.log('obj', obj);
     return { stateCountRestart: obj }
   })
+  // получаем всю карзину
   store.on('@init', () => ({ stateCountCart: initialValue }));
   store.on('stateCountCart/add', ({ stateCountCart }, obj) => {
-    console.log('obj count cart =',obj);
+    // console.log('obj count cart =',obj);
     return {
       stateCountCart: {
-        in_cart: obj.in_cart,
-        is_performed: obj.is_performed,
-        total_price: obj.total_price,
-        delivery_price: obj.delivery_price,
-        total_discount: obj.total_discount,
-        selected: obj.selected,
-        cartitem_set: obj.cartitem_set,
-        in_stock: obj.in_stock,
-        created_at: obj.created_at,
+        ...obj
       }
+      //  {
+      //   in_cart: obj.in_cart,
+      //   is_performed: obj.is_performed,
+      //   total_price: obj.total_price,
+      //   delivery_price: obj.delivery_price,
+      //   total_discount: obj.total_discount,
+      //   selected: obj.selected,
+      //   cartitem_set: obj.cartitem_set,
+      //   in_stock: obj.in_stock,
+      //   created_at: obj.created_at,
+      //   updated_at: obj.updated_at,
+
+      // }
     }
   })
 }
@@ -437,7 +417,6 @@ export const storeonParams = [
   wishlistAl,
   valueStock,
   orderFunc,
-  cartAl,
   promotionsAdds,
   user,
   cart,

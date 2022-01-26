@@ -18,6 +18,7 @@ const OrderingAddressItem = ({
   selectedAdress,
   setFieldValue,
   setFieldCountry,
+  handleChange,
 }) => {
 
   return (
@@ -27,6 +28,7 @@ const OrderingAddressItem = ({
       onClick={(e) => {
         setFieldValue('selectedAdress', id);
         setFieldCountry(country);
+        handleChange()
       }}
       name="address"
       className={style['ordering_address__card']}

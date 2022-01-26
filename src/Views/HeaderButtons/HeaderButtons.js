@@ -4,7 +4,7 @@ import { GxButton, GxDropdown, GxIcon, GxInput } from '@garpix/garpix-web-compon
 import LangAndCurrencies from './LangAndCurrencies';
 import DropDownMenuAccount from './DropDownMenuAccount';
 import { useIntl } from 'react-intl';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import style from './headerButtons.module.scss';
 import dropDownAccountMenu from './dropDownAccountMenu.module.scss';
 import Input from '../../Views/Input';
@@ -23,6 +23,7 @@ import Text from '../../components/Text';
 import SearchPageViews from '../SearchPageViews';
 import { useStoreon } from 'storeon/react';
 import styleWish from './style/styleWish.module.scss';
+
 //-------------------------------------------------------
 import api from '../../api';
 // import chalk from 'chalk';
@@ -93,6 +94,8 @@ const HeaderButtons = ({
   };
   const { userPage } = useStoreon('userPage');
   const { dataBalance } = useStoreon('dataBalance');
+  const { stateCountRestart,dispatch } = useStoreon('stateCountRestart');
+  const history = useHistory();
   const [currencyNow, setCurrencyNow] = useState(dataBalance.currency);
   const [langData, seLangData] = useState(defaultLangData);
   const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
@@ -158,13 +161,17 @@ const HeaderButtons = ({
   };
 
   useEffect(() => {
-    console.log('work handleKeyPress header button');
     document.addEventListener('keydown', handleKeyPress, false);
     return () => {
       document.removeEventListener('keydown', handleKeyPress, false);
     };
   }, []);
 
+  const onChangeHandler = () =>{
+      console.log('click');
+      dispatch('stateCountRestart/add', !stateCountRestart)
+      history.push('cart')
+  }
   // =======================================================================================================
 
         //впосля нужно протестить сколько раз вызывается 36
@@ -282,6 +289,7 @@ const HeaderButtons = ({
                 [style['light']]: false,
               })}
               data-cy={'header_cart'}
+              onClick={onChangeHandler}
             >
               <GxIcon src={cartIcon} label={Text({ text: 'cart' })} />
               {countInCar !==0 ? (

@@ -15,14 +15,12 @@ const ProductWhosaleHorizontalCard = ({
   cartitem_setUrl,
 }) => {
 
-  let newItems = items.filter(el=>!el.is_pack)
-  let newItems1 = newItems.filter(el => el )
-  // console.log(newItems1);
+  // let newItems = items.filter(el=>!el.is_pack)
   return (
     <div className={style['wrapper-woosale']}>
       <CartViews.Text type={'text-brand'}>{title}</CartViews.Text>
       <CartViews.SuccesMinOrder messenge={condition} success={is_performed} />
-      {newItems.map((el) => {
+      {items.map((el) => {
 
         return (
           <Card

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Text from '../../components/Text';
 import Swiper from 'swiper';
 import style from './productCard.module.scss';
@@ -16,6 +16,7 @@ const Slider = ({ images, sizes, product_rc, url, profile, id}) => {
   const history = useHistory();
   const swiperRef = useRef(null);
   const paginationRef = useRef(null);
+  const [ clickDisables, setClickDisables] = useState(false)
   //todo: добавить данные из контекста убрать хардкод
   useEffect(() => {
     const swiper = new Swiper(swiperRef.current, {
@@ -49,8 +50,13 @@ const Slider = ({ images, sizes, product_rc, url, profile, id}) => {
               })}
               key={i}
               to={url}
+              desabled={clickDisables}
               onClick={() => {
-                console.log('click PRODUCT',id);
+                console.log('click PRODUCT',id,clickDisables);
+                setClickDisables(true);
+                setTimeout(() => {
+                  setClickDisables(false)
+                }, 3000);
               dispatch('reqestIdProduct/add', id)
               
 

@@ -21,7 +21,6 @@ const DefaultCartPreview = ({ page_type_catalog }) => {
     contentApi
       .getCatalogData()
       .then(res => {
-        console.log('ProductCard reload card');
         // делаем проверку насуществование т.е. мы пошли дальше данные не нужны а запрос ужде был отправлен, а ложить его то некуда
         if(!cleanupRecomProducs){
 

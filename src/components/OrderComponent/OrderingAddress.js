@@ -13,6 +13,7 @@ const OrderingAddress = ({
   profileId,
   closeModal,
   setFieldCountry,
+  handleChange,
 }) => {
   const [adresses, setadresses] = useState([]);
   const getAdresses = () => {
@@ -97,6 +98,7 @@ const OrderingAddress = ({
             selectedAdress={selectedAdress}
             setFieldValue={setFieldValue}
             setFieldCountry={setFieldCountry}
+            handleChange={handleChange}
           />
         );
       })}

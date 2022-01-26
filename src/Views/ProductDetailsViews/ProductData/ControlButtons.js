@@ -30,7 +30,6 @@ const ControlButtons = ({
   };
 
   useEffect(()=>{
-    console.log('render',in_cart_count, "--", countInBtn);
     in_cart_count !== countInBtn ? setCountInBtn(in_cart_count) : null
   },[in_cart_count])
 

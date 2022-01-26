@@ -75,7 +75,6 @@ const Card = ({
 
   }
 
-// console.log('select',select);
   return (
     <div className={style['wrapper']}>
       <div className={style['product__wrapper-block']}>
@@ -192,13 +191,7 @@ const Card = ({
                   +
                 </Button>
             </motion.div>
-            
-            {/* {!hideSales && in_stock_count ? (
-              <div className={style['product__count-text']}>Осталось: {in_stock_count} шт.</div>
-            ) : null} */}
-              {/* {in_stock_count ? (
-              <div className={style['product__count-text']}>Осталось: {in_stock_count} шт.</div>
-            ) : null} */}
+           
           </div>
           {in_stock_count ? (
               <div className={style['product__count-text']}>Осталось: {in_stock_count} шт.</div>
@@ -224,25 +217,3 @@ const Card = ({
 };
 
 export default React.memo(Card);
-
-
-  // const [counterProduct, setCounterProduct] = useState(qty);
-  // const updateQty = (qty) => {
-  //   updateProductFromCart({
-  //     id: id,
-  //     selected: selected,
-  //     qty: qty,
-  //   });
-  // };
-  // const decCounterProduct = () => {
-  //   if (counterProduct <= 1) return;
-  //   setCounterProduct(counterProduct - 1);
-  //   updateQty(counterProduct - 1);
-  // };
-  // const incCounterProduct = () => {
-  //   setCounterProduct(counterProduct + 1);
-  //   updateQty(counterProduct + 1);
-  // };
-
-
-
