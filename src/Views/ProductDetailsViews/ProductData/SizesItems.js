@@ -7,33 +7,46 @@ import MainFiltersCustom from '../../MainFiltersCustom';
 import { ROLE } from '../../../const';
 import { v4 } from 'uuid';
 import { useStoreon } from 'storeon/react';
+import { motion } from 'framer-motion';
+import { remove } from 'lodash';
 
 const defaultSizes = [1, 2, 3, 4, 5, 6];
 const SizesItems = ({
-  modalView,
+  modalView, 
   in_stock_count,
   sizes,
   openTableModal,
   product_rc,
-  collections = [],
+  collections, //boolen
   selectedCollection,
   addCollectionHandler,
-  is_collection,
+  listCollectionsHook,
   setStatusSeletedItem,
   sizesn, 
   setSizesn,
+  colorsn,
+  setShowPopapInfoColection,
+  showPopapInfoColection,
+  heandlerPopup,
+  setIsOpen,
 }) => {
   const [selectedSizeList, setselectedSizeList] = useState(false);
   
   const { userPage } = useStoreon('userPage')
   const { role } = userPage.profile;
   const [ gropsSizes, setGropsSizes ] = useState([]);
+  const [clickDelay, setClickDelay] = useState(null)
   
   //делаем активной размер 
   useEffect(() => {
     let params = []
     params = sizesn.id? sizes.map(el=>el.id === sizesn.id?{...el, ...sizesn} : {...el, selected : false}) : sizes
     setGropsSizes(params)
+    setClickDelay('')
+    const delayClk = setTimeout(() => {
+      setClickDelay(null)
+    }, 500);
+    return ()=>clearTimeout(delayClk)
   }, [sizes.length, sizesn.id])
   
   
@@ -66,7 +79,7 @@ const SizesItems = ({
           return (
             <li key={el.id} className={style['prodpage-sizes__item']}>
               <GxButton
-                /*  disabled={!el.enabled} */
+                disabled={clickDelay}
                 onClick={() => setSizesn({...el, selected: true})}
                 className={classNames({
                   [style['prodpage-sizes__size-button']]: true,
@@ -207,25 +220,9 @@ const SizesItems = ({
         </p>
       ) : null}
             {/* добавляем кнопку для добавления сбора если сбор 0 */}
-      {role === ROLE.DROPSHIPPER && !collections.length && is_collection ? (
-          <React.Fragment>
-            <div className={style['add-collection']}>
-            <GxButton
-                    onClick={() => setSizesn()}//addCollectionHandler(selectedSize, selectedColor)}
-                    className={style['prodpage-range__button']}
-                  >
-                    +
-            </GxButton>
-            
-            {!collections.length
-            ?<div className={style['hand-arrow']}>👈🏻<span>Кнопка сбора "Размерный ряд"</span></div>
-            :null}
+      {role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length ===0? (
 
-            </div>
-          </React.Fragment>
-      )
-      :(role === ROLE.DROPSHIPPER && collections.length ? (
-        <React.Fragment>
+          <React.Fragment>
           <div className={style['prodpage-range__box']}>
             <p className={style['prodpage-range__title']}>Условие покупки:</p>
             <p className={style['prodpage-range__condition']}>{product_rc}</p>
@@ -234,27 +231,55 @@ const SizesItems = ({
               <p className={style['prodpage-range__text']}>Стоимость ряда: 140 ZL </p> */}
             </div>
           </div>
-          <div className={style['prodpage-range__wrap-mb']}>
-            <div className={style['prodpage-range__wrap-scroll']}>
-              <MainFiltersCustom
-                selectItem={selectСollection}
-                seletedItem={selectedCollection}
-                setStatusSeletedItem={setStatusSeletedItem}
-                filters={collections.map((el, i) => {
-                  return {
-                    ...el,
-                    title: `Сбор ${i + 1}`,
-                    id: el.id,
-                  };
-                })}
-              />
+            <div className={style['add-collection']}>
+             {/* <GxButton
+                    onClick={() => {
+                console.log('role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length !== 0')
+                console.log('role === ROLE.DROPSHIPPER', role === ROLE.DROPSHIPPER);
+                console.log('collections', collections);
+                console.log('listCollectionsHook.length !== 0', listCollectionsHook.length !== 0);
+
+              }}
+                    className={style['prodpage-range__button']}
+                  >
+                    "для тестов"
+            </GxButton> */}
+            
+            {/* {listCollectionsHook.length === 0
+            ?<motion.div 
+            initial={{x:0}}
+            animate={{x:-30}}
+            exit={{x:0}}
+            transition={{
+              duration:2,
+              repeat: Infinity
+            }}
+            className={style['hand-arrow']}>👈🏻<span>Кнопка сбора "Размерный ряд"</span></motion.div>
+            :null} */}
+
             </div>
+          </React.Fragment>
+      )
+        : (role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length !==0 ? (
+        <React.Fragment>
+          {/* Условие покупки */}
+          <div className={style['prodpage-range__box']}>
+            <p className={style['prodpage-range__title']}>Условие покупки:</p>
+            <p className={style['prodpage-range__condition']}>{product_rc}</p>
+            <div className={style['prodpage-range__wrap']}>
+            </div>
+          </div>
+            {/* кнопка  Иформация по открытым сборам*/}
+          <div className={style['prodpage-range__wrap-mb']}>
             <div className={style['prodpage-range__wrap-btn']}>
               <GxButton
-                onClick={() => addCollectionHandler(selectedSize, selectedColor)}
+                  onClick={()=>{
+                    setIsOpen(true)
+                    heandlerPopup() 
+                  }}
                 className={style['prodpage-range__button']}
               >
-                +
+                Иформация по открытым сборам 
               </GxButton>
             </div>
           </div>

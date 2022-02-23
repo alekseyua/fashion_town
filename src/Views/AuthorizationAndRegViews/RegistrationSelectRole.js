@@ -43,7 +43,8 @@ const RegistrationSelectRole = ({ setState, state }) => {
             <Text text={'retailBuyer'} />
           </span>
           <span className={style['wrapper__btn__help-text']}>
-            <HelpText />
+            {/* <HelpText /> */}
+            <Text text={'retailBuyer_HelpText'} />
           </span>
         </div>
         <GxIcon
@@ -67,7 +68,8 @@ const RegistrationSelectRole = ({ setState, state }) => {
             <Text text={'wholesaleBuyer'} />
           </span>
           <span className={style['wrapper__btn__help-text']}>
-            <HelpText />
+            {/* <HelpText /> */}
+            <Text text={'wholesaleBuyer_HelpText'} />
           </span>
         </div>
         <GxIcon
@@ -91,7 +93,8 @@ const RegistrationSelectRole = ({ setState, state }) => {
             <Text text={'dropshipper'} />
           </span>
           <span className={style['wrapper__btn__help-text']}>
-            <HelpText />
+            {/* <HelpText /> */}
+            <Text text={'dropshipper_HelpText'} />
           </span>
         </div>
         <GxIcon

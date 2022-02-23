@@ -6,6 +6,7 @@ import { GxGrid, GxRow, GxCol, GxButton, GxForm } from '@garpix/garpix-web-compo
 // import Errors from '../../Views/Errors';
 import Text from '../Text';
 import api from "../../api"
+import { Link } from 'react-router-dom';
 
 const CheckoutSchema = Yup.object().shape({
   first_name: Yup.string().required('Required'),
@@ -16,16 +17,16 @@ const CheckoutSchema = Yup.object().shape({
 });
 
  const Checkout = () => {
-//   const [totalCartPrice, setTotal] = useState(0);
-//   const { cart } = useStoreon('cart');
+  const [totalCartPrice, setTotal] = useState(0);
+  const { cart } = useStoreon('cart');
 
-//   useEffect(() => {
-//     const getPrice = async () => setTotal(await api.getTotalPrice(cart));
-//     getPrice();
-//   }, []);
+  useEffect(() => {
+    const getPrice = async () => setTotal(await api.getTotalPrice(cart));
+    getPrice();
+  }, []);
 
-//   const send = (params) => {
-//   };
+  const send = (params) => {
+  };
   return (
     <>
       <div className='coupon-area mt-5'>
@@ -60,7 +61,7 @@ const CheckoutSchema = Yup.object().shape({
                   </label>
                       </p>
                       <p className="lost-password">
-                        <a href="#">Lost your password?</a>
+                        <Link href="#">Lost your password?</Link>
                       </p>
                     </form>
                   </div>
@@ -271,7 +272,7 @@ const CheckoutSchema = Yup.object().shape({
                                 id='headingOne'
                               >
                                 <h4 className='panel-title'>
-                                  <a
+                                  <Link
                                     role='button'
                                     data-toggle='collapse'
                                     data-parent='#accordion'
@@ -280,7 +281,7 @@ const CheckoutSchema = Yup.object().shape({
                                     aria-controls='collapseOne'
                                   >
                                     <Text text={'direct_bank_transfer'} />
-                                  </a>
+                                  </Link>
                                 </h4>
                               </div>
                               <div
@@ -307,7 +308,7 @@ const CheckoutSchema = Yup.object().shape({
                                 id='headingTwo'
                               >
                                 <h4 className='panel-title'>
-                                  <a
+                                  <Link
                                     className='collapsed'
                                     role='button'
                                     data-toggle='collapse'
@@ -317,7 +318,7 @@ const CheckoutSchema = Yup.object().shape({
                                     aria-controls='collapseTwo'
                                   >
                                     <Text text={'cheque_payment'} />
-                                  </a>
+                                  </Link>
                                 </h4>
                               </div>
                               <div
@@ -342,7 +343,7 @@ const CheckoutSchema = Yup.object().shape({
                                 id='headingThree'
                               >
                                 <h4 className='panel-title'>
-                                  <a
+                                  <Link
                                     className='collapsed'
                                     role='button'
                                     data-toggle='collapse'
@@ -352,7 +353,7 @@ const CheckoutSchema = Yup.object().shape({
                                     aria-controls='collapseThree'
                                   >
                                     PayPal
-                                  </a>
+                                  </Link>
                                 </h4>
                               </div>
                               <div
@@ -364,7 +365,7 @@ const CheckoutSchema = Yup.object().shape({
                                 <div className='panel-body'>
                                   <p>
                                     Pay via PayPal; you can pay with your credit
-                                    card if you don’t have a PayPal account.
+                                    card if you don’t have Link PayPal account.
                                   </p>
                                 </div>
                               </div>

@@ -43,9 +43,11 @@ const OrderingCards   = ({
 
                 return (
                   <OrderingViews.CardDropAndRetail
+
                     key={`${el.id}`}
                     currenssies={currenssies}
                     el={el}
+
                   />
                 );
               })}

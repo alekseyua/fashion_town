@@ -6,6 +6,8 @@ import Title from '../Views/Title';
 import Breadcrumbs from '../Views/Breadcrumbs';
 import Container from '../Views/Container';
 import { ROLE } from '../const';
+import Modal from '../Views/ModalCreator';
+
 
 const initialState = {
   retailPaymentsInfo: '',
@@ -49,6 +51,7 @@ const InformationDelivery = (props) => {
   }, [info_delivery]);
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <InformationViews.PaymentsConteiner>

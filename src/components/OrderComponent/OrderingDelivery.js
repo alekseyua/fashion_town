@@ -8,6 +8,7 @@ const OrderingDelivery = ({
   errors,
   setFieldValue,
   role_configuration = {},
+  role,
 }) => {
   const {
     variant,
@@ -61,7 +62,9 @@ const OrderingDelivery = ({
   return (
     <OrderingViews.OrderingDeliverySection>
       <OrderingViews.OrderingDeliveryHead />
-      <OrderingViews.OrderingDeliveryDescription />
+      <OrderingViews.OrderingDeliveryDescription 
+        role={role}
+      />
       <OrderingViews.OrderingDeliveryVariantsBtn
         deliveryVariant={deliveryVariant}
         delivery_condition={delivery_condition}

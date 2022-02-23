@@ -1,7 +1,7 @@
 .wrapper {
   position: relative;
   max-width: 276px;
-  width: 276px;
+  width: 273px;
   left: -15px;
   --gx-color-primary-95: #f7f4fc;
   &-menu::part(base) {
@@ -34,9 +34,7 @@
 }
 
 .notif{
-  animation-duration: 5s;
-  animation-name: slidein;
-  animation-iteration-count: infinite;
+
   position: absolute;
   right: 20px;
   top: -10px;
@@ -46,24 +44,35 @@
   color: rgb(233, 119, 13);
   position: absolute;
   top: 15px;
-  opacity: 0.5;
+  opacity: 0.7;
   right: 5px;
+  animation-duration: 2s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
 }
 
 
 @keyframes slidein {
   from {
-    font-size: 5px;
+    // font-size: 5px;
     color: rgb(216, 67, 87);
   }
 
+ 25%{
+    color: rgb(146, 49, 49);
+  }
+
   50%{
-    color: rgb(155, 70, 70);
+    color: rgb(192, 42, 42);
+  }
+
+  75%{
+    color: rgb(175, 177, 52);
   }
 
   to {
-    color: rgb(238, 69, 69);
-    font-size: 30px;
+    color: hsl(51, 79%, 50%);
+    // font-size: 30px;
   }
 }
 

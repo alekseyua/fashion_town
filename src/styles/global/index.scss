@@ -1,4 +1,5 @@
 // @import 'normalize.scss';
+@import '../fonts/index.scss';
 :root {
   --gx-color-white: #fff;
   --gx-color-blue: #1e34ff;
@@ -22,7 +23,7 @@
   --gx-color-red: #e93c3c;
   --gx-color-green: #7abb7d;
   --gx-color-palePurple: #faf5f7;
-  --gx-input-border-color-focus: var(--gx-color-pink);
+  --gx-input-border-color-focus: var(--gx-color-pink3);
   --gx-focus-ring-box-shadow: transparent;
   --gx-input-color: #282534;
   --gx-input-dark: #3d3b47;
@@ -39,13 +40,28 @@
 *::before {
   box-sizing: border-box;
   outline: none !important;
+  // font-family: 'Champagne & Limousines Bold Italic';
+  // font-size: 14px;
+  // @extend %font;
+  // letter-spacing: 3px;
+  font-weight: 500;
 }
+
+
+
 html {
   scroll-behavior: smooth;
+
+}
+html, body {
+    scrollbar-color: #ffa6b0 #fcd2d7;     /* «цвет ползунка» «цвет полосы скроллбара» */
+    scrollbar-width: auto | thin | none;  /* толщина */
 }
 
 body {
-  @extend %font;
+  font-family: 'Champagne & Limousines Bold Italic';
+
+  // @extend %font;
   font-weight: normal;
   color: var(--gx-color-primary);
   font-size: 14px;
@@ -60,6 +76,7 @@ a {
   text-decoration: none;
   transition: 0.3s;
   outline: none;
+  height: 100%;
 
   &.light {
     color: var(--gx-color-white);
@@ -312,8 +329,8 @@ header {
   &-closebtn {
     width: 40px;
     height: 40px;
-    top: -35px;
-    right: -35px;
+    top: 0;
+    right: 0;
     position: absolute;
     opacity: 0.3;
     cursor: pointer;
@@ -400,7 +417,7 @@ header {
   border: none;
 }
 .react-date-picker__calendar {
-  z-index: 9;
+  z-index: 99999;
 }
 .react-date-picker__clear-button {
   display: none;
@@ -597,20 +614,39 @@ div[class*='prodpage__left'] {
     bottom: 0;
   }
 }
+
+.inner-chat{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: pulse-mobile 1.5s infinite;
+  transition: background-color .3s, color .3s, box-shadow .3s;
+  position: fixed;
+  z-index: 400;
+  bottom: 50px;
+  right: 50px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  @include mobile {
+    bottom: 80px;
+    right: 17px;
+  }
+  &:hover{
+    animation: none;
+
+  }
+}
+
 .chats {
   &-icon {
+    position: absolute;
+    top: -12px;  
+    right: -42px;
     --icon-width: 110px;
     --icon-height: 110px;
     background-size: cover;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
     cursor: pointer;
-    z-index: 400;
-    @include mobile {
-      bottom: 40px;
-      right: -27px;
-    }
   }
 }
 .scroll {
@@ -753,6 +789,33 @@ gx-dropdown {
 main {
   min-height: calc(100% - 423px);
   @media (max-width:678px) {
-    margin-top: 50px;
+    // margin-top: 50px;
   }
 }
+
+// **************************************
+._flyImage{
+  transform: scale(7.2);
+  position: fixed;
+  opacity: 1;
+  z-index: 100;
+  transition: all 3s ease 0s;
+}
+
+
+@keyframes pulse{
+  0%{
+    box-shadow: 0 0 0 0 transparentize(#e29a9a, .6)}
+  70%{
+    box-shadow: 0 0 0 50px transparentize(#e29a9a, 1)}
+  100%{
+    box-shadow: 0 0 0 0 transparentize(#e29a9a, 1)}
+}
+@keyframes pulse-mobile{
+  0%{
+    box-shadow: 0 0 0 0 transparentize(#e29a9a, .6)}
+  70%{
+    box-shadow: 0 0 0 25px transparentize(#e29a9a, 1)}
+  100%{
+    box-shadow: 0 0 0 0 transparentize(#e29a9a, 1)}
+  }

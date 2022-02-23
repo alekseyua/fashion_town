@@ -37,7 +37,8 @@ const BottomHeader = ({
           <div className={style['bottom-header-logo']}>
             <Logo site_configuration={site_configuration} isLight={true} />
           </div>
-          <div>
+          
+          <div className={style['bottom-header__group-menu']}>
             <BottomHeaderMenu isScrolled={isScrolled} main_menu={main_menu} />
             {/* <RelativeBurgerBtn header_menu={header_menu} /> */}
           </div>

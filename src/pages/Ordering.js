@@ -5,6 +5,8 @@ import Container from '../Views/Container';
 import OrderComponent from '../components/OrderComponent';
 import { ROLE } from '../const';
 import { useStoreon } from 'storeon/react';
+import Modal from '../Views/ModalCreator';
+
 
 const Ordering = (props) => {
   let {
@@ -18,6 +20,7 @@ const Ordering = (props) => {
 
   return (
     <Layout main {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <GxRow>
           <OrderComponent

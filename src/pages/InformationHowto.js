@@ -6,6 +6,8 @@ import Breadcrumbs from '../Views/Breadcrumbs';
 import Container from '../Views/Container';
 import WorldStandardSizesChart from '../Views/WorldStandardSizesChart';
 import { useStoreon } from 'storeon/react';
+import Modal from '../Views/ModalCreator';
+
 
 const InformationHowto = (props) => {
   const {
@@ -30,6 +32,7 @@ const InformationHowto = (props) => {
   };
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <InformationViews.PaymentsConteiner>

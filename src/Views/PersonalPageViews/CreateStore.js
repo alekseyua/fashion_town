@@ -4,6 +4,7 @@ import Text from '../../components/Text';
 import classNames from 'classnames';
 import { ROLE } from '../../const';
 import style from './styles/userRouting.module.scss';
+import { Link } from 'react-router-dom';
 //Views -> CreateStorage
 const CreateStore = ({ create_shop = '#', role, className }) => {
   if (ROLE.RETAIL === role) return null;
@@ -12,12 +13,12 @@ const CreateStore = ({ create_shop = '#', role, className }) => {
     [style[className]]: !!className,
   });
   return (
-    <a href={create_shop} className={customClassName}>
+    <Link to={create_shop} className={customClassName}>
       <img src={storeIcon} alt="store" />
       <span>
         <Text text={'createMyStore'} />
       </span>
-    </a>
+    </Link>
   );
 };
 export default React.memo(CreateStore);

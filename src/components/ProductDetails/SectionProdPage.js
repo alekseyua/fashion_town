@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { labelHit, labelNew, labelSale, labelOnsale, defaultProductCard } from '../../images/index';
 import { Formik } from 'formik';
 import Container from '../../Views/Container';
@@ -18,6 +18,8 @@ import AsyncComponent from '../AsyncComponent';
 import { v4 } from 'uuid';
 import styleModal from '../../Views/ModalCreator/modalCreator.module.scss';
 import { useHistory } from 'react-router-dom';
+import Popupe from '../Popupe';
+
 
 const AsyncWorldStandardSizesChart = AsyncComponent(() => {
   return import('../../Views/WorldStandardSizesChart');
@@ -42,9 +44,9 @@ const apiProfile = api.profileApi;
 const apiContent = api.contentApi;
 const apiCart = api.cartApi;
 const apiOrder = api.orderApi;
-
-const SectionProdPage = ({
-  modalView,
+ 
+const SectionProdPage = ({ 
+  modalView, 
   url,
   productId,
   profileId,
@@ -67,20 +69,22 @@ const SectionProdPage = ({
   is_liked,
   media = [],
   in_cart_count,
-  is_collection,
-  // collections, ждёмс колекций
+  is_collection,// белевое значение является товар колекцией
+  collections, //!ждёмс колекций
   product_rc,
   role_configuration,
   site_configuration,
-
+  product_sku,
   ...props
 }) => {
-
- 
   const history = useHistory();
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const [modalStates, setmodalStates] = useState({ show: false });
   const { stateCountCart, dispatch } = useStoreon('stateCountCart')
+  const shereRef = useRef();
+  const collectionRef = useRef();
+
+  const [styleSocialItems, setStyleSocialItems] = useState(false)
 
    //------------------------------------------------------------------------
    const { stateCountWish } = useStoreon('stateCountWish')
@@ -97,8 +101,10 @@ const SectionProdPage = ({
 
   const [colorsn, setColorsn] = useState([]);
   const [sizesn, setSizesn] = useState([]);
-  const [collectionsHook, setCollectionsHook] = useState([]);
-  const [packHook, setPackHook] = useState([]);
+  const [collectionsHook, setCollectionsHook] = useState();//boolen
+  const [listCollectionsHook, setListCollectionsHookHook] = useState([]);//Array data
+
+ const [packHook, setPackHook] = useState([]);
   const [urlHook, setUrlHook] = useState([]);
   const [brandHook, setBrandHook] = useState([]);
   const [titleHook, setTitleHook] = useState();
@@ -117,12 +123,35 @@ const SectionProdPage = ({
   const [reviewsCountHook, setReviewsCountHook] = useState();
   const [reviewHook, setReviewHook] = useState();
   const [mediaHook, setMediaHook] = useState();
+  let newProduct_sku = [];//Array.from(product_sku);
+  const [showPopapInfoColection, setShowPopapInfoColection] = useState({
+    show: false,
+    content: null
+  })
+
+
+
+
+
 
   //   //заганяем начальные значения 
+//отлавливаем клик вне блока поделится
+  useEffect(() => {
+    const clickOut = (e) => shereRef.current.contains(e.target) || setStyleSocialItems(false);
+    document.addEventListener('click', clickOut);
+    return () => document.removeEventListener('click', clickOut);
+  }, []);
+  
+  
+  // useEffect(() => {
+
+  //       const clickOut = (e) => collectionRef.current.contains(e.target) || console.log('click out block')
+  //       document.addEventListener('click', clickOut);
+  //       return () => document.removeEventListener('click', clickOut);
+  // }, []);
+
+
   // цвет
-
-
-
   useEffect(() => {
     let color = colors.filter(el => el.selected)
     colors.length ? setColorsn(color[0]) : null
@@ -136,10 +165,6 @@ const SectionProdPage = ({
   useEffect(() => {
     brand ? setBrandHook(brand) : null
   }, [brand])
-  // контент content
-  // useEffect(() => {
-  //   content ? setСontentHook(content) : null
-  // }, [content])
   // количество в карзине товара in_cart_count
   useEffect(() => {
     in_cart_count ? setIn_cart_countHook(in_cart_count) : null
@@ -205,6 +230,15 @@ useEffect(() => {
   media.length ? setMediaHook(media) : null
 }, [media.length])
 
+  useEffect(() => {
+    setCollectionsHook(is_collection)
+  }, [is_collection])
+  useEffect(() => {
+     setListCollectionsHookHook(collections)
+  }, [collections])
+
+  
+
   //    //создаём запрос для данных при изменении цвета или размера
   //    //****************************************************************** */
   useEffect(() => {
@@ -212,9 +246,12 @@ useEffect(() => {
       color: colorsn.id,
       size: sizesn.id,
       productId: productId,
-      //collection : null,
+      collection : null,
       // pack ??????
     }
+
+
+
     colorsn.id || sizesn.id?(
     apiContent
       .getProduct(productId, params)
@@ -234,7 +271,7 @@ useEffect(() => {
   const openTableModal = () => {
     setmodalStates({
       ...modalStates,
-      show: true,
+      show: true, 
     });
   };
   const closeModal = () => {
@@ -265,6 +302,9 @@ useEffect(() => {
         })
         .then(res => {
           dispatch('stateCountWish/add', { ...stateCountWish, count: stateCountWish.count + 1 })
+          
+          dispatch('stateInPreveiwGoods/add', { id : productId , is_liked : !is_likedHook })
+          
           setIs_likedHook(!is_likedHook)
         })
         .catch(err => {
@@ -279,6 +319,7 @@ useEffect(() => {
         })
         .then(res => {
           setIs_likedHook(!is_likedHook)
+          dispatch('stateInPreveiwGoods/add', { id : productId , is_liked : !is_likedHook })
           dispatch('stateCountWish/add', { ...stateCountWish, count: stateCountWish.count - 1 })
         })
         .catch(err => {
@@ -288,7 +329,7 @@ useEffect(() => {
     }
   };
   //   //******************сделать попап******************************* */
-  const openModalSuccessAddToCart = (currentColor, currentSize) => {
+  const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
     setCustomModalStates({
       ...customModalStates,
       show: true,
@@ -299,38 +340,64 @@ useEffect(() => {
             <ModalContentViews.AddToCartBlock
               title={title}
               size={`Размер: ${currentSize.title}`}
-              priceOneProduct={recommended_price}
-              allPrice={productRequiredData.prices.old_price}
-              currentPrice={productRequiredData.prices.price}
-              // sale
-              image={productRequiredData.media[0].image_thumb}
+              priceOneProduct={recommended_priceHook}
+              allPrice={pricesHook.old_price}
+              currentPrice={pricesHook.price}
+              image={mediaHook[0].image_thumb}
               handleClose={closeCustomModal}
-            />
+              />
           </ModalContentViews.ContentBlock>
         </ModalContentViews.ModalWrapper>
-      ),
+      )
     });
   };
 
-  const [changeColorBtn, setChangeColorBtn] = useState({ red: false, green: false });
-  const addToCart = ({ count, openModalSucces }) => {
+// ******************************************************************************************************
+  newProduct_sku = mediaHook;
+  const getColorForMedia = (colorData) =>{
+    console.log('click color', colorData);
+    let arr = Array.from(product_sku);
+    let filterArr = arr.filter(item => item.color === colorData);
+    setMediaHook(filterArr);
+    // return newProduct_sku;
+    // image: "http://91.218.229.240:8000/media/uploads/2021/9/ava.jpg"
+    // image_thumb: "http://91.218.229.240:8000/media/uploads/2021/9/ava_225x300.jpg"
+    // type: "image"
 
+  }
+
+
+// ******************************************************************************************************
+  const [changeColorBtn, setChangeColorBtn] = useState({ red: false, green: false });
+  const addToCart = ({ count = 1, openModalSucces,color,size }) => {
+
+    let realColor = color ? color : colorsn.id;
+    let realSize = size ? size : sizesn.id;
+    // console.log('realColor', realColor);
+    // console.log('realSize', realSize);
+    // console.log('color', color);
+    // console.log('size', size);
+    // console.log('colorsn', colorsn);
+    // console.log('sizesn', sizesn);
 
     const params = {
       product: productId,//????????reqestIdProduct
-      color: colorsn.id,
-      size: sizesn.id,
-      qty: count,
+      color: realColor,
+      size: realSize,
+      qty: count || 1,
       // is_pack: adding_type !== 'item',
     };
+    console.log('params', params)
+
     apiCart
       .addToCart(params)
       .then((res) => {
         setChangeColorBtn({ red: false, green: false });
         setIn_cart_countHook(count)
-        if (openModalSucces && stateCountCart.in_cart === 0) {
+        
+         if (openModalSucces && stateCountCart.in_cart === 0) {
           openModalSuccessAddToCart(colorsn, sizesn);
-        }
+         }
       })
       .catch((err) => {
         // нужно сделать попап для ошибки добавления и удаления количества товара в превью
@@ -345,82 +412,13 @@ useEffect(() => {
       });
   };
 
-  const setSizesFromCollection = (data) => {
-    if (data.is_grid) {
-      data.items = data.items.map((el) => {
-        return el.map((elLi) => {
-          return {
-            ...elLi,
-            size: {
-              ...elLi.size,
-              uuid: v4(),
-            },
-          };
-        });
-      });
-    } else {
-      data.items = data.items.map((el) => {
-        return {
-          ...el,
-          size: {
-            ...el.size,
-            uuid: v4(),
-          },
-        };
-      });
-    }
-    setselectedCollection(data);
-  };
-
   const addCollectionHandler = (sizesn, colorsn) => {
-    const fd = new FormData();
-    fd.set('product', productId);
-    fd.set('size', sizesn.id);
-    fd.set('color', colorsn.id);
-    apiOrder.createFakeEmptyCollection(fd).then((res) => {
-      const newCollections = productRequiredData.collections;
-      productRequiredData.collections.push(res.data);
-      setproductRequiredData({
-        ...productRequiredData,
-        collections: newCollections,
-      });
-    });
+    console.log('productId', productId);
+    console.log('sizesn', sizesn);
+    console.log('colorsn', colorsn);
   };
 
 
-
-  //   useEffect(() => {
-  //     console.log('test setproductRequiredData render');
-  //     setproductRequiredData({
-  //       ...productRequiredData,
-  //       prices: pricesProp,
-  //       in_stock_count: in_stock_countProp,
-  //       is_liked: is_likedProp,
-  //       in_cart_count: in_cart_countProp,
-  //       media: mediaProp,
-  //       product_rc: product_rcProp,
-  //       collections: collections,
-  //     });
-  //   }, [
-  //     pricesProp,
-  //     in_stock_countProp,
-  //     is_likedProp,
-  //     in_cart_countProp,
-  //     mediaProp,
-  //     product_rcProp,
-  //     collections,
-  //   ]);
-
-  //   useEffect(() => {
-  //     if (productRequiredData.collections && !selectedCollection) {
-  //       if (productRequiredData.collections.length)
-  //         setSizesFromCollection(productRequiredData.collections[0]);
-  //     }
-  //   }, [productRequiredData.collections]);
-
-  //   useEffect(() => {
-  //     // openModalSuccessAddToCart();
-  //   }, []);
 
   const lables = [
     {
@@ -442,6 +440,65 @@ useEffect(() => {
     },
   ];
 
+  const heandlerAddCollections = (qty = 1, openModalSucces = false, color, size,) => {
+
+    let params = {
+      color: color,
+      size: size,
+      productId: productId,
+    }
+    apiContent
+      .getProduct(productId, params)
+      .then((res) => {
+        let count = res.in_cart_count + 1;
+        addToCart({ count, openModalSucces, color, size })
+      })
+      .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
+
+  }
+
+  const heandlerPopup = ( ) => {
+    {
+      setShowPopapInfoColection({
+        ...showPopapInfoColection,
+        show: true,
+        content: <Popupe
+          dataPopup={listCollectionsHook}
+          title={titleHook}
+          colorsn={colorsn}
+          setShowPopapInfoColection={setShowPopapInfoColection}
+          showPopapInfoColection={showPopapInfoColection}
+          mediaHook={mediaHook}
+          brandHook={brandHook}
+          product_rcHook={product_rcHook}
+          setIsOpen={setIsOpen}
+          openTableModal={openTableModal}
+          closeModal={closeModal}
+          site_configuration = {site_configuration}
+          modalStates={modalStates}
+          styleModal={styleModal}
+          AsyncWorldStandardSizesChart={AsyncWorldStandardSizesChart}
+          AsyncLabels={AsyncLabels}
+          lables={lables}
+          AsyncPricesContainer={AsyncPricesContainer}
+          pricesHook={pricesHook}
+          role_configuration={role_configuration}
+          currenssies={currenssies}
+          recommended_priceHook={recommended_priceHook}
+          in_cart_countHook={in_cart_countHook}
+          heandlerAddCollections={heandlerAddCollections}
+          styleSocialItems={styleSocialItems}
+      >
+      </Popupe>
+    }) }
+  }
+  
+
+  const [isOpen, setIsOpen]=useState();
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen])
 
   return (
     <Formik enableReinitialize onSubmit={submitProduct}>
@@ -450,6 +507,7 @@ useEffect(() => {
         return (
           <GxForm noValidate onGx-submit={handleSubmit}>
             <ProductDetailsViews.SectionProdPage modalView={modalView}>
+
               <GxModal
                 onGx-after-hide={closeCustomModal}
                 open={customModalStates.show}
@@ -460,6 +518,7 @@ useEffect(() => {
               >
                 {customModalStates.content}
               </GxModal>
+
               <Container>
                 <GxModal
                   onGx-after-hide={closeModal}
@@ -479,12 +538,17 @@ useEffect(() => {
                     </ModalContentViews.ContentBlock>
                   </ModalContentViews.ModalWrapper>
                 </GxModal>
+
                 {!modalView ? <Breadcrumbs breadcrumbs={breadcrumbs} /> : null}
                 <ProductDetailsViews.DataProductRow modalView={modalView}>
+                 {showPopapInfoColection.show?showPopapInfoColection.content:null}
+
                   <ProductDetailsViews.DataProductLeft>
                     <PreviewSlider
                       imageOrVideoSet={mediaHook}
                       defaultImage={defaultProductCard}
+                      product_sku={product_sku}
+                      colorsn={colorsn}
                     />
                   </ProductDetailsViews.DataProductLeft>
                   <ProductDetailsViews.DataProductRigth>
@@ -495,6 +559,11 @@ useEffect(() => {
                       addWishlistProduct={addWishlistProduct}
                       reviews_statistic={reviewHook}
                       title={titleHook}
+                      site_configuration={site_configuration}
+                      shereRef={shereRef}
+                      setStyleSocialItems={setStyleSocialItems}
+                      styleSocialItems={styleSocialItems}
+                      media={mediaHook}
                     />
                     <ProductDetailsViews.BrandName name={brandHook} />
                     {titleHook && titleHook !== 'title' ? (
@@ -517,6 +586,7 @@ useEffect(() => {
                       items={colors}
                       setColorsn={setColorsn}
                       colorsn={colorsn}
+                      getColorForMedia={getColorForMedia}
                     />
                     <AsyncSizesButton
                       modalView={modalView}
@@ -526,9 +596,15 @@ useEffect(() => {
                       collections={collectionsHook}
                       sizes={sizes}
                       addCollectionHandler={addCollectionHandler}
+                      listCollectionsHook={listCollectionsHook}
                       role_configuration={role_configuration}
                       setSizesn={setSizesn}
                       sizesn={sizesn}
+                      colorsn={colorsn}
+                      setShowPopapInfoColection={setShowPopapInfoColection}
+                      showPopapInfoColection={showPopapInfoColection}
+                      heandlerPopup={heandlerPopup}
+                      setIsOpen={ setIsOpen}
                     />
                     <AsyncControlButtons
                       countProduct={in_stock_countHook}
@@ -536,6 +612,7 @@ useEffect(() => {
                       addToCart={addToCart}
                       modalView={modalView}
                       collections={collectionsHook}
+                      listCollectionsHook={listCollectionsHook}
                       url={urlHook}
                       changeColorBtn={changeColorBtn}
                       setChangeColorBtn={setChangeColorBtn}

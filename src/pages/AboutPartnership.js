@@ -6,6 +6,7 @@ import Breadcrumbs from '../Views/Breadcrumbs';
 import Title from '../Views/Title';
 import Container from '../Views/Container';
 import { ROLE } from '../const';
+import Modal from '../Views/ModalCreator';
 
 const AboutPartnership = (props) => {
   const [state, setstate] = useState({
@@ -40,6 +41,7 @@ const AboutPartnership = (props) => {
   }, []);
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <InformationViews.PaymentsConteiner>
           <Breadcrumbs breadcrumbs={breadcrumbs} />

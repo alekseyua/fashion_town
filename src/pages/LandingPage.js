@@ -3,6 +3,8 @@ import { createItem, createLast, pricingIcon } from '../images';
 import Layout from '../Views';
 import SwiperCore, { Thumbs, Navigation, Pagination, Autoplay, Virtual } from 'swiper/core';
 import Landing from '../Views/Landing';
+import Modal from '../Views/ModalCreator';
+
 
 SwiperCore.use([Thumbs, Navigation, Pagination, Autoplay, Virtual]);
 
@@ -134,6 +136,7 @@ const LandingPage = (props) => {
   }, []);
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <Landing.OwnBusiness.WrapWithContent
         title={state.title}
         subTitle={state.subTitle}

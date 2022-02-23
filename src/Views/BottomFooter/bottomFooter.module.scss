@@ -5,7 +5,9 @@
   padding: 20px 0;
   @include padding-for-mobile;
   @include mobile {
-    padding-bottom: 80px;
+    // padding-bottom: 80px;
+
+    padding-bottom: 70px;
   }
   &-wrap {
     display: grid;
@@ -22,7 +24,7 @@
   }
   &__copyright,
   &__offer {
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
     font-size: 14px;
   }
   &__copyright {

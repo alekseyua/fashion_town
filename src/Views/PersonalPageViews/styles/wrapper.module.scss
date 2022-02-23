@@ -9,7 +9,7 @@ $gr: var(--gx-color-green);
 $p: var(--gx-color-primary);
 
 %font-head {
-  font-family: 'Cormorant Garamond', sans-serif;
+  font-family: 'TMVinograd-Oblique', sans-serif;
 }
 @mixin row($mr) {
   display: flex;
@@ -75,7 +75,7 @@ $p: var(--gx-color-primary);
   }
 }
 %font {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
 }
 %heading {
   font-weight: bold;

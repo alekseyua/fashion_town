@@ -22,8 +22,9 @@ const BrandsFilters = ({
     setSercheValue(value);
     apiContent
       .getBrands({
-        title__icontains: value,
-        sertificate: sertificate,
+        title: value
+        // title__icontains: value,
+        // sertificate: sertificate,
       })
       .then((res) => {
         setBrandsRender(res);

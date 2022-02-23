@@ -9,15 +9,15 @@ const myMarketPageSerializer = (page) => {
   return {
     ...init_state,
     ...pageInfo,
-    site_configuration: siteConfigurationSerializer(init_state.site_configuration),
+    site_configuration: siteConfigurationSerializer(init_state?.site_configuration),
     breadcrumbs: breadcrumbs,
-    cart: profile.cart,
-    notifications: profile.notifications,
-    user_role: profile.user_role,
-    user_status: profile.user_status,
-    wishlist: profile.wishlist,
+    cart: profile?.cart,
+    notifications: profile?.notifications,
+    user_role: profile?.user_role,
+    user_status: profile?.user_status,
+    wishlist: profile?.wishlist,
     tarif_info: {
-      ...init_state.tarif_info,
+      ...init_state?.tarif_info,
       expiration_date: dayjs(Api.language, init_state.tarif_info.expiration_date).format('DD.MM.YYYY'),
     },
   };

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import Text from '../../components/Text';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AsyncComponent from '../../components/AsyncComponent';
 import classNames from 'classnames';
 import {
@@ -8,12 +8,15 @@ import {
   productNew,
   productHit,
   favoriteIcon,
+  favoriteIconNew,
   favoriteFilledIcon,
   defaultImageCard,
 } from '../../images';
 import { GxButton, GxIcon } from '@garpix/garpix-web-components-react';
 import style from './productCard.module.scss';
 import { motion } from 'framer-motion';
+import { useStoreon } from 'storeon/react';
+
 
 const AsyncSlider = AsyncComponent(() => {
   return import('./Slider');
@@ -40,8 +43,14 @@ const ProductCard = (props) => {
     product_rc,
     currenssies,
     profile,
+    setCardIdproductFromSlider,
   } = props;
-  const [isFavorite, setIsFavorite] = useState(favorite);
+
+  const [isFavorite, setIsFavorite] = useState();
+  const { stateInPreveiwGoods } = useStoreon('stateInPreveiwGoods')
+  useEffect(()=>{
+    stateInPreveiwGoods.id === id? setIsFavorite(stateInPreveiwGoods.is_liked) : setIsFavorite(favorite)
+  },[favorite,stateInPreveiwGoods])
   //modificator class
   const customClassGridModificator = classNames({
     [style['product-card']]: true,
@@ -50,21 +59,27 @@ const ProductCard = (props) => {
     [style['product-card-wrap']]: !disabledHover,
     [style['product-card-not-grid']]: disabledHover,
   });
-  const cardVariants = {
-    action : { transition : 1 },
-    initial : { transition : 0 }
-  }
+
+// -------------------------------------------------------------------------
+  const [addHeart1, setAddHeart1] = useState({})
+  const [addHeart2, setAddHeart2] = useState({})
+  const [addHeart3, setAddHeart3] = useState({})
+  const [addHeart4, setAddHeart4] = useState({})
+  const [addHeart5, setAddHeart5] = useState({})
   
+
+
+// ---------------------------------------------------------------------------------------------------------------------------
+
+
   return (
     <motion.div 
-      variants={cardVariants}
-      initial= 'initial'
-      animation = 'action'
+ 
       
       className={customClassGridModificator}
 
     >
-      <div className={customClassNameWrapper}>
+        <div className={customClassNameWrapper}>
         <div className={style['product-card__top']}>
           <div className={'product_card-hide_hydrate'}>
             <div className={style['product-card__tags']}>
@@ -116,6 +131,7 @@ const ProductCard = (props) => {
               images={images} 
               profile={profile}
               id={id}
+              setCardIdproductFromSlider={setCardIdproductFromSlider}
              />
           )}
           <div className={style['product-card__head']}>
@@ -126,12 +142,15 @@ const ProductCard = (props) => {
                 [style['product-card__favorite']]: true,
               })}
               onClick={() => {
-                
                 setIsFavorite(!isFavorite);
                 setLikeProductCard(id);
               }}
             >
-              <GxIcon src={isFavorite ? favoriteFilledIcon : favoriteIcon} />
+              <motion.div
+              >
+                <GxIcon src={isFavorite ? favoriteFilledIcon : favoriteIcon} />
+              </motion.div>
+             
             </GxButton>
           </div>
           <h5 className={style['product-card__name']}>

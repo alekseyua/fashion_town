@@ -50,9 +50,9 @@ const Home = (props) => {
         first_screen={first_screen}
         page_type_catalog={page_type_catalog}
       />
-      {/* <OrderCar
+     {/* <OrderCar
         enabled={{enabled:true}}
-      /> */}
+      />  */}
       <HomeComponent.MainCategories 
         // второй блок с карточками на главной стронице
         banners={banners}
@@ -65,7 +65,7 @@ const Home = (props) => {
         setModalStates={setModalStates}
         products={products}
         catalog_url={page_type_catalog}
-      />
+      /> 
 
       <HomeComponent.Cooperation 
         // Сотрудничество
@@ -83,12 +83,12 @@ const Home = (props) => {
         about_banner={about_banner} 
       />
 
-
+{/* 
       <HomeComponent.LivePhotos 
         //Живые фото
         live_photos={live_photos} 
         live_photos_url={page_type_live_photos} 
-      />
+      /> */}
 
       <HomeComponent.MainReviews
         //Отзывы

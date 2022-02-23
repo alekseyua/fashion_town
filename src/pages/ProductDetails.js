@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from '../Views';
 import ProductDetailsComponents from '../components/ProductDetails';
+import Modal from '../Views/ModalCreator';
+
 
 const ProductDetails = (props) => {
   const {
@@ -23,9 +25,10 @@ const ProductDetails = (props) => {
   } = props;
   const { user = {}, shop, role, passport, organization, links, id, balance } = profile;
 
-
+ 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <ProductDetailsComponents.ProductPreview
         {...product}
         productId={productId}

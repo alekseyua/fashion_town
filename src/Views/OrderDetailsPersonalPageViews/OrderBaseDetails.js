@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CartViews from '../../Views/CartViews';
 import Text from '../../components/Text';
 import { ROLE } from '../../const'
@@ -17,11 +17,9 @@ import {
   toolTipIcon,
 } from '../../images';
 import { GxButton, GxIcon } from '@garpix/garpix-web-components-react';
-import style from './styles/index.module.scss';
 import { useStoreon } from 'storeon/react';
-
-
-
+import style from './styles/index.module.scss';
+import ModalContentViews from '../../Views/ModalContentViews';
 
 const OrderBaseDetails = ({
   payment_method,
@@ -34,6 +32,8 @@ const OrderBaseDetails = ({
   status,
   delivery_cost,
   currentCurrcensies,
+  setModalStates,
+  numberOrder,
 }) => {
   const {
     city,
@@ -72,13 +72,57 @@ const OrderBaseDetails = ({
       return statusIcons.default;
     }
   };
-
   const { userPage }  = useStoreon('userPage');
   const { role }      = userPage.profile;
 
-
+  const closeModal = () => {
+    setModalStates({
+      content: null,
+      show: false,
+      addClass: null,
+    });
+  };
   const sumFromDilivery = (delivery_cost + order_cost).toFixed(2);
+  const heandlerClickInfo = () => {
+    console.log('status', status.id)
+    setModalStates({
+      content: (<>
+        <ModalContentViews.CloseBtn closeModal={closeModal} />
+            <p
+              style={
+                {
+                  fontSize: '18px',
+                  padding: '10px 25px',
 
+                }
+              }
+            >
+          {
+          status.id === 'payment_waiting'?
+              `Ваш заказ №${numberOrder} уже получен нами, ожидаем поступление оплаты за заказ. В течении суток необходимо прикрепить чек оплаты, либо заказ будет отменен.`
+              : status.id === 'in_process' ?
+                `Ваш заказ №${numberOrder} оплачен и передан в работу Менеджеру по закупкам. Вас будут информировать о ходе закупки. Если товар в статусе "Заказано"-товар заказан у поставщика. Ожидаем поступления на склад. Если товар в статусе "В сборе" это значит, что идет сбор на размерный ряд. Как только ряд будет собран совместно всеми участниками сбора, статус товара изменится на "Товар оплачен". С этого момента отмена всего заказа возможна только через Администрацию сайта`
+                : status.id === 'redeemed' ?
+                  `Все товары в Вашем заказе №${numberOrder} выкуплены и доставлены на склад. Ожидайте упаковку в течении 2х рабочих дней. Отмена заказа возможна только через Администрацию сайта`
+                  : status.id === 'packaging' ?
+                    `Ваш заказ  №${numberOrder} находится на упаковке и будет отправлен в течении двух рабочих дней`
+                    : status.id === 'delivery_payment_waiting' && role === ROLE.DROPSHIPPER ?
+                      `На Вашем балансе не хватает средств для оплаты стоимости доставки заказа №${numberOrder}. Пожалуйста, пополните баланс.`
+                      : status.id === 'delivery_paid' ?
+                        `Ваш заказ №${numberOrder} готов к отправке.`
+                        : status.id === 'sended' ?
+                          `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
+                          : status.id === 'canceled' ?
+                            `Заказ №${numberOrder} был отменен по причине ${comment ? comment : 'нужен авто ответ'}.`
+                            : 'no bla-bla-bla'
+          }
+            </p>
+
+      </>),
+      show: true,
+      addClass: 'modal-info-order',
+    });
+  }
 
 
   return (
@@ -96,6 +140,7 @@ const OrderBaseDetails = ({
               size="sm"
               variant="info"
               className={style['cabinet_orders_details__tooltipicon']}
+              onClick={heandlerClickInfo}
             >
               <GxIcon src={toolTipIcon} />
             </GxButton>
@@ -130,7 +175,7 @@ const OrderBaseDetails = ({
           </CartViews.BlockRightSide>
           <CartViews.BlockRightSide>
             <CartViews.Text type={'text-default'}>
-              <Text text={'order.cost'} />
+              <Text text={'order.cost'} />&nbsp;
             </CartViews.Text>
             <CartViews.Text type={'text-default_currency'}>
             {order_cost}&nbsp;{currentCurrcensies}

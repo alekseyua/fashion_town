@@ -41,29 +41,43 @@ const OrderDetailsPersonalPageComponent = ({
     discount,
     specification,
   } = order;
-   //console.log('order', id)
   const [orderItems, setOrderItems] = useState([]);
   const [dataOrder, setDataOrder] = useState({});
   const [newOrderItems, setNewOrderItems] = useState([]);
   const [orderItemLength, setOrderItemLength] = useState(0);
+  const [enableBtn, setEnableBtn] = useState(true)
 
   const [dataOrderItem, setDataOrderItem] = useState([]);
 
-  const { stateValuePoly, dispatch } = useStoreon('stateValuePoly');
+  const { currenssies, dispatch } = useStoreon('currenssies');
 
-  const getOrderItem = () => {
+  const getOrderItem = () => { 
+    console.log('res id', id)
+
     orderApi
       .getOrderItems({ order_id: id })
       .then((res) => {
         setOrderItems(res);
+        console.log('res orders', res[0])
+        res[0]?.items?getAmountGoods(res):null
       })
       .catch(err => console.log(`Ошибка получения списка товаров находящихся в заказе №${id}`, err));
   };
 
+  const getAmountGoods = (res) => {
+    const amount = res.reduce((acc,cur)=>{
+      acc += cur?.items.length
+      return acc
+    },0)
+    // console.log('amount', amount)
+        setOrderItemLength(amount);
+
+  }
+
+
   useEffect(() => {
-    dispatch('stateValuePoly/change', { stateDelOrderItems: false });
     getOrderItem();
-  }, [slug, stateValuePoly.stateDelOrderItems]);
+  }, [slug, currenssies, enableBtn]);
 
 
   //сделать если опт
@@ -77,8 +91,9 @@ const OrderDetailsPersonalPageComponent = ({
       })
       setNewOrderItems(res);
     }
-  },[orderItems,stateValuePoly.stateDelOrderItems])
+  }, [orderItems, currenssies])
   // *****************************************************************************************
+  //
   const deleteElementOrder = (id_goods, order) => {
     const params = {
       order_id: order,
@@ -88,13 +103,16 @@ const OrderDetailsPersonalPageComponent = ({
       .orderApi
       .cancelOrderItem(params)
       .then(res => {
-          dispatch('stateValuePoly/change', { stateDelOrderItems: true })
+
+        setEnableBtn(!enableBtn)
+        console.log('cancelOrderItem --', res)
            // history.push('/orders')
       })
       .catch(err => console.log('ERROR btnDelOrder dont work', err));
   }
   // *****************************************************************************************
   useEffect(() => {
+    console.log('change currency')
     orderApi
       .getOrders()
       .then(res => {
@@ -104,7 +122,6 @@ const OrderDetailsPersonalPageComponent = ({
           total: 18.22, 
         }
         let massiveOrder = [];
-          setOrderItemLength(res.results.length);
 
         res.results.map(orders=>{
           result = {
@@ -118,7 +135,7 @@ const OrderDetailsPersonalPageComponent = ({
         setDataOrderItem(massiveOrder)
       })
       .catch(err => console.error(`ERROR from request getOrders`, err))
-  }, [stateValuePoly.stateDelOrderItems])
+  }, [currenssies])
 
     useEffect(()=>{
       let resData={};
@@ -128,8 +145,8 @@ const OrderDetailsPersonalPageComponent = ({
         :null
         setDataOrder(resData)
       })
-    },[dataOrderItem])
-    // orderItems.map(el=>console.log('order',el))
+    }, [dataOrderItem])
+
 
   return (
     <>
@@ -154,6 +171,8 @@ const OrderDetailsPersonalPageComponent = ({
           order_cost={dataOrder.total}
           discount={discount}
           currentCurrcensies={currentCurrcensies}
+          setModalStates={setModalStates}
+          numberOrder={slug}
         />
 
         <OrderDetailsPersonalPageViews.ListTable
@@ -164,8 +183,7 @@ const OrderDetailsPersonalPageComponent = ({
           <OrderDetailsPersonalPageViews.LeftSideCol>
             {role !== ROLE.WHOLESALE ? (
               orderItems.map((el, i) => {
-              console.log('не опт');
-                return (
+                return ( 
                   <OrderDetailsPersonalPageViews.Card
                     {...el}
                     key={el.id}
@@ -180,13 +198,13 @@ const OrderDetailsPersonalPageComponent = ({
                     comment={el.comment}
                     image={el.image}
                     deleteElementOrder={deleteElementOrder}
+                    setModalStates={setModalStates}
                   />
                 );
               })
             ) : (
               <React.Fragment>
                 {orderItems.map((el, i) => {
-                 console.log('опт');
                   return (
                     <OrderDetailsPersonalPageViews.WrapperWhoosaleCard key={i} brand={el.title}>
                       {el.items.map((item) => {
@@ -206,6 +224,8 @@ const OrderDetailsPersonalPageComponent = ({
                             image={item.image}
                             deleteElementOrder={deleteElementOrder}
                             id={item.id}
+                            setModalStates={setModalStates}
+
                           />
                         );
                       })}

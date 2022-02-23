@@ -516,6 +516,9 @@
         justify-content: flex-start;
         flex-wrap: wrap;
         align-items: flex-end;
+        &>div{
+          text-decoration: line-through;
+        }
       }
     }
     &-buttons{

@@ -17,6 +17,8 @@ import closeJustIcon from './icon/close.svg';
 import closeNoFill from './icon/closeNoFill.svg';
 import userIcon from './icon/user.svg';
 import favoriteIcon from './icon/favorite.svg';
+import favoriteIconNew from './icon/favoriteNew.svg';
+
 import favoriteFilledIcon from './icon/favoriteFilled.svg';
 import cartIcon from './icon/cart.svg';
 import feedbackIcon from './icon/feedback.svg';
@@ -83,6 +85,8 @@ import newPhoto from './icon/newPhoto.svg';
 import arrowRightBlack from './icon/arrowRightBlack.svg';
 import videoPlayIcon from './icon/videoPlayIcon.svg';
 import shareIcon from './icon/share.svg';
+import telIcon from './icon/telIcon.svg';
+
 import promocode from './icon/promocode.svg';
 import closeRed from './icon/closeRed.svg';
 import catalogIcon from './icon/catalogIcon.svg';
@@ -169,6 +173,7 @@ export {
   searchIcon,
   userIcon,
   favoriteIcon,
+  favoriteIconNew,
   favoriteFilledIcon,
   cartIcon,
   feedbackIcon,
@@ -296,4 +301,6 @@ export {
   reward,
   errorCanceled,
   shoppingBag,
+  telIcon,
+  
 };

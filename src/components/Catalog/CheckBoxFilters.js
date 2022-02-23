@@ -40,7 +40,6 @@ const CheckBoxFilters = ({
     }
   };
 
-  //console.log('filterParams', filterParams);
   useEffect(() => {
     setValues({
       is_in_stock: filterParams.is_in_stock ?? null,

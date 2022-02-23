@@ -15,13 +15,13 @@ const pageSerializerClientDetailsShop = (page) => {
         ...init_state.client,
         last_activity:dayjs(init_state.client.last_activity).format("DD.MM.YYYY HH:MM")
     },
-    site_configuration: siteConfigurationSerializer(init_state.site_configuration),
+    site_configuration: siteConfigurationSerializer(init_state?.site_configuration),
     breadcrumbs: breadcrumbs,
-    cart: profile.cart,
-    notifications: profile.notifications,
-    user_role: profile.user_role,
-    user_status: profile.user_status,
-    wishlist: profile.wishlist,
+    cart: profile?.cart,
+    notifications: profile?.notifications,
+    user_role: profile?.user_role,
+    user_status: profile?.user_status,
+    wishlist: profile?.wishlist,
   };
 };
 

@@ -2,11 +2,20 @@
 .logo {
   --icon-width: 228px;
   --icon-height: 50px;
+  min-width: 0;
+  max-width: 228px;
+  max-height: 50px;
   color: var(--gx-color-black);
   margin-top: 3px;
   line-height: 1;
   position: relative;
   display: block;
+  &>img{
+    // background-color: #fff;
+    object-fit:fill;
+    max-height: 50px;
+    min-width: 230px;
+  }
 
   &:hover {
     color: var(--gx-color-black);
@@ -18,16 +27,30 @@
     display: none;
     @include mobile {
       display: block;
+      z-index: 100;
     }
   }
   @include mobile {
     gx-icon {
       width: calc(19vw + 50px);
     }
+    &>img{
+      // background-color: #fff;
+      object-fit:fill;
+      max-height: 50px;
+      min-width: 200px;
+    }
+  }
+  @include mobile-lg{
+    &>img{
+      background-color: #fff;
+      object-fit:fill;
+      max-height: 50px;
+      min-width: 180px;
+    }
   }
   & gx-icon {
     height: 45px;
-    
     padding-top: 3px;
     padding-bottom: 3px;
   }

@@ -5,6 +5,7 @@ import ExportCatalogComponents from '../components/ExportCatalogComponents';
 import Modal from '../Views/ModalCreator';
 import LinkLeadingBack from '../Views/LinkLeadingBack';
 
+
 const ExportCatalog = (props) => {
   const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
   const {
@@ -21,6 +22,7 @@ const ExportCatalog = (props) => {
   const { username } = user;
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <LinkLeadingBack to={site_configuration.page_type_account} />
         <ExportCatalogComponents role={role} multy_choise_filters={multy_choise_filters} />

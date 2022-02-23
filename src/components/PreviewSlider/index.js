@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SliderViews from '../../Views/SliderViews';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Player, BigPlayButton } from 'video-react';
 import SwiperCore, { Navigation, Pagination, Controller, Thumbs } from 'swiper';
 import { v4 } from 'uuid';
+
 
 SwiperCore.use([Navigation, Pagination, Controller, Thumbs]);
 
@@ -12,16 +13,20 @@ const FancyButton = React.forwardRef(({ className, ...props }, ref) => (
     {props.children}
   </div>
 ));
-
-const PreviewSlider = ({ imageOrVideoSet = [], defaultImage }) => {
+  
+const PreviewSlider = ({ 
+  imageOrVideoSet = [],
+  defaultImage,
+  product_sku=[],
+  colorsn,
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   const [controlledSwiper, setControlledSwiper] = useState(null);
   const [controlledTwoSwiper, setControlledTwoSwiper] = useState(null);
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
-
+  
   return (
     <SliderViews.Wrapper>
       <SliderViews.FirstSliderWrapper>
@@ -56,7 +61,13 @@ const PreviewSlider = ({ imageOrVideoSet = [], defaultImage }) => {
             return (
               <SwiperSlide key={v4()}>
                 <SliderViews.Slide
-                  image={el.type === 'video' ? el.preview : el.image_thumb}
+                
+                  image={
+                    imageOrVideoSet[0]?.color?
+                    el.image
+                    :el.type === 'video' ? el.preview : el.image_thumb}
+                  //image={'http://91.218.229.240:8000' + el.image_thumb}
+
                 ></SliderViews.Slide>
               </SwiperSlide>
             );
@@ -100,7 +111,11 @@ const PreviewSlider = ({ imageOrVideoSet = [], defaultImage }) => {
             } else {
               return (
                 <SwiperSlide key={v4()}>
-                  <SliderViews.Slide image={el.image}></SliderViews.Slide>
+                  <SliderViews.Slide image={
+                    imageOrVideoSet[0]?.color ?
+                      el.image
+                      :el.image_thumb                    
+                    }></SliderViews.Slide>
                 </SwiperSlide>
               );
             }

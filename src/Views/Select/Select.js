@@ -42,6 +42,7 @@ const Select = ({
     [style[variant]]: true,
     [style[className]]: !!className,
   });
+
   return (
     <GxSelect
       {...selectSettings}

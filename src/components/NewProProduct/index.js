@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import SingleBanner from '../../Views/SingleBanner';
 import Product from '../Product';
 import Text from '../../components/Text';
+import { Link } from 'react-router-dom';
 
 const NewProProduct = ({ initProduct = [], banners }) => {
   const settings = {
@@ -16,9 +17,9 @@ const NewProProduct = ({ initProduct = [], banners }) => {
     <div className="new-pro-content">
       <div className="pro-tab-title border-line">
         <ul className="nav product-list product-tab-list mb-30">
-          <li><a className="active" data-toggle="tab" href="#new-arrival"><Text text={'new_arrivals'}/></a></li>
-          {/*<li><a data-toggle="tab" href="#toprated"><Text text={'featured'}/></a></li>*/}
-          {/*<li><a data-toggle="tab" href="#new-arrival"><Text text={'top_rated'}/></a></li>*/}
+          <li><Link className="active" data-toggle="tab" to="#new-arrival"><Text text={'new_arrivals'}/></Link></li>
+          {/*<li><Link data-toggle="tab" href="#toprated"><Text text={'featured'}/></Link></li>*/}
+          {/*<li><Link data-toggle="tab" href="#new-arrival"><Text text={'top_rated'}/></Link></li>*/}
         </ul>
       </div>
       <Slider {...settings}>

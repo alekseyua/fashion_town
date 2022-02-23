@@ -4,8 +4,6 @@ import style from './styles/index.module.scss';
 
 const SelectProductOrService = ({ setReviewType, product, service }) => {
 
-//console.log('ModalContentViews -> SelectProductOrService--!!!!  ')
-
   return (
     <div className={style['wrapper-radio']}>
       <GxRadio

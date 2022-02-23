@@ -5,8 +5,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useStoreon } from 'storeon/react';
 import api from '../../api';
 
-const RecomendetProduct = ({ products = [] }) => {
-  const [listRecomendetProduct, setlistRecomendetProduct] = useState(products);
+const RecomendetProduct = ({ products = [], setCardIdproductFromSlider }) => {
+  const [listRecomendetProduct, setlistRecomendetProduct] = useState([]);
+  const { stateInPreveiwGoods } = useStoreon('stateInPreveiwGoods')
+  
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const sliderParams = {
     slidesPerView: 6,
@@ -18,7 +20,9 @@ const RecomendetProduct = ({ products = [] }) => {
   useEffect(() => {
     setlistRecomendetProduct(products);
   }, [products]);
+
   if (!listRecomendetProduct.length) return null;
+
   return (
     <YouHaveAlreadyWatchedViews.Wrapper title={'Рекомендуемое'}>
       <Swiper
@@ -48,6 +52,7 @@ const RecomendetProduct = ({ products = [] }) => {
                 sizes={data.sizes}
                 product_rc={data.product_rc}
                 currenssies={currenssies}
+                setCardIdproductFromSlider={setCardIdproductFromSlider}
               />
             </SwiperSlide>
           );

@@ -9,18 +9,18 @@ const newsDetaildPageSerializer = (page) => {
   return {
     ...init_state,
     ...pageInfo,
-    site_configuration: siteConfigurationSerializer(init_state.site_configuration),
+    site_configuration: siteConfigurationSerializer(init_state?.site_configuration),
     breadcrumbs: breadcrumbs.map((el) => {
       return {
         title: el.title,
         link: el.slug,
       };
     }),
-    cart: profile.cart,
-    notifications: profile.notifications,
-    user_role: profile.user_role,
-    user_status: profile.user_status,
-    wishlist: profile.wishlist,
+    cart: profile?.cart,
+    notifications: profile?.notifications,
+    user_role: profile?.user_role,
+    user_status: profile?.user_status,
+    wishlist: profile?.wishlist,
 
     created_at: dayjs(Api.language, page_info.created_at).format('DD.MM.YYYY'),
   };

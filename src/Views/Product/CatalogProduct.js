@@ -42,7 +42,7 @@ const CatalogProduct = ({ product, addToCart, addToWishlist, removeFromWishlist 
             <button type="button" onClick={handleAddToCart} className="add-cart">
               <Text text={'add_to_cart'} />
             </button>
-            <a href="compare.html" data-toggle="tooltip" title="Add to Compare"></a>
+            <Link to="compare.html" data-toggle="tooltip" title="Add to Compare"></Link>
           </div>
         </div>
       </div>

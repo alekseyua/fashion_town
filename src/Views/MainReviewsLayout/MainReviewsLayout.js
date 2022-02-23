@@ -37,7 +37,7 @@ const MainReviewsLayout = ({ reviews, reviews_url, setModalStates, setLike }) =>
   };
   const sliderParams = {
     slidesPerView: 1,
-    speed: 400,
+    speed: 2400,
     observer: true,
     observeParents: true,
     pagination: true,

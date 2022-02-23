@@ -5,6 +5,8 @@ import InformationViews from '../Views/InformationViews';
 import Title from '../Views/Title';
 import Breadcrumbs from '../Views/Breadcrumbs';
 import Container from '../Views/Container';
+import Modal from '../Views/ModalCreator';
+
 
 const InformationExchange = (props) => {
   const {
@@ -23,6 +25,7 @@ const InformationExchange = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <InformationViews.PaymentsConteiner>

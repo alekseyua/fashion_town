@@ -33,7 +33,6 @@ const Card = ({
   });
 
   const sendCommentFromTextField = (id) => {
-    console.log('did', id)
     fd.set('comment', inputText);
     fd.set('id', id);
     apiCart

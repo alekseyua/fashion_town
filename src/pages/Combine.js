@@ -141,12 +141,13 @@ const PAGE_TYPES = {
 
 
 const Combine = (props) => {
-
   const { currenssies, dispatch } = useStoreon('currenssies');
   const { stateCountCart } = useStoreon('stateCountCart')
 
-  const setRoleConfiguration = ({ role_configuration, id }) => {
 
+  // console.log('locale-', props);
+
+  const setRoleConfiguration = ({ role_configuration, id }) => {
     dispatch('role_configuration/update', role_configuration);
   };
 
@@ -162,7 +163,7 @@ const Combine = (props) => {
 
           let pageType, page;
           if (status === 'failed') {
-
+            console.log('what is failed')
             return status;
           } else {
             page = data.page;

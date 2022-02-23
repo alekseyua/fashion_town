@@ -9,40 +9,130 @@
   align-items: center;
   background-color: rgba(252, 210, 215, 0.5);
   min-height: 48px;
+  // height: 100%;
   padding: 15px;
   &__icon {
     margin-right: 10px;
     height: 24px;
     min-width: 24px;
+    position: absolute;
+    left: 15px;
+    top: 20px;
   }
   &__text {
     max-width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 0 30px;
+    &-btn{
+      width: 100%;
+      position: relative;
+      z-index: 20;
+    }
+
+     &-content{
+ 
+      width: 100%;
+      font-size: 14px;
+      position: relative;
+      top: 0px;
+      transition: all 2s ease;
+      
+      &--disable{
+        font-size: 14px;
+        position: absolute; 
+        z-index: 19;  
+        transition: all 2s ease-out;
+        top:-150px;
+        color: rgba(252, 210, 215, 0.5);
+      }  
+     }
   }
 }
 .catalog {
   &-wrapper,
   &-wrapper-mobile {
+      transition: all 2s ease-out;
+      overflow: hidden;
+      // height: 48px;
+      text-overflow: ellipsis;
+
     font-size: 12px;
     justify-content: left;
     align-items: center;
     background-color: rgba(252, 210, 215, 0.5);
     border-radius: 2px;
     padding: 15px;
-  }
-  &-wrapper {
-    display: flex;
-    @include mobile {
-      display: none;
-    }
-
-    &-mobile {
-      display: none;
-      @include mobile {
-        display: flex;
-        margin-bottom: 15px;
+    position: relative;
+    z-index: 20;
+    max-height: 100%;
+   cursor: pointer;
+    &--active{
+      .wrapper__text-ellipsis{
+        display: none;
       }
+      transition: all 2s ease-out;
+
+      font-size: 12px;
+      justify-content: left;
+      align-items: center;
+      background-color: rgba(252, 210, 215, 0.5);
+      border-radius: 2px;
+      padding: 15px;
+      position: relative;
+      max-height: 100%;
+      cursor: pointer;
+       &::after,
+       &::before{
+         background-color: rgb(49, 7, 32);
+         content: '';
+          right: 5px;
+          top: 15px;
+          width: 20px;
+          height: 3px;
+          position: absolute;
+          transition: transform 2s ease-out;
+          &::before{
+            height: 3px;
+            transform: rotate(0deg);
+          }
+       }
+
+    }
+    &::after,
+    &::before{
+      content: '';
+      right: 5px;
+      top: 15px;
+      background-color: #000;
+      width: 20px;
+      height: 3px;
+      position: absolute;
+      transition: transform .4s ease-out;
+    }
+    &::before{
+      height: 3px;
+      transform: rotate(90deg);
     }
   }
+    // &-wrapper {
+    //   display: flex;
+    //   @include mobile {
+    //     display: none;
+    //   }
+
+    // &-mobile {
+    //   display: none;
+    //   @include mobile {
+    //     display: flex;
+    //     margin-bottom: 15px;
+    //   }
+    // }
+  // }
   &__icon {
     margin-right: 10px;
   }

@@ -6,7 +6,6 @@ import style from './styles/index.module.scss';
 
 const GoBackToCartContent = ({ closeModal, to = '#',gotoCartFunc }) => {
 
-//console.log('ModalContentViews -> GoBackToCartContent--!!!!  ')
   return (
     <ButtonsWrapper
       leftBtn={

@@ -57,7 +57,7 @@
     p {
       margin: 0;
       margin-bottom: 20px;
-      font-family: 'Noto Sans', sans-serif;
+      font-family: 'Champagne & Limousines Bold Italic', sans-serif;
       line-height: 120%;
       letter-spacing: 0.04em;
       text-align: center;
@@ -68,7 +68,7 @@
     }
     &-bottom {
       margin-bottom: 18px;
-      font-family: 'Noto Sans', sans-serif;
+      font-family: 'Champagne & Limousines Bold Italic', sans-serif;
       line-height: 140%;
       letter-spacing: 0.04em;
       font-size: 12px;
@@ -76,20 +76,24 @@
     }
   }
   &__link {
-    display: inline-block;
-    text-align: center;
+    // display: inline-block;
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 18px 26px;
     border: 2px solid var(--gx-color-darkgray);
     border-radius: 2px;
     background-color: var(--gx-color-white);
     text-transform: uppercase;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
     font-weight: bold;
     font-size: 14px;
     line-height: 140%;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--gx-color-accent2);
+    height: 0px;
     &:hover {
       border: 2px solid var(--gx-color-accent2);
       transition: 0.3s;

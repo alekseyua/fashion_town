@@ -5,9 +5,6 @@ import { GxSpinner } from '@garpix/garpix-web-components-react';
 import style from '../../Views/PersonalPageViews/styles/wrapper.module.scss';
 
 const FormButtons = ({ closeModal, isSaved = false }) => {
-
-//console.log('ModalContentViews -> FormButtons--!!!!  ')
-  
   return (
     <div className={style['cabinet-form__end']}>
       <div className={style['cabinet-form__endleft']}>

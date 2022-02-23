@@ -6,9 +6,16 @@ import { useStoreon } from 'storeon/react';
 import api from '../../api';
 
 const apiProfile = api.profileApi;
-const YouHaveAlreadyWatched = ({}) => {
-  const { stateValuePoly,dispatch } = useStoreon('stateValuePoly');
+const YouHaveAlreadyWatched = ({
+  setCardIdproductFromSlider
+}) => {
 
+  const { stateValuePoly,dispatch } = useStoreon('stateValuePoly');
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
+  const { updateWish } = useStoreon('updateWish');
+  const { stateInPreveiwGoods } = useStoreon('stateInPreveiwGoods')
+
+  
   const [listAlreadySaw, setlistAlreadySaw] = useState([]);
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const sliderParams = {
@@ -27,16 +34,31 @@ const YouHaveAlreadyWatched = ({}) => {
       .catch((err)=>{
         console.log(`ERROR YouHaveAlreadyWatched ${err}`);
       });
-  }, [stateValuePoly.stateWish, stateValuePoly.stateCurrency])
+  },[updateCurrenssies,stateInPreveiwGoods])
 
   if (!listAlreadySaw.length) return null;
+
+/**
+ * YouHaveAlreadyWatched
+ * 
+ * listAlreadySaw содержит данные про пункт вы уже смотрели
+ * 
+ */
+
+
   return (
     <YouHaveAlreadyWatchedViews.Wrapper title={'Вы уже смотрели'}>
-      <Swiper {...sliderParams} navigation={listAlreadySaw.length > 6} noSwiping slidesPerView={'auto'}>
+      <Swiper 
+        {...sliderParams} 
+        navigation={listAlreadySaw.length > 6} 
+        noSwiping slidesPerView={'auto'}
+        setCardIdproductFromSlider={setCardIdproductFromSlider}
+
+      >
         {listAlreadySaw.map((el, i) => {
           const data = el.product;
           return (
-            <SwiperSlide key={el.id}>
+            <SwiperSlide key={el.id}> 
               <ProductCard
                 disabledHover
                 url={data.url}
@@ -54,6 +76,7 @@ const YouHaveAlreadyWatched = ({}) => {
                 sizes={data.sizes}
                 product_rc={data.product_rc}
                 currenssies={currenssies}
+                setCardIdproductFromSlider={setCardIdproductFromSlider}
               />
             </SwiperSlide>
           );

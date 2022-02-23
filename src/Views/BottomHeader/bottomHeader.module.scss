@@ -12,8 +12,9 @@
   box-shadow: 0px 0px 6px grey;
 
 
+
   @include tablet-lg {
-    top: 46px;
+    top: 35px;
     transition: none;
   }
   @include tablet-md {
@@ -31,9 +32,10 @@
   &__group {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    // justify-content: space-around;
     align-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    width: 80%;
     align-items: center;
     @include mobile {
       display: none;
@@ -56,27 +58,30 @@
     }
   }
   &.scrolled &-logo {
-    display: none;
+    // display: none;
     @include mobile {
       display: block;
     }
   }
 
   &.top {
-    top: 45px;
+    top: 35px;
     @include mobile {
       top: auto;
     }
   }
 
   &-wrapper {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    padding: 0px 60px;
+    padding: 0 60px;
+    margin-top: 10px;
+    width: 100%;
     @include padding-for-mobile;
     @include mobile {
       display: flex;
@@ -88,11 +93,24 @@
     }
   }
   &-logo {
-    margin-right: 100px;
+    // margin-right: 100px;
+    flex: 0 0 20%;
     @include mobile {
+
       width: auto;
     }
   }
+  &__group-menu {
+    padding-right: 100px;
+    position: relative;
+    flex: 1 0 auto;
+    @media (min-width: 1370px) {
+      font-size: calc((10 + 14) * ((100vw - 320px) / (1920 - 320)));
+    }
+    // font-size: 24px;
+    width: 100%;
+  }
+
   &-menu {
     @include mobile {
       display: none;
@@ -100,6 +118,7 @@
   }
   &__burger-wrapper {
     display: none;
+    
     @include tablet-md {
       display: block;
       top: 0;

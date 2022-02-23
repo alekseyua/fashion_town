@@ -13,7 +13,7 @@ import {
 export default class ContentApi extends AbstractBaseApi {
   getCatalogData = async (params = {}) => {
     params = serializeCatalogParams(params);
-    const res = await this.get('/catalog/product/', params);
+    const res = await this.get('/catalog/product/', params);  
     return serializeCatalogProduct(res.data);
   };
   postLikes = async (params = {}) => {
@@ -45,12 +45,10 @@ export default class ContentApi extends AbstractBaseApi {
     return livePhotosCardSerializer(res.data);
   };
   getCategory = async (params = {}) => {
-    console.log('getCategory');
     const res = await this.get('/catalog/category/', params);
     return res.data;
   };
   getBrands = async (params = {}) => {
-    console.log('getBrands');
     const res = await this.get('/catalog/brand/', params);
     return res.data;
   };
@@ -69,7 +67,6 @@ export default class ContentApi extends AbstractBaseApi {
     return res.data;
   };
   getColors = async (params = {}) => {
-    console.log('getColors');
     const res = await this.get('/catalog/color/', params);
     return res.data;
   };
@@ -90,7 +87,6 @@ export default class ContentApi extends AbstractBaseApi {
 
   getProduct = async (id, params = {}) => {
     const res = await this.get(`/catalog/product/${id}/`, params);
-   // console.log('getProduct',res.data);
     return res.data;
   };
   getMyReviewList = async (params = {}) => {

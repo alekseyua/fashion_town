@@ -1,165 +1,107 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GxMenu, GxMenuItem, GxIcon, GxDropdown } from '@garpix/garpix-web-components-react';
 import { dropdownIcon } from '../../images/index';
 import classNames from 'classnames';
 import style from './headerButtons.module.scss';
 import { useStoreon } from 'storeon/react';
+import { motion } from 'framer-motion';
+import { initial } from 'lodash';
+import { doc } from 'prettier';
 
 const LangAndCurrencies = ({
   currenciesData,
-  langData,
-  hideLangDropDown,
   isScrolled,
-  hideCurrenciesDropDown,
   setCurrenciesData,
-  seLangData,
-  currencyNow,
 }) => {
 
-  const { dispatch } = useStoreon();
+  const { currenssies, dispatch } = useStoreon('currenssies');
+  const [clickActiveCurrencies, setClickActiveCurrencies] = useState(false);
+  const clickOutRef = useRef();
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
 
+  useEffect((e) => {
+  const onClick = e => clickOutRef.current.contains(e.target) || setClickActiveCurrencies(false)
+  document.addEventListener('click', onClick);
+  return () => document.removeEventListener('click',onClick)
+    }, [])
 
-  return (
+    return (
     <>
-
-
-
       <GxDropdown
-        onGx-hide={hideCurrenciesDropDown}
+        // onGx-hide={hideCurrenciesDropDown}
         className={classNames({
           [style['header-buttons-curr']]: true,
-          [style['open']]: currenciesData.isOpen,
+          // [style['open']]: currenciesData.isOpen,
         })}
       >
         <div
+          ref={clickOutRef}
           slot="trigger"
           className={classNames({
             [style['header-buttons-curr__top']]: true,
             [style['scrolled']]: isScrolled,
-            [style['open']]: currenciesData.isOpen,
+            [style['open']]: clickActiveCurrencies,
           })}
           onClick={() => {
-            setCurrenciesData({
+            setCurrenciesData(()=>({
               ...currenciesData,
               isOpen: !currenciesData.isOpen,
-            });
-            seLangData({
-              ...langData,
-              isOpen: false,
-            });
+            }));
+            setClickActiveCurrencies(!clickActiveCurrencies)
           }}
         >
-          {/* {currenciesData.options.map((el, i) => {
-            if (el.value === currenciesData.active) return e.nlame;
-          })} */}
-          {currencyNow}
+
+          {currenssies}
           <GxIcon
             src={dropdownIcon}
             className={classNames({
               [style['header-buttons-curr__arrow']]: true,
               [style['scrolled']]: isScrolled,
-              [style['open']]: currenciesData.isOpen,
+              [style['open']]: clickActiveCurrencies,
             })}
           />
         </div>
-        <GxMenu className={style['header-buttons-curr__list']}>
-          {currenciesData.options.map((el, i) => {
-            if (el.active !== currenciesData.active)
-              return (
-                <GxMenuItem
-                  key={i}
-                  className={style['header-buttons-curr__list-item']}
-                  value={el.value}
-                  onClick={(e) => {
-                    setCurrenciesData({
-                      ...currenciesData,
-                      active: e.target.value,
-                      isOpen: false,
-                    });
-                    // seLangData({
-                    //   ...langData,
-                    //   isOpen: false,
-                    // });
-                   // window.location.reload();
-                   
-                   dispatch('stateValuePoly/change',{stateCurrency : true})
-
-                  }}
-                >
-                  {el.name}
-                </GxMenuItem>
-              );
-          })}
-        </GxMenu>
+        {clickActiveCurrencies ?
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+          transition={{
+            duration: 1.1
+          }}
+          >
+            <GxMenu
+              className={style['header-buttons-curr__list']}
+            >
+              {currenciesData.options.map((el, i) => {
+                if (el.active !== currenssies)
+                  return (
+                    <GxMenuItem
+                      key={i}
+                      className={style['header-buttons-curr__list-item']}
+                      value={el.value}
+                      onClick={(e) => {
+                        setCurrenciesData({
+                          ...currenciesData,
+                          active: e.target.value,
+                          isOpen: !currenciesData.isOpen,
+                        });
+                        setClickActiveCurrencies(!clickActiveCurrencies)
+                        dispatch('updateCurrenssies/update', !updateCurrenssies )
+                      }}
+                    >
+                      {el.name}
+                    </GxMenuItem>
+                  );
+              })}
+            </GxMenu>
+          </motion.div>
+          : null
+        }
       </GxDropdown>
     </>
   );
 };
 export default React.memo(LangAndCurrencies);
 
-
-    {/* Убрал по таску http://pm.garpix.com/browse/FASHTOWN-299 */}
-      {/* <GxDropdown
-        className={classNames({
-          [style['header-buttons-lang']]: true,
-          [style['open']]: langData.isOpen,
-        })}
-        onGx-after-hide={hideLangDropDown}
-      >
-        <div
-          slot="trigger"
-          className={classNames({
-            [style['header-buttons-lang__top']]: true,
-            [style['scrolled']]: isScrolled,
-            [style['open']]: langData.isOpen,
-          })}
-          onClick={(e) => {
-            setCurrenciesData({
-              ...currenciesData,
-              isOpen: false,
-            });
-            seLangData({
-              ...langData,
-              isOpen: !langData.isOpen,
-            });
-          }}
-        >
-          {langData.options.map((el, i) => {
-            if (el.value == langData.active) return el.name;
-          })}
-          <GxIcon
-            src={dropdownIcon}
-            className={classNames({
-              [style['header-buttons-lang__arrow']]: true,
-              [style['scrolled']]: isScrolled,
-              [style['open']]: langData.isOpen,
-            })}
-          />
-        </div>
-        <GxMenu className={style['header-buttons-lang__list']}>
-          {langData.options.map((el, i) => {
-            if (langData.active !== el.value)
-              return (
-                <GxMenuItem
-                  key={i}
-                  className={style['header-buttons-lang__list-item']}
-                  value={el.value}
-                  onClick={(e) => {
-                    seLangData({
-                      ...langData,
-                      active: e.target.value,
-                      isOpen: false,
-                    });
-                    setCurrenciesData({
-                      ...currenciesData,
-                      isOpen: false,
-                    });
-                    window.location.href = `/${e.target.value}/`;
-                  }}
-                >
-                  {el.name}
-                </GxMenuItem>
-              );
-          })}
-        </GxMenu>
-      </GxDropdown> */}

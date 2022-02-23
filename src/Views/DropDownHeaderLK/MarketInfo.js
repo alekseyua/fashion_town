@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Text from '../../components/Text';
 import { defaultImageMarketInfo } from '../../images';
 import style from './marketInfo.module.scss';
@@ -14,9 +15,9 @@ const MarketInfo = ({ image, to = '#', title = 'FASHION STORE' }) => {
           {title}
           <br />
           <span className={style['wrapper-name_and_link-link']}>
-            <a target="_blank" href={to}>
+            <Link target="_blank" to={to}>
               <Text text={'onlineStore'} />
-            </a>
+            </Link>
           </span>
         </p>
       </div>

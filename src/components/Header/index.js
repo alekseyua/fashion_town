@@ -19,13 +19,12 @@ export default ({
   site_configuration,
   currencies,
 }) => {
-  const { userPage } = useStoreon('userPage')
+
+  
+  const { userPage } = useStoreon('userPage');
   const role = userPage.profile;
-  const { page_type_search } = site_configuration;
+  // const { page_type_search } = userPage.site_configuration;
   const { promotionsAdds } = useStoreon('promotionsAdds');
-  //const [totalPrice, setTotal] = useState(0);
-  //console.log('totalPrice', totalPrice);
-  //const { cart } = useStoreon('cart');
   const [offsetTop, setOffsetTop] = useState(124);
   const [isScrolled, setScrolled] = useState(false);
   const [isActiveSubmenuBg, setActiveSubmenuBg] = useState(false);
@@ -55,7 +54,7 @@ export default ({
       });
   };
   const handleClickSearchBtn = () => {
-    // window.location.href = page_type_search;
+    //  window.location.href = page_type_search;
   };
   const handleClickSearchRoot = () => {
     setSearchState((prevState) => ({

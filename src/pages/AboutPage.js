@@ -3,6 +3,8 @@ import Layout from '../Views';
 import Breadcrumbs from '../Views/Breadcrumbs';
 import Container from '../Views/Container';
 import AboutViews from '../Views/AboutViews';
+import Modal from '../Views/ModalCreator';
+
 import {
   aboutbox,
   aboutcheck,
@@ -14,7 +16,9 @@ import {
 import Title from '../Views/Title';
 
 const AboutPage = (props) => {
+
   const { breadcrumbs, components, site_configuration } = props;
+
   const firstSection = components.filter((el) => el.id === 9)[0];
   const platformSection = components.filter((el) => el.id === 10)[0];
   const platformListSection = components.filter((el) => el.id === 11)[0];
@@ -32,6 +36,7 @@ const AboutPage = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
       </Container>

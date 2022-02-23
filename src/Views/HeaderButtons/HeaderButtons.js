@@ -11,19 +11,13 @@ import Input from '../../Views/Input';
 import Wish from './Heart/Wish';
 import Logo from '../Logo';
 import { searchIcon, userIcon, favoriteIcon, cartIcon, catalogIcon } from '../../images/index';
-import {
-  LANG_DATA,
-  CURRENCIES_DATA, 
-  COOKIE_KEYS,
-  ONE_YEARS,
-  DEFAULT_CURRENCIES,
-} from '../../const';
-import { getCookie, setCookie } from '../../utils';
+
+
 import Text from '../../components/Text';
 import SearchPageViews from '../SearchPageViews';
 import { useStoreon } from 'storeon/react';
 import styleWish from './style/styleWish.module.scss';
-
+import { motion } from 'framer-motion';
 //-------------------------------------------------------
 import api from '../../api';
 // import chalk from 'chalk';
@@ -44,61 +38,30 @@ const HeaderButtons = ({
   searchResults,
   searchValue,
   currencies,
+  setCurrenciesData,
+  currenciesData,
 }) => {
   
-  
-
-
-  const {
-    page_type_cart,
-    page_type_account,
-    page_type_auth,
-    page_type_reg,
-    page_type_wishlist,
-    page_type_catalog,
-    page_type_search,
-    page_home,
+ const {
+    page_type_cart = '#',
+   page_type_account = '#',
+   page_type_auth = '#',
+   page_type_reg = '#',
+   page_type_wishlist = '#',
+   page_type_catalog = '#',
+   page_type_search = '#',
+   page_home = '#',
   } = site_configuration;
-  // const err = chalk.bold.red;
-  // const war = chalk.hex('#FFA500'); // Orange color
 
   const intl = useIntl();
   const getMenuAccount = () => { };
   const getSearcheField = () => { };
-  const defaultLangData = {
-    isOpen: false,
-    active: intl.locale,
-    options: LANG_DATA,
-  };
-  const getCurrencies = () => {
-    console.log('currenciescurrenciescurrencies',currencies);
-    if (currencies) {
-      return currencies[0];
-    } else {
-      return DEFAULT_CURRENCIES;
-    }
-  };
-  const defaultCurrenciesSingle = getCurrencies;
-  const currencyDefault = getCookie(COOKIE_KEYS.CURRENCIES);
-  const defaultCurrenciesData = {
-    isOpen: false,
-    active: currencyDefault ? currencyDefault : defaultCurrenciesSingle(),
-    options: currencies
-      ? currencies.map((el) => {
-        return {
-          name: el,
-          value: el,
-        };
-      })
-      : CURRENCIES_DATA,
-  };
+
+
   const { userPage } = useStoreon('userPage');
   const { dataBalance } = useStoreon('dataBalance');
   const { stateCountRestart,dispatch } = useStoreon('stateCountRestart');
   const history = useHistory();
-  const [currencyNow, setCurrencyNow] = useState(dataBalance.currency);
-  const [langData, seLangData] = useState(defaultLangData);
-  const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
   const [searchInputShow, setSearchInputShow] = useState(false);
   // ___________________________________________________________________________
   const { stateCountWish } = useStoreon('stateCountWish');
@@ -114,39 +77,16 @@ const HeaderButtons = ({
     setCountInCar(stateCountCart.in_cart)
   },[stateCountCart.in_cart])
 
-  useEffect(() => {
-    setCurrencyNow(dataBalance.currency)
-  }, [dataBalance.currency])
-
   /**
    * *************************************************************************
    */
 
-  const setCurrenciesData = (data) => {
-    console.log('setCurrenciesData')
-    setCookie(COOKIE_KEYS.CURRENCIES, data.active, ONE_YEARS);
-    setCurrencies(data);
-  };
-  const hideLangDropDown = (e) => {
-    console.log('hideLangDropDown')
-    seLangData({
-      ...langData,
-      isOpen: false,
-    });
-  };
-  const hideCurrenciesDropDown = (e) => {
-    console.log('hideCurrenciesDropDown')
-    setCurrenciesData({
-      ...currenciesData,
-      isOpen: false,
-    });
-  };
+
+
   const handleClickSearchBtn = () => {
-    console.log('handleClickSearchBtn')
     setSearchInputShow((prevState) => !prevState);
   };
   const handleClickSearchRoot = (e) => {
-    console.log('handleClickSearchRoot')
     if (searchBgRef.current === e.target) {
       setSearchInputShow(false);
       onClickSearchRoot();
@@ -154,7 +94,6 @@ const HeaderButtons = ({
   };
 
   const handleKeyPress = (e) => {
-    console.log('handleKeyPress')
     if (e.key === 'Escape') {
       setSearchInputShow(false);
     }
@@ -168,16 +107,12 @@ const HeaderButtons = ({
   }, []);
 
   const onChangeHandler = () =>{
-      console.log('click');
       dispatch('stateCountRestart/add', !stateCountRestart)
       history.push('cart')
   }
   // =======================================================================================================
 
         //впосля нужно протестить сколько раз вызывается 36
- // console.log('stateCountWish.mywishCount', stateCountWish.mywishCount, '-----------');
-  //  console.log('stateCountCart.countCart',stateCountCart.countCart,'-----------');
-
   // =======================================================================================================
   return (
     <div
@@ -189,14 +124,10 @@ const HeaderButtons = ({
       {lang ? (
         <div className={style['header-buttons-dropdowns']}>
           <LangAndCurrencies
-            langData={langData}
             currenciesData={currenciesData}
-            hideLangDropDown={hideLangDropDown}
             isScrolled={isScrolled}
-            hideCurrenciesDropDown={hideCurrenciesDropDown}
             setCurrenciesData={setCurrenciesData}
-            seLangData={seLangData}
-            currencyNow={currencyNow}
+
           />
         </div>
       ) : null}
@@ -291,7 +222,7 @@ const HeaderButtons = ({
               data-cy={'header_cart'}
               onClick={onChangeHandler}
             >
-              <GxIcon src={cartIcon} label={Text({ text: 'cart' })} />
+              <GxIcon src={cartIcon} id='cart-id' label={Text({ text: 'cart' })} />
               {countInCar !==0 ? (
                 <div
                   className={classNames({

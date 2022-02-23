@@ -1,4 +1,5 @@
 import App from './App';
+import BaseApp from './client'
 import React from 'react';
 import { StaticRouter as Router, matchPath, Redirect, Route, Switch, Routers } from 'react-router-dom';
 import express from 'express';
@@ -37,7 +38,8 @@ server
   .use(express.static('public'))
   .use('/static', express.static(__dirname + '/public'))
   .use(cookieParser())
-  .get('/*', (req, res) => {
+  .get('/*', (req, res, next) => {
+  // .get('/*', (req, res) => {
     global.document = document;
     global.document.cookie = req.headers.cookie;
     global.localStorage = { getItem: () => '' };
@@ -46,7 +48,6 @@ server
     const query = req.query;
     const activeRoute = Object.entries(PATHS).find(([key, value]) => matchPath(url, value))[1];
     const auth_token = req.cookies[api.AUTH_TOKEN_KEY];
-    // console.log('res',res);
     const axiosParams = auth_token 
     ? { 
       
@@ -58,8 +59,6 @@ server
    let currentLangs = Object.keys(supportedLangs).filter((lang) => lang === url.split('/')[1]);
    let currentLang = currentLangs[0] ? currentLangs[0] : lang;
     api.setLanguage(currentLang);
-    //console.log('currentLangs',currentLangs);
-    //console.log('currentLang',currentLang);
     // let lang = "ru"
     // let currentLang='ru';
   //  currentLang= language
@@ -69,6 +68,8 @@ server
         : Promise.resolve();
     promise
       .then((initData) => {
+        // console.log(initData);
+
         const context = { initData, query };
 
          const markup = ReactDOMServer.renderToString(
@@ -77,7 +78,7 @@ server
               <Switch>
                 <Route path="/:locale">
                   <App lang={currentLang} />
-                  {/* <App  /> */}
+                   {/* <BaseApp lang={currentLang}/> */}
                 </Route>
                 <Redirect to="/ru" />
               </Switch>
@@ -86,6 +87,8 @@ server
          );
 
          const helmet = Helmet.renderStatic();
+
+         
          if (context.url) {
            res.redirect(context.url);
         } else {
@@ -156,15 +159,12 @@ server
 //                   var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
 //                   document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
 //                   document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-//                 }
-//                 console.log('cookies-----1-',cookies);
-//                 console.log('Cookie DELETE');
 //                 window.location.reload();
 //               }
 //               </script>
 //             </html>`);
 //        }
-        console.log(error.stack, 'ERROR SERVER.JS');
+        // console.log(error.stack, 'ERROR SERVER.JS');
         return res.status(500).send(`got error ${error.stack}, ${error}`);
       });
   });

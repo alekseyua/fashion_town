@@ -9,11 +9,11 @@ const pageNewsSerializer = (page) => {
   return {
     ...page_info,
     ...init_state,
-    cart: profile.cart,
-    notifications: profile.notifications,
-    user_role: profile.user_role,
-    user_status: profile.user_status,
-    wishlist: profile.wishlist,
+    cart: profile?.cart,
+    notifications: profile?.notifications,
+    user_role: profile?.user_role,
+    user_status: profile?.user_status,
+    wishlist: profile?.wishlist,
   };
 };
 

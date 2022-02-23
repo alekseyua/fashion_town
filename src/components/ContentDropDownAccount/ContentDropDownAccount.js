@@ -1,12 +1,13 @@
 import React from 'react';
 import { ROLE, COOKIE_KEYS } from '../../const';
-import { removeCookie } from '../../utils';
+import { removeCookie, getCookie } from '../../utils';
 import AccessCheck from './AccessCheck';
 import RejectedAccount from './RejectedAccount';
 import Unregistred from './Unregistred';
 import Retailer from './Retailer';
 import Dropshipper from './Dropshipper';
 import Wholesale from './Wholesale';
+import { useHistory} from 'react-router-dom'
 
 /**
  * на основе роли выберет нужный контент
@@ -22,9 +23,19 @@ const ContentDropDownAccount = ({
 }) => {
   const { role, user = {}, shop = { is_has_shop: false }, status } = profile;
   const { first_name = 'Имя', last_name = 'Фамилия' } = user;
+  const history = useHistory();
   const logOut = () => {
+    console.log('выход с аккаунта');
+    const ft_token = getCookie('ft_token');
     removeCookie(COOKIE_KEYS.AUTH);
-    window.location.href = '/';
+    
+    if (ft_token){
+      logOut()
+    }else{
+      history.push('/en')
+      window.location?.reload()
+    }
+
   };
   const variantDropDown = {
     accessCheck: (

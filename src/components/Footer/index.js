@@ -49,7 +49,8 @@ export default ({ footer_menu = [], site_configuration, role_configuration, year
                     closeModal={closeModal}
                     success={true}
                     content={
-                      'Запрос отправлен, с вами обязательно свяжется менеджер через указанную вами почту!'
+                      // 'Запрос отправлен, с вами обязательно свяжется менеджер через указанную вами почту!'
+                      'Ваше обращение зарегистрировано и передано ответственному сотруднику. Благодарим Вас за сотрудничество!'
                     }
                   />
                 </ModalContentViews.CenterPosition>
@@ -114,9 +115,10 @@ export default ({ footer_menu = [], site_configuration, role_configuration, year
                   <ModalContentViews.CloseBtn closeModal={closeModal} />
                   <ModalContentViews.HeaderBlock mb={'40px'} title={'Форма обратной связи'} />
                   <WarningBlock>
-                    Если у вас возникли вопросы, напишите нам. Обязательно укажите причину обращения
-                    в поле “Проблемная область”. Если в выпадающем списке вы не нашли нужную вам
-                    причину, выберите вариант “Другое”.
+                  В случае возниконовения вопросов Вы можете свызаться с нами с помощью формы ниже. Ответ по Вашему обращению Вы получите в течении 3х рабочих дней на указанный почтовый адрес
+                    {/* Если у вас возникли вопросы, напишите нам. Обязательно укажите причину обращения
+                    в поле “Тематика обращения”. Если в выпадающем списке вы не нашли нужную вам
+                    причину, выберите вариант “Другое”. */}
                   </WarningBlock>
                   <ModalContentViews.ContentBlock>
                     <Select
@@ -126,7 +128,7 @@ export default ({ footer_menu = [], site_configuration, role_configuration, year
                       name={'problem_area'}
                       value={values.problem_area}
                       onGx-change={handleChange}
-                      label={'Проблемная область*'}
+                      label={'Тематика обращения'}
                       options={optionsProblemArea}
                     />
                     <Input
@@ -137,7 +139,7 @@ export default ({ footer_menu = [], site_configuration, role_configuration, year
                       onGx-change={handleChange}
                       data-cy={'registration_first_name'}
                       autocomplete={'off'}
-                      label={'Как к вам обращаться'}
+                      label={'Как к Вам обращаться'}
                       placeholder={'Введите'}
                       onGx-input={(e) => {}}
                       helpText={errors.name ? <ErrorField message={errors.name} /> : null}
@@ -159,7 +161,7 @@ export default ({ footer_menu = [], site_configuration, role_configuration, year
                       value={values.message}
                       name={'message'}
                       onGx-change={handleChange}
-                      placeholder={'Описание проблемы'}
+                      placeholder={'Напишите Ваш вопрос'}
                       label={'Описание'}
                       helpText={errors.message ? <ErrorField message={errors.message} /> : null}
                     ></GxTextarea>

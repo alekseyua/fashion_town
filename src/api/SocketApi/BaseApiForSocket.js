@@ -17,7 +17,6 @@ class SocketBase {
     this.socket.onclose = (event) => {
    
       if (this.listeners['disconnect']) {
-        console.log("status ok");
         this.listeners['disconnect'](event);
         localStorage.setItem('connectionStatus', false);
       }

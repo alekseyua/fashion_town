@@ -48,7 +48,7 @@ const VidjetChatComponent = ({}) => {
   }, []);
 
   if (!isShowChat) {
-    return <GxIcon onClick={toggleOpenChats} className={'chats-icon'} src={chats} alt={'chat'} />;
+    return <div className={'inner-chat'}><GxIcon onClick={toggleOpenChats} className={'chats-icon'} src={chats} alt={'chat'} /></div>;
   }
 
   return (

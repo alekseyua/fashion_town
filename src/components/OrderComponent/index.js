@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Title from '../../Views/Title';
 import Text from '../Text';
 import CartViews from '../../Views/CartViews';
 import CheckBox from '../../Views/CheckBox';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { GxCol, GxModal, GxTooltip, GxButton } from '@garpix/garpix-web-components-react';
 import OrderingCards from './OrderingCards';
 import { Formik } from 'formik';
@@ -22,9 +22,8 @@ import { ROLE, STATUS_EQUARING } from '../../const';
 import styleModal from '../../Views/ModalCreator/modalCreator.module.scss';
 import OrderCar from '../../#lifehack/OrderCar/OrderCar';
 import Item from '../../Views/NotificationsViews/Item';
-import { useHistory } from 'react-router-dom';
 import Select from '../../Views/Select';
-import style from '../../Views/Select/select.module.scss'
+import style from '../../Views/Select/select.module.scss';
 
 const OrderComponent = ({
   payment_methods,
@@ -34,46 +33,9 @@ const OrderComponent = ({
   role_configuration,
   site_configuration,
 }) => {
-
   const initialState = {
     isLoad: false,
   };
-  // const initCartContentOrder = {
-  //         cart_items: cart_content.cart_items,
-  //         cartitem_set: cart_content.cartitem_set,
-  //         delivery: {
-  //           price : 0,
-  //           description: ""
-  //         },
-  //         discount: cart_content.discount,
-  //         in_stock: cart_content.in_stock,
-  //         price: cart_content.price,
-  //         total_price: cart_content.total_price,
-  //       };
-
-  // const initCartContentOrder = {
-  //   cartitem_set: cart_content.cartitem_set,
-  //   created_at: '',
-  //   cart_items: cart_content.cart_items,
-  //   delivery_price: 0,
-  //   id: 0,
-  //   in_cart: 0,
-  //   in_stock: cart_content.in_stock,
-  //   is_performed: false,
-  //   selected: false,
-  //   total_discount: 0,
-  //   total_order_price: 0,
-  //   updated_at: '',  
-  //   delivery: {
-  //     price : 0,
-  //     description: ""
-  //   },
-  //   discount: cart_content.discount,
-  //   price: cart_content.price,
-  //   total_price: cart_content.total_price,
-  //       };
-
-
 
   const initialValues = {
     payment_methods: null,
@@ -96,7 +58,13 @@ const OrderComponent = ({
   const history = useHistory();
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
   const { stateValuePoly } = useStoreon('stateValuePoly');
-  const { dataBalance } = useStoreon('dataBalance')
+
+  const { stateCountRestart } = useStoreon('stateCountRestart');
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
+  const { updateCurrenssiesForOrders } = useStoreon('updateCurrenssiesForOrders');
+  const { statusRequstOrderCountryPayment } = useStoreon('statusRequstOrderCountryPayment');
+
+  const { dataBalance } = useStoreon('dataBalance');
   const { orderCountryPayment } = useStoreon('orderCountryPayment');
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const { userPage } = useStoreon('userPage');
@@ -106,7 +74,7 @@ const OrderComponent = ({
   const [valueSetIdOrder, setValueSetIdOrder] = useState(null);
   const [priceNowDilevery, setPriceNowDilevery] = useState(0);
   const [agreeWitheRegulations, setAgreeWitheRegulations] = useState(true);
-  const [fieldCountryOut, setFieldCountryOut] = useState('Украина')
+  const [fieldCountryOut, setFieldCountryOut] = useState('Украина');
   const [valueStatePay, setValueStatePay] = useState(3);
   const [modalStates, setmodalStates] = useState({
     show: false,
@@ -122,41 +90,37 @@ const OrderComponent = ({
     },
   ]);
 
-
   //************************************** */
   const { cart_slug, page_type_cart } = site_configuration;
   const orderApi = api.orderApi;
   const profileApi = api.profileApi;
   const { role } = userPage.profile;
-  //************************************** */   
-
-
-
+  //************************************** */
 
   const errorsMessenge = {};
 
-  const onSubmit = () => { };
+  const onSubmit = () => {};
 
   //************************************** */
+  // список созданых заказов
   useEffect(() => {
     orderApi
       .listOrderItem()
-      .then(res => setlistOrders(res.results))
-      .catch(err => console.log('response list order ERROR', err));
+      .then((res) => setlistOrders(res.results))
+      .catch((err) => console.log('response list order ERROR', err));
+  }, [updateCurrenssies]);
 
-  }, [stateValuePoly.stateCurrency])
-  //console.log('listOrders',listOrders);
   const options = listOrders.map((el) => {
     return {
       title: `${el.order_number} (${el.total} ${currenssies})`,
       value: el.id,
+      
     };
   });
 
   const focuseSelector = () => {
-    setOpenTooltip(null)
-    console.log('focuseSelector');
-  }
+    setOpenTooltip(null);
+  };
   options.push({
     title: 'отменить выбор',
     value: null,
@@ -164,26 +128,14 @@ const OrderComponent = ({
 
   const changeStatusOrder = (e) => {
     setStatusFildValue(e.target.value);
-
-    console.log('cдесь готовим  данные для добавление в существующий заказ', e.target.value);
   };
 
-
-
   const closeModal = () => {
-
     setmodalStates({
       show: false,
       content: null,
     });
   };
-
-  // console.log('userPage',userPage);
-  //const [nowCurrency, setNowCurrency] = useState('USD')
-  //const [state, setState] = useState(initialState);
-  // init состояния модального окна
-  // init кнопки закрыть
-  // inint данные заказа
 
   const openModalAddAddress = (content = null) => {
     setmodalStates({
@@ -215,8 +167,8 @@ const OrderComponent = ({
           cusstomClassNameModalResize: 'modal-payments',
         });
       })
-      .catch(err => {
-        console.error(`ERROR "OrderComponent" openModalPay ${err}`)
+      .catch((err) => {
+        console.error(`ERROR "OrderComponent" openModalPay ${err}`);
         //history.push('cart')
       });
   };
@@ -225,37 +177,36 @@ const OrderComponent = ({
     e.preventDefault();
     const gotoCartFunc = () => {
       history.push('cart');
-    }
+    };
     setmodalStates({
-      content: <GoBackToCartModalContent
-        closeModal={closeModal}
-        page_type_cart={page_type_cart}
-        gotoCartFunc={gotoCartFunc}
-      />,
+      content: (
+        <GoBackToCartModalContent
+          closeModal={closeModal}
+          page_type_cart={page_type_cart}
+          gotoCartFunc={gotoCartFunc}
+        />
+      ),
       show: true,
       cusstomClassNameModalResize: 'modal-payments',
     });
   };
 
   // **************************************************************************************************************************************
-  const getNowCurrencyNowCountry = useCallback(() => {
+  const getNowCurrencyNowCountry = (country) => {
     if (fieldCountryOut !== 'country') {
-      console.log('gggggggggggggggggggggg',fieldCountryOut);
-      orderApi
-        .getCountryDeliviry(
-          { "country": fieldCountryOut, "currency": currenssies }
-        )
-        .then(res => {
-
-          setPriceNowDilevery(res.price)
-        })
-        .catch(err => console.error(`ERROR!!!!! ${err}`))
+      if(country === fieldCountryOut){
+        orderApi
+          .getCountryDeliviry({ country: fieldCountryOut, currency: currenssies })
+          .then((res) => {
+            setPriceNowDilevery(res.price);
+          })
+          .catch((err) => console.error(`ERROR!!!!! ${err}`));
+      }
     }
-  },[priceNowDilevery])
+  };
   // **********создаём заказ с отправкой на сервер***************************************************************************************************************
 
   const creteOrder = (values) => {
-    
     const date = dayjs(api.language, values.issued_date).format('DD.MM.YYYY');
     // const date = dayjs(Api.language, values.issued_date).format('DD.MM.YYYY');
     const params = {
@@ -274,18 +225,18 @@ const OrderComponent = ({
       comment_order: values.comment_order,
       order_cost: cart_contentOrder.price,
       discount: cart_contentOrder.discount,
-      delivery_cost: (cart_contentOrder.delivery.price) || null, //cart_content.delivery.price,
-      total_cost: (cart_contentOrder.total_price + cart_contentOrder.delivery.price),
+      delivery_cost: cart_contentOrder.delivery.price || null, //cart_content.delivery.price,
+      total_cost: cart_contentOrder.total_price + cart_contentOrder.delivery.price,
       currency: currenssies,
       add_goods_order_id: statusFildValue,
     };
-    console.log('params', params);
     // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"-доделать проверку
 
     if (role === ROLE.DROPSHIPPER) {
       //если дробшипер списание со счета при достаточном количестве денег на счету
       //*************************************************************************** */
       //online(1) или с баланса(3)
+      
       if (valueStatePay === 1) {
         //создаём заказ
         orderApi
@@ -295,34 +246,27 @@ const OrderComponent = ({
             //диалоговое окно оплаты по реквизитам
             openModalPay(order_id);
             //document.location.href = "/ru/orders";//http://localhost:3000/order
-            dispatch('stateValuePoly/change', {
-              stateCart: true,
-              statePayment: true
-            })
-
+            dispatch('stateCountRestart/add', !stateCountRestart);
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay ONLINE, ${err}`);
             openModalRejectedOrdering('cart');
-
           });
       } else {
-        if (params.total_cost < dataBalance.balance) {//если достаточно денег на счету
+        if (params.total_cost < dataBalance.balance) {
+          //если достаточно денег на счету
           orderApi
             //создаём заказ когда списуют деньги со счёта
             .createOrder(params)
             .then((res) => {
-              dispatch('stateValuePoly/change', {
-                stateCart: true,
-                statePayment: true
-              })
+              dispatch('stateCountRestart/add', !stateCountRestart);
+
               history.push('orders');
               //document.location.href = "/ru/orders";//???????????????????????????????? с ru или без ru
             })
             .catch((err) => {
               console.log(`ERROR creteOrder pay BALANCE, ${err}`);
               openModalRejectedOrdering('cart');
-
             });
         } else {
           //создаём заказ когда нет деньг на счету
@@ -332,17 +276,13 @@ const OrderComponent = ({
               const order_id = res.id;
               //диалоговое окно оплаты по реквизитам
               openModalPay(order_id, dataBalance.balance, params.total_cost);
-              dispatch('stateValuePoly/change', {
-                stateCart: true,
-                statePayment: true
-              })
+              dispatch('stateCountRestart/add', !stateCountRestart);
               //history.push('orders');
               //window.location.href = "/balance";//http://localhost:3000/order
             })
             .catch((err) => {
               console.log(`ERROR creteOrder pay ONLINE, ${err}`);
               openModalRejectedOrdering('cart');
-
             });
         }
       }
@@ -356,17 +296,13 @@ const OrderComponent = ({
         //создаём заказ когда списуют деньги со счёта
         orderApi
           .createOrder(params)
-          .then(res => {
-            dispatch('stateValuePoly/change', {
-              stateCart: true,
-              statePayment: true
-            });
+          .then((res) => {
+            dispatch('stateCountRestart/add', !stateCountRestart);
             history.push('orders');
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay BALANCE, ${err}`);
             openModalRejectedOrdering('cart');
-
           });
       } else {
         orderApi
@@ -375,22 +311,18 @@ const OrderComponent = ({
             const order_id = res.id;
             //диалоговое окно оплаты по реквизитам
             openModalPay(order_id, dataBalance.balance, params.total_cost);
-            dispatch('stateValuePoly/change', {
-              stateCart: true,
-              statePayment: true
-            })
+            dispatch('stateCountRestart/add', !stateCountRestart);
+
             //document.location.href = "/ru/orders";//http://localhost:3000/order
             // history.push('orders');
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay BALANCE, ${err}`);
             openModalRejectedOrdering('cart');
-
           });
       }
-
     } else if (ROLE.WHOLESALE === role) {
-      //если оптовик       
+      //если оптовик
       if (valueStatePay === 1) {
         //создаём заказ
         orderApi
@@ -399,17 +331,13 @@ const OrderComponent = ({
             const order_id = res.id;
             //диалоговое окно оплаты по реквизитам
             openModalPay(order_id, dataBalance.balance, params.total_cost);
-            dispatch('stateValuePoly/change', {
-              stateCart: true,
-              statePayment: true
-            })
+            dispatch('stateCountRestart/add', !stateCountRestart);
             // history.push('orders');
             //document.location.href = "/ru/orders";//http://localhost:3000/order
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay ONLINE, ${err}`);
             openModalRejectedOrdering('cart');
-
           });
       } else {
         if (params.total_cost < dataBalance.balance) {
@@ -420,17 +348,14 @@ const OrderComponent = ({
             .createOrder(params)
             .then((res) => {
               // openModalPay(order_id,dataBalance.balance, params.total_cost);
-              dispatch('stateValuePoly/change', {
-                stateCart: true,
-                statePayment: true
-              })
+              dispatch('stateCountRestart/add', !stateCountRestart);
+
               history.push('orders');
               //document.location.href = "/ru/orders";//???????????????????????????????? с ru или без ru
             })
             .catch((err) => {
               console.log(`ERROR creteOrder pay BALANCE, ${err}`);
               openModalRejectedOrdering('cart');
-
             });
         } else {
           orderApi
@@ -439,26 +364,17 @@ const OrderComponent = ({
               const order_id = res.id;
               //диалоговое окно оплаты по реквизитам
               openModalPay(order_id, dataBalance.balance, params.total_cost);
-
-              dispatch('stateValuePoly/change', {
-                stateCart: true,
-                statePayment: true
-              })
-              //   history.push('orders');
-              //document.location.href = "/ru/orders";//http://localhost:3000/order
+              dispatch('stateCountRestart/add', !stateCountRestart);
             })
             .catch((err) => {
-              dispatch('stateValuePoly/change', {
-                stateCart: true,
-                statePayment: true
-              })
+              dispatch('stateCountRestart/add', !stateCountRestart);
               console.log(`ERROR creteOrder pay ONLINE, ${err}`);
               openModalRejectedOrdering('cart');
-            });
+            }); 
         }
       }
     } else {
-      alert('HZ proverit')
+      alert('HZ proverit');
     }
   };
 
@@ -466,20 +382,14 @@ const OrderComponent = ({
 
   const getEnabledToPayments = (values, errors) => {
     //устанавливаем состояние как делать оплату online(1) или с баланса(3)
-    if (!statusFildValue){
-
-      (values.payment_methods === 1) ? setValueStatePay(1) : setValueStatePay(3)
-      // currenssies?setNowCurrency(currenssies):console.log('`ERROR с валютой');;
-      //?если выбран вариант доставки и оплаты пройдем к следущему шагу
-
-
+    if (!statusFildValue) {
+      values.payment_methods === 1 ? setValueStatePay(1) : setValueStatePay(3);
       if (
         values.payment_methods &&
         values.variant &&
         values.selectedAdress &&
         agreeWitheRegulations
       ) {
-
         /**
          * необходимо исправить добавление и удаление стилей по React
          */
@@ -502,16 +412,15 @@ const OrderComponent = ({
       } else {
         return false;
       }
-    }else{
+    } else {
       if (document.querySelector('.orderCar').classList.contains('disable')) {
         document.querySelector('.orderCar').classList.remove('disable');
       }
-      return true
+      return true;
     }
   };
 
   // **************************************************************************************************************************************
-
 
   const openModalRejectedOrdering = (funcGoTo) => {
     setmodalStates({
@@ -541,37 +450,31 @@ const OrderComponent = ({
     });
   };
 
-
   // ****************обновляем состояние доставки*****************************************************************************************
 
   useEffect(() => {
     if (orderCountryPayment.length > 0) {
-      const delivery_priceCountry = orderCountryPayment.map(item => {
+      const delivery_priceCountry = orderCountryPayment.map((item) => {
         if (item.title === fieldCountryOut) {
-          return (setCart_contentOrder({
+          return setCart_contentOrder({
             cart_items: cart_content.cart_items,
             discount: cart_content.discount,
             in_stock: cart_content.in_stock,
             price: cart_content.price,
             total_price: cart_content.total_price,
             delivery: {
-              description: cart_content.delivery.description || "",
-              price: priceNowDilevery || 0,
-            }
-          })
-          )
+              description: cart_content.delivery.description || '',
+              price: priceNowDilevery.price || 0,
+            },
+          });
         }
-      })
+      });
     }
-
   }, [priceNowDilevery, fieldCountryOut]);
 
   // создадим новый моссив с товарами для отрисовки
 
-
-
   useEffect(() => {
-
     if (stateCountCart !== 0) {
       let newCartAlPerfomed = {};
       if (stateCountCart.is_performed) {
@@ -581,16 +484,15 @@ const OrderComponent = ({
         //********************************** */
 
         const createDataItemsOptDrop = (data) => {
-
           let res = [];
-          data.items.map(el => {
+          data.items.map((el) => {
             // условия сборки выброных позиций
             if (el.selected) {
               el = {
                 brand: el.product.brand,
                 change_agreement: el.change_agreement,
                 color: el.color,
-                comment: "",
+                comment: '',
                 discount: 1,
                 id: el.id,
                 image: el.product.image,
@@ -602,10 +504,10 @@ const OrderComponent = ({
                 title: el.product.title,
                 total_price: el.total_price,
                 url: el.url,
-              }
-              res.push(el)
+              };
+              res.push(el);
             }
-          })
+          });
           return {
             id: data.id,
             is_performed: data.is_performed,
@@ -613,35 +515,10 @@ const OrderComponent = ({
             title: data.title,
             condition: data.condition,
           };
-        }
+        };
 
         const createDataItemsRetail = (data) => {
-          console.log('createDataItemsRetail; --- ', data);
-
           let res = [];
-          //   data.map(el=>{
-          //   // условия сборки выброных позиций
-          //   if (el.selected){
-          //     el={
-          //       brand: el.product.brand,
-          //       change_agreement:el.change_agreement,
-          //       color:el.color,
-          //       comment: "",
-          //       discount: 1,
-          //       id: el.id,
-          //       image: el.product.image,
-          //       is_pack: el.is_pack,
-          //       old_price: el.old_price,
-          //       price: el.price,
-          //       qty: el.qty,
-          //       size: el.size,
-          //       title: el.product.title,
-          //       total_price: el.total_price,
-          //       url : el.url,
-          //     } 
-          //     res.push(el)
-          //   }
-          // })
           return {
             id: data.id,
             is_performed: data.is_performed,
@@ -649,29 +526,23 @@ const OrderComponent = ({
             title: data.title,
             condition: data.condition,
           };
-        }
-
+        };
 
         // здесь мы перебираем все элементы в массиве которые имеют отметку и соответствуют условиям збора
         if (role === ROLE.WHOLESALE) {
-          stateCountCart.cartitem_set.map(el => {
-            el.is_performed
-              ? res_cartitem_set.push(createDataItemsOptDrop(el))
-              : null
-          })
+          stateCountCart.cartitem_set.map((el) => {
+            el.is_performed ? res_cartitem_set.push(createDataItemsOptDrop(el)) : null;
+          });
         } else {
-          stateCountCart.cartitem_set.map(el => {
-            el.selected
-              ? res_cartitem_set.push(el)
-              : null
-          })
+          stateCountCart.cartitem_set.map((el) => {
+            el.selected ? res_cartitem_set.push(el) : null;
+          });
         }
-
 
         //************************************ */
         const creteDataInstock = (data) => {
           let res = [];
-          return res = {
+          return (res = {
             color: data.color,
             discount: 1,
             id: data.product.id,
@@ -686,16 +557,16 @@ const OrderComponent = ({
             total_price: data.total_price,
             currenssies: currenssies,
             url: data.url,
-          }
-        }
+          });
+        };
         //собираем данные по категории товар в наличии
-        stateCountCart.in_stock.map(el => {
+        stateCountCart.in_stock.map((el) => {
           el.selected ? res_in_stock.push(creteDataInstock(el)) : null;
-        })
+        });
         //************************************ */
         /**
-       * is_pack не предусмотрен пока в заказах если что добавить
-       */
+         * is_pack не предусмотрен пока в заказах если что добавить
+         */
         //************************************ */
         newCartAlPerfomed = {
           cartitem_set: res_cartitem_set,
@@ -714,29 +585,51 @@ const OrderComponent = ({
           price: stateCountCart.total_price,
           delivery: { price: 0 },
           render: true,
-        }
+        };
       }
-
+      console.log('newCartAlPerfomed', newCartAlPerfomed)
       setCart_contentOrder(newCartAlPerfomed);
+   }
+  }, [stateCountCart.in_cart, priceNowDilevery, fieldCountryOut, stateCountCart.total_price]);
 
-      dispatch('stateValuePoly/change', { stateOrder: false });
-    }
+  //************************************************************************************** */
+  // const inputNum = useRef();
+  // const [stateListTest1, setStateListTest1] = useState(null);
+  // const [stateListTest3, setStateListTest3] = useState(null);
 
+  // const [stateListTest2, setStateListTest2] = useState(null);
+  
+  // const testingBtn1 = () => {
+  //   const fd = new FormData();
+  //   fd.set('product', 384);
+  //   fd.set('size', 1);
+  //   fd.set('color', 1);
 
-  }, [stateValuePoly.stateOrder, priceNowDilevery, fieldCountryOut])
+  //   orderApi
+  //     .createFakeEmptyCollection(fd)
+  //     .then((res) =>{
+  //       console.log('result',res);
+  //       setStateListTest1(res)
+  //       })
+  //     .catch((err) => console.error(`ERROR getOrderItemsList ${err}`, res));
+  // };
+  // const testingBtn2 = () => {
+  //   console.log('inputNum', inputNum.current.value);
+  //   setStateListTest3(inputNum.current.value)
+  //   const fb = new FormData();
+  //   fb.set('product', 384);
 
-
-  const testingBtn = () =>{
-    orderApi
-      .getOrderItemsList()
-      .then(res=>console.log('Получен ответ с данными',res))
-      .catch(err=>console.error(`ERROR getOrderItemsList ${err}`))
-    
-  }
+  //   orderApi
+  //     .getOrderItemsList2(fb)
+  //     .then((res) => {
+  //       console.log('result', res)
+  //       setStateListTest2(res)})
+  //     .catch((err) => console.error(`ERROR getOrderItemsList ${err}`));
+  // };
+  // /************************************************************************************* */
 
   return (
-    <React.Fragment >
-
+    <React.Fragment>
       <GxModal
         onGx-after-hide={closeModal}
         open={modalStates.show}
@@ -750,7 +643,6 @@ const OrderComponent = ({
         {modalStates.content}
       </GxModal>
 
-
       <Formik
         validationSchema={orderCreatePasportAndDelivery(errorsMessenge)}
         initialValues={initialValues}
@@ -758,12 +650,11 @@ const OrderComponent = ({
       >
         {({ handleSubmit, handleChange, values, errors, setFieldValue, touched }) => {
           //запускаем анимацию кнопки создания заказа и отправка на бэк запроса
-           handleChange = (data) => {
-             getNowCurrencyNowCountry();
-
-           }
-          const [fieldCountry, setFieldCountry] = useState('country')
-          setFieldCountryOut(fieldCountry)
+          handleChange = (data) => {
+            getNowCurrencyNowCountry(data);
+          };
+          const [fieldCountry, setFieldCountry] = useState('country');
+          setFieldCountryOut(fieldCountry);
 
           // statusFildValue ? values = {...values, add_goods_order_id : statusFildValue} : null
 
@@ -772,7 +663,6 @@ const OrderComponent = ({
               creteOrder(values);
               dispatch('orderFunc/state', false);
               clearTimeout(timerBtn);
-
             }, 7000);
           } else {
             null;
@@ -789,34 +679,48 @@ const OrderComponent = ({
                 className="ordering__left"
               >
                 <Link onClick={openModalGoBackToCart} to={cart_slug} className="linkblue">
-                  {'<'} Назад в корзину
+                           {'<'} Назад в корзину
                 </Link>
                 <Title variant={'cart'} type={'h1'}>
                   <Text text="ordering" />
                 </Title>
-                  <>
-                    {/* <GxButton
-                      onClick={testingBtn}
-                      to='#'
-                      variant='black_btn_full_width'
-                    >
-                      отправить запрос для тестирования  
-                    </GxButton> */}
-                  </>
+                              
+                
+                {/* <pre>{stateListTest1 ? (
+                      `
+                  
+                  статус запроса: ${stateListTest1.status}
+                  ответ на запрос:
+                  ${JSON.stringify(stateListTest1.data, null, 2)}
+                  sdsad
+                  
+                 `
+               
+                ) : null}
+                </pre> */}
+
+                {/* <pre>{stateListTest2 ? (
+                  `
+                  запрос на товар с номером ${setStateListTest3}
+                  статус запроса: ${stateListTest2.status}
+                  ответ на запрос:
+                  ${JSON.stringify(stateListTest2.data, null, 2)}
+                  
+                  
+                  `
+
+                ) : null} </pre> */}
+
                 {
+                  cart_contentOrder.render ? ( //сдесь добавим условие показа
+                    <>
+                      <OrderingCards
+                        currenssies={currenssies}
+                        cart_content={cart_contentOrder}
+                        role_configuration={role_configuration}
+                      />
 
-                  cart_contentOrder.render //сдесь добавим условие показа
-                    ? (
-                      <>
-                        <OrderingCards
-                          currenssies={currenssies}
-                          cart_content={cart_contentOrder}
-                          role_configuration={role_configuration}
-                        />
-
-
-                        { !statusFildValue
-                        ?(
+                      {!statusFildValue ? (
                         <>
                           <OrderingPay
                             setFieldValue={setFieldValue}
@@ -838,6 +742,7 @@ const OrderComponent = ({
                               needPassport: values.needPassport,
                             }}
                             role_configuration={role_configuration}
+                            role={role_configuration.role.number}
                             errors={errors}
                             touched={touched}
                             delivery_methods={delivery_methods}
@@ -852,19 +757,20 @@ const OrderComponent = ({
                             setFieldValue={setFieldValue}
                             openModalAddAddress={openModalAddAddress}
                             setFieldCountry={setFieldCountry}
-                            handleChange={handleChange}                            
+                            handleChange={handleChange}
                           />
                         </>
-                        ):<></>
-                        }
-                      </>
-                    ) : (<>
-
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  ) : (
+                    <>
                       <Title variant={'cart'} type={'h1'}>
                         <Text text="Не создан ни один заказ" />
                       </Title>
                     </>
-                    )
+                  )
                   // <div className={styleModal['message__order']}>Небыло создано не одного заказа для продолжения добавте товар в корзину и оформите новый заказ</div>
                 }
               </GxCol>
@@ -905,11 +811,10 @@ const OrderComponent = ({
                         </CartViews.Text>
 
                         <CartViews.Text type={'text-red'}>
-                          {cart_contentOrder.total_discount ?
-                            `${cart_contentOrder.total_discount} 
+                          {cart_contentOrder.total_discount
+                            ? `${cart_contentOrder.total_discount} 
                           ${currenssies}`
-                            : null
-                          }
+                            : null}
                         </CartViews.Text>
                       </CartViews.BlockRightSide>
 
@@ -920,15 +825,22 @@ const OrderComponent = ({
                               <Text text={'shipping'} />
                             </CartViews.Text>
                             <CartViews.Text type={'text-default_currency'}>
-                              {cart_contentOrder.delivery.price ? (
-                                `${cart_contentOrder.delivery.price}
+                              {priceNowDilevery
+                                ? `${priceNowDilevery}
                             ${currenssies}`
-                              ) : null}
+                                : null}
                             </CartViews.Text>
-                          </>) : null}
+                          </>
+                        ) : null}
                       </CartViews.BlockRightSide>
-                    </>) : null
-                  }
+                    </>
+                  ) : ROLE.WHOLESALE === role ?
+                    (<div>Доставка: <span>По тарифам КАРГО</span></div>)
+                    :
+                    ROLE.DROPSHIPPER === role ?
+                      (<div>Доставка: <span>По весу, рассчитывается при упаковке</span></div>)
+                      : null
+                    }
 
                   <CartViews.Line />
                   <CartViews.BlockRightSide mb={20}>
@@ -937,28 +849,28 @@ const OrderComponent = ({
                     </CartViews.Text>
                     <CartViews.Text type={'text-title'}>
                       {/* добавляем к сумме стоимость доставки */}
-                      {/* { <>
+                      { <>
                     {ROLE.RETAIL === role?(
-                      cart_contentOrder.delivery.price?
+                      priceNowDilevery?
                           (
-                            (cart_contentOrder.price + cart_contentOrder.delivery.price).toFixed(2)
+                            (cart_contentOrder.price + priceNowDilevery)
                           ):(
-                              cart_contentOrder.price.toFixed(2)
+                              cart_contentOrder.price
                             )  
                     ):(
                       cart_contentOrder.price 
                     )
                     }&nbsp;
                     {currenssies}
-                        </>} */}
-
+                        </>}
                     </CartViews.Text>
                   </CartViews.BlockRightSide>
                   <CartViews.CommentOrder
                     name={'comment_order'}
                     handleChange={handleChange}
                     value={values.comment_order}
-                    placeholder={'Написать комментарий к заказу...'}
+                    // placeholder={'Написать комментарий к заказу...'}
+                    placeholder={'При желании укажите информацию для Менеджера по упаковке (например, что Вы желаете сделать отправку по своей накладной СDEK, отправить товар без бирок и тп...)'}
                   />
                   {/* <CartViews.LinkToFirmalization
                   type={'btn'}
@@ -971,30 +883,27 @@ const OrderComponent = ({
 
                   {/* выподающий список для добавления товара в существующий заказ */}
 
-                  <div className={style["old-order"]}>
+                  <div className={style['old-order']}>
                     <GxTooltip
                       content="Добавить товары к существующему заказу "
                       placement="top"
-                    // open={openTooltip}
+                      // open={openTooltip}
                     >
-
-
                       <Select
                         onFocus={focuseSelector}
                         autoFocus
                         //onFocus={e => e.currentTarget.select()}
-                        variant='black'
+                        variant="black"
                         value={statusFildValue}
-                        placeholder='Добавить товары к существующему заказу'
+                        placeholder="Добавить товары к существующему заказу"
                         options={options}
                         onGx-change={changeStatusOrder}
+                        variant={'old-order__list'}
                       ></Select>
                     </GxTooltip>
                   </div>
                   {/* новая версия кнопки оформит заках */}
-                  <OrderCar
-                    enabled={getEnabledToPayments(values, errors)}
-                  />
+                  <OrderCar enabled={getEnabledToPayments(values, errors)} />
 
                   <CartViews.BlockRightSide mt={20} mb={20}>
                     <CheckBox
@@ -1020,4 +929,3 @@ const OrderComponent = ({
   );
 };
 export default React.memo(OrderComponent);
-

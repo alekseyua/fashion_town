@@ -28,6 +28,7 @@ const WishlistComponent = ({ breadcrumbs, initfilters, page_type_catalog }) => {
 
   const [wishlistAlCount, setWishlistAlCount] = useState(0)
   const [listMyWish, setListMyWish] = useState([]);
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
 
   const { role } = userPage.profile;
 
@@ -47,7 +48,7 @@ const WishlistComponent = ({ breadcrumbs, initfilters, page_type_catalog }) => {
     stateCountWish.results
       ? setWishlistAlCount(stateCountWish.count)
       : setListMyWish(0);
-  }, [stateCountWish.count])
+  }, [stateCountWish.count, updateCurrenssies])
 
 
   return (
@@ -133,7 +134,7 @@ const WishlistComponent = ({ breadcrumbs, initfilters, page_type_catalog }) => {
                       избранное, чтобы узнавать о снижении цены или о наличии данного товара.
                     </WishlistViews.HelpText>
                     <WishlistViews.LinkCatalog to={page_type_catalog}>
-                      смотреть товары
+                        СМОТРЕТЬ ТОВАРЫ
                     </WishlistViews.LinkCatalog>
                   </WishlistViews.Wrapper>
                 )}

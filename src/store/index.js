@@ -8,7 +8,6 @@ import { dataBalance } from './ComponentStore/Balance';
 export const cart = (store) => {
   store.on('@init', () => ({ cart: {}, totalPrice: 0 }));
   store.on('cart/update', ({ cart }, obj) => {
-    //  //console.log("cart/update")
     const { product } = obj;
     const { id } = product;
     const newCart = { ...cart };
@@ -18,7 +17,6 @@ export const cart = (store) => {
     };
   });
   store.on('cart/remove', ({ cart }, { id }) => {
-    //  //console.log("cart/remove")
     const newCart = { ...cart };
     delete newCart[id];
     return {
@@ -30,7 +28,6 @@ export const cart = (store) => {
 export const wishlist = (store) => {
   store.on('@init', () => ({ wishlist: {} }));
   store.on('wishlist/update', ({ wishlist }, obj) => {
-    //  //console.log("wishlist/update")
     const { product } = obj;
     const { id } = product;
     const newWishlist = { ...wishlist };
@@ -40,7 +37,6 @@ export const wishlist = (store) => {
     };
   });
   store.on('wishlist/remove', ({ wishlist }, { id }) => {
-    //  //console.log("wishlist/remove")
     const newWishlist = { ...wishlist };
     delete newWishlist[id];
     return {
@@ -51,13 +47,11 @@ export const wishlist = (store) => {
 
 export const user = (store) => {
   store.on('@init', () => ({ currentUser: null }));
-  ////console.log("user/save")
   store.on('user/save', ({ currentUser }, user) => ({
 
     currentUser: { ...currentUser, ...user },
   }));
   store.on('user/get', async ({ }, { callback }) => {
-    // //console.log("user/get")
     try {
       const data = await api.getCurrentUser();
       store.dispatch('user/save', {
@@ -86,7 +80,6 @@ export const page = (store) => {
     };
   });
   store.on('page/set/status', ({ page }, { status }) => {
-    ////console.log("page/set/status")
     return {
       page: {
         ...page,
@@ -108,7 +101,6 @@ export const role_configuration = (store) => {
     },
   }));
   store.on('role_configuration/update', ({ role_configuration }, obj) => {
-    //console.log("role_configuration/update store")
     return {
       role_configuration: obj,
     };
@@ -116,14 +108,12 @@ export const role_configuration = (store) => {
 };
 
 export const faq = (store) => {
-  //console.log("faq")
   store.on('@init', () => ({
     faq: {
       show: false,
     },
   }));
   store.on('faq/update', ({ faq }, obj) => {
-    //console.log("faq/update")
     return {
       faq: obj,
     };
@@ -131,7 +121,6 @@ export const faq = (store) => {
 };
 
 export const modal = (store) => {
-  //console.log("faq")
   store.on('@init', () => ({
     modal: {
       show: false,
@@ -140,7 +129,6 @@ export const modal = (store) => {
     },
   }));
   store.on('modal/update', ({ modal }, obj) => {
-    //console.log("modal/update")
     return {
       modal: obj,
     };
@@ -148,15 +136,7 @@ export const modal = (store) => {
 };
 
 //============================================================================
-export const currenssies = (store) => {
-  ////console.log("currenssies", store)
-  store.on('@init', () => ({ currenssies: null }));
-  store.on('currenssies/update', ({ currenssies }, obj) => {
-    return {
-      currenssies: obj,
-    };
-  });
-};
+
 
 export const orderFunc = (store) => {
   store.on('@init', () => ({ orderFunc: false }));
@@ -181,13 +161,7 @@ export const wishlistAl = (store) => {
   })
 }
 
-//
-export const orderCountryPayment = store => {
-  store.on('@init', () => ({ orderCountryPayment: [] }));
-  store.on('orderCountryPayment/add', ({ orderCountryPayment }, obj) => {
-    return { orderCountryPayment: obj }
-  })
-}
+
 
 export const stateValuePoly = store => {
   const initialValue = {
@@ -240,7 +214,6 @@ export const dataProductFromId = store => {
 export const orderCreate = store => {
   store.on('@init', () => ({ orderCreate: [] }));
   store.on('orderCreate/add', ({ orderCreate }, obj) => {
-    console.log('orderCreate', obj);
     return (orderCreate = obj)
   })
 }
@@ -261,7 +234,6 @@ export const stateCountWish = store => {
   }
   store.on('@init', () => ({ stateCountWish: initialValue }));
   store.on('stateCountWish/add', ({ stateCountWish }, obj) => {
-    // console.log('obj mywishCount', obj);
     return {
       stateCountWish: {
         count: obj.count,
@@ -269,9 +241,15 @@ export const stateCountWish = store => {
       }
     }
   })
+  // состояние на обновление mywish
+  store.on('@init', () => ({ updateWish: false }));
+  store.on('updateWish/add', ({ updateWish }, obj) => {
+    return {updateWish: obj}
+  })
+ 
 }
 //--------------------21.01.2022--------------------------------
-//количество в карзине иконка
+//работа с карзиной 
 export const stateCountCart = store => {
   const initialValue = { 
     in_cart: 0,
@@ -287,13 +265,12 @@ export const stateCountCart = store => {
   // переменная запрос на обновление карзины
   store.on('@init', () => ({ stateCountRestart: false }));
   store.on('stateCountRestart/add', ({ stateCountRestart }, obj) => {
-    console.log('obj', obj);
-    return { stateCountRestart: obj }
+    console.log('obj----',obj)
+     return { stateCountRestart: obj }
   })
   // получаем всю карзину
   store.on('@init', () => ({ stateCountCart: initialValue }));
   store.on('stateCountCart/add', ({ stateCountCart }, obj) => {
-    // console.log('obj count cart =',obj);
     return {
       stateCountCart: {
         ...obj
@@ -316,15 +293,22 @@ export const stateCountCart = store => {
 }
 //--------------------22.01.2022--------------------------------
 //данные товара для превью
-    //**********получаем ID товара для запроса************* */
+    //*?????*********получаем ID товара для запроса************* */
 export const reqestIdProduct = store => {
   store.on('@init', () => ( {reqestIdProduct:null} ));
   store.on('reqestIdProduct/add', ({ reqestIdProduct }, obj) => {
-    // console.log('STORE reqestIdProduct',obj);
     return {reqestIdProduct : obj}
   })
 }
 
+
+/**
+ * сдесь мы будем запихивать данные текущего продукта 
+ * задумка локально менять в масивах listAlreadySaw
+ * данные о товаре (is_likes, currency)
+ * 
+ * @param {*} store 
+ */
 export const stateInPreveiwGoods = store => {
   const initialValue = {
     brand: "",
@@ -370,47 +354,78 @@ export const stateInPreveiwGoods = store => {
   }
   store.on('@init', () => ({ stateInPreveiwGoods: initialValue }));
   store.on('stateInPreveiwGoods/add', ({ stateInPreveiwGoods }, obj) => {
-    // console.log('STORE stateInPreveiwGoods',obj);
     return {
       stateInPreveiwGoods: obj
-      //  {
-      //   brand: obj.brand,
-      //   category: obj.category,
-      //   collections: obj.collections,
-      //   colors: [...obj.colors],
-      //   content: obj.content,
-      //   created_at: obj.created_at,
-      //   extra: obj.extra,
-      //   id: obj.id,
-      //   in_cart_count: obj.in_cart_count,
-      //   in_stock_count: obj.in_stock_count,
-      //   is_bestseller: obj.is_bestseller,
-      //   is_closeout: obj.is_closeout,
-      //   is_collection: obj.is_collection,
-      //   is_in_stock: obj.is_in_stock,
-      //   is_liked: obj.is_liked,
-      //   is_new: obj.is_new,
-      //   media: obj.media,
-      //   ordering: obj.ordering,
-      //   page_type: obj.page_type,
-      //   prices: obj.prices,
-      //   product_rc: obj.product_rc,
-      //   review: obj.review,
-      //   seo_author: obj.seo_author,
-      //   seo_description: obj.seo_description,
-      //   seo_image: obj.seo_image,
-      //   seo_keywords: obj.seo_keywords,
-      //   seo_og_type: obj.seo_og_type,
-      //   seo_title: obj.seo_title,
-      //   short_content: obj.short_content,
-      //   sizes: obj.sizes,
-      //   slug: obj.slug,
-      //   title: obj.title,
-      //   updated_at: obj.updated_at,
-      // }
     }
   })
 }
+
+//--------------------25.01.2022--------------------------------
+// данные про страны со стоимостью доставки
+export const orderCountryPayment = store => {
+  store.on('@init', () => ({ orderCountryPayment: [] }));
+  store.on('orderCountryPayment/add', ({ orderCountryPayment }, obj) => {
+    return { orderCountryPayment: obj }
+  })
+
+  store.on('@init', () => ({ statusRequstOrderCountryPayment: false }));
+  store.on('statusRequstOrderCountryPayment/update', ({ statusRequstOrderCountryPayment }, obj) => {
+    return { statusRequstOrderCountryPayment: obj }
+  })
+}
+//--------------------27.01.2022--------------------------------
+// текущее состояние валюты и состояние на обновление
+export const currenssies = (store) => {
+  store.on('@init', () => ({ currenssies: null }));
+  store.on('currenssies/update', ({ currenssies }, obj) => {
+    return {
+      currenssies: obj,
+    };
+  });
+
+
+store.on('@init', () => ({ updateCurrenssies: false }));
+store.on('updateCurrenssies/update', ({ updateCurrenssies }, obj) => {
+  return {
+    updateCurrenssies: obj,
+  };
+});
+
+  store.on('@init', () => ({ updateCurrenssiesForOrders: false }));
+  store.on('updateCurrenssiesForOrders/update', ({ updateCurrenssiesForOrders }, obj) => {
+    return {
+      updateCurrenssiesForOrders: obj,
+    };
+  });
+
+
+};
+//--------------------12.02.2022--------------------------------
+// активные пункты меню
+
+export const activeItemMenu = store => {
+ const initValue = {
+    is_in_stock: false,
+    is_new: false,
+    is_bestseller: false,
+    is_closeout: false,
+    is_in_collection: false,
+    is_not_range: false,
+    is_import: false,
+    is_polish: false,
+  }
+  store.on('@init', () => ({ activeItemMenu: initValue}))
+  store.on('activeItemMenu/set', ({activeItemMenu}, value)=>{
+    console.log('activeItemMenu=',value)
+    console.log('activeItemMenu activeItemMenu=', activeItemMenu)
+
+    // return 
+  })
+
+}
+
+
+
 
 export const storeonParams = [
   orderCountryPayment,
@@ -436,5 +451,6 @@ export const storeonParams = [
   stateCountCart,
   stateInPreveiwGoods,
   reqestIdProduct,
+  activeItemMenu,
 ];
 

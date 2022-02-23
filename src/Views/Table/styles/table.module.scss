@@ -1,5 +1,5 @@
 %font {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
 }
 %cab-h2 {
   @extend %font;
@@ -26,13 +26,13 @@
   }
   th,
   td {
-    padding: 11px 0 11px 20px;
+    padding: 11px;
   }
   th {
     background: var(--gx-color-accent2);
     color: var(--gx-color-white);
     font-weight: bold;
-    text-align: left;
+    text-align: center;
     @extend %cab-h2;
     border-right: 2px solid var(--gx-color-white);
     &:last-child {

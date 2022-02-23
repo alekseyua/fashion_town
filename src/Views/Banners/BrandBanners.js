@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import ContainerFull from '../ContainerFull';
 
@@ -20,9 +21,9 @@ const BrandBanners = ({ data=[] }) => {
             return (
               <div key={index}>
                 <div className="single-brand">
-                  <a href="#">
+                  <Link to="#">
                     <img className="img" src={image} alt="brand-image" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             )

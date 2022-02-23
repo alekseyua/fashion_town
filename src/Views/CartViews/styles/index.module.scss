@@ -52,6 +52,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 0 !important;
+    flex-wrap: nowrap;
   }
 }
 
@@ -63,6 +64,17 @@
     font-size: 22px;
     line-height: 150.12%;
     color: var(--gx-color-primary);
+    display: flex;
+    &:nth-child(1){
+      flex: 0 1 101px;
+      flex-wrap: nowrap;
+    }
+    &:nth-child(2){
+      flex: 1 1 auto;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+
   }
   &-default {
     font-size: 14px;
@@ -223,6 +235,7 @@
 .comment {
   &-block {
     &::part(base) {
+      font-size: 10px;
       background: rgba(243, 239, 243, 0.3);
       box-shadow: inset -2px 0px 4px rgba(0, 0, 0, 0.1), inset 2px 0px 4px rgba(0, 0, 0, 0.1);
       border-radius: 2px;

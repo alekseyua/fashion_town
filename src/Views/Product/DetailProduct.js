@@ -7,6 +7,7 @@ import Errors from '../Errors';
 import ProductPrice from '../../components/ProductPrice';
 import Text from '../../components/Text';
 import WishlistButton from '../../components/WishlistButton';
+import { Link } from 'react-router-dom';
 
 const CartSchema = Yup.object().shape({
   count: Yup.number().min(1, 'Too Short!').max(99, 'Too Long!').required('Required'),
@@ -26,7 +27,6 @@ const DetailProduct = ({ product, addToCart, addToWishlist, removeFromWishlist }
 
   const submitAddToCart = (params) => {
     debugger;
-    console.log('**************************************handleAddToCart*****************************************');
     addToCart(params);
   };
 
@@ -97,10 +97,10 @@ const DetailProduct = ({ product, addToCart, addToWishlist, removeFromWishlist }
                     <GxRating name="rate1" starCount={5} value={5} />
                   </div>
                   <div className="rating-feedback f-left">
-                    <a href="#">(1 review)</a>
-                    <a href="#">
+                    <Link to="#">(1 review)</Link>
+                    <Link to="#">
                       <Text text={'add_to_ypur_review'} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="pro-price mb-10">
@@ -125,9 +125,9 @@ const DetailProduct = ({ product, addToCart, addToWishlist, removeFromWishlist }
                       />
                     </li>
                     <li>
-                      <a href="compare.html">
+                      <Link to="compare.html">
                         <Text text={'add_to_compare'} />
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -150,14 +150,19 @@ const DetailProduct = ({ product, addToCart, addToWishlist, removeFromWishlist }
             <div className="col-sm-12">
               <ul className="main-thumb-desc nav">
                 <li>
-                  <a className="active" data-toggle="tab" href="#dtail">
+                  <Link 
+                  className="active" 
+                  data-toggle="tab" 
+                  to="#dtail">
                     <Text text={'details'} />
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a data-toggle="tab" href="#review">
+                  <Link 
+                  data-toggle="tab" 
+                  to="#review">
                     Reviews 1
-                  </a>
+                  </Link>
                 </li>
               </ul>
               {/* Product Thumbnail Tab Content Start */}
@@ -191,7 +196,7 @@ const DetailProduct = ({ product, addToCart, addToWishlist, removeFromWishlist }
                         </span>
                         <GxRating name="rate1" starCount={5} value={5} />
                         <label>
-                          Review by <a href="https://themeforest.net/user/Jantrik">Jantrik</a>
+                          Review by <Link to="https://themeforest.net/user/Jantrik">Jantrik</Link>
                         </label>
                       </li>
                       {/* Single Review List End */}

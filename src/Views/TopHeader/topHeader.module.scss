@@ -3,8 +3,13 @@
     @content;
   }
 }
+@mixin tablet-md {
+  @media screen and (max-width: 768.1px) {
+    @content;
+  }
+}
 @mixin mobile {
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 680px) {
     @content;
   }
 }
@@ -63,8 +68,13 @@
     padding-right: 30px;
     padding-left: 50px;
     @include mobile {
+      flex-direction: row-reverse;
       padding-left: 10px;
-      padding-right: 10px;
+      padding-right: 45%;
     }
+    @include tablet-md {
+      justify-content: flex-end;
+    }
+
   }
 }

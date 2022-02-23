@@ -160,6 +160,7 @@
       text-align: center;
       justify-content: center;
       width: 30%;
+      min-width: 45px;
       @media (max-width:568px) {
         width: 15%;
       }

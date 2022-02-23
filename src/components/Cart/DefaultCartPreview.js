@@ -14,16 +14,21 @@ const AsyncRecomendetProduct = AsyncComponent(() => {
 });
 const DefaultCartPreview = ({ page_type_catalog }) => {
   const [recomendetProduct, setrecomendetProduct] = useState([])
-  const { stateValuePoly } = useStoreon('stateValuePoly');
+  const { currenssies } = useStoreon('currenssies');
+  const { updateWish } = useStoreon('updateWish');
+
+
   useEffect(() => {
+    console.log('currenssies1111',currenssies)
 
     let cleanupRecomProducs = false;
     contentApi
       .getCatalogData()
       .then(res => {
+
         // делаем проверку насуществование т.е. мы пошли дальше данные не нужны а запрос ужде был отправлен, а ложить его то некуда
         if(!cleanupRecomProducs){
-
+console.log('currenssies',currenssies)
           setrecomendetProduct(res.results)
         }
         })
@@ -33,7 +38,7 @@ const DefaultCartPreview = ({ page_type_catalog }) => {
         )
 
     return ()=>cleanupRecomProducs = true;
-  }, [stateValuePoly.stateCurrency,stateValuePoly.stateWish])
+  }, [currenssies,updateWish]) 
 
   return (
     <Container>
@@ -45,7 +50,7 @@ const DefaultCartPreview = ({ page_type_catalog }) => {
           <CartViews.Text type={'text-under_title'}>
             Корзина ждёт, чтобы её наполнили. Желаем приятного шоппинга в мире моды!
           </CartViews.Text>
-          <CartViews.LinkToCatalog to={page_type_catalog}>смотреть товары</CartViews.LinkToCatalog>
+          <CartViews.LinkToCatalog to={page_type_catalog}>СМОТРЕТЬ ТОВАРЫ</CartViews.LinkToCatalog>
         </GxCol>
       </GxRow>
       <GxRow>

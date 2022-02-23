@@ -15,6 +15,7 @@ import modalStyle from '../../Views/ModalCreator/modalCreator.module.scss';
 import Container from '../../Views/Container';
 import AsyncComponent from '../AsyncComponent';
 import { useStoreon } from 'storeon/react';
+import { useHistory } from 'react-router-dom';
 
 const apiContent = api.contentApi;
 
@@ -55,6 +56,8 @@ const ProductPreview = ({
   adding_type,
   site_configuration,
 }) => {
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
+  const { updateWish } = useStoreon('updateWish');
   const { stateValuePoly,dispatch } = useStoreon('stateValuePoly');
   const { dataProductFromId } = useStoreon('dataProductFromId');
   const [ newProductId, setNewProductId ] = useState(productId)
@@ -86,6 +89,7 @@ const ProductPreview = ({
     is_collection: false,
   });
 
+  const history = useHistory();
 
   const closeModal = () => {
     setModalStates({
@@ -126,21 +130,22 @@ const ProductPreview = ({
       resultAddReviewModal: true,
     });
   };
-    
-  
+      /**
+       * создаём переменную для получения Id
+       * переход с AsyncRecomendetProduct (проверено)
+       * переход с AsyncYouHaveAlreadyWatched (проверено)
+       * переход с AsyncYouMayLike (не проверено) закомили блок необновляется цена
+       */
+  const [cardIdproductFromSlider, setCardIdproductFromSlider] = useState();
   useEffect(()=>{
-    dataProductFromId?setNewProductId(dataProductFromId):null
-    dispatch('stateValuePoly/change', {stateProductId:true});
-    dispatch('stateValuePoly/change', {alreadySaw:false});
-    },[stateValuePoly.alreadySaw])
+    cardIdproductFromSlider ? setNewProductId(cardIdproductFromSlider):null
+    },[updateCurrenssies, cardIdproductFromSlider])
 
 //title1: prodSectionsProp.title,
   useEffect(() => {
     apiContent
       .getProduct(newProductId)
       .then((res) => {
-        //dispatch('dataProductFromId/set',res);
-        dispatch('stateValuePoly/change',{stateProductId:false});
         setprodSectionsProp({
           ...prodSectionsProp,
           title: res.title,
@@ -162,18 +167,19 @@ const ProductPreview = ({
           review: res.review,
           collections: getCollections(res.collections),
           is_collection: res.is_collection,
+          product_sku: res?.product_sku,
         });
       })
       .catch(err=>console.error(`ERROR getProduct(newProductId) ${err}`));
     
   }, [
-    stateValuePoly.stateCurrency,
-    stateValuePoly.stateWish, 
-    stateValuePoly.stateProductId,
+    updateCurrenssies,
+    updateWish,
+
+    // stateValuePoly.stateProductId,
     newProductId,
   ]);
-
-  return (
+    return (
     <ProductDetailsViews.Wrapper>
       <GxModal
         className={modalStyle['modal_creator']}
@@ -229,6 +235,7 @@ const ProductPreview = ({
         site_configuration={site_configuration}
         collections={prodSectionsProp.collections}
         is_collection={prodSectionsProp.is_collection}
+          product_sku={prodSectionsProp.product_sku}
       />
       {prodSectionsProp.content || prodSectionsProp.extra ? (
         <SectionDescription content={prodSectionsProp.content} extra={prodSectionsProp.extra} />
@@ -241,9 +248,9 @@ const ProductPreview = ({
         canselationCallback={canselationCallback}
         openModalFinalyAddReview={openModalFinalyAddReview}
       />
-      <AsyncRecomendetProduct products={recommended} />
-      <AsyncYouHaveAlreadyWatched />
-      <AsyncYouMayLike in_category={in_category} />
+        <AsyncRecomendetProduct products={recommended} setCardIdproductFromSlider={setCardIdproductFromSlider}/>
+      <AsyncYouHaveAlreadyWatched setCardIdproductFromSlider={setCardIdproductFromSlider} />
+        {/* <AsyncYouMayLike in_category={in_category} setCardIdproductFromSlider={setCardIdproductFromSlider}/> */}
       <Container>
         <ProductDetailsViews.WrapperBtn>
           {/* <Button variant={'cancel-black-full'}>

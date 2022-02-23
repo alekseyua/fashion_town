@@ -3,6 +3,8 @@ import NewsDetailsComponent from '../components/NewsDetailsComponent';
 import Layout from '../Views';
 import { useIntl } from 'react-intl';
 import Container from '../Views/Container';
+import Modal from '../Views/ModalCreator';
+
 
 const NewsDetailsPage = (props) => {
   const { site_configuration, breadcrumbs, content, created_at, title, id } = props;
@@ -20,6 +22,7 @@ const NewsDetailsPage = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <Container>
         {/* <NewsDetailsComponent
           title={title}

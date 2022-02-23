@@ -1,20 +1,62 @@
-правки по API:
-    http://127.0.0.1:8000/
-    настроить обработку 500 и 404  @started(30-12-15 10:44)
+заметки
+               
+               PreviewSlider
+               SectionProdPage
+               ProductPreview
+               
+               
+                  (``адаптивный миксин``)
+                  
+// ************************шрифт размер адаптив****************
 
-    service supervisor restart
-    supervisorctl restart Server
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
 
+  @return $number;
+}
 
+@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+  $f-min: strip-unit($f-min);
+  $f-max: strip-unit($f-max);
+  $w-min: strip-unit($w-min);
+  $w-max: strip-unit($w-max);
+  
+	$k: ($f-max - $f-min)/($w-max - $w-min);
+	$b: $f-min - $k * $w-min;
 
-202112142119-506
+	$b: $b + $units;
 
+	@return calc( #{$k} * 100vw + #{$b} );
+}
 
+// миксин адаптивного шрифта
 
-e.preventDefault();
+// adaptiv-font(миним размер, макс размер по шаблону, )
+@mixin adaptiv-font($f-min, $f-max, $w-min: 320px,$w-max: 1920px, $fallback: false) {
+  
+  font-size: $f-min;
+  
+  @media (min-width: $w-min) {
+    @if ($fallback) {
+      font-size: $fallback;
+    }
+    font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max, px);  
+  }
+  @media (min-width: $w-max) {
+    font-size: $f-max;
+  }
+}
+// **********************************************************************
+// ************************свойство-значение адаптив****************
 
+              нужно сделать
+
+// *******************************************************
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+при обновлении в увидомлениях нужно обновлять в 
 
                         задачи в перспективе: 
 
@@ -22,19 +64,24 @@ e.preventDefault();
         ----------------------
 2) `// ???????????? под вопросом может не работать как надо нужно проследить`
 
-3) `DefaultCartPreview ` проверить мои желания и курс ` рекомендованые товары товары `
-
-4) 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-заменить в    const page500Serializer = (page) => {
-
-return ()=>{window.location.reload();}
-
-
+        блокировка скрола body при попапе  
+  `
+  const [isOpen, setIsOpen]=useState();
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen])
+  
+  `
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const HeaderButtons = 
-
+            `отлавливаем клик вне блока`
+  useEffect(() => {
+     const onClick = e => clickOutRef.current.contains(e.target) || setClickActiveCurrencies(false)
+     document.addEventListener('click', onClick);
+     return () => document.removeEventListener('click',onClick)
+  }, [])
 
 
 
@@ -63,6 +110,40 @@ const HeaderButtons =
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    `framer-motion`
+<motion.div
+  animate={{ y: [0, 150, 150, 0], rotate: 90 }}
+  transition={{ duration: 3, repeat: Infinity }}
+/>
+
+<motion.div 
+    animate={{ x: 100, scale:1.5, rotate:90 }} 
+/>
+
+<motion.div 
+    whileHover={{ scale: 1.2, opacity: 1 }}
+>
+  Hover Over Me!
+</motion.div>
+
+<motion.input 
+    whileFocus={{ scale: 1.2 }} 
+/>
+
+<motion.div 
+    whileTap={{ scale: 0.5 }} 
+/>
+
+<motion.div
+  drag
+  dragTransition={{
+    min: 0,
+    max: 100,
+    bounceStiffness: 100
+  }}
+>
+ Drag Me!
+</motion.div>
 
 
 
@@ -78,8 +159,16 @@ const HeaderButtons =
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+удобные пакеты для работы
+
+1) Bracket Pair Colorizer 2
 
 
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[Переслано от Falser Bridge]
+5168 7574 1898 2353. Приватбанк
+
+
+5168 7450 1590 8418. Приватбанк

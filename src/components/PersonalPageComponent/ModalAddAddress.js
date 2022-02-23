@@ -111,7 +111,6 @@ const ModalAddAddress = ({
 
   useEffect(() => {
     apiOrder.getCountry().then((res) => {
-      console.log('формируем список стран',res);
       setCountryOptions(
         res.map((el) => {
           return {

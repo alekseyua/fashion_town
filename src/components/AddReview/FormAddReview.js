@@ -33,7 +33,6 @@ const ModalAddReview = ({
       content: data.content,
       profile: profile,
     };
-    console.log('sendReview params = ', params);
     if (!params.stars || !params.content) {
       return openModalFinalyAddReview(false, 'Неправильно введены данные!');
     }

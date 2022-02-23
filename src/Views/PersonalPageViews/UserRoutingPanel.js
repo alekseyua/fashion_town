@@ -65,7 +65,7 @@ const UserRoutingPanel = ({
             <Text text={'balance'} />:
           </div>
           <div className={style['cabinet-sidebar__balancevalue']}>
-            {dataBalance.balance}
+            {dataBalance.balance}&nbsp;
             {getCookie(COOKIE_KEYS.CURRENCIES)}
           </div>
         </div>

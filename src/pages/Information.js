@@ -5,6 +5,8 @@ import InformationViews from '../Views/InformationViews';
 import Title from '../Views/Title';
 import Breadcrumbs from '../Views/Breadcrumbs';
 import Container from '../Views/Container';
+import Modal from '../Views/ModalCreator';
+
 
 const Information = (props) => {
   const [state, setstate] = useState({
@@ -35,6 +37,7 @@ const Information = (props) => {
   }, []);
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <InformationViews.PaymentsConteiner>
           <Breadcrumbs breadcrumbs={breadcrumbs} />

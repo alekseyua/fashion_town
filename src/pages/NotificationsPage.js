@@ -17,6 +17,7 @@ const NotificationsPage = (props) => {
     <Layout responsive {...props}>
       <Modal.ModalCreator {...modalStates} setModalStates={setModalStates} />
       <Modal.StorControllerModal />
+ 
       <PersonalPageViews.WrapperPage
         leftChildComponent={
           <PersonalPageComponent.SidebarEntryPersonalPage

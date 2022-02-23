@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from '../Views';
 import CreateStoreComponent from '../components/CreateStoreComponent';
+import Modal from '../Views/ModalCreator';
+
 
 const CreateStore = (props) => {
   const {
@@ -18,6 +20,7 @@ const CreateStore = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <CreateStoreComponent {...props} />
     </Layout>
   );

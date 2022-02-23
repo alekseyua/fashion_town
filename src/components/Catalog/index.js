@@ -12,6 +12,7 @@ import api from '../../api';
 import Text from '../Text';
 import Pagination from '../../Views/Pagination';
 import Title from '../../Views/Title';
+import {ROLE} from '../../const';
 import qs from 'query-string';
 import { FetcherList } from '@garpix/fetcher';
 import { GxForm, GxSpinner } from '@garpix/garpix-web-components-react';
@@ -60,44 +61,35 @@ const Catalog = ({
   //profile,
 }) => {
 
-  const { userPage }                                        = useStoreon('userPage');
+  const { userPage } = useStoreon('userPage');
+  const { profile } = userPage;
+  const { role } = profile;
 
-
-
-
-
-    const { profile }       = userPage;
-    const { role }          = profile;
-
-
-
-   //console.log('Catalog profile',profile);
-    //*************************************************************** */
-   const [ newContent, setNewContent ] = useState(content)
-    useEffect(()=>{
-      setNewContent(content)
-    },[content])
-    //*************************************************************** */
-    //*************************************************************** */
-   const [ newBreadcrumbs, setNewBreadcrumbs ] = useState(breadcrumbs)
-   useEffect(()=>{
+  //*************************************************************** */
+  const [newContent, setNewContent] = useState(content)
+  useEffect(() => {
+    setNewContent(content)
+  }, [content])
+  //*************************************************************** */
+  //*************************************************************** */
+  const [newBreadcrumbs, setNewBreadcrumbs] = useState(breadcrumbs)
+  useEffect(() => {
     setNewBreadcrumbs(breadcrumbs)
-   },[breadcrumbs])
+  }, [breadcrumbs])
   //*************************************************************** */
   //*************************************************************** */
-  const [ newProfile, setNewProfile ] = useState(profile)
-  useEffect(()=>{
+  const [newProfile, setNewProfile] = useState(profile)
+  useEffect(() => {
     setNewProfile(profile)
-  },[profile])
+  }, [profile])
   //*************************************************************** */
-   //console.log('newCount=',newCount);
 
 
 
-
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
+  const { updateWish } = useStoreon('updateWish');
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const { stateValuePoly } = useStoreon('stateValuePoly');
- 
 
   const [offsetTopBtnSubmit, setOffsetTopBtnSubmit] = useState(0);
   const [showFilters, setshowFilters] = useState(false);
@@ -109,10 +101,10 @@ const Catalog = ({
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [paramFilterChange, setParamFilterChange] = useState({
-      categories : [],
-      brands : [],
-      colors : [],
-      sizes : [],
+    categories: [],
+    brands: [],
+    colors: [],
+    sizes: [],
   })
   const [optionalsFilter, setoptionalsFilter] = useState([
     {
@@ -153,7 +145,7 @@ const Catalog = ({
     },
   ]);
   const { locale } = useIntl();
-  
+
   const options = [
     { title: 'Сначала дешевые', value: 'price' },
     { title: 'Сначала дорогие', value: '-price' },
@@ -171,15 +163,14 @@ const Catalog = ({
 
   const openBtnSubmit = (e) => {
     if (e.target?.offsetParent?.offsetTop) {
-     // 
-    //заганяем координаты появления кнопки для применения фильтра
+      // 
+      //заганяем координаты появления кнопки для применения фильтра
       setOffsetTopBtnSubmit(e.target.offsetParent.offsetTop);
       setIsShowBtnSubmit(true);
     }
   };
 
   const isFilters = (filtersValues, resetAllFilters) => {
-    //console.log('filtersValues', filtersValues);
     const {
       categories = [],
       brands = [],
@@ -206,10 +197,10 @@ const Catalog = ({
     ) {
       const title = <Text text={'clear.all'} />;
       return (
-        <CatalogViews.ClearAllFilters 
-          onClick={resetAllFilters} 
-          title={title} 
-          isLabel={false} 
+        <CatalogViews.ClearAllFilters
+          onClick={resetAllFilters}
+          title={title}
+          isLabel={false}
         />
       );
     } else {
@@ -219,7 +210,7 @@ const Catalog = ({
 
   const getTitleForDocument = (filterParams) => {
     const { category = false } = filterParams;
-      if (!category) return <Text text={'catalog'} />;
+    if (!category) return <Text text={'catalog'} />;
     return deepSerche(Number(category), categories);
   };
 
@@ -228,7 +219,7 @@ const Catalog = ({
     let timeOutHideBtnSubmit = setTimeout(() => {
       setIsShowBtnSubmit(false);
       clearTimeout(timeOutHideBtnSubmit);
-    }, 3000);
+    }, 4000);
     return () => {
       clearTimeout(timeOutHideBtnSubmit);
     };
@@ -240,7 +231,7 @@ const Catalog = ({
     setBrands(multy_choise_filters.by_brand);
     setColors(multy_choise_filters.by_color);
     setSizes(multy_choise_filters.by_size);
-  },[
+  }, [
     multy_choise_filters.by_type,
     multy_choise_filters.by_brand,
     multy_choise_filters.by_color,
@@ -248,13 +239,11 @@ const Catalog = ({
   ]);
 
   // *****************************************************   
-  const [ dataUpdateCatalog, setDataUpdateCatalog ] =  useState(false);
-  useEffect(()=>{
-    //console.log('UPDATE DATA CATALOG CORRECT!!!!!!!!!!!!!!!');
+  const [dataUpdateCatalog, setDataUpdateCatalog] = useState(false);
+  useEffect(() => {
     setDataUpdateCatalog(true)
-  },[stateValuePoly.stateCurrency])
-// *****************************************************
-  //console.log("updateStateCatalog", stateValuePoly.stateCurrency)
+  }, [updateCurrenssies])
+  // *****************************************************
   return (
     <React.Fragment>
       <Container>
@@ -264,9 +253,9 @@ const Catalog = ({
           isScrollTop={true}
           api={apiContent.getCatalogData}
           profile={newProfile}
-          >
+        >
           {(data) => {
-            
+
             const {
               count,
               results = [],
@@ -277,17 +266,17 @@ const Catalog = ({
               filterParams,
               isNext,
             } = data;
-            
+
             //reload
-        // *****************************************************
-        const executeUpdate = () => {
-          
-          setDataUpdateCatalog(false);
-          data.reload();
-        }
-        dataUpdateCatalog?executeUpdate():null;
-        // *****************************************************
-  
+            // *****************************************************
+            const executeUpdate = () => {
+
+              setDataUpdateCatalog(false);
+              data?.reload();
+            }
+            dataUpdateCatalog ? executeUpdate() : null;
+            // *****************************************************
+
             // добавляем удаляем данные в фильтре
             const getInitDataFilters = (data) => {
               if (Array.isArray(data)) {
@@ -296,9 +285,9 @@ const Catalog = ({
                 return [];
               } else {
                 return [data];
-              } 
+              }
             };
-            
+
             const initialValues = {
               categories: getInitDataFilters(filterParams.categories),
               brands: getInitDataFilters(filterParams.brands),
@@ -344,7 +333,7 @@ const Catalog = ({
                 [key]: initialValues[key].filter((el) => el !== id),
               });
             };
-            
+
             const resetContextFilterOptions = (key) => {
               loadData(1, {
                 ...filterParams,
@@ -352,7 +341,14 @@ const Catalog = ({
               });
             };
 
-              //***********************************************************************************************
+            //***********************************************************************************************
+            // console.log('newContent', newContent)
+
+
+           
+
+
+
             return (
               <React.Fragment>
                 <CatalogViews.Row>
@@ -360,16 +356,18 @@ const Catalog = ({
                     <Title variant={'catalog-heading'} type={'h1'}>
                       {getTitleForDocument(filterParams)}
                     </Title>
-                    <WarningBlock
+                    {/* <WarningBlock
                       variant={'catalog-wrapper-mobile'}
-                      textWarning={<div dangerouslySetInnerHTML={{ __html: newContent }}></div>}
-                    />
+                      // textWarning={<div dangerouslySetInnerHTML={{ __html: newContent }}></div>}
+                      textWarning={newContent}
+
+                    /> */}
                   </CatalogViews.Catalog>
                 </CatalogViews.Row>
                 <CatalogViews.Row>
                   <React.Fragment>
                     <CatalogViews.Filters>
-                      <Categories {...paramsForUpdateCardSet} categories={categories} />
+                      {/* <Categories {...paramsForUpdateCardSet} categories={categories} /> */}
                       <Button
                         full
                         onClick={() => setshowFilters(!showFilters)}
@@ -395,7 +393,6 @@ const Catalog = ({
                         >
                           {({ handleSubmit, values, setFieldValue }) => {
                             //через функцию сохраняем состояние фильтров
-                            // console.log('values',values.colors)
                             setParamFilterChange(values)
                             //setColors(values.colors)
                             return (
@@ -412,13 +409,14 @@ const Catalog = ({
                                 {checkIsShowCategorysAndProducType() ? (
                                   <AsyncTypeProductFilters
                                     categories={byProductTyoe}
-                                    values={values} 
+                                    values={values}
                                     handleSubmit={handleSubmit}
                                     setFieldValue={setFieldValue}
                                     openBtnSubmit={openBtnSubmit}
                                     {...paramsForUpdateCardSet}
                                   />
                                 ) : null}
+                                {role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED ?
                                 <AsyncBrandsFilters
                                   role={role}
                                   brands={brands}
@@ -427,6 +425,7 @@ const Catalog = ({
                                   openBtnSubmit={openBtnSubmit}
                                   {...paramsForUpdateCardSet}
                                 />
+                                :null}
                                 <AsynColorsFilters
                                   colors={colors}
                                   values={values}
@@ -467,7 +466,9 @@ const Catalog = ({
                     <CatalogViews.Catalog>
                       <WarningBlock
                         variant={'catalog-wrapper'}
-                        textWarning={<div dangerouslySetInnerHTML={{ __html: newContent }}></div>}
+                        // textWarning={<div dangerouslySetInnerHTML={{ __html: newContent }}></div>}
+                        textWarning={newContent}
+
                       />
                       <CatalogViews.SortSelect
                         selectedSortFilters={(seleted) => {
@@ -485,7 +486,7 @@ const Catalog = ({
                       ) : (
                         <>
                           <CatalogViews.Tags>
-                            
+
                             <EnabledFiltersOptions
                               enabledFilterData={filterParams}
                               defaultFilterData={optionalsFilter}

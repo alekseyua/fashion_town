@@ -5,6 +5,7 @@ import api from '../../api';
 import { Formik } from 'formik';
 import { Captcha } from '../Captha';
 import { ERROR_STATUS } from '../../const';
+import { Link } from 'react-router-dom';
 
 const apiContent = api.contentApi;
 
@@ -43,9 +44,9 @@ const ModalAddReview = ({ product, profile, canselationCallback, openModalFinaly
             false,
             <div>
               <p>Вы&nbsp;не&nbsp;авторизованы!</p>
-              <a target="_blank" href={'/auhorization'}>
+              <Link target="_blank" to={'/auhorization'}>
                 Авторизоватся?
-              </a>
+              </Link>
             </div>,
           );
         }

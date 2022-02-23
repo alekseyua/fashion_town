@@ -18,7 +18,7 @@ const page500Serializer = (page) => {
   // };
   // временное решение по поводу выскакивания ошибки 500 !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
-  return (e)=>{window.location.reload();}
+  return (e)=>{window.location?.reload();}
 };
 
 export default page500Serializer;

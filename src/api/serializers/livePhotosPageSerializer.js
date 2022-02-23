@@ -10,10 +10,10 @@ const livePhotosPageSerializer = page => {
     site_configuration: siteConfigurationSerializer(init_state.site_configuration),
 
     cart: profile.cart,
-    notifications: profile.notifications,
-    user_role: profile.user_role,
-    user_status: profile.user_status,
-    wishlist: profile.wishlist,
+    notifications: profile?.notifications,
+    user_role: profile?.user_role,
+    user_status: profile?.user_status,
+    wishlist: profile?.wishlist,
   }
 }
 

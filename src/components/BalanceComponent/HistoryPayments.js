@@ -17,6 +17,8 @@ const apiOrder = api.orderApi;
 const HistoryPayments = ({}) => {
   const { currenssies }                         = useStoreon('currenssies'); //currenssies
   const [ dataUpdateCheck, setDataUpdateCheck ] =  useState(false);
+  const { updateCurrenssies }                      = useStoreon('updateCurrenssies');
+
   const { stateValuePoly }                      = useStoreon('stateValuePoly');
   const fileInputRef = React.useRef(null);
   const addCheck = (e, dataFeth) => {
@@ -188,8 +190,9 @@ const HistoryPayments = ({}) => {
   // *****************************************************   
       useEffect(()=>{
         setDataUpdateCheck(true)
-      },[stateValuePoly.stateCurrency, stateValuePoly.statePayment])
+      },[updateCurrenssies, stateValuePoly.statePayment])
   // *****************************************************
+
       return (
         <FetcherList isScrollTop={false} initFilter={initialFilters} api={apiOrder.getPaymentsProfile} >
       {(data) => {
@@ -211,7 +214,7 @@ const HistoryPayments = ({}) => {
         // *****************************************************
         const executeUpdate = () => {
           setDataUpdateCheck(false);
-          data.reload();
+          data?.reload();
         }
         dataUpdateCheck?executeUpdate():null;
         // *****************************************************

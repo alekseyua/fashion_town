@@ -48,8 +48,6 @@ const ContentContactShopComponent = ({ content }) => {
   };
 
   const getConfigData = () => {
-    console.log('формируем getConfigData список стран');
-
     orderApi.getCountry().then((countrys) => {
       setcounryOptions(countrys);
       shopApi.getShopConfig().then((res) => {

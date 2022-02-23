@@ -1,13 +1,14 @@
 import React from 'react';
-
 import Layout from '../Views';
-
 import Checkout from '../components/Checkout';
+import Modal from '../Views/ModalCreator';
 
-const CheckoutPage = (props) => {
+
+const CheckoutPage = (props) => {  
   return (
     <Layout {...props}>
-      <Checkout />
+      <Modal.StorControllerModal />
+      <Checkout {...props}/>
     </Layout>
   );
 };

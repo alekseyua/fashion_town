@@ -5,6 +5,9 @@ import InformationViews from '../Views/InformationViews';
 import Title from '../Views/Title';
 import Breadcrumbs from '../Views/Breadcrumbs';
 import Container from '../Views/Container';
+import { Link } from 'react-router-dom';
+import Modal from '../Views/ModalCreator';
+
 
 const InformationJuridical = (props) => {
   const { cabinet_menu, create_shop, cabinet_site_menu, profile, breadcrumbs = [] } = props;
@@ -16,6 +19,7 @@ const InformationJuridical = (props) => {
 
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <InformationViews.PaymentsConteiner>
@@ -76,17 +80,17 @@ const InformationJuridical = (props) => {
                   проводить платежи в рублях и иностранной валюте, управлять корпоративными картами.
                 </InformationViews.PaymentsDescription>
                 <InformationViews.PaymentsDescription>
-                  <a href="#" className="information-exchange__link">
+                  <Link to="#" className="information-exchange__link">
                     Политика конциденциальности
-                  </a>
+                  </Link>
                   <br />
-                  <a href="#" className="information-exchange__link">
+                  <Link to="#" className="information-exchange__link">
                     Пользовательское соглашение
-                  </a>
+                  </Link>
                   <br />
-                  <a href="#" className="information-exchange__link">
+                  <Link to="#" className="information-exchange__link">
                     Другой документ
-                  </a>{' '}
+                  </Link>{' '}
                 </InformationViews.PaymentsDescription>
               </InformationViews.ContainerMin>
             </InformationViews.BlockHowTo>

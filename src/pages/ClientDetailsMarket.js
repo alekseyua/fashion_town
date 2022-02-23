@@ -13,6 +13,7 @@ import PersonalPageViews from '../Views/PersonalPageViews';
 import Table from '../Views/Table';
 import { useStoreon } from 'storeon/react';
 import Modal from '../Views/ModalCreator';
+import { Link } from 'react-router-dom';
 
 const ClientDetailsMarket = (props) => {
   const {
@@ -57,7 +58,7 @@ const ClientDetailsMarket = (props) => {
       },
       {
         attr: { 'data-label': '№ заказа' },
-        content: <a href="#">20201120-FTN33-210-955687</a>,
+        content: <Link to="#">20201120-FTN33-210-955687</Link>,
       },
       {
         attr: { 'data-label': 'Стоимость' },
@@ -109,7 +110,7 @@ const ClientDetailsMarket = (props) => {
       },
       {
         attr: { 'data-label': '№ заказа' },
-        content: <a href="#">20201120-FTN33-210-955687</a>,
+        content: <Link to="#">20201120-FTN33-210-955687</Link>,
       },
       {
         attr: { 'data-label': 'Стоимость' },
@@ -206,7 +207,7 @@ const ClientDetailsMarket = (props) => {
                     <h3 className="cabinet_clients__left_head">Телефон:</h3>
                     <p className="cabinet_clients__left_text">
                       {client.phone ? (
-                        <a href={`tel:${client.phone}`}>{client.phone}</a>
+                        <Link to={`tel:${client.phone}`}>{client.phone}</Link>
                       ) : (
                         'Не введён...'
                       )}

@@ -13,6 +13,8 @@ import qs from 'query-string';
 import Text from '../../src/components/Text';
 import Pagination from '../Views/Pagination';
 import Button from '../Views/Button';
+import Modal from '../Views/ModalCreator';
+
 
 const apiSearch = api.getMoreThanFiveProductsOfSearch;
 
@@ -30,6 +32,7 @@ const SearchePage = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <FetcherList isScrollTop={false} api={apiSearch}>
         {(data) => {
           const {

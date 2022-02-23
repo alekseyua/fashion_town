@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GxIcon, GxButton } from '@garpix/garpix-web-components-react';
 import { garbageIcon } from '../../images';
 import CheckBox from '../../Views/CheckBox';
 import style from './styles/index.module.scss';
 
-const Header = ({}) => {
+const Header = ({ heandlerReed, heandlerDel, checkAllBox}) => {
+  const [select, setSelect] = useState(false)
   return (
     <div className={style["cabinet_notifications__head"]}>
-      <CheckBox variant="input" label={'Выделить все'} />
-      <GxButton variant="text" size="med" className={style["cabinet_notifications__mark"]}>
+      <CheckBox 
+        onGx-change={(e) => { 
+          setSelect(!select)
+          checkAllBox(e) }}
+        variant="input"
+        label={'Выделить все'}
+        checked={select}
+      />
+      <GxButton
+        onClick={heandlerReed}
+        variant="text"
+        size="med"
+        className={style["cabinet_notifications__mark"]}
+      >
         Пометить как прочитанные
       </GxButton>
-      <GxButton variant="text" size="med" className={style["cabinet_notifications__delete"]}>
+      <GxButton
+        onClick={heandlerDel}
+        variant="text"
+        size="med"
+        className={style["cabinet_notifications__delete"]}
+      >
         <GxIcon slot="icon-left" src={garbageIcon}></GxIcon>
         Удалить
       </GxButton>

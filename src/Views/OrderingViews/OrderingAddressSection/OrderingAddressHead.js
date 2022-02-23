@@ -5,7 +5,7 @@ import Title from '../../Title';
 import Text from '../../../components/Text'
 import style from '../styles/index.module.scss';
 
-const OrderingAddressHead = ({}) => {
+const OrderingAddressHead = ({ }) => {
   return (
     <React.Fragment>
       <div className={style['ordering_pay__head_wrap']}>

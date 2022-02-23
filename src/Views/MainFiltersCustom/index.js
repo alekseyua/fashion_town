@@ -9,20 +9,21 @@ const MainFiltersCustom = ({ filters = [], selectItem, seletedItem, setStatusSel
   const apiOrder = api.orderApi;
 
   const [filtersState, setfilters] = useState(filters);
-  let newA = filtersState.map(item=>{
-    if(
-      item.items.filter((el,i)=>{
-      el.filter(elem=>{
-        if (elem.redeemed === true){
-        return elem
-        }
-      })
-    })
-    ){
-      return item
-    }
 
-  })
+  let newA = filtersState.map(item=>{
+  //   if(
+  //     item.items.filter((el,i)=>{
+  //     el.filter(elem=>{
+  //       if (elem.redeemed === true){
+  //       return elem
+  //       }
+  //     })
+  //   })
+  //   ){
+  //     return item
+  //   }
+
+   })
   const setFilters = (id) => {
     setfilters(
       filtersState.map((el) => {
@@ -43,7 +44,7 @@ const MainFiltersCustom = ({ filters = [], selectItem, seletedItem, setStatusSel
     // apiOrder
     //   .createFakeEmptyCollection(fd)
     //   .then((res) => {
-    //     console.log('productRequiredData.collections.push(res.data)',res);
+    //     productRequiredData.collections.push(res.data)',res);
     //     //setStateActiveBtn(true)//делаем активной кнопку
     //   });
   };
@@ -73,6 +74,10 @@ const MainFiltersCustom = ({ filters = [], selectItem, seletedItem, setStatusSel
     });
     setfilters(newFiltersList);
   }, [filters]);
+
+
+
+
   return (
     <div
       className={classNames({
@@ -88,7 +93,6 @@ const MainFiltersCustom = ({ filters = [], selectItem, seletedItem, setStatusSel
               //   element : true,
               //   activeElementData : el
               // }):null;
-              // console.log('el.active',el);
               
               return (
                 <Button

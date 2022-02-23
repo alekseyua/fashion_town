@@ -281,9 +281,12 @@
   }
 
   &__favorite {
+    cursor: pointer;
     position: absolute;
+    z-index: 10000;
     top: -10px;
-    right: 0;
+    // right: 0;
+    right: 20px;
     --icon-width: 20px;
     --icon-height: 18px;
     --gx-input-height-medium: auto;
@@ -295,6 +298,10 @@
       box-shadow: none;
       color: var(--gx-color-red);
     }
+
+
+
+
   }
 
   &__brand {
@@ -314,7 +321,7 @@
     font-weight: normal;
     text-align: left;
     text-transform: none;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
     font-size: 14px;
     line-height: 120%;
     letter-spacing: 0.04em;
@@ -406,5 +413,51 @@
       color: var(--gx-color-primary);
       background: rgba(243, 239, 243, 0.5);
     }
+  }
+}
+
+
+
+// **********************************************************
+
+.like {
+	margin-top: -38px;
+  
+	position: relative;
+
+	.heart {
+	  position: absolute;
+	  top: -10px;
+	  left: -11px;
+	  z-index: 1;
+	  user-select: none;
+    pointer-events: none;
+    display: none;
+}
+
+	.line {
+	  fill:  #a39797;
+
+	}
+
+	.second {
+	  fill: #a39797;
+	  transform: scale(0);
+	  transform-origin: 53% 61% 0px;
+	}
+
+	.main {
+	  stroke: #c50000;
+	  stroke-width: 5px;
+	  fill: #ffe2ea;
+	  transform-origin: 50% 50%;
+	}
+
+	svg {
+    transition: all .2s ease-in-out;
+    position: relative;
+    overflow: visible;
+    z-index: 2;
+    cursor: pointer;
   }
 }

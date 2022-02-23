@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../Views';
 import NewsComponent from '../components/NewsComponent';
+import Modal from '../Views/ModalCreator';
 
 const NewsPage = (props) => {
   const { site_configuration, rubrics } = props;
@@ -16,6 +17,7 @@ const NewsPage = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <NewsComponent rubrics={rubrics} />
     </Layout>
   );

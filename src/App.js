@@ -12,31 +12,38 @@ import '/node_modules/swiper/swiper.scss';
 import '/node_modules/video-react/dist/video-react.css';
 import '@garpix/garpix-web-components/dist/garpix-web-components/garpix-web-components.css';
 import './styles/index.scss';
+import { array } from 'yup';
+import { fakeServer } from 'cypress/types/sinon';
 
-const App = ({ lang, ...props }) => {
+const App = ({ lang, pageServer, ...props }) => {
   const { dispatch } = useStoreon();
   const { stateCountRestart } = useStoreon('stateCountRestart');
-  const { reqestIdProduct } = useStoreon('reqestIdProduct');
-  
-  
+  const { updateCurrenssies } = useStoreon('updateCurrenssies');
+  const { updateCurrenssiesForOrders } = useStoreon('updateCurrenssiesForOrders');
+  const { statusRequstOrderCountryPayment } = useStoreon('statusRequstOrderCountryPayment');
 
-
-  //const [balance, setBalance] = useState(null) 
+  
   // в диспач закидываем все функуии
+  
   api.setLanguage(lang);
   const { stateValuePoly } = useStoreon('stateValuePoly');
   let currency = getCookie(COOKIE_KEYS.CURRENCIES);
+  let token = getCookie('ft_token');
 
+  if (token){
   //********************************************************************************* */ 
   useEffect(() => {
-console.log('запрос карзины',stateCountRestart);
-// console.warn('запрос карзины');
+    console.log('stateCountCart')
     api
       .cartApi
       .getCartData()
-      .then(res => dispatch('stateCountCart/add', res))
+      .then(res => {
+         dispatch('stateCountCart/add', res)
+
+        // dispatch('updateCurrenssiesForOrders/update', !updateCurrenssiesForOrders)
+    })
       .catch(err => console.log("ERROR CONNECT!!!!", err))
-  }, [stateCountRestart])
+  }, [stateCountRestart, updateCurrenssies])
   // console.log('stateValuePoly.stateCart**********', stateValuePoly.stateCart);
 
   //********************************************************************************* */ 
@@ -56,7 +63,7 @@ console.log('запрос карзины',stateCountRestart);
       })
       .catch(err => console.error(`ERROR BALANCE ${err}`))
   }, [
-    stateValuePoly.stateCurrency,
+    updateCurrenssies,
     stateValuePoly.statePayment
   ])
 
@@ -68,34 +75,27 @@ console.log('запрос карзины',stateCountRestart);
       .then((res) => {
         dispatch('stateCountWish/add', res);
       })
-      .catch((err) => {
+      .catch((err) => { 
         console.log('ERROR getWishList');
       })
-    // dispatch('stateValuePoly/change',{stateWish : false})
   }, [])
-
-  // },[stateValuePoly.stateWish, stateValuePoly.stateCurrency])
-  
   //********************************************************************************* */ 
   useEffect(() => {
-  
-      console.log('поидее один ращ должно было подтянуть когда перешли на страницу');
-      api
-        .orderApi
-        .getCountry()
-        .then(res => {
-          dispatch('orderCountryPayment/add', res)
-        })
-        .catch(err => {
-          console.error(`ERROR ${err}`);
-        })
-   
-   }, [])
-  
+
+    api
+      .orderApi
+      .getCountry()
+      .then(res => {
+        dispatch('orderCountryPayment/add', res)
+      })
+      .catch(err => {
+        console.error(`ERROR ${err}`);
+      })
+
+  }, [statusRequstOrderCountryPayment])
+
   //********************************************************************************* */ 
-  
-  
-  //********************************************************************************* */ 
+
 
   //********************************************************************************* */ 
 
@@ -103,15 +103,18 @@ console.log('запрос карзины',stateCountRestart);
 
   //********************************************************************************* */ 
 
+  //********************************************************************************* */ 
+  }
   useEffect(() => {
     if (!currency) {
       //сохраняем в куки текущую валюту
       setCookie(COOKIE_KEYS.CURRENCIES, DEFAULT_CURRENCIES, ONE_YEARS);
       // обращаемся к функции currenssies/update и меняем состояние DEFAULT_CURRENCIES: "USD"
+
       dispatch('currenssies/update', DEFAULT_CURRENCIES);
     } else {
       dispatch('currenssies/update', currency);
-    }    
+    }
   }, [currency]);
   //********************************************************************************* */ 
 

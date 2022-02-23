@@ -70,23 +70,26 @@ const Account = ({ site_configuration, orders }) => {
               {/* Nav tabs */}
               <ul className="nav flex-column dashboard-list" role="tablist">
                 <li>
-                  <a onClick={(e) => handleShowTab(e, 'orders')} data-toggle="tab" href="#orders">
+                  <Link 
+                  onClick={(e) => handleShowTab(e, 'orders')} 
+                  data-toggle="tab" 
+                  to="#orders">
                     Заказы
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     onClick={(e) => handleShowTab(e, 'account-details')}
                     data-toggle="tab"
-                    href="#account-details"
+                    to="#account-details"
                   >
                     Персональные данные
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a onClick={handleLogout} href="#">
+                  <Link onClick={handleLogout} to="#">
                     Выход
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </GxCol>

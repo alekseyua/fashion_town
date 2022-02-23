@@ -127,6 +127,7 @@
     &-btn {
       --gx-spacing-large: 0px;
       margin-right: 10px;
+      pointer-events:painted;
       &:last-child {
         margin-right: 0;
       }
@@ -134,7 +135,7 @@
         width: 30px;
         height: 30px;
         border-radius: 2px;
-        background: rgba(88, 63, 76, 0.05);
+        background: hsla(329, 17%, 30%, 0.05);
         color: var(--gx-color-red);
         border: none;
       }
@@ -159,6 +160,7 @@
     @include ul;
     padding-top: 18px;
     &__item {
+
       margin-right: 8px;
       margin-bottom: 29px;
       & gx-icon {
@@ -650,8 +652,8 @@
     }
     &__button {
       &::part(base) {
-        color: var(--gx-color-white);
-        background-color: var(--gx-color-primary);
+        color: $pi;
+        // background-color: var(--gx-color-primary);
         min-height: 59px;
         min-width: 59px;
         @include flex(cc);
@@ -998,4 +1000,154 @@
     align-items: center;
     justify-content: space-evenly;
   }
+}
+
+.social{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  &-trigger {
+    border: none;
+    background: #111;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color .3s;
+  }
+  
+  &-trigger svg {
+    width: 25px;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+  
+  &-trigger svg path {
+    fill: #c59500;
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    position: absolute;
+    pointer-events: none;
+    top: -10px;
+    right: 40px;
+    @include mobile{
+      flex-direction:column;
+      top: 30px;
+      right: -10px;
+    }
+  }
+
+  &-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(243, 175, 175, 0.1);
+    margin-right: 10px;
+    transition: opacity .3s, visibility .3s, transform .3s;
+    transform: scale(0);
+    transform-origin: center;
+    opacity: 0;
+    visibility: hidden;
+    margin-bottom: 7px;
+    
+    &:nth-of-type(1){
+      transition-delay: 0s;
+    }
+    &:nth-of-type(2){
+      transition-delay: 0.2s;
+    }
+    &:nth-of-type(3){
+      transition-delay: 0.4s;
+    }
+    &:nth-of-type(4){
+      transition-delay: 0.6s;
+    }
+    &:nth-of-type(5){
+      transition-delay: 0.8s;
+    }
+    &:nth-of-type(6){
+      transition-delay: 1s;
+    }
+
+    &__fb, &__ig, &__vk, &__wt, &__vi, &__tl{
+      transition-delay: 0s;
+      width: 25px;
+      height: 25px;
+    }
+
+  }
+
+  &-link svg {
+    width: 30px;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+&:not(.social_opened){
+  &.social-link {
+    transition-delay: 0s !important;
+  }
+}
+
+&_opened{
+  position: relative;
+  @include mobile{
+    
+
+    .social-list{
+      position: absolute;
+      flex-direction: column;
+    }
+  }
+  & .social-list{
+    @include mobile{
+      top: 30px;
+      right: -10px;
+    }
+    position: absolute;
+    top: -10px;
+    // right: 100px;
+  }
+
+  & .social-link  {
+    background-color: rgba(243, 175, 175, 0.3);
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    pointer-events: painted;
+    cursor: pointer;
+    &:hover{
+      &>img{
+        transition: all .5s ease;
+          transform: scale(1.5);
+      }
+      background-color: rgba(243, 175, 175, 0.6);
+    }
+  }
+}
+
+&_opened{
+  & .social-trigger {
+    background-color: #222;
+  }
+}
+}
+
+.prodpage-labels__item{
+  color:#000;
 }

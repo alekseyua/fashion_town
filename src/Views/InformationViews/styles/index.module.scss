@@ -3,7 +3,7 @@
 
 @mixin tableStyle {
   %font {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Champagne & Limousines Bold Italic', sans-serif;
   }
   %cab-h2 {
     @extend %font;
@@ -431,6 +431,7 @@
       color: var(--gx-color-primary);
     }
     &-link {
+      margin-top: 25px;
       display: inline-block;
       text-align: center;
       padding: 18px 26px;

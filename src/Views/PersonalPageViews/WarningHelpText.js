@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './styles/wrapper.module.scss'
 import { GxIcon } from '@garpix/garpix-web-components-react'
+import { Link } from 'react-router-dom';
 
 const WarningHelpText = ({ icon, wraningText = 'text', linkText = 'link', to = '#' }) => {
   return (
@@ -10,7 +11,7 @@ const WarningHelpText = ({ icon, wraningText = 'text', linkText = 'link', to = '
       </div>
       <div className={style["cabinet-warning__desc"]}>
         <div className={style["cabinet-warning__text"]}>{wraningText}</div>
-        <a href={to}>{linkText}</a>
+        <Link to={to}>{linkText}</Link>
       </div>
     </div>
   );

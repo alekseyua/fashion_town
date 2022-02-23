@@ -1,38 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { GxButton, GxIcon, GxInput } from '@garpix/garpix-web-components-react';
 import { paperclip, send } from '../../images';
 import style from './styles/index.module.scss';
+import { object } from 'yup';
 
 const SendChatBlock = ({
   handleSubmit,
   handleChange,
   setFieldValue,
+  setValues,
   values,
   sendCommentFromTextField,
 }) => {
   const fileInputRef = React.useRef();
+  console.log('values.file_list', values)
   return (
     <div className={style['cabinet_orders_details__chat_send']}>
       <div className={style['cabinet_orders_details__chat_send_form']}>
-        <GxInput
+        <input
           value={values.text_field}
           name={'text_field'}
-          // onKeyPress={(e) => {
-          //   if (e.key === 'Enter') {
-          //     sendCommentFromTextField(values, {
-          //       resetForm: () => {
-          //         setFieldValue('text_field', '');
-          //         setFieldValue('file_list', []);
-          //       },
-          //     });
-          //   }
-          // }}
-          onGx-change={handleChange}
+          onChange={(e) => {
+            handleChange
+            setValues({...values,'text_field': e.target.value})
+          }}
           className={style['cabinet_orders_details__chat_send_input']}
           placeholder="Написать сообщение..."
-        ></GxInput>
-        <GxButton
+        />
+        <GxButton 
           variant="text"
           size="sm"
           circle
@@ -44,7 +40,7 @@ const SendChatBlock = ({
           }}
         >
           <input
-            multiple
+            // multiple
             ref={fileInputRef}
             className={'hidden'}
             id="image"
@@ -53,14 +49,14 @@ const SendChatBlock = ({
             name={'file_list'}
             onChange={(event) => {
               const files = event.currentTarget.files;
-
-              setFieldValue('file_list', files);
+              setFieldValue('file_list',files[0]);
             }}
           />
           <GxIcon src={paperclip} />
-          {values.file_list.length ? (
+          {values.file_list?.length ? (
             <gx-badge type="warning" pill>
-              {values.file_list.length}
+              {'1'}
+              {/* {values.file_list.length} */}
             </gx-badge>
           ) : null}
         </GxButton>

@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from '../Views';
 import ReviewsPageComponent from '../components/ReviewsPageComponent';
+import Modal from '../Views/ModalCreator';
+
 
 const InformationReviews = (props) => {
   const {
@@ -21,6 +23,7 @@ const InformationReviews = (props) => {
 
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <ReviewsPageComponent
         location={location}
         breadcrumbs={breadcrumbs}

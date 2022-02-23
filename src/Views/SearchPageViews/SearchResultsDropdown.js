@@ -10,12 +10,13 @@ import { useStoreon } from 'storeon/react';
 const SearchResultsDropdown = ({
   results = [],
   open,
-  site_configuration,
+  // site_configuration,
   search: search_,
 }) => {
   const { userPage } = useStoreon('userPage')
   const role = userPage.profile;
-  const output = qs.stringify({ q: search_ });
+  const site_configuration = userPage.site_configuration;
+   const output = qs.stringify({ q: search_ });
   if (search_ || output) {
     return (
       <GxDropdown className={style['search-dropdown']} open={open}>
@@ -35,13 +36,13 @@ const SearchResultsDropdown = ({
               })}
             >
               <Link
-                to={{ pathname: site_configuration.page_type_search, search: output, role: role }}
+                to={{ pathname: site_configuration?.page_type_search, search: output, role: role }}
               >
                 <Text text={'show_all'}></Text>
               </Link>
             </GxMenuItem>
           ) : (
-            <Link to={{ pathname: site_configuration.page_type_search, search: output }}>
+            <Link to={{ pathname: site_configuration?.page_type_search, search: output }}>
               <GxMenuItem className={style['search-dropdown__menu-item']}>
                 Ничего не найдено
               </GxMenuItem>

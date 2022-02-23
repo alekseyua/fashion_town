@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './styles/index.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Button from '../Button';
 
 const LinkToFirmalization = ({ children, to = '#', enabled, type = 'link', onClick }) => {
@@ -14,9 +14,9 @@ const LinkToFirmalization = ({ children, to = '#', enabled, type = 'link', onCli
     );
   }
   return (
-    <Link className={style['link-formalization']} to={to}>
+    <NavLink className={style['link-formalization']} to={to}>
       {children}
-    </Link>
+    </NavLink>
   );
 };
 

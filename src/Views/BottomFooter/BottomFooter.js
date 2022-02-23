@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import style from './bottomFooter.module.scss';
 import SocialLinks from '../SocialLinks';
 import PaymentMethods from '../PaymentMethods';
@@ -55,9 +55,13 @@ const BottomFooter = ({ site_configuration, year, policy }) => {
         <div className={style['bottom-footer-wrap']}>
           <div className={style['bottom-footer__info']}>
             <span className={style['bottom-footer__copyright']}>&copy; {year} FASHIONTOWN </span>
-            <a target="_blank" href={policy ? policy : "#"} className={style['bottom-footer__offer']}>
+            <Link 
+            target="_blank" 
+            to={policy ? policy : "#"} 
+            className={style['bottom-footer__offer']}
+            >
               Публичная оферта
-            </a>
+            </Link>
           </div>
           <SocialLinks social_links={social_links} />
           <PaymentMethods payment_methods={payment_methods} />

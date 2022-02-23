@@ -57,7 +57,7 @@ const CheckBoxFilters = ({ values, handleChangeFilters, fp_const, role }) => {
                 handleChangeFilters(fp_const.is_import, e)
               }}
               variant="light"
-              label={"Импорт"}
+              label={"Польша"}
               data-cy={`sellOutCheckBox`}
             ></CheckBox>
             </div>
@@ -68,7 +68,7 @@ const CheckBoxFilters = ({ values, handleChangeFilters, fp_const, role }) => {
                 handleChangeFilters(fp_const.is_polish, e)
               }}
               variant="light"
-              label={"Польша"}
+            label={"Импорт"}
               data-cy={`sellOutCheckBox`}
             ></CheckBox>
         </div>

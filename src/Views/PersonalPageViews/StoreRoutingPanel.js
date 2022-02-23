@@ -32,10 +32,10 @@ const StoreRoutingPanel = ({ cabinet_site_menu = [], shop }) => {
           );
         })}
 
-        {/* <a href="#" className="cabinet-sidebar__menulink">
+        {/* <Link to="#" className="cabinet-sidebar__menulink">
           Заказы
           <span className="cabinet-sidebar__menucount">2</span>
-        </a> */}
+        </Link> */}
       </div>
     </div>
   );

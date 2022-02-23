@@ -26,7 +26,17 @@ const TradingPlatformLayout = ({ first_screen, page_type_catalog }) => {
           <div className={style['trading-platform__content']}>
             <div className={style['trading-platform__info']}>
               <h6 className={style['trading-platform__subtitle']}>{overtitle}</h6>
+
               <h1 className={style['trading-platform__title']}>{title}</h1>
+
+              {/* <div className={style['body-slogan']}>
+              <div className={style["sign"]}>
+                   
+                  
+                  <span className={style["fast-flicker"]}>F</span>ASHI<span className={style["flicker"]}>ON</span>&nbsp;TO<span className={style["fast-flicker"]}>W</span>N
+              </div>
+              </div> */}
+
               <p className={style['trading-platform__text']}>{undertitle}</p>
               <div className={style['trading-platform__buttons']}>
                 <NavLink to="/about" className={style['trading-platform__link']}>

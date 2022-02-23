@@ -5,7 +5,8 @@
   @include padding-for-mobile;
 
   &-wrap {
-    padding-top: 20px;
+    padding-top: 10px; 
+    position: relative;
     @include row(15);
     @include mobile {
       margin: 0;
@@ -13,15 +14,20 @@
     align-items: stretch;
   }
   &-card {
-    @include col(4, 0);
+    @include col(3, 0);
+    @include tablet-lg{
+      @include col(6, 0);
+    }
     @include mobile {
       @include col(12, 0);
     }
-
+    position: relative;
+    min-height: 100%;
+    
+    // последниму элементу задаём цвет
     &:last-of-type h2.main-categories__title {
       color: var(--gx-color-accent2);
     }
-    height: 100%;
   }
   @include categoryCard;
   a:hover {
@@ -32,13 +38,15 @@
   }
 }
 .main-categories h2.main-categories__title {
+  // font-size: 25px;
+  @include adaptiv-font(16,28);
   color: var(--gx-color-primary);
   @include tablet-lg {
-    font-size: 3vw;
+    // font-size: 3vw;
     padding: 0;
   }
   @include mobile {
-    font-size: 8vw;
+    // font-size: 5vw;
     padding-bottom: 15px;
   }
 }

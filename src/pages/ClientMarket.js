@@ -3,6 +3,8 @@ import Layout from '../Views';
 import PersonalPageViews from '../Views/PersonalPageViews';
 import PersonalPageComponent from '../components/PersonalPageComponent';
 import ClientShopComponent from '../components/ClientShopComponent';
+import Modal from '../Views/ModalCreator';
+
 
 const ClientMarket = (props) => {
   const {
@@ -20,6 +22,7 @@ const ClientMarket = (props) => {
 
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <PersonalPageViews.WrapperPage
         leftChildComponent={
           <PersonalPageComponent.SidebarEntryPersonalPage

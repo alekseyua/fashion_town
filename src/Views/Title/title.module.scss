@@ -175,7 +175,8 @@
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
-  font-family: Noto Sans;
+  // font-family: Noto Sans;
+  @extend %font;
   padding-top: 10px;
 }
 .news-details-page__title {

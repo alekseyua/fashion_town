@@ -31,8 +31,9 @@ const Card = ({
 }) => {
   const { brand, color, id: producId, image, in_stock_count, size, title } = product;
 
-  const [countProducts, setCountProducts] = useState(qty)
+  const [countProducts, setCountProducts] = useState()
   const [select, setSelect] = useState()
+  const [stateAction, setStateAction] = useState();
   //const [select, setSelect] = useState()
 
 
@@ -40,15 +41,14 @@ const Card = ({
   setSelect(selected)
 },[selected])
 
-// console.log('select_3',select)
-
   const updateQty = (qty) => {
     updateProductFromCart({
-      id: id,
-      selected: selected,
-      qty: qty,
-      oldQty: countProducts,
-    });
+        id: id,
+        selected: selected,
+        qty: qty,
+        oldQty: countProducts,
+      });      
+   
   };
   const decCounterProduct = () => {
     if (countProducts <= 1) return;
@@ -61,7 +61,7 @@ const Card = ({
   };
   useEffect(() => {
     setCountProducts(qty);
-  }, [selected]);
+  }, [qty]);
 
   if (!product.image || product.image === '#') product.image = categoryCard1;
 
@@ -71,26 +71,35 @@ const Card = ({
     (value === 0) ? value = 1 : null;
     isNaN(value) ? value = countProducts : value;
     setCountProducts(value)
-    updateQty(value);
-
+      updateQty(value);
   }
 
   return (
-    <div className={style['wrapper']}>
+    <motion.div
+      initial={{
+        x: 0,
+        opacity: 1
+      }}
+      transition={{
+        duration: .8
+      }}
+      animate={stateAction}
+    className={style['wrapper']}>
       <div className={style['product__wrapper-block']}>
         <CheckBox
           checked={select}
           className={'product__selected_checkbox'}
           onClick={(e) => {
             const value = e.target.checked;
-            // console.log('select_2',value , select);
-            selected !== value ? setSelect(!select) : null
-            if (value !== null && selected !== value)
-              updateProductFromCart({
-                id: id,
-                selected: value,
-                qty: countProducts,
-              });
+              select !== value ? setSelect(!select) : null
+              if (value !== null && select !== value){
+                setSelect(!select)
+                updateProductFromCart({
+                  id: id,
+                  selected: value,
+                  qty: countProducts,
+                });}
+
           }}
         />
         {/*фотография  */}
@@ -111,7 +120,6 @@ const Card = ({
           <div className={style['product__base_info__condition']}>
             Условие покупки:
             <span className={style['product__base_info__condition-content']}>
-              &nbsp;
               <div>
                 {condition}
               </div>
@@ -120,7 +128,13 @@ const Card = ({
         </div>
       
         <Button
-          onClick={() => deleteProductFromCart(id)}
+          onClick={() => {
+            setStateAction({
+              x: [20, -200],
+              opacity: [.8, .6, .4, .2, 0]
+            })
+           deleteProductFromCart(id)
+          }}
           className={style['product__delete-mobile']}
           gxVariant={'text'}
           size="sm"
@@ -204,7 +218,13 @@ const Card = ({
         </div>
 
           <Button
-            onClick={() => deleteProductFromCart(id)}
+            onClick={() => {
+                 setStateAction({
+                x: [20, -200],
+                opacity: [.8, .6, .4, .2, 0]
+              })
+              deleteProductFromCart(id)
+            }}
             className={style['product__delete']}
             gxVariant={'text'}
             >
@@ -212,7 +232,7 @@ const Card = ({
           </Button>
       </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

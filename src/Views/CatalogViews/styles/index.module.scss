@@ -13,7 +13,7 @@
   &-row {
     @include row(15);
     justify-content: flex-end;
-    margin-top: 30px;
+    margin-top: 10px;
     @include laptop-sm {
       margin-left: 0;
       margin-right: 0;

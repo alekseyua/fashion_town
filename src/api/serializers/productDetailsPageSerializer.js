@@ -10,12 +10,12 @@ const productDetailsPageSerializer = (page) => {
   return {
     ...page_info,
     ...init_state,
-    reviews: serializerReviews.justDateSerializer(init_state.reviews), 
-    cart: profile.cart,
-    notifications: profile.notifications,
-    user_role: profile.user_role,
-    user_status: profile.user_status,
-    wishlist: profile.wishlist,
+    reviews: serializerReviews.justDateSerializer(init_state?.reviews), 
+    cart: profile?.cart,
+    notifications: profile?.notifications,
+    user_role: profile?.user_role,
+    user_status: profile?.user_status,
+    wishlist: profile?.wishlist,
   };
 };
 

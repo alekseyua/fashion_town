@@ -57,7 +57,9 @@ const OrderingAddress = ({
 
   return (
     <OrderingViews.OrderingAddress>
-      <OrderingViews.OrderingAddressHead />
+      <OrderingViews.OrderingAddressHead 
+        role={role}
+      />
       {/* Поиск по ФИО только для дропа */}
       {role === ROLE.DROPSHIPPER ? (
         <OrderingViews.OrderingAddressSearcheInput

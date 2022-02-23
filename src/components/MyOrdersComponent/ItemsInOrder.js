@@ -21,8 +21,8 @@ const ItemsInOrder = ({ apiOrder, setModalStates, statuses, profile,page_type_ca
   const [tableBodyData, setTableBodyData] = useState([]);
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const [ dataUpdateCheck, setDataUpdateCheck ] =  useState(false);
-  const { stateValuePoly, dispatch }                      = useStoreon('stateValuePoly');
-  const [ stateActiveBtn, setStateActiveBtn ] = useState([]);
+  const { updateCurrenssies, dispatch }                      = useStoreon('updateCurrenssies');
+  const [ stateClickDel, setStateClickDel ] = useState(false);
   const history = useHistory();
   const [ modalStates, setmodalStates]                          = useState({
     show: false,
@@ -51,19 +51,19 @@ const tableHeaderData = [
         <MyOrderViews.ThData>
           Статус
           {/* <GxTooltip content="This is a tooltip"> */}
-            {/* <a href="#" className="cabinet-table__thlink">
+            {/* <Link to="#" className="cabinet-table__thlink">
               <GxIcon src={infoWhite} alt="table__thlink" />
-            </a> */}
+            </Link> */}
           {/* </GxTooltip> */}
         </MyOrderViews.ThData>
       ),
     },
-    {
-      content: <MyOrderViews.ThData>Добавить в заказ</MyOrderViews.ThData>,
-    },
-    {
-      content: <MyOrderViews.ThData>Отменить заказ</MyOrderViews.ThData>,
-    },
+    // {
+      // content: el.status.status === 'in_process' ? <MyOrderViews.ThData>Добавить в заказ</MyOrderViews.ThData> : el.status.status === 'payment_waiting' ? <MyOrderViews.ThData>Отменить заказ</MyOrderViews.ThData> : null
+    // },
+    // {
+    //   content: <MyOrderViews.ThData>Отменить заказ</MyOrderViews.ThData>,
+    // },
   ],
 ];
 
@@ -83,7 +83,6 @@ const createTdForTable = (data = [], currenssies) => {
     // el.status.status === 'in_process'?
     // setStateActiveBtn([...stateActiveBtn,'disabled'])
     // :setStateActiveBtn([...stateActiveBtn,null])
-    // console.log('status', el.status);
     let tr = [];
     //!date
     tr.push({
@@ -125,35 +124,41 @@ const createTdForTable = (data = [], currenssies) => {
       ),
     });
     //Добавить в заказ
-    tr.push({
-      attr: { 'data-label': 'Добавить' },
-      content: (
-        // <MyOrderViews.TdStatusData  />
-        <GxButton 
-          type="submit" 
-          variant='default' 
-          onClick={(e)=>btnAddOrderItems(el)}
-          disabled={el.status.status !== 'in_process'?"disable":null}
-        >
-        Добавить
-        </GxButton>
-      ),
-    });
+    // tr.push({
+    //   attr: { 'data-label': 'Добавить' },
+    //   content: (
+    //     // <MyOrderViews.TdStatusData  />
+    //     <GxButton 
+    //       type="submit" 
+    //       variant='default' 
+    //       onClick={(e)=>btnAddOrderItems(el)}
+    //       disabled={el.status.status !== 'in_process'?"disable":null}
+    //     >
+    //     Добавить
+    //     </GxButton>
+    //   ),
+    // });
     //удалить заказ
+    el.status.status === 'payment_waiting' || el.status.status === 'in_process' ?
     tr.push({
-      attr: { 'data-label': 'Отменить заказ' },
+      attr: { 'data-label': el.status.status === 'payment_waiting' ? 'Отменить заказ' : 'Добавить' },
       content: (
         // <MyOrderViews.TdStatusData  />
         <GxButton 
           type="submit" 
           variant='default' 
-          onClick={(e)=>btnDelOrder(el)}
-          disabled={el.status.status !== 'in_process'?"disable":null}
+          onClick={(e)=> {
+            el.status.status === 'payment_waiting' ? btnDelOrder(el) : btnAddOrderItems(el)
+          }}
+          // disabled={el.status.status === 'payment_waiting' ? null : "disable"}
+          // el.status.status === 'in_process' ||  || el.status.status === 'payment_in_stock' 
         >
-        Отменить
+          {/* ожидается оплата", товар оплачен или в сборе  in_process , payment_waiting */}
+          {el.status.status === 'payment_waiting' ? 'Отменить' : 'Добавить'}
         </GxButton>
       ),
-    });
+    })
+    : null;
     results.push(tr);
   });
   return results;
@@ -169,8 +174,6 @@ const btnAddOrderItems = async () => {
                   // .then(res=>res)
                   // .then(()=>{return res})
                   // .catch(err=>err);
-
-  console.log('result response list', result.results);
   history.push('catalog');
 }
 
@@ -181,16 +184,14 @@ const btnDelOrder = (data) => {
      //order_id : data.order_number,
      order_id : data.id,    
     }
-   const gotoCartFunc = (e, value) => { 
-      console.log('start', value);
-    value?deleteOrder(params):null;
-   }
+  //  const gotoCartFunc = (e, value) => { 
+  //   value?deleteOrder(params):null;
+  //  }
    api
    .orderApi
    .cancelOrder(params)
    .then(res=>{
-       dispatch('stateValuePoly/change',{stateDelOrder:true})
-       console.log('Order was delete from orders');
+    setStateClickDel(!stateClickDel)
      })
      .catch(err=>console.log('ERROR btnDelOrder dont work',err))
   
@@ -206,14 +207,12 @@ const btnDelOrder = (data) => {
   }
 
   const deleteOrder = (params) => {
-  console.log('ЗАказ с параметрами удалён', params);
   // closeModal()
    // запрос работает нужно  только раскомить
     //  api
     //    .orderApi
     //    .cancelOrder(params)
     //    .then(res=>{
-    //        dispatch('stateValuePoly/change',{stateDelOrder:true})
     //        console.log('Order was delete from orders');
     //      })
     //      .catch(err=>console.log('ERROR btnDelOrder dont work',err))
@@ -223,7 +222,6 @@ const btnDelOrder = (data) => {
 
 
   const closeModal = () => {
-    console.log('закрываем диалоговое окно');
     setModalStates({
       content: null,
       show: false,
@@ -301,10 +299,10 @@ const btnDelOrder = (data) => {
   // *****************************************************   
   useEffect(()=>{
     setDataUpdateCheck(true)
-  },[stateValuePoly.stateCurrency,stateValuePoly.stateDelOrder])
+  },[updateCurrenssies, stateClickDel])
 // *****************************************************
   return (
-    <FetcherList isScrollTop={true} initFilter={initialFilters} api={apiOrder.getOrders}>
+    <FetcherList isScrollTop={true} initFilter={initialFilters} api={apiOrder.getOrders} >
       {(data) => {
         const {
           count,
@@ -325,9 +323,8 @@ const btnDelOrder = (data) => {
 
 // *****************************************************
         const executeUpdate = () => {
-          dispatch('stateValuePoly/change',{stateDelOrder:false})
           setDataUpdateCheck(false);
-          data.reload();
+          data?.reload();
         }
         dataUpdateCheck?executeUpdate():null;
         // *****************************************************

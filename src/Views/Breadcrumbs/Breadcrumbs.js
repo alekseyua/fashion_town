@@ -4,15 +4,7 @@ import style from './styles/index.module.scss';
 import { useHistory, useParams } from 'react-router-dom';
 
 const BreadCrumbs = ({ breadcrumbs = [] }) => {
-  //  const history = useHistory();
-  //  const slagon = useParams();
-  //  console.log('breadcrumbs',slagon);
-  // const history = useHistory();
-  // const goPage = () => {
-  //   console.log('breadcrumbs',history);
-  //   history.go
-  // }
-  // onClick={goPage}
+
   return (
     <div className={style['wrapper']}>
       {breadcrumbs.map((el, i) => {

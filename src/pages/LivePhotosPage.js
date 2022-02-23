@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '../Views';
 import LivePhotosComponent from '../components/LivePhotosComponent';
+import Modal from '../Views/ModalCreator';
+
 
 const LivePhotosPage = (props) => {
   const { cabinet_menu, create_shop, cabinet_site_menu, profile, breadcrumbs, location } = props;
@@ -11,6 +13,7 @@ const LivePhotosPage = (props) => {
  
   return (
     <Layout profile={profile} {...props}>
+      <Modal.StorControllerModal />
       <LivePhotosComponent location={location} breadcrumbs={breadcrumbs} />
     </Layout>
   );

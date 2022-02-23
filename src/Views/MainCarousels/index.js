@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from "react-slick";
 import { GxGrid } from '@garpix/garpix-web-components-react';
 import Text from '../.././components/Text';
+import { Link } from 'react-router-dom';
 
 const MainCarousels = ({ data = [] }) => {
   const settings = {
@@ -25,7 +26,7 @@ const MainCarousels = ({ data = [] }) => {
                       <h4 className="title2 wow bounceInLeft mb-5">{title}</h4>
                       <div className="title1 wow bounceInRight mb-5" dangerouslySetInnerHTML={{ __html: content }} />
                       <div className="banner-readmore wow bounceInUp mt-3">
-                        <a className="btn slider-btn" href={url}><Text text={'shop_now'}/></a>
+                        <Link className="btn slider-btn" to={url}><Text text={'shop_now'}/></Link>
                       </div>
                     </div>
                   </GxGrid>

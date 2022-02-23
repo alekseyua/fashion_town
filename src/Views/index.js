@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import { GxIcon } from '@garpix/garpix-web-components-react';
 import VidjetChatComponent from '../components/VidjetChatComponent';
 import ButtonScrollTopComponent from '../components/ButtonScrollTopComponent';
+import { useStoreon } from 'storeon/react';
+
 const Layout = ({
   headerModClosed = false,
   main = false,
@@ -18,7 +20,7 @@ const Layout = ({
   header_menu,
   footer_menu,
   announce,
-  profile,
+  // profile,
   site_configuration,
   role_configuration,
   currencies,
@@ -28,14 +30,15 @@ const Layout = ({
 }) => {
 //Views -> index
 
+const { userPage } = useStoreon('userPage');
+const { profile } = userPage;
 if ( profile === undefined ){
-  ()=> window.location.reload();
+  window.location?.reload()
 }
-
   const cabinet_data = {
     // wishlist: profile.wishlist,
     cart: cartUpdate.in_cart,
-    notifications: profile.notifications,
+    notifications: profile.notifications
   };
   const mainClassModufy = classNames({
     main: main,
@@ -47,7 +50,7 @@ if ( profile === undefined ){
         headerModClosed={headerModClosed}
         header_menu={header_menu}
         main_menu={main_menu}
-        site_configuration={site_configuration}
+        site_configuration={userPage.site_configuration}
         announce={announce}
         cabinet_data={cabinet_data}
         profile={profile}

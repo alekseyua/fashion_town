@@ -184,6 +184,11 @@
     }
 
     &__li {
+
+              // отключаем живые фото
+              &:nth-child(2){
+                display: none;
+              }
       position: relative;
       padding: 5px 20px;
       cursor: pointer;
@@ -288,6 +293,7 @@
       @include ul;
       display: grid;
       grid-gap: 20px 0;
+
       li > a {
         color: var(--gx-color-primary);
         @include tablet-md {
@@ -314,7 +320,17 @@
   display: block;
 }
 .item-modificator {
+
   color: var(--gx-color-white);
+  &:hover {
+    color: var(--gx-color-accent1);
+  }
+  @include mobile {
+    color: var(--gx-color-primary);
+  }
+}
+.item-list{
+  color: black;
   &:hover {
     color: var(--gx-color-accent1);
   }

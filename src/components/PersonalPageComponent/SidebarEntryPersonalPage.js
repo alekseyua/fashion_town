@@ -23,8 +23,8 @@ const [valueIn, setValueIn] = useState(null);
 
 const changeData = (event) => {
   event.preventDefault();
-  console.log("Сразу",stateValuePoly);
-  dispatch('stateValuePoly/change', {stateCart:true});
+  // console.log("Сразу",stateValuePoly);
+  // dispatch('stateValuePoly/change', {stateCart:true});
       // api
       //   .orderApi
       //   .postGetEcuaringLink({

@@ -76,16 +76,16 @@
       object-fit: cover;
       margin-right: 10px;
       transition: height .6s ease-in-out .5s;
-      &:hover{
-        position: absolute;
-        width: 30%;
-        height: 60%;
-        z-index: 1;
-        @media (max-width:568px) {
-          position: relative;
+      // &:hover{
+      //   position: absolute;
+      //   width: 30%;
+      //   height: 60%;
+      //   z-index: 1;
+      //   @media (max-width:568px) {
+      //     position: relative;
 
-        }
-      }
+      //   }
+      // }
     }
   }
   &__base_info {
@@ -128,7 +128,8 @@
       color: var(--gx-color-darkgray2);
       margin-bottom: 5px;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      flex-direction: column;
       &-black {
         color: $p2;
       }
@@ -432,6 +433,11 @@
         @include flex(sc);
       }
       &_input {
+          border: none;
+          @include mobile-sm {
+            margin: 0;
+          }
+
         width: 100%;
         &::part(base) {
           border: none;
@@ -553,3 +559,24 @@
   }
 
 }
+
+.cabinet_orders_icon{
+  &-payment{
+    font-size: 18px;
+    transform: rotate(-45deg);
+    padding-right: 5px;
+  }
+  &-paid{
+    font-size: 16px;
+    padding-right: 5px;
+  }
+  &-packaging{
+    font-size: 16px;
+    padding-right: 5px;
+  }
+  &-sended{
+    font-size: 18px;  
+    padding-right: 5px;
+  }
+}
+

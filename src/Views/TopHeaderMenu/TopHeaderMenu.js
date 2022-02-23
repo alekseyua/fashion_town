@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import style from './topHeaderMenu.module.scss';
 import { dropdownIcon } from '../../images';
 import SearchInput from '../SearchPageViews/SearchInput';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 /**
  * ? Поля доступные в меню 
  * ? children: []
@@ -28,18 +28,38 @@ const TopHeaderMenu = ({ header_menu = [], handlerActiveDropDownMenuItem, classM
     [style[classModificator]]: !!classModificator,
   });
 
-  const visibleMenu = {
-    visible:{ opacity: 1, delay: 1},
+  const variants = {
+    open: {
+      transition: { staggerChildren: 0.07, delayChildren: 0.2 }
+    },
+    closed: {
+      transition: { staggerChildren: 0.05, staggerDirection: -1 }
+    }
+  };
 
-    hidden: { opacity: 0 }
-  }
+  const variantsLi = {
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: { stiffness: 1000, velocity: -100 }
+      }
+    },
+    closed: {
+      y: 50,
+      opacity: 0,
+      transition: {
+        y: { stiffness: 1000 }
+      }
+    }
+  };
 
   return (
     <div className={classNameBlock}>
       <ul className={style['top-header-menu__list']}>
         {header_menu.map((el, i) => {
           return (
-            <li
+            <motion.li
 
               onClick={(e) => {
                 if (el.children.length) {
@@ -50,7 +70,7 @@ const TopHeaderMenu = ({ header_menu = [], handlerActiveDropDownMenuItem, classM
                   handlerActiveDropDownMenuItem(i !== activeDropDown);
                 }
               }}
-          
+
 
               key={`${el.id} ${i}`}
               data-cy={
@@ -63,11 +83,12 @@ const TopHeaderMenu = ({ header_menu = [], handlerActiveDropDownMenuItem, classM
               })}
             >
               <div className={style['top-header-menu__li-item']}>
+                
                 {el.children.length ? (
                   <p>{el.title}</p>
                 ) : (
                   <NavLink
-                    key={`${el.id} ${i*2}`}
+                    key={`${el.id} ${i * 2}`}
                     data-cy={`header_menu_dropdown_cypress-link-${el.id}`}
                     to={el.url ? el.url : '#'}
                     className={classNames({
@@ -87,40 +108,66 @@ const TopHeaderMenu = ({ header_menu = [], handlerActiveDropDownMenuItem, classM
                 />
               </div>
               {el.children.length ? (
-                <div
+
+                activeDropDown !==-1?
+               ( <motion.div
+                transition={{
+                  duration: 1.5,
+
+                }}
+                initial={{
+                  y:-100,
+                  opacity: 0
+                }}
+                animate={{
+                  y: 330 ,
+                  opacity:1
+                }}
+                // exit={{y: 0,opacity:0}}
                   className={classNames({
                     [style['top-header-submenu']]: true,
                     [style['active']]: activeDropDown !== -1,
                   })}
                 >
-                  <ul className={style['top-header-submenu__list']}>
+                 
+                  <ul
+                     
+                  className={style['top-header-submenu__list']}>
                     {el.children.map((elChild, iChild) => {
                       return (
-                        <li 
-                          key={iChild}
-                          
-                          variants={visibleMenu}
-                          // initial='hidden'
-                          // animation='visible'
-                          custom={iChild}
-
+                        <NavLink
+                        key={iChild*2}
+                        data-cy={`header_menu_redirect_to-${elChild.id}`}
+                        to={elChild.url ? elChild.url : '#'}
+                        // className={style['item-modificator']}
                         >
-                          <NavLink
-                            style={{opacity: 1}}
-                            key={iChild*2}
-                            data-cy={`header_menu_redirect_to-${elChild.id}`}
-                            to={elChild.url ? elChild.url : '#'}
-                            className={style['item-modificator']}
-                          >
-                            {elChild.title}
-                          </NavLink>
-                        </li>
+                        <motion.li
+                        className={style['item-list']}
+                          key={iChild}
+                          transition={{
+                            duration: .3,
+                          }}
+                          animate={{
+                            opacity: .5
+                          }}
+                          whileHover={{ 
+                            scale: 1.1,
+                            opacity: 1
+                          }}
+                          whileTap={{ scale: 0.95 }}                      
+                          custom={iChild}
+                          // variants={variantsLi}
+                        >
+                          {elChild.title}
+                         </motion.li>
+                        </NavLink>
                       );
                     })}
                   </ul>
-                </div>
+                </motion.div>
+                   ):null
               ) : null}
-            </li>
+            </motion.li>
           );
         })}
       </ul>

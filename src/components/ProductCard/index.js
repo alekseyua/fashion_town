@@ -10,7 +10,7 @@ import AsyncComponent from '../../components/AsyncComponent';
 import classNames from 'classnames';
 import api from '../../api';
 
-const defaultIamgesSet = [defaultProductCard];
+const defaultIamgesSet = [defaultProductCard]; 
 const apiProfile = api.profileApi;
 const apiContent = api.contentApi;
 
@@ -23,13 +23,13 @@ const AsyncProductCard = AsyncComponent(() => {
 });
 
 const ProductCard = ({
-  profile,
+  profile, 
   url = '#',
   title = 'title',
   id = '0',
   brand = 'brand',
   grid = false,
-  favorite = false,
+  favorite,
   prices = {
     price: '124',
     old_price: '300',
@@ -45,14 +45,14 @@ const ProductCard = ({
   swapperDisabled = false,
   disabledHover = false,
   is_collection = false,
-
+  setCardIdproductFromSlider=Function.prototype,
 }) => {
-  // console.log('prices---', prices);
+
   const { currenssies } = useStoreon('currenssies'); //currenssies role_configuration
   const { stateValuePoly } = useStoreon('stateValuePoly');
   const { dataProductFromId } = useStoreon('dataProductFromId');
   const { role_configuration } = useStoreon('role_configuration'); //currenssies role_configuration
-  const { wishlistAl } = useStoreon('wishlistAl');
+  const { updateWish } = useStoreon('updateWish');
   
   const { stateCountWish, dispatch }    = useStoreon('stateCountWish');
 
@@ -62,49 +62,18 @@ const ProductCard = ({
     content: null,
   });
 
-
-
-
-  
-  //засовываем обновление данных с карточки товара об моих желаниях
-  // const update = (data) => {
-  //   dispatch('stateValuePoly/change', { stateWish: true })
-  //   apiProfile
-  //     .getWishlist()
-  //     .then((res) => {
-  //       dispatch('wishlistAl/update', res);
-  //     })
-  //     .catch((err) => {
-  //       console.log('ERROR getWishList');
-  //     })
-  // }
-
   const setModalStates = () => {
     getProductDetails();
     setisShowModal(true);
   };
-  // const setWishlistToLocalStorage = (product) => {
-  //   const wishListFromLocalStorage = getLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST);
-  //   if (!wishListFromLocalStorage) {
-  //     return setLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST, JSON.stringify([product]));
-  //   }
-  //   let newValue = [];
-  //   if (wishListFromLocalStorage) {
-  //     newValue = [...wishListFromLocalStorage];
-  //     newValue.push(product);
-  //   } else {
-  //     newValue.push(product);
-  //   }
+   const [nowFavorite, setNowFavorite] = useState(false);
 
-  //   setLocalStorage(LOCAL_STORAGE_KEYS.WISHLIST, JSON.stringify(newValue));
-  // };
-   const [nowFavorite, setNowFavorite] = useState(favorite);
-
+   useEffect(()=>{
+    setNowFavorite(favorite)
+   },[favorite])
   // -****************************добавление/удаление в мои желания***********работает проверено*******************************************************
   const setLikeProductCard = () => {
-    console.log('click wish');
-    
-    const params = {
+   const params = {
       product: id,
     };
 
@@ -115,6 +84,7 @@ const ProductCard = ({
         .then((res) => {
           //console.log(`ok add ${id}`);
           dispatch('stateCountWish/add', {...stateCountWish, count : stateCountWish.count + 1 })
+          dispatch('stateInPreveiwGoods/add', { id : id , is_liked : !nowFavorite })
           setNowFavorite(!nowFavorite)
           //update(res);
         })
@@ -128,6 +98,7 @@ const ProductCard = ({
         .then((res) => {
           //console.log(`ok delete wish ${id}`);
           dispatch('stateCountWish/add', {...stateCountWish, count : stateCountWish.count - 1 })
+          dispatch('stateInPreveiwGoods/add', { id : id , is_liked : !nowFavorite })
           setNowFavorite(!nowFavorite)
           //update(res)
         })
@@ -136,6 +107,7 @@ const ProductCard = ({
           console.log(`ERROR deleteWishlist(${err})`)
         });
     }
+    dispatch('updateWish/add', !updateWish)
 
   };
   // *********************превю товара***********************************************
@@ -181,7 +153,6 @@ const ProductCard = ({
     apiContent
       .getProduct(id)
       .then((res) => {
-        console.log('++++api---getProductDetails+++++',res);
         setModalContent({
           content: (
             <ModalContentViews.ModalWrapper customClassName={'modal-min_wrap'}>
@@ -235,9 +206,6 @@ const ProductCard = ({
     prices.price,
   ])
 
-  useEffect(() => {
-    // getProductDetails()
-  }, [nowFavorite])
 
   // *************************************************************************************
   return (
@@ -260,7 +228,7 @@ const ProductCard = ({
         id={id}
         brand={brand}
         grid={grid}
-        favorite={favorite}
+        favorite={nowFavorite}
         prices={newPrice}
         stock={stock}
         colors={colors}
@@ -275,6 +243,7 @@ const ProductCard = ({
         currenssies={currenssies}
         profile={profile}
         is_collection={is_collection}
+        setCardIdproductFromSlider={setCardIdproductFromSlider}
       />
     </React.Fragment>
   );

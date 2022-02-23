@@ -6,9 +6,12 @@ import { useStoreon } from 'storeon/react';
 import api from '../../api';
 
 const apiContent = api.contentApi;
-const YouMayLike = ({ in_category }) => {
+const YouMayLike = ({ in_category, setCardIdproductFromSlider }) => {
+  
   const [listAlreadySaw, setlistAlreadySaw] = useState([]);
   const { currenssies } = useStoreon('currenssies'); //currenssies
+  const { updateWish } = useStoreon('updateWish'); 
+
   const sliderParams = {
     slidesPerView: 6,
     speed: 400,
@@ -18,14 +21,20 @@ const YouMayLike = ({ in_category }) => {
     resistance: true,
     observer: true,
     observeSlideChildren: true,
-  };
-//console.log('in_category',in_category);
+  }; 
   useEffect(() => { 
-    console.log('in_category',in_category);
     setlistAlreadySaw(in_category);
-  }, [in_category]);
+  }, [updateWish, in_category]);
 
   if (!listAlreadySaw.length) return null;
+
+
+/**
+ * YouMayLike
+ * 
+ * listAlreadySaw  
+ *  
+ */
   return (
     <YouHaveAlreadyWatchedViews.Wrapper title={'Вам может понравиться'}>
         <Swiper
@@ -55,6 +64,7 @@ const YouMayLike = ({ in_category }) => {
                   sizes={data.sizes}
                   product_rc={data.product_rc}
                   currenssies={currenssies}
+                  setCardIdproductFromSlider={setCardIdproductFromSlider}
                 />
               </SwiperSlide>
             );

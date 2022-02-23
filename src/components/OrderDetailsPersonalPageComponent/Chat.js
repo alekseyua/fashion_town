@@ -85,10 +85,17 @@ const Chat = ({ order_id, setModalStates }) => {
     getChatData();
   }, []);
 
+  const updateDataChat = setTimeout(() => {
+    getChatData()
+    updateDataChat
+    return () => clearTimeout(updateDataChat);
+  }, 7000);
+
+
   return (
-    <Formik enableReinitialize onSubmit={sendCommentFromTextField} initialValues={valuesState}>
-      {({ handleSubmit, values, handleChange, setFieldValue }) => {
-        
+    <Formik enableReinitialize onSubmit={sendCommentFromTextField} handleChange={handleChange} initialValues={valuesState}>
+      {({ handleSubmit, values, handleChange, setFieldValue, setValues }) => {
+
         return (
           <GxForm noValidate onSubmit={handleSubmit}>
             <OrderDetailsPersonalPageViews.WrapperChat>
@@ -120,6 +127,7 @@ const Chat = ({ order_id, setModalStates }) => {
                 values={values}
                 handleChange={handleChange}
                 setFieldValue={setFieldValue}
+                setValues={setValues}
                 handleSubmit={handleSubmit}
                 sendCommentFromTextField={sendCommentFromTextField}
               />

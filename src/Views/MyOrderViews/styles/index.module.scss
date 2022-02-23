@@ -98,10 +98,10 @@ $g: var(--gx-color-gray);
   }
 }
 %font {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
 }
 %font-head {
-  font-family: 'Cormorant Garamond', sans-serif;
+  font-family: 'TMVinograd-Oblique', sans-serif;
 }
 %heading {
   font-weight: bold;
@@ -195,6 +195,7 @@ $g: var(--gx-color-gray);
   }
   &-formblock {
     position: relative;
+    
     margin-bottom: 40px;
     background: $w;
     border: 1px solid #f1f1f1;
@@ -320,6 +321,7 @@ $g: var(--gx-color-gray);
 
     &__left {
       max-width: 280px;
+      min-width: 250px;
     }
     @include mobile {
       flex-direction: column;
@@ -333,6 +335,7 @@ $g: var(--gx-color-gray);
     }
     &__th {
       position: relative;
+      // top: 0;
     }
     &__thlink {
       opacity: 0.5;
@@ -481,6 +484,7 @@ $g: var(--gx-color-gray);
     }
     &__datepicker {
       border: 2px solid var(--gx-color-darkgray);
+      padding: 0 10px;
       // border-bottom: 0px solid var(--gx-color-black);
       box-sizing: border-box;
       

@@ -17,13 +17,12 @@ const AddToCartBlock = ({
   handleClose,
 }) => {
 
-  const { currenssies } = useStoreon('currenssies'); //currenssies
+  const { dispatch, currenssies, stateCountRestart } = useStoreon('currenssies', 'stateCountRestart'); //currenssies
   const { userPage }    = useStoreon('userPage');
 
   const history         = useHistory();
 
   const { role }        = userPage.profile;
-
   return (
     <div className={style['add_to_cart-wrapper']}>
       <HeaderBlock title={'Добавлено в корзину'} mb={20} />
@@ -49,9 +48,9 @@ const AddToCartBlock = ({
           ) : null} */}
 
           {allPrice ? (
-            <span>
+            <div>
               {allPrice} {currenssies}
-            </span>
+            </div>
             ) : null
           }
           
@@ -65,30 +64,16 @@ const AddToCartBlock = ({
         </div>
       </div>
       
-        {(role === 1) ? (
-              <div className={style['add_to_cart-wrapper-content--sale']}>
-                <div>
-                  <div
-                    className={style['add_to_cart-wrapper-content--sale_promotion']}
-                  >Cкидка!!! Cкидка!!! Cкидка!!!</div> 
-                  <div
-                    className={style['add_to_cart-wrapper-content--sale_promotion-add']}
-                  >не пропустите</div>
-                </div>
-                <div>
-                  При заказе от 3 и 5 шт. 
-                </div>
-              </div>
-          ) : null
-        }
-
         <div className={style['add_to_cart-wrapper-buttons']}>
           <Button variant="catalog-link-transparent-min" onClick={handleClose}>
             продолжить покупки
           </Button>
-          <Button variant="cancel-black-min" onClick={()=>history.push('cart')}>
+          <Button variant="cancel-black-min" onClick={()=>{
+            dispatch('stateCountRestart/add',!stateCountRestart)
+            history.push('cart')
+            }}>
             перейти в корзину
-          </Button>
+          </Button> 
         </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../Views';
 import Cart from '../components/Cart';
+import Modal from '../Views/ModalCreator';
 
 const CartPage = (props) => {
   const {
@@ -15,6 +16,7 @@ const CartPage = (props) => {
   const { checkout_slug, page_type_catalog } = site_configuration;
   return (
     <Layout main {...props}>
+      <Modal.StorControllerModal />
       <Cart
         role={role}
         checkout_slug={checkout_slug}

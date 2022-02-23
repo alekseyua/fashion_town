@@ -3,6 +3,8 @@ import Layout from '../Views';
 import WishlistComponent from '../components/WishlistComponent';
 import { LOCAL_STORAGE_KEYS } from '../const';
 import { getLocalStorage } from '../utils';
+import Modal from '../Views/ModalCreator';
+
 
 const WishlistPage = (props) => {
   const {
@@ -22,6 +24,7 @@ const WishlistPage = (props) => {
   const { username } = user;
   return (
     <Layout {...props}>
+      <Modal.StorControllerModal />
       <WishlistComponent
         role={role}
         initfilters={{

@@ -31,11 +31,17 @@ const MainCategoriesLayout = ({ banners }) => {
                         alt={Text({ text: 'newItems' })}
                       />
                     </div>
-                    <h2 className={classNames({
-                      [style['category-card__title']]: true,
-                      [style['main-categories__title']]: true,
-                      [style['main-categories__title-strong']]: true
-                    })}>{el.title}</h2>
+                    <div className={style["category-card__inner-title"]}>
+                      <h2
+                        className={classNames({
+                          [style['category-card__title']]: true,
+                          [style['main-categories__title']]: true,
+                          [style['main-categories__title-strong']]: true,
+                        })}
+                      >
+                        {el.title}
+                      </h2>
+                    </div>
                   </div>
                 </NavLink>
               </div>

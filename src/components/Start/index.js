@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, GxForm, Field } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -26,14 +27,14 @@ class Start extends React.Component {
       <div className="App">
         <header className="App-header">
           <p>Edit <code>src/App.js</code> and save to reload.</p>
-          <a
+          <Link
             className="App-link"
-            href="https://reactjs.org"
+            to="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
           >
             Learn React
-                    </a>
+                    </Link>
         </header>
         <Formik
           initialValues={{

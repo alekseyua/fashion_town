@@ -100,13 +100,14 @@ class Api extends AbstractBaseApi {
   getPage = async (params, queryParams = {}, axiosParams = {}) => {
 
     const slug = ['/ru', '/en'].includes(params[0]) ? '/' : params[0];
+
     //const slug = '';
     const res = await this.get(
       `/content/page${slug === '' ? '/' : slug}`,
       queryParams,
       axiosParams,
       );
-     //console.log('getPage res.data',res.data);
+
     const page = res.data;
     const pageType = page.type;
 
@@ -114,13 +115,13 @@ class Api extends AbstractBaseApi {
       return { pageType, page: PAGES['development-page'].serializer(page) };
     } else {
       const { serializer } = PAGES[pageType];
+
       return { pageType, page: serializer(page) };
     }
   };
 
   updatePage = async (slug, queryParams = {}, axiosParams = {}) => {
     // const slug = ['/en', '/ru'].includes(params[0]) ? '/' : params[0];
-    console.log('getPupdatePageage');
     const res = await this.get(`/content/page${slug}`, queryParams, axiosParams);
     const page = res.data;
 

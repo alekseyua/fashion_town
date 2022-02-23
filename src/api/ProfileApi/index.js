@@ -23,11 +23,26 @@ export default class ProfileApi extends AbstractBaseApi {
     const res = await this.get('/profile/already_saw/', params);
     return res.data;
   };
+
+  // ********************************************************************************************************************
   getNotifications = async (params = {}) => {
-    const res = await this.get(`/profile/notifications/`, params);
+     const res = await this.get(`/profile/notifications/`, params);
+  // const res = await this.get(`/profile/notifications/get_notifications/`, params);
     res.data = serializeNotifications(res.data);
+    return res.data; 
+  };
+
+
+  postNotificationsDel = async (params = {}) => {
+    const res = await this.delete(`/profile/notifications/delete_notifications/`, params);
+    return res.data; 
+  };
+
+  postNotificationsReed = async (params = {}) => {
+    const res = await this.post(`/profile/notifications/readed_notifications/`, params);
     return res.data;
   };
+  // ********************************************************************************************************************
   getShopUserList = async (params = {}) => {
     const res = await this.get(`/user/get_shop_users_list/`, params);
     res.data = serializeUserList(res.data);

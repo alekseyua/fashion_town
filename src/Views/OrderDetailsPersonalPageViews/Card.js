@@ -6,6 +6,8 @@ import style from './styles/index.module.scss';
 import { useStoreon } from 'storeon/react';
 import ImageUpload from '../../components/ImageUpload';
 import api from '../../api';
+import ModalContentViews from '../../Views/ModalContentViews';
+
 
 const Card = ({
   title,
@@ -20,8 +22,9 @@ const Card = ({
   status,
   deleteElementOrder,
   id,
+  setModalStates,
 }) => {
-
+  // console.log('statusOrder={status}', statusOrder)
   const apiCart = api.cartApi;
   const { stateValuePoly, dispatch } = useStoreon('stateValuePoly');
   const fileInputRef = React.useRef(null);
@@ -31,7 +34,7 @@ const Card = ({
     text: null
   });
   const [idGoods, setIdGoods] = useState();
-  const [textComment, setTextComment] = useState("test text");
+  const [textComment, setTextComment] = useState(comment);
 
   const [amountFile, setAmountFile] = useState(null);
   const fd = new FormData();
@@ -41,45 +44,48 @@ const Card = ({
   });
 
   const sendCommentFromTextField = (id) => {
-    setTextComment(inputText.text)
+    // setTextComment(inputText.text)
 
     fd.set('order_id', inputText.id);
 
     if (inputText.text) {
-      fd.set('comment', inputText.text);
+      fd.set('comment', input__image_thumbText.text);
     }
 
-    console.log('stateFile', stateFile.files)
-    console.log('stateFile.files.length', stateFile.files)
-
+    if (!inputText.text){
+      console.log('zero')
+    }else{
+      console.log('ok text')
+   
     if (stateFile.files) {
       fd.set('order_id', stateFile.id);
       fd.set('files', stateFile.files);
     }
-    console.log('stateFile', fd);
-    // api.orderApi
-    //   .orderAddComment(fd)
-    //   .then(res => {
-    //     setTextComment(res.answer)
-    //     console.log(`RESAULT orderAddComment "sendFilesFromFileField"${res}`, res);
-    //     setStateFile({
-    //       id: 1,
-    //       files: null
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.error(`ERROR orderAddComment CardWoasale ${err}`);
-    //   });
+    api.orderApi
+      .orderAddComment(fd)
+      .then(res => {
+        setTextComment(res.answer)
+        console.log(`RESAULT orderAddComment "scabinet_orders_icon-paymentendFilesFromFileField"${res}`, res);
+        setTextComment(res.comment)
+
+        setStateFile({
+          id: 1,
+          files: null
+        });
+      })
+      .catch(err => {
+        console.error(`ERROR orderAddComment CardWoasale ${err}`);
+      });
       
 
-    //   setInputText({
-    //     id : inputText.id,
-    //     text : ""
-    //   })
+      setInputText({
+        id : inputText.id,
+        text : ""
+      })
+    }
   };
 
   const sendFilesFromFileField = useCallback((id, data) => {
-    console.log('data', data);
     setStateFile({
       id: id,
       files: data
@@ -140,7 +146,6 @@ const Card = ({
 
 
   useEffect(() => {
-    console.log('wirk');
     !stateFile ? setAmountFile(1) : null
   }, [stateFile])
 
@@ -173,29 +178,61 @@ const Card = ({
     }
   };
 
+  const closeModal = () => {
+    setModalStates({
+      content: null,
+      show: false,
+      addClass: null,
+    });
+  };
+  const openModalImage = (image) => {
+    setModalStates({
+      content: (
+        <ModalContentViews.ModalWrapper>
+          <ModalContentViews.CloseBtn closeModal={closeModal} />
+          <ModalContentViews.ContentBlock>
+            <ModalContentViews.CenterPosition>
+              <ModalContentViews.ViewsImage image={image} />
+            </ModalContentViews.CenterPosition>
+          </ModalContentViews.ContentBlock>
+        </ModalContentViews.ModalWrapper>
+      ),
+      show: true,
+      addClass: 'modal-review',
+    });
+  };
+
+
   return (
     <div className={style['cabinet_orders_details__card']}>
       <div className={style['cabinet_orders_details__wrapper-block']}>
-        <img src={image} className={style['cabinet_orders_details__image_thumb']} />
+        <div 
+          onClick={()=>openModalImage(image)}
+        >
+        <img
+          src={image} 
+          className={style['cabinet_orders_details__image_thumb']} 
+        />
+        </div>
         <div className={style['cabinet_orders_details__base_info']}>
           <div className={style['cabinet_orders_details__base_info__brand']}>{brand}</div>
           <div className={style['cabinet_orders_details__base_info__title']}>{title}</div>
           <div className={style['cabinet_orders_details__base_info__wrapper']}>
             <div className={style['cabinet_orders_details__base_info__col']}>
               <div className={style['cabinet_orders_details__base_info__desc']}>
-                <Text text={'size'} />:
+                <Text text={'size'} />:&nbsp;
                 <span className={style['cabinet_orders_details__base_info__desc-black']}>
                   {size}
                 </span>
               </div>
               <div className={style['cabinet_orders_details__base_info__desc']}>
-                <Text text={'color'} />:
+                <Text text={'color'} />:&nbsp;
                 <span className={style['cabinet_orders_details__base_info__desc-black']}>
                   {color}
                 </span>
               </div>
               <div className={style['cabinet_orders_details__base_info__desc']}>
-                Замена:
+                Замена:&nbsp;
                 <span className={style['cabinet_orders_details__base_info__desc-black']}>
                   {change_agreement ? 'разрешена' : 'не разрешена'}
                 </span>
@@ -219,27 +256,39 @@ const Card = ({
                 </span> */}
               </div>
               <div className={style['cabinet_orders_details__base_info__desc']}>
-                {status.id !== 'payment_waiting' ?
+              <div>
+                {status.id !== 'payment_waiting' && status.id !== 'paid' && status.id !== 'packaging' && status.id !== 'sended' ?
                   <GxIcon
                     slot="icon-left"
                     src={getIconFromStatus(status.id)}
                     className={style['cabinet_orders_details__base_info__icon']}
                   />
-                  : null
+                  : status.id === 'payment_waiting'?
+                  <span className={style['cabinet_orders_icon-payment']}>💳</span>
+                    : status.id === 'paid'?
+                      <span className={style['cabinet_orders_icon-paid']}>✔️</span>
+                      : status.id === 'packaging' ?
+                        <span className={style['cabinet_orders_icon-packaging']}>🛍</span>
+                        : status.id === 'sended' ?
+                          <span className={style['cabinet_orders_icon-sended']}>🛫</span>
+                          : null
                 }
                 {/* id: "ordered" title: "Товар заказан" */}
                 <span className={style["cabinet_orders_details__base_info__desc-status"]}>
                   {status.title}
                 </span>
-                {status.id !== 'canceled' ?
-                  (<button
+                </div>
+                <div>
+                {status.id === 'payment_waiting' || status.id === 'collection' || status.id === 'paid'  ?
+                  (<GxButton
                     variant="default"
                     className={style['btn__order-item--canceled']}
                     key={id}
                     onClick={() => deleteElementOrder(id, order)}
-                  >отменить</button>
+                  >отменить</GxButton>
                   ) : null
                 }
+                </div>
               </div>
             </div>
           </div>
@@ -295,6 +344,8 @@ const Card = ({
                       }
                     }}
                   >
+                    {/* 
+                    закомил добавление изображений на бэке не риализовано
                     <input
                       // multiple
                       ref={fileInputRef}
@@ -314,7 +365,7 @@ const Card = ({
                       <gx-badge type="warning" pill>
                         {amountFile}
                       </gx-badge>
-                    ) : null}
+                    ) : null} */}
                     {/* <GxIcon src={paperclip} /> */}
                   </GxButton>
                   <GxButton

@@ -12,7 +12,7 @@ const thisDate = new Date();
 
 const BaseInfoOrder = ({ statuses, loadData, activePage, filterParams, count }) => {
   const [state, setstate] = useState({
-    created_at__lte:  filterParams.created_at__gte ?? new Date(thisDate.setFullYear(thisDate.getFullYear() + 1)),
+    created_at__lte:  filterParams.created_at__gte ?? new Date(thisDate.setFullYear(thisDate.getFullYear())),
     created_at__gte:filterParams.created_at__lte ?? new Date(),
      
   });
@@ -55,7 +55,6 @@ const BaseInfoOrder = ({ statuses, loadData, activePage, filterParams, count }) 
       created_at__lte: dayjs(api.language, date).format(), //format('DD.MM.YYYY')
     });
   };
-
   return (
     <div className={style['cabinet-content']}>
       <div className={style['cabinet-heading']}>
@@ -76,6 +75,8 @@ const BaseInfoOrder = ({ statuses, loadData, activePage, filterParams, count }) 
           clearIcon={null}
            onChange={selectCreateTo}
           value={state.created_at__gte}
+            format={'dd.MM.yyyy'}
+
           className={classNames({
             datepicker: true,
             [style['wrapper_filter-group__datepicker']]: true,
@@ -89,7 +90,11 @@ const BaseInfoOrder = ({ statuses, loadData, activePage, filterParams, count }) 
             [style['wrapper_filter-group__datepicker']]: true,
           })}
           onChange={selectCreateFrom}
-          value={state.created_at__lte}
+          // date={("23/10/2015", "DD/MM/YYYY")}
+           value={state.created_at__lte}
+            // defaultValue={dayjs(api.language, state.created_at__lte).format('DD.MM.YYYY')}
+            format={'dd.MM.yyyy'}
+            // showNavigation:true
         />
       </div>
       </div>

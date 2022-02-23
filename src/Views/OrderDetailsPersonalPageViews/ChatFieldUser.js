@@ -30,6 +30,7 @@ const ChatFieldUser = ({
           {images.map((el, i) => {
             return (
               <div
+                key={i+'img'}
                 onClick={() => {
                   openModalImage(el.image);
                 }}

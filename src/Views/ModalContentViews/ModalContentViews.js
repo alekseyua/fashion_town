@@ -10,8 +10,6 @@ import style from '../PersonalPageViews/styles/wrapper.module.scss'
 
 const ModalContentViews = ({ closeModal, title, isSaved = true, children, keyText = 'save' }) => {
 
-//console.log('ModalContentViews -> ModalContentViews--!!!!  ')
-  
   return (
     <ModalWrapper>
       <CloseBtn closeModal={closeModal} />

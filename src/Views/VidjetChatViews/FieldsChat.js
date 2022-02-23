@@ -12,10 +12,10 @@ import Button from '../../Views/Button';
 import { FaqSchema } from '../../utils/schemesFormic';
 import ErrorField from '../ErrorField';
 import style from './styles/index.module.scss';
+import { motion } from 'framer-motion';
 
 const FieldsChat = ({ answers = [], categorys = [], submitQuestrion, successResponse }) => {
-  console.log('categorys',categorys);
-  console.log('answers',answers);
+
   return (
     <div className={style['widget__chat_field']}>
             <details className={style['widget__chat_details']}>
@@ -117,11 +117,25 @@ const FieldsChat = ({ answers = [], categorys = [], submitQuestrion, successResp
       {answers.map((el) => {
 
         return (
-          <details key={el.id} className={style['widget__chat_details']}>
+          <motion.details 
+            initial={{
+              height:0,
+              opacity: 0
+            }}
+            animate={{
+              height:'100%',
+              opacity: 1
+            }}
+            translate={{
+              delay: 4,
+              duration: 3
+            }}
+          key={el.id} className={style['widget__chat_details']}>
             <summary className={style['widget__chat_summary']}>
               <div className={style['widget__chat_button-text']}>{el.question}</div>
             </summary>
-            <div
+            <motion.div
+             
               className={classNames({
                 [style['widget__chatmessage-full']]: true,
                 [style['widget__chatmessage-admin']]: true,
@@ -130,9 +144,11 @@ const FieldsChat = ({ answers = [], categorys = [], submitQuestrion, successResp
               <div className={style['widget__chatmessage_wrapper']}>
                 <div className={style['widget__chatmessage_name']}>{el.question}</div>
               </div>
-              <p className={style['widget__chatmessage_text']}>{el.answer}</p>
-            </div>
-          </details>
+              <motion.p 
+             
+              className={style['widget__chatmessage_text']}>{el.answer}</motion.p>
+            </motion.div>
+          </motion.details>
         );
       })}
 

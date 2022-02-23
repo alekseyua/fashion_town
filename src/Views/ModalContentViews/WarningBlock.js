@@ -6,8 +6,6 @@ import style from './styles/index.module.scss';
 
 const WarningBlock = ({ children, variant, wrapVariant }) => {
 
-//console.log('ModalContentViews -> WarningBlock--!!!!  ')
-  
   return (
     <div
       className={classNames({
