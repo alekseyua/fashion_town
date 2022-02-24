@@ -11,7 +11,7 @@ const ModalTakeAdvertisment = ({ closeModal }) => {
       closeModal={closeModal}
     >
       <HelpText addClass={'profile-modal-advertisement'}>
-        Вы отказались получать рассылки и теперь Вам не будут прихоодить уведомления
+        Вы отказались получать рассылки и теперь Вам не будут приходить уведомления
       </HelpText>
       <Button onClick={closeModal} type={'submit'} variant={'black_btn_full_width_with_margin'}>
         <Text text={'i.understand'} />

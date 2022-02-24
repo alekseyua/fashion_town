@@ -828,7 +828,8 @@
 	&__img {
 		height: 100%;
 		background-position: center;
-		background-size: contain no-repeat;
+		background-size: 100%;
+    background-repeat: no-repeat;
 	}
 	// .order-card__content {}
 	&__content {
@@ -915,12 +916,22 @@
 	&__price {
 		font-size: 20px;
 		margin-right: 50px;
-    &:nth-child(2){
-      color: $a2;
-    }
+    color: $a;
+    display: flex;
+    flex-wrap: wrap;
 		@media (max-width: 680px) {
 			display: none;
 		}
+    //content-card__price--color{}
+    &--color{
+      color: $a2;
+    }
+    &--old{
+      color: $p;
+      margin-left: 3px;
+      font-size: 12px;
+      text-decoration: line-through;
+    }
 	}
 	//content-card__price-mob{}
 	&__price-mob{
@@ -930,11 +941,14 @@
     
 		@media (max-width: 680px) {
       display: block;
-			&>span{
+      &--old{
+        color: $p;
+        font-size: 12px;
+        margin-left: 3px;
+        text-decoration: line-through;
+      }
+      &>span{
         font-weight: 900;
-        &nth-child(1){
-          color: $a2;      
-        }
 		}
 		}
 	}
@@ -943,10 +957,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-evenly;
-    margin: -30px 0 0;
+    margin: -20px 0 0;
     @media (min-width: 680px) {
       display: none;
     }
 	}
+
+  
 }
 

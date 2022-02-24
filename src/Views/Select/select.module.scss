@@ -242,6 +242,56 @@ $dg2: var(--gx-color-darkgray2);
         font-size: 14px;
       }
     }
+    scrollbar-color: #ffa6b0 #fcd2d7;     /* «цвет ползунка» «цвет полосы скроллбара» */
+    // scrollbar-width: auto | thin | none;  /* толщина */
+    ::-webkit-scrollbar {
+      height: 12px;
+      width: 12px;
+      background: #ffa6b0 #fcd2d7; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+      background:  #ffa6b0 #fcd2d7; 
+      -webkit-border-radius: 1ex;
+      -webkit-box-shadow: 0px 1px 2px rgba(213, 127, 206, 0.75);
+  }
+  
+  ::-webkit-scrollbar-corner {
+      background:  #ffa6b0 #fcd2d7; 
+  }
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background:#ffa6b0;
+    border: 1px solid#ffa6b0;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffa6b0;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #ffa6b0;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffa6b0;
+    border: 0px none #ffffff;
+    border-radius: 53px;
+  }
+  ::-webkit-scrollbar-track:hover {
+    background: #666666;
+  }
+  ::-webkit-scrollbar-track:active {
+    background: #333333;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
 
 

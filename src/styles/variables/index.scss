@@ -105,7 +105,9 @@ $maxWidthContainer: 1400;
   display: flex;
   flex-wrap: wrap;
 }
-
+// миксин разбиение ширины на 12 частей где 
+// $colsize на сколько разбиваем
+// $mrg марджен по краям 
 @mixin col($colsize, $mrg) {
   width: calc(100% / 12 * #{$colsize} - #{$mrg * 2}px - 0.1px);
   margin-left: #{$mrg}px;

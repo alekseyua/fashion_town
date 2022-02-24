@@ -5,7 +5,7 @@ import OrderingViews from '../../Views/OrderingViews';
 import { useStoreon } from 'storeon/react';
 
 // формирование карточек товара и разбиение их на группы приходят данные из OrderComponent
-const OrderingCards   = ({
+const OrderingCards = ({
    role_configuration = {},
    cart_content = {}, 
    currenssies, 

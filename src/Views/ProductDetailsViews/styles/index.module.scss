@@ -43,8 +43,8 @@
     position: relative;
     height: max-content;
     @include col(6, 0);
-    @include tablet-md {
-      @include col(12, 0);
+    @include tablet-lg {
+      @include col(12, 40);
     }
     @include mobile {
       padding: 0;
@@ -656,11 +656,18 @@
         // background-color: var(--gx-color-primary);
         min-height: 59px;
         min-width: 59px;
+        max-width:380px;
+        
         @include flex(cc);
-        border-radius: 2px;
+        border-radius: 3px;
       }
       &::part(label) {
-        font-size: 33px;
+
+        // font-size: 33px;
+        @include adaptiv-font(10px,24px);
+        @include tablet-md{
+          @include adaptiv-font(15px,24px);
+        }
       }
     }
   }

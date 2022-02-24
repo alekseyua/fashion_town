@@ -130,8 +130,8 @@ const WishlistComponent = ({ breadcrumbs, initfilters, page_type_catalog }) => {
                 ) : (
                   <WishlistViews.Wrapper>
                     <WishlistViews.HelpText>
-                      Все товары, отмеченные сердечком, появятся на этой странице. Добавляйте в
-                      избранное, чтобы узнавать о снижении цены или о наличии данного товара.
+                        Все товары, отмеченные сердечком, появятся на этой странице. Добавляйте в избранное, 
+                        чтобы быстро вернуться к самым интересным моделям и не забыть заказать
                     </WishlistViews.HelpText>
                     <WishlistViews.LinkCatalog to={page_type_catalog}>
                         СМОТРЕТЬ ТОВАРЫ

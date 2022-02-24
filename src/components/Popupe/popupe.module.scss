@@ -17,17 +17,17 @@
    
    &__close{
        position: absolute;
-       top: 0;
+       top: 5px;
        right: -15px;
        margin: 10px;
-       color: red;
+       color: $pi2;
        width: 20px;
        font-size: 20px;
        height: 20px;
        background: none;
        border:none;
        cursor: pointer;
-    
+  
    }
 
     &__container{
@@ -81,7 +81,8 @@
     }
     &__item{
             flex: 1 0 48%;
-            border: 2px double rgb(214, 210, 210);
+            background-color: rgb(245, 196, 196);
+            border: 2px double rgb(245, 152, 152);
             position: relative;
             margin-bottom: 5px;
             margin-right: 5px;
@@ -159,7 +160,7 @@
         @include adaptiv-font(15,30);
         cursor: pointer;
         transform-style: preserve-3d;
-        transition: all 700ms ease; 
+        transition: all 1000ms ease; 
         &:after{
           top: -100%;
           left: 0;
@@ -174,12 +175,24 @@
           transform: rotateX(90deg);
           box-shadow: 5px 5px 5px #000;
           height: 70px;
+          transition: all 2s ease-in;
+
         }
         &:hover{
           background-color:$a2;
           box-shadow: 5px 5px 5px #000;
           transform-origin: center bottom;
         	transform: rotateX(-90deg) translateY(100%);
+          transition: all 1s ease-in;
+        }
+        &--disable{
+          background-color: rgb(104, 104, 104);
+           width: 90%;
+        height: 70px;
+        color:rgb(255, 255, 255);
+        margin: 15px;
+        @include adaptiv-font(15,30);
+        cursor: not-allowed;
         }
     }
 }

@@ -1,14 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { GxButton, GxTooltip, GxIcon, GxModal } from '@garpix/garpix-web-components-react';
+import React, { useEffect, useState } from 'react';
+import { GxButton, GxIcon } from '@garpix/garpix-web-components-react';
 import { fire, hanger } from '../../../images';
 import classNames from 'classnames';
 import style from '../styles/index.module.scss';
-import MainFiltersCustom from '../../MainFiltersCustom';
 import { ROLE } from '../../../const';
-import { v4 } from 'uuid';
 import { useStoreon } from 'storeon/react';
-import { motion } from 'framer-motion';
-import { remove } from 'lodash';
+
 
 const defaultSizes = [1, 2, 3, 4, 5, 6];
 const SizesItems = ({

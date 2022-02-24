@@ -25,7 +25,7 @@ const NewsComponent = ({ titlePage = 'новости', rubrics }) => {
     <NewViews.Wrapper>
       <Breadcrumbs breadcrumbs={tempBreadCrumbs} />
       <Title variant={'page__news'} type={'h1'}>
-        новости
+        новости1
       </Title>
       <FetcherList isScrollTop={true} initFilter={initialFilters} api={apiContent.getNews}>
         {(data) => {
@@ -44,15 +44,19 @@ const NewsComponent = ({ titlePage = 'новости', rubrics }) => {
             isNext,
             isPrev,
           } = data;
+
           return (
             <>
               <NewViews.Tags
+                key={data.id}
                 rubrics={rubrics}
                 filterParams={filterParams}
                 loadData={loadData}
                 activePage={activePage}
               />
-              <NewViews.NewsContainer>
+              <NewViews.NewsContainer
+                key={data.id*222}
+              >
                 {results.map((el, i) => {
                   return (
                     <NewsCard

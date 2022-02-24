@@ -2,7 +2,6 @@ import React from 'react';
 import { defaultImageCard } from '../../images';
 import { NavLink } from 'react-router-dom';
 import style from './newsCard.module.scss';
-import classNames from 'classnames';
 
 const NewsCard = (props) => {
   const { img, title, date, url = '#', description = '' } = props;

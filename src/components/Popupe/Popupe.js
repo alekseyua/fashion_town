@@ -40,7 +40,6 @@ useEffect(()=>{
   setCollectionsGoods(dataPopup)
 }, [dataPopup])
 
-
   return (
     <motion.div
       initial={{
@@ -50,10 +49,8 @@ useEffect(()=>{
         opacity:1,
         transition:{duration:.5}
       }}
-
-      className={style['popup']}
-     
-    >
+      className={style['popup']}     
+    >     
       <motion.div 
         initial={{
           scale: 0,
@@ -66,7 +63,7 @@ useEffect(()=>{
         }}
 
         className={style['popup__container']}
-      >
+      > 
         <GxModal
           onGx-after-hide={closeModal}
           open={modalStates.show}
@@ -87,26 +84,28 @@ useEffect(()=>{
       </GxModal>
         <div className={style['popup__main']}>
           <button
-            type="button"
-            className={style['popup__close']}
-            onClick={(e) => {
-              e.preventDefault();
-              setIsOpen(false)
-              setShowPopapInfoColection({
-                ...showPopapInfoColection,
-                show: false,
-                content: null,
-              });
-            }}
-          >
-            X
-          </button>
-        
+              type="button"
+              className={style['popup__close']}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsOpen(false)
+                setShowPopapInfoColection({
+                  ...showPopapInfoColection,
+                  show: false,
+                  content: null,
+                });
+              }}
+            >
+              X
+            </button>
           <ul 
             className={style['popup__list']}
           >
+            
             {dataPopup.map((collections, index) => {
- 
+              let res = dataPopup[index].items.map(redeemed => redeemed.redeemed)
+               let enableBtn = res.filter(item=>item===false?true:false)
+              console.log(`dataPopup res ${index}`, enableBtn.length)
               return(
               <li 
                 key={collections.id} 
@@ -206,11 +205,9 @@ useEffect(()=>{
 
                     <button 
                       type="button" 
-                      className={style['body-collectiion__btn-apply']}
-                        
+                        className={enableBtn.length ? style['body-collectiion__btn-apply'] : style['body-collectiion__btn-apply--disable']}
+                        disabled={enableBtn.length?'':'true'}
                         onClick={() => {
-
-                          console.log('sizeCollection', sizeCollection)
                           if (sizeCollection) { 
                             let countCart = stateCountCart.in_cart + 1;
                           dispatch('stateCountCart/add', { ...stateCountCart, in_cart: countCart })
@@ -222,7 +219,7 @@ useEffect(()=>{
                         }
                         
                     >
-                      Участвовать в сборе
+                        {enableBtn.length ?'Участвовать в сборе':'Сбор собран'}
                     </button>
 
                  </div>

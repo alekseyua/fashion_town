@@ -65,7 +65,7 @@ const PreviewSlider = ({
                   image={
                     imageOrVideoSet[0]?.color?
                     el.image
-                    :el.type === 'video' ? el.preview : el.image_thumb}
+                    :el.type === 'video' ? el.preview : el.image}
                   //image={'http://91.218.229.240:8000' + el.image_thumb}
 
                 ></SliderViews.Slide>
@@ -114,7 +114,7 @@ const PreviewSlider = ({
                   <SliderViews.Slide image={
                     imageOrVideoSet[0]?.color ?
                       el.image
-                      :el.image_thumb                    
+                      :el.image                    
                     }></SliderViews.Slide>
                 </SwiperSlide>
               );

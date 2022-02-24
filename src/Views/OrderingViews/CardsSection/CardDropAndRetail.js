@@ -46,116 +46,144 @@ const [stateChecked, setStateChecked] = useState(true)
 
     (role !== ROLE.WHOLESALE)
       ?(
-        <div className={style['ordering_main-card']}>
-          <div className={style['ordering_card']}>
+        <div className={style["order-card-wrapper"]}>
+          <div className={style["order-card"]}>
 
-            <div className={style['ordering_card-left']}>   
+            <div className={style["order-card__imgage"]}>
+
+              <div className={style["order-card__imgage-inner"]}>
                 <Link 
                   to={el.url}
-                  >
-                <img src={el.product.image} className={style['ordering_card__image']} />
+                >
+                  <div className={style["order-card__img"]} style={{backgroundImage: `url(${el.product.image})` }}></div>
                 </Link>
-            
-                  <div className={style['product__base_info']}>
-                    <div className={style['ordering_card__desc']}>
-                        <div className="product__base_info__size">
-                          <Text text={'size'} />:&nbsp;<span className="product__base_info-black">{el.size}</span>
-                        </div>
-                        <div className={style['product__base_info__color']}>
-                          <Text text={'color'} />:
-                          <span className={style['product__base_info-black']}>{el.color}</span>
-                        </div>
-
-                    </div>
-                    <div className={style['ordering_card__change']}>
-                      <GxTooltip
-                        content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
-                        placement="top"
-                        className={style['ordering_card__tooltip']}
-                      >
-                        <CheckBox
-                          checked={stateChecked}
-                          onGx-change={changeAgreement}
-                          label={
-                            <span className={style['ordering_card__change_text']}>Согласие на замену</span>
-                          }
-                        />
-                      </GxTooltip>
-                    </div>
-                  </div>
+              </div>
             </div>
 
-              <div className={style['product__base_info__size']}>
-                <Text text="count" />:
-                <span className={style['product__base_info-black']}>{el.qty} шт.</span>
-              </div>
-              <div className={style['product__base_info__price']}>
-                  <Text text="price" />:
-                  <span className={style['product__base_info-red']}>
-                    {el.price} {currenssies}
-                  </span>
+            <div className={style["content-card"]}>
+              <div className={style["content-card__title"]}>{el.product.title}</div>
+              <div className={style["content-card__brand"]}>{el.product.brand}</div>
+
+              <div className={style["content-card__info"]}>
+                <div className={style["content-card__info-inner"]}>
+                  <div className={style["content-card__info-size"]}><span><Text text={'size'} />:&nbsp;</span> {el.product.size}</div>
+                  <div className={style["content-card__info-color"]}><span><Text text={'color'} />:&nbsp;</span> {el.product.color}</div>
+                  <div className={style["content-card__info-agree"]}>
+                    <GxTooltip
+                      content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
+                      placement="top"
+                      className={style['ordering_card__tooltip']}
+                    >
+                      <CheckBox
+                        checked={stateChecked}
+                        onGx-change={changeAgreement}
+                        label={
+                          <span className={style['ordering_card__change_text']}>Согласие на замену</span>
+                        }
+                      />
+                    </GxTooltip>
+                  </div>
+                </div>
+
+                <div className={style["content-card__amount"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
+                <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
                   {el.old_price ? (
-                    <span className={style['product__base_info-black_lt']}>
+                    <span className={style['content-card__price--old']}>
+
                       {el.old_price} {currenssies}
                     </span>
                   ) : null}
+                </div>
               </div>
-            
 
-    
+
+            </div>
+
+          </div>
+
+          <div className={style["content-card__inner-price"]}>
+            <div className={style["content-card__amount-mob"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
+            <div className={style["content-card__price-mob"]}> <span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
+              {el.old_price ? (
+                <span className={style['content-card__price--old']}>
+
+                  {el.old_price} {currenssies}
+                </span>
+              ) : null}
+            </div>
           </div>
         </div>
+
+
       ):(
 
         <div className={style["order-card-wrapper"]}>
-			<div className={style["order-card"]}>
-				
-          <div className={style["order-card__imgage"]}>
-          <div className={style["order-card__imgage-inner"]}>
-                <div className={style["order-card__img"]} style={{ 'background-image': `url(${el.image})`}}></div>
-					</div>
-				</div>
+          <div className={style["order-card"]}>
 
-          <div className={style["content-card"]}>
-					<div className={style["content-card__title"]}>{el.title}</div>
-          <div className={style["content-card__brand"]}>{el.brand}</div>
+            <div className={style["order-card__imgage"]}>
 
-					<div className={style["content-card__info"]}>
-						<div className={style["content-card__info-inner"]}>
+              <div className={style["order-card__imgage-inner"]}>
+                <Link
+                  to={el.url}
+                >
+                  <div className={style["order-card__img"]} style={{backgroundImage: `url(${el.image})` }}></div>
+                </Link>
+              </div>
+            </div>
+
+            <div className={style["content-card"]}>
+              <div className={style["content-card__title"]}>{el.title}</div>
+              <div className={style["content-card__brand"]}>{el.brand}</div>
+
+              <div className={style["content-card__info"]}>
+                <div className={style["content-card__info-inner"]}>
                   <div className={style["content-card__info-size"]}><span><Text text={'size'} />:&nbsp;</span> {el.size}</div>
                   <div className={style["content-card__info-color"]}><span><Text text={'color'} />:&nbsp;</span> {el.color}</div>
-							<div className={style["content-card__info-agree"]}>
-               <GxTooltip
-                content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
-                placement="top"
-                className={style['ordering_card__tooltip']}
-              >
-                <CheckBox
-                  checked={stateChecked}
-                  onGx-change={changeAgreement}
-                  label={
-                    <span className={style['ordering_card__change_text']}>Согласие на замену</span>
-                  }
-                />
-              </GxTooltip>
-              </div>
-						</div>
+                  <div className={style["content-card__info-agree"]}>
+                    <GxTooltip
+                      content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
+                      placement="top"
+                      className={style['ordering_card__tooltip']}
+                    >
+                      <CheckBox
+                        checked={stateChecked}
+                        onGx-change={changeAgreement}
+                        label={
+                          <span className={style['ordering_card__change_text']}>Согласие на замену</span>
+                        }
+                      />
+                    </GxTooltip>
+                  </div>
+                </div>
 
                 <div className={style["content-card__amount"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
-                <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span>{el.price}&nbsp;{currenssies}</div>
+                <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
+                  {el.old_price ? (
+                    <span className={style['content-card__price--old']}>
 
-					</div>
+                      {el.old_price} {currenssies}
+                    </span>
+                  ) : null}
+                </div>
+              </div>
 
 
-				</div>
+            </div>
 
-			</div>
+          </div>
 
-			<div className={style["content-card__inner-price"]}>
+          <div className={style["content-card__inner-price"]}>
             <div className={style["content-card__amount-mob"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
-            <div className={style["content-card__price-mob"]}> <span> <Text text="price" />:&nbsp;</span>{el.price}&nbsp;{currenssies}</div>
-			</div>
-		</div>
+            <div className={style["content-card__price-mob"]}> <span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
+              {el.old_price ? (
+                <span className={style['content-card__price--old']}>
+
+                  {el.old_price} {currenssies}
+                </span>
+              ) : null}
+            </div>
+          </div>
+        </div>
 
     )
 
@@ -164,58 +192,3 @@ const [stateChecked, setStateChecked] = useState(true)
 };
 
 export default React.memo(CardDropAndRetail);
-
-{/* <div className={style['ordering_main-card']}>
-  <div className={style['ordering_card']}>
-
-    <div className={style['ordering_card-left']}>
-      
-
-      <div className={style['product__base_info']}>
-        <div className={style['product__base_info__brand']}></div>
-        <div className={style['product__base_info__title']}></div>
-        <div className={style['ordering_card__desc']}>
-          <div className="product__base_info__size">
-            <Text text={'size'} />:&nbsp;<span className="product__base_info-black">{el.size}</span>
-          </div>
-          <div className={style['product__base_info__color']}>
-            <Text text={'color'} />:
-            <span className={style['product__base_info-black']}>{el.color}</span>
-          </div>
-
-        </div>
-        <div className={style['ordering_card__change']}>
-          
-        </div>
-      </div>
-    </div>
-
-    <div className={style['product__base_info__size']}>
-      <Text text="count" />:
-      <span className={style['product__base_info-black']}>{el.qty} шт.</span>
-
-
-    </div>
-    <div className={style['product__base_info__price']}>
-      <Text text="price" />:
-      <span className={style['product__base_info-red']}>
-        {el.price} {currenssies}
-      </span>
-      {el.old_price ? (
-        <span className={style['product__base_info-black_lt']}>
-          {el.old_price} {currenssies}
-        </span>
-      ) : null}
-
-
-    </div>
-
-
-
-  </div>
-
-
-
-
-</div> */}
-        // /////////////**** */

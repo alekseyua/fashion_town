@@ -21,7 +21,7 @@ import { useStoreon } from 'storeon/react';
 				disabled={clickCar} 
 				onClick={()=>{return lifehack()}}
 			>
-				<span className="default">{!enabled.enabled ?"Оформить заказ":"оформить заказ"}</span>
+				<span className="default">{!enabled.enabled ? "ОФОРМИТЬ ЗАКАЗ" :"ОФОРМИТЬ ЗАКАЗ"}</span>
 				<span className="success">Заказ принят в работу
 					<svg viewBox="0 0 12 10">
 						<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
