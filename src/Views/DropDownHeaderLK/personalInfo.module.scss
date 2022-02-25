@@ -1,10 +1,12 @@
+@import '../../styles/fonts/index.scss';
 .wrapper {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: left;
   &-ellipse {
-    font-family: Cormorant Garamond;
+    // font-family: Cormorant Garamond;
+    @extend %font;
     height: 60px;
     width: 60px;
     font-size: 32px;

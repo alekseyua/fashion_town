@@ -1,16 +1,5 @@
-// @import '../../styles/index.scss';
-
-$p: var(--gx-color-primary);
-$dg: var(--gx-color-darkgray);
-$a2: var(--gx-color-accent2);
-$w: var(--gx-color-white);
-
-%font {
-  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
-}
-%font-head {
-  font-family: 'TMVinograd-Oblique', sans-serif;
-}
+@import '../../styles/fonts/index.scss';
+@import '../../styles/variables/index.scss';
 %heading {
   font-weight: bold;
   @extend %font-head;

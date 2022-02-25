@@ -1272,7 +1272,7 @@
       &_input {
         max-width: 120px;
         &::part(base) {
-          font-family: Noto Sans;
+          // font-family: Noto Sans;
           font-style: normal;
           font-weight: bold;
           font-size: 14px;
@@ -1472,7 +1472,7 @@
       width: 100px;
 
       &::part(base) {
-        font-family: Noto Sans;
+        // font-family: Noto Sans;
         font-style: normal;
         font-weight: bold;
         font-size: 14px;

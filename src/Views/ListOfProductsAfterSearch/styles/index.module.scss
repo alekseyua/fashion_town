@@ -5,7 +5,8 @@
   &-search {
     display: flex;
     justify-content: flex-end;
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-size: 12px;
     line-height: 140%;
     color: #282534;
@@ -16,7 +17,8 @@
       margin: 10px auto;
     }
     &__header {
-      font-family: Noto Sans;
+      // font-family: Noto Sans;
+      @extend %font;
       font-weight: bold;
       font-size: 32px;
       line-height: 140%;

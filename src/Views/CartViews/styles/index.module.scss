@@ -1,13 +1,15 @@
-@mixin tablet-md {
-  @media screen and (max-width: 768px) {
-    @content;
-  }
-}
-@mixin mobile {
-  @media screen and (max-width: 568px) {
-    @content;
-  }
-}
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables/index.scss';
+// @mixin tablet-md {
+//   @media screen and (max-width: 768px) {
+//     @content;
+//   }
+// }
+// @mixin mobile {
+//   @media screen and (max-width: 568px) {
+//     @content;
+//   }
+// }
 .selected-filters {
   width: 100%;
   padding: 15px;
@@ -57,7 +59,8 @@
 }
 
 .text {
-  font-family: Noto Sans;
+  // font-family: Noto Sans;
+  @extend %font;
   font-style: normal;
   &-title {
     font-weight: bold;

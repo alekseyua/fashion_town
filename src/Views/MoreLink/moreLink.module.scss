@@ -1,38 +1,7 @@
-@mixin flex($type) {
-  display: flex;
-  @if ($type == 'lc') {
-    justify-content: flex-start;
-    align-items: center;
-  }
-  @if ($type == 'sc') {
-    justify-content: space-between;
-    align-items: center;
-  }
-  @if ($type == 'rc') {
-    justify-content: flex-end;
-    align-items: center;
-  }
-  @if ($type == 'cc') {
-    justify-content: center;
-    align-items: center;
-  }
-  @if ($type == 'ct') {
-    justify-content: center;
-    align-items: flex-start;
-  }
-  @if ($type == 'lt') {
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  @if ($type == 'st') {
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  @if ($type == 'rt') {
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-}
+@import '../../styles/fonts/index.scss';
+@import '../../styles/variables/index.scss';
+
+
 .more-link {
   width: 100%;
   @include flex(cc);
@@ -40,7 +9,8 @@
     position: relative;
     padding: 0 14px;
     margin: 0px 0 20px 0;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;

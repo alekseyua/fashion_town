@@ -1,18 +1,5 @@
-@mixin laptop-sm {
-  @media screen and (max-width: 1366px) {
-    @content;
-  }
-}
-@mixin tablet-lg {
-  @media screen and (max-width: 1024px) {
-    @content;
-  }
-}
-@mixin mobile {
-  @media screen and (max-width: 568px) {
-    @content;
-  }
-}
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables/index.scss';
 .count-product {
   text-align: right;
   @include laptop-sm {
@@ -38,7 +25,8 @@
   }
 }
 .help-text {
-  font-family: Noto Sans;
+  // font-family: Noto Sans;
+  @extend %font;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

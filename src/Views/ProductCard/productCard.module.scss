@@ -1,49 +1,5 @@
 @import '../../styles/variables/index.scss';
-@mixin laptop-md {
-  @media screen and (max-width: 1440px) {
-    @content;
-  }
-}
-@mixin ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-@mixin flex($type) {
-  display: flex;
-  @if ($type == 'lc') {
-    justify-content: flex-start;
-    align-items: center;
-  }
-  @if ($type == 'sc') {
-    justify-content: space-between;
-    align-items: center;
-  }
-  @if ($type == 'rc') {
-    justify-content: flex-end;
-    align-items: center;
-  }
-  @if ($type == 'cc') {
-    justify-content: center;
-    align-items: center;
-  }
-  @if ($type == 'ct') {
-    justify-content: center;
-    align-items: flex-start;
-  }
-  @if ($type == 'lt') {
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  @if ($type == 'st') {
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  @if ($type == 'rt') {
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-}
+@import '../../styles/fonts/index.scss';
 .product-card {
   position: relative;
   width: 100%;
@@ -126,7 +82,8 @@
     padding: 0 6px;
     font-weight: 500;
     text-transform: none;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-size: 10px;
     line-height: 14px;
     letter-spacing: 0.03em;
@@ -194,7 +151,8 @@
     position: absolute;
     content: '';
     width: 100%;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     line-height: 140%;
     font-size: 12px;
     letter-spacing: 0.04em;
@@ -306,7 +264,8 @@
 
   &__brand {
     text-align: left;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-weight: 600;
     font-size: 10px;
     line-height: 140%;
@@ -322,6 +281,7 @@
     text-align: left;
     text-transform: none;
     // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-size: 14px;
     line-height: 120%;
     letter-spacing: 0.04em;
@@ -346,7 +306,8 @@
   }
 
   &__price {
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-size: 16px;
     line-height: 140%;
     text-transform: uppercase;
@@ -360,7 +321,8 @@
     &_old {
       font-weight: normal;
       text-decoration: line-through;
-      font-family: 'Nato Sans', sans-serif;
+      // font-family: 'Nato Sans', sans-serif;
+      @extend %font;
       font-size: 12px;
       line-height: 120%;
       letter-spacing: 0.04em;
@@ -401,7 +363,8 @@
     @include flex(cc);
     cursor: pointer;
     padding: 10px 0;
-    font-family: 'Nato Sans', sans-serif;
+    // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-weight: bold;
     font-size: 14px;
     line-height: 140%;

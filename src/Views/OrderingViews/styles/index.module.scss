@@ -543,7 +543,8 @@
   &__sales_info {
     display: flex;
     flex-wrap: wrap;
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     &-wrapper {
       display: flex;
@@ -639,7 +640,8 @@
       margin-top: 10px;
       font-weight: 500;
       text-transform: none;
-      font-family: 'Nato Sans', sans-serif;
+      // font-family: 'Nato Sans', sans-serif;
+      @extend %font;
       font-size: 10px;
       line-height: 14px;
       width: fit-content;

@@ -161,7 +161,7 @@ $maxWidthContainer: 1400;
     justify-content: space-between;
     align-items: flex-start;
   }
-  @if ($type == 'rt') {
+  @if ($type == 'rt') { 
     justify-content: flex-end;
     align-items: flex-start;
   }
@@ -372,3 +372,5 @@ $maxWidthContainer: 1400;
     background-color: var(--gx-color-primary2); /* «цвет ползунка» */
   }
 }
+
+

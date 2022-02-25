@@ -2,9 +2,6 @@
 @import '../../../styles/fonts/index.scss';
 
 @mixin tableStyle {
-  %font {
-    font-family: 'Champagne & Limousines Bold Italic', sans-serif;
-  }
   %cab-h2 {
     @extend %font;
     font-weight: bold;
@@ -261,7 +258,8 @@
 }
 .subtitle {
   &-reviews {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -368,7 +366,8 @@
 
 .subtitle {
   &-partnership {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -439,7 +438,8 @@
       border-radius: 2px;
       background-color: var(--gx-color-white);
       text-transform: uppercase;
-      font-family: 'Nato Sans', sans-serif;
+      // font-family: 'Nato Sans', sans-serif;
+      @extend %font;
       font-weight: bold;
       font-size: 14px;
       line-height: 140%;

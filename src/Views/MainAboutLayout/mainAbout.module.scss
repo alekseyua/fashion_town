@@ -1,5 +1,5 @@
 @import '../../styles/variables/index.scss';
-
+@import '../../styles/fonts/index.scss';
 .main-about {
   position: relative;
   margin-top: 6px;
@@ -76,6 +76,7 @@
     background-color: var(--gx-color-white);
     text-transform: uppercase;
     // font-family: 'Nato Sans', sans-serif;
+    @extend %font;
     font-weight: bold;
     font-size: 14px;
     line-height: 140%;

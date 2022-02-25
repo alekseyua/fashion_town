@@ -1,26 +1,9 @@
-@mixin laptop-md {
-  @media screen and (max-width: 1440px) {
-    @content;
-  }
-}
-@mixin mobile {
-  @media screen and (max-width: 568px) {
-    @content;
-  }
-}
-@mixin padding-for-mobile {
-  @include laptop-md {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  @include mobile {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables/index.scss';
 .live_photos {
   &-text {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -33,7 +16,8 @@
     @include padding-for-mobile;
   }
   &-details-text {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;

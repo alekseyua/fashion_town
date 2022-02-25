@@ -1,72 +1,33 @@
 @import '../variables/index.scss';
 
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('./NotoSans-Bold.woff2') format('woff2'), url('./NotoSans-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('./NotoSans.woff2') format('woff2'), url('./NotoSans.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('./CormorantGaramond-Regular.woff2') format('woff2'),
-    url('./CormorantGaramond-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('./CormorantGaramond-Bold.woff2') format('woff2'),
-    url('./CormorantGaramond-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'Noto Sans';
+//   src: url('./NotoSans-Bold.woff2') format('woff2'), url('./NotoSans-Bold.woff') format('woff');
+//   font-weight: bold;
+//   font-style: normal;
+//   font-display: swap;
+// }
+// @font-face {
+//   font-family: 'Noto Sans';
+//   src: url('./NotoSans.woff2') format('woff2'), url('./NotoSans.woff') format('woff');
+//   font-weight: normal;
+//   font-style: normal; 
+//   font-display: swap;
+// }
 
-// ****************************************
+
 @font-face {
-  font-family: "GoodVibesCyr";
+  font-family: "Magnoliascript";
   font-display: swap;
-  src: url("./GoodVibesCyr.woff") format("woff"), url("./GoodVibesCyr.woff2") format("woff2");
+  src: url("../fonts/Magnoliascript.woff") format("woff"), url("../fonts/Magnoliascript.woff2") format("woff2");
   font-weight: "400";
   font-style: "normal";
 }
 
 @font-face {
-  font-family: "GoodVibesCyr";
+  font-family: "AleksandraC";
   font-display: swap;
-  src: url("./GoodVibesCyr.woff") format("woff"), url("./GoodVibesCyr.woff2") format("woff2");
-  font-weight: "700";
-  font-style: "bold";
-}
-// //////////////////////////////////////
-@font-face {
-  font-family: "RoscherkDL";
-  font-display: swap;
-  src: url("./RoscherkDL.woff") format("woff"), url("./RoscherkDL.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-@font-face {
-  font-family: "RoscherkDL";
-  font-display: swap;
-  src: url("./RoscherkDL.woff") format("woff"), url("./RoscherkDL.woff2") format("woff2");
-  font-weight: "700";
-  font-style: "bold";
-}
-// -------------------------------------------------
-@font-face {
-  font-family: "tangak";
-  font-display: swap;
-  src: url("./tangak.woff") format("woff"), url("./tangak.woff2") format("woff2");
+  src: url("../fonts/AleksandraC.woff") format("woff"), url("../fonts/AleksandraC.woff2") format("woff2");
   font-weight: "400";
   font-style: "normal";
 }
@@ -74,126 +35,19 @@
 @font-face {
   font-family: "tangak";
   font-display: swap;
-  src: url("./tangak.woff") format("woff"), url("./tangak.woff2") format("woff2");
-  font-weight: "700";
-  font-style: "bold";
-}
-
-// *-*-*-*-*-*-
-
-@font-face {
-  font-family: "Bolina";
-  font-display: swap;
-  src: url("./Bolina.woff") format("woff"), url("./Bolina.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "не работает";
-  font-display: swap;
-  src: url("./cac_champagne.woff") format("woff"), url("./cac_champagne.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "Champagne & Limousines Bold Italic";
-  font-display: swap;
-  src: url("./Champagne & Limousines Bold Italic.woff") format("woff"), url("./Champagne & Limousines Bold Italic.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "Champagne & Limousines Bold";
-  font-display: swap;
-  src: url("./Champagne & Limousines Bold.woff") format("woff"), url("./Champagne & Limousines Bold.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "Champagne & Limousines Italic";
-  font-display: swap;
-  src: url("./Champagne & Limousines Italic.woff") format("woff"), url("./Champagne & Limousines Italic.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "не работает";
-  font-display: swap;
-  src: url("./Champagne & Limousines.woff") format("woff"), url("./Champagne & Limousines.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "GoodVibesCyr";
-  font-display: swap;
-  src: url("./GoodVibesCyr.woff") format("woff"), url("./GoodVibesCyr.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "не работает";
-  font-display: swap;
-  src: url("./GreatVibes-Regular.woff") format("woff"), url("./GreatVibes-Regular.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "Magnolia Script";
-  font-display: swap;
-  src: url("./Magnolia Script.woff") format("woff"), url("./Magnolia Script.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "TMVinograd-Filled";
-  font-display: swap;
-  src: url("./TMVinograd-Filled.woff") format("woff"), url("./TMVinograd-Filled.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "TMVinograd-FilledOblique";
-  font-display: swap;
-  src: url("./TMVinograd-FilledOblique.woff") format("woff"), url("./TMVinograd-FilledOblique.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "TMVinograd-Oblique";
-  font-display: swap;
-  src: url("./TMVinograd-Oblique.woff") format("woff"), url("./TMVinograd-Oblique.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
-}
-
-@font-face {
-  font-family: "TMVinograd-Regular";
-  font-display: swap;
-  src: url("./TMVinograd-Regular.woff") format("woff"), url("./TMVinograd-Regular.woff2") format("woff2");
+  src: url("../fonts/tangak.woff") format("woff"), url("../fonts/tangak.woff2") format("woff2");
   font-weight: "400";
   font-style: "normal";
 }
 // ***********************************************************************
 %font {
   // font-family: 'Noto Sans', sans-serif;
-  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
+  font-family: 'tangak', sans-serif;
 
 }
 %font-head {
   // font-family: 'Cormorant Garamond', sans-serif;
-  font-family: 'TMVinograd-Oblique', sans-serif;
-
+  font-family: 'tangak', sans-serif;
 }
 %heading {
   font-weight: bold;
@@ -297,3 +151,5 @@
   } @else {
   }
 }
+
+

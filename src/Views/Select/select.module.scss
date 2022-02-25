@@ -1,18 +1,5 @@
-$dg2: var(--gx-color-darkgray2);
 @import '../../styles/fonts/index.scss';
-@mixin tablet-lg {
-  @media screen and (max-width: 1024px) {
-    @content;
-  }
-}
-@mixin mobile {
-  @media screen and (max-width: 568px) {
-    @content;
-  }
-}
-%font {
-  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
-}
+@import '../../styles/variables/index.scss';
 
 .largeCustomLabel {
   --gx-input-height-medium: 56px;

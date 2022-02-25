@@ -1,5 +1,5 @@
 @import '../../../styles/variables/index.scss';
-
+@import '../../../styles/fonts/index.scss';
 .wrapper {
   padding: 0 15px;
   max-height: 100%;
@@ -90,7 +90,8 @@
         .swiper-button-prev::after,
         .swiper-button-next::after {
           position: relative;
-          font-family: 'Noto Sans';
+          // font-family: 'Noto Sans';
+          @extend %font;
           box-shadow: none;
           font-size: 15px;
           content: '';

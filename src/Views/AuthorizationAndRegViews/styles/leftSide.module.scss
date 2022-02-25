@@ -1,4 +1,5 @@
 @import '../../../styles/variables/index.scss';
+@import '../../../styles/fonts/index.scss';
 .wrapper {
   // min-height: calc(100vh - 105px);
   overflow: hidden;
@@ -48,7 +49,8 @@
     }
   }
   &__midle-title {
-    font-family: Cormorant Garamond;
+    // font-family: Cormorant Garamond;
+    @extend %font;
     font-style: normal;
     font-weight: 600;
     text-align: center;
@@ -65,7 +67,8 @@
     }
   }
   &__lower-title {
-    font-family: Cormorant Garamond;
+    // font-family: Cormorant Garamond;
+    @extend %font;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;

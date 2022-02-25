@@ -1,4 +1,5 @@
 @import '../../styles/variables/index.scss';
+@import '../../styles/fonts/index.scss';
 
 .cooperation-card {
   @include col(6, 15);
@@ -57,7 +58,8 @@
     p {
       margin: 0;
       margin-bottom: 20px;
-      font-family: 'Champagne & Limousines Bold Italic', sans-serif;
+      @extend %font;
+      // font-family: 'Champagne & Limousines Bold Italic', sans-serif;
       line-height: 120%;
       letter-spacing: 0.04em;
       text-align: center;
@@ -68,7 +70,8 @@
     }
     &-bottom {
       margin-bottom: 18px;
-      font-family: 'Champagne & Limousines Bold Italic', sans-serif;
+      @extend %font;
+      // font-family: 'Champagne & Limousines Bold Italic', sans-serif;
       line-height: 140%;
       letter-spacing: 0.04em;
       font-size: 12px;

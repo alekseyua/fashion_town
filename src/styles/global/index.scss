@@ -109,9 +109,9 @@ html, body {
 }
 
 body {
-  font-family: 'Champagne & Limousines Bold Italic';
+  // font-family: 'Champagne & Limousines Bold Italic';
 
-  // @extend %font;
+  @extend %font;
   font-weight: normal;
   color: var(--gx-color-primary);
   font-size: 14px;
@@ -497,7 +497,8 @@ header {
       }
       &::after {
         position: relative;
-        font-family: 'Noto Sans';
+        @extend %font;
+        // font-family: 'Noto Sans';
         font-size: 30px;
         content: '';
         width: 100%;
@@ -555,7 +556,8 @@ header {
 // }
 .video-react .video-react-big-play-button.video-react-big-play-button-center {
   position: absolute;
-  font-family: 'Noto Sans';
+  @extend %font;
+  // font-family: 'Noto Sans';
   font-size: 30px;
   width: 60px;
   height: 60px;

@@ -1,4 +1,6 @@
 @import '../../../styles/variables/index.scss';
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/index.scss';
 .btn {
   --gx-transition-fast: 0.2s;
   --gx-input-height-medium: auto;
@@ -299,7 +301,8 @@
       background-color: var(--gx-color-accent2);
     }
     &::part(base) {
-      font-family: Noto Sans;
+      // font-family: Noto Sans;
+      @extend %font;
       font-style: normal;
       font-weight: bold;
       font-size: 14px;
@@ -517,7 +520,8 @@
       top: 0px;
       --gx-input-height-medium: 65px;
       &::part(base) {
-        font-family: Cormorant Garamond;
+        @extend %font;
+        // font-family: Cormorant Garamond;
         font-style: normal;
         font-weight: bold;
         font-size: 28px;
@@ -571,7 +575,8 @@
     &::part(base) {
       background: var(--gx-color-primary);
       border-radius: 2px;
-      font-family: Noto Sans;
+      // font-family: Noto Sans;
+      @extend %font;
       font-style: normal;
       font-weight: bold;
       font-size: 14px;
@@ -590,7 +595,8 @@
       &::part(base) {
         background: transparent;
         border-radius: 2px;
-        font-family: Noto Sans;
+        // font-family: Noto Sans;
+        @extend %font;
         font-style: normal;
         font-weight: bold;
         font-size: 14px;

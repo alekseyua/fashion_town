@@ -35,7 +35,8 @@
       align-items: center;
       justify-content: flex-start;
       gap: 20px;
-      font-family: Noto Sans;
+      // font-family: Noto Sans;
+      @extend %font;
       font-style: normal;
       font-weight: bold;
       font-size: 22px;
@@ -330,7 +331,8 @@
 }
 
 .sub_text {
-  font-family: Noto Sans;
+  // font-family: Noto Sans;
+  @extend %font;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

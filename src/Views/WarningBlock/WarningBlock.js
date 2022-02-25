@@ -24,6 +24,7 @@ const WarningBlock = ({ textWarning = 'warning', variant = "wrapper" }) => {
       className={classCross}
       onClick={heandleClickSpoler}
     >
+      <div className={style["arrow-8"]}></div>
       <GxIcon className={style['wrapper__icon']} src={statusCancel} alt={'cansel'} />
       {/* <span className={style['wrapper__text']}>{textWarning}</span> */}
       <span 
@@ -34,6 +35,7 @@ const WarningBlock = ({ textWarning = 'warning', variant = "wrapper" }) => {
           className={style['wrapper__text-btn']}
        
       > 
+
       Товары в Каталоге выкупаются <strong strong >&quot; Под заказ &quot; </strong>, кроме раздела <strong>&quot; В наличии&quot; </strong>
       (с этого раздела товары сразу готовы к отправке Заказчику).В остальных случаях товар </span>
       

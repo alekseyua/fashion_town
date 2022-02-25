@@ -1,3 +1,4 @@
+@import '../../../styles/fonts/index.scss';
 .varian {
   &-input {
     margin-bottom: 10px;
@@ -35,7 +36,8 @@
 
 .label {
   &-input_small {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -43,7 +45,6 @@
     color: var(--gx-color-primary2);
     opacity: 0.75;
     margin-top: 10px;
-
     display: inline-block;
     width: 100%;
   }

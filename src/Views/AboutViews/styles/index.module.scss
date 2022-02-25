@@ -73,7 +73,8 @@
       border-radius: 2px;
       background-color: var(--gx-color-white);
       text-transform: uppercase;
-      font-family: 'Nato Sans', sans-serif;
+      @extend %font;
+      // font-family: 'Nato Sans', sans-serif;
       font-weight: bold;
       font-size: 14px;
       line-height: 140%;

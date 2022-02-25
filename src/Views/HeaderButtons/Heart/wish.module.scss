@@ -1,5 +1,5 @@
 //@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
-
+@import '../../../styles/fonts/index.scss';
 $red-base: #ed4956;
 $red-shadow: #d83d50;
 $grey: #dbdbdb;
@@ -60,7 +60,8 @@ $background: #b8e3ff;
   position: absolute;
   right: 25px;
   top: -1px;
-  font-family: "Pacifico";
+  // font-family: "Pacifico";
+  @extend %font;
   font-size: 22px;
   color: white;
   filter: drop-shadow(-3px 3px 0 $red-shadow);

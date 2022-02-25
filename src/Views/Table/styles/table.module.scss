@@ -1,16 +1,7 @@
-%font {
-  font-family: 'Champagne & Limousines Bold Italic', sans-serif;
-}
-%cab-h2 {
-  @extend %font;
-  font-weight: bold;
-  font-size: 16px;
-}
-%text-small {
-  @extend %font;
-  font-size: 12px;
-  letter-spacing: 0.3px;
-}
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables/index.scss';
+
+
 .cabinet-table {
   width: 100%;
   border-collapse: 0;

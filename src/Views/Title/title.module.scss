@@ -80,7 +80,8 @@
 }
 .page {
   &__news {
-    font-family: Cormorant Garamond;
+    // font-family: Cormorant Garamond;
+    @extend %font;
     font-style: normal;
     text-align: center;
     font-weight: 600;
@@ -92,7 +93,8 @@
     margin-top: 30px;
     margin-bottom: 30px;
     &-pink {
-      font-family: Cormorant Garamond;
+      // font-family: Cormorant Garamond;
+      @extend %font;
       font-style: normal;
       text-align: center;
       font-weight: 600;
@@ -113,7 +115,8 @@
   // margin-bottom: 15px;
 }
 .already-watched {
-  font-family: Noto Sans;
+  // font-family: Noto Sans;
+  @extend %font;
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
@@ -129,7 +132,8 @@
   padding-bottom: 38px;
   padding-left: 20px;
   padding-right: 20px;
-  font-family: Cormorant Garamond;
+  // font-family: Cormorant Garamond;
+  @extend %font;
   font-style: normal;
   font-weight: 600;
   font-size: 44px;
@@ -146,7 +150,8 @@
   text-align: left;
   // padding-top: 60px;
   padding-right: 20px;
-  font-family: Cormorant Garamond;
+  // font-family: Cormorant Garamond;
+  @extend %font;
   font-style: normal;
   font-weight: 600;
   font-size: 44px;
@@ -180,7 +185,8 @@
   padding-top: 10px;
 }
 .news-details-page__title {
-  font-family: Cormorant Garamond;
+  // font-family: Cormorant Garamond;
+  @extend %font;
   font-style: normal;
   font-weight: 600;
   font-size: 44px;
@@ -240,7 +246,8 @@
 }
 
 .sub_content {
-  font-family: Cormorant Garamond;
+  // font-family: Cormorant Garamond;
+  @extend %font;
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
@@ -262,7 +269,8 @@
 
 .promocode {
   &-create {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;

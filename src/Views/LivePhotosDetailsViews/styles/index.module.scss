@@ -1,4 +1,5 @@
 @import '../../../styles/variables/index.scss';
+@import '../../../styles/fonts/index.scss';
 .live_photos {
   &__wrapper {
     margin-top: 20px;
@@ -96,7 +97,8 @@
       padding-top: 20px;
     }
     &__title {
-      font-family: Cormorant Garamond;
+      // font-family: Cormorant Garamond;
+      @extend %font;
       font-style: normal;
       font-weight: 600;
       font-size: 56px;
@@ -117,7 +119,8 @@
         max-width: 100%;
         font-size: 20px;
       }
-      font-family: Noto Sans;
+      // font-family: Noto Sans;
+      @extend %font;
       font-style: normal;
       font-weight: normal;
       font-size: 14px;
@@ -177,7 +180,8 @@
     }
   }
   &__title {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
@@ -194,7 +198,8 @@
       row-gap: 18px;
     }
     &__name {
-      font-family: Poppins;
+      // font-family: Poppins;
+      @extend %font;
       font-style: normal;
       font-weight: 500;
       font-size: 14px;

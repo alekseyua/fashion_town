@@ -1,8 +1,5 @@
-@mixin mobile {
-  @media screen and (max-width: 568px) {
-    @content;
-  }
-}
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables/index.scss';
 
 .wrapper {
   display: grid;
@@ -38,7 +35,8 @@
   &__base_info {
     display: flex;
     flex-direction: column;
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     &__brand {
       font-weight: 500;
@@ -85,7 +83,8 @@
   &__sales_info {
     display: flex;
     flex-wrap: wrap;
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-style: normal;
     @media (max-width:568px) {
       justify-content: space-around;
@@ -202,7 +201,8 @@
       margin-top: 10px;
       font-weight: 500;
       text-transform: none;
-      font-family: 'Nato Sans', sans-serif;
+      // font-family: 'Nato Sans', sans-serif;
+      @extend %font;
       font-size: 10px;
       line-height: 14px;
       width: fit-content;

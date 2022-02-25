@@ -1,8 +1,9 @@
 @import '../../styles/variables/index.scss';
-
+@import '../../styles/fonts/index.scss';
 .header-buttons__search {
   &-show-result-for {
-    font-family: Noto Sans;
+    // font-family: Noto Sans;
+    @extend %font;
     font-weight: bold;
     font-size: 32px;
     line-height: 140%;

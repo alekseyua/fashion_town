@@ -1,3 +1,4 @@
+@import '../../styles/fonts/index.scss';
 .wrapper {
   position: relative;
   max-width: 276px;
@@ -15,7 +16,8 @@
       color: var(--gx-color-primary);
     }
     &-bage {
-      font-family: Roboto sans-serif;
+      // font-family: Roboto sans-serif;
+      @extend %font;
       font-style: normal;
       --gx-color-primary-50: var(--gx-color-lightpink);
       &::part(base) {
