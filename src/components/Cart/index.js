@@ -676,23 +676,18 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                   </CartViews.Text>
                 </CartViews.BlockRightSide>
 
-                <CartViews.BlockRightSide>
+                {/* <CartViews.BlockRightSide>
                   <CartViews.Text type={'text-default'}>
                     <Text text={'shipping'} />
                   </CartViews.Text>
                   <CartViews.Text type={'text-default_currency'}>
                     {delivery_price} {currentCurrcensies}
                   </CartViews.Text>
-                </CartViews.BlockRightSide>
+                </CartViews.BlockRightSide> */}
               </div>
 
 
-            ) : ROLE.WHOLESALE === role ? 
-              (<div>Доставка: <span>По тарифам КАРГО</span></div>)
-              : 
-                ROLE.DROPSHIPPER === role ?
-                  (<div>Доставка: <span>По весу, рассчитывается при упаковке</span></div>)
-                  : null
+            ) : null
             }
 
             <CartViews.Line />

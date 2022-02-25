@@ -114,7 +114,6 @@ const OrderComponent = ({
     return {
       title: `${el.order_number} (${el.total} ${currenssies})`,
       value: el.id,
-      
     };
   });
 
@@ -193,11 +192,18 @@ const OrderComponent = ({
 
   // **************************************************************************************************************************************
   const getNowCurrencyNowCountry = (country) => {
+    console.log('country',country)
+
     if (fieldCountryOut !== 'country') {
-      if(country === fieldCountryOut){
+      console.log('fieldCountryOut !==country',fieldCountryOut !== 'country')
+      if (country === fieldCountryOut) {
+      console.log('country === fieldCountryOut',country === fieldCountryOut)
+
+        fieldCountryOut !== 'country'
         orderApi
           .getCountryDeliviry({ country: fieldCountryOut, currency: currenssies })
           .then((res) => {
+            console.log('res.price',res)
             setPriceNowDilevery(res.price);
           })
           .catch((err) => console.error(`ERROR!!!!! ${err}`));
@@ -236,7 +242,7 @@ const OrderComponent = ({
       //если дробшипер списание со счета при достаточном количестве денег на счету
       //*************************************************************************** */
       //online(1) или с баланса(3)
-      
+
       if (valueStatePay === 1) {
         //создаём заказ
         orderApi
@@ -294,11 +300,14 @@ const OrderComponent = ({
         //если достаточно денег на счету оформляется заказ сразу
         //???????????????????????????????????????????????????????
         //создаём заказ когда списуют деньги со счёта
-        orderApi
+         orderApi
           .createOrder(params)
           .then((res) => {
+
+            const order_id = res.id;
+            openModalPay(order_id, dataBalance.balance, params.total_cost);
             dispatch('stateCountRestart/add', !stateCountRestart);
-            history.push('orders');
+            // history.push('orders');
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay BALANCE, ${err}`);
@@ -370,7 +379,7 @@ const OrderComponent = ({
               dispatch('stateCountRestart/add', !stateCountRestart);
               console.log(`ERROR creteOrder pay ONLINE, ${err}`);
               openModalRejectedOrdering('cart');
-            }); 
+            });
         }
       }
     } else {
@@ -464,7 +473,7 @@ const OrderComponent = ({
             total_price: cart_content.total_price,
             delivery: {
               description: cart_content.delivery.description || '',
-              price: priceNowDilevery.price || 0,
+              price: priceNowDilevery?.price && 0,
             },
           });
         }
@@ -475,7 +484,10 @@ const OrderComponent = ({
   // создадим новый моссив с товарами для отрисовки
 
   useEffect(() => {
+      getNowCurrencyNowCountry(fieldCountryOut)
+      
     if (stateCountCart !== 0) {
+
       let newCartAlPerfomed = {};
       if (stateCountCart.is_performed) {
         let res_cartitem_set = [];
@@ -587,10 +599,9 @@ const OrderComponent = ({
           render: true,
         };
       }
-      console.log('newCartAlPerfomed', newCartAlPerfomed)
       setCart_contentOrder(newCartAlPerfomed);
-   }
-  }, [stateCountCart.in_cart, priceNowDilevery, fieldCountryOut, stateCountCart.total_price]);
+    }
+  }, [stateCountCart.in_cart, priceNowDilevery, fieldCountryOut, stateCountCart.total_price, currenssies]);
 
   //************************************************************************************** */
   // const inputNum = useRef();
@@ -598,7 +609,7 @@ const OrderComponent = ({
   // const [stateListTest3, setStateListTest3] = useState(null);
 
   // const [stateListTest2, setStateListTest2] = useState(null);
-  
+
   // const testingBtn1 = () => {
   //   const fd = new FormData();
   //   fd.set('product', 384);
@@ -656,8 +667,6 @@ const OrderComponent = ({
           const [fieldCountry, setFieldCountry] = useState('country');
           setFieldCountryOut(fieldCountry);
 
-          // statusFildValue ? values = {...values, add_goods_order_id : statusFildValue} : null
-
           if (orderFunc) {
             const timerBtn = setTimeout(() => {
               creteOrder(values);
@@ -679,13 +688,12 @@ const OrderComponent = ({
                 className="ordering__left"
               >
                 <Link onClick={openModalGoBackToCart} to={cart_slug} className="linkblue">
-                           {'<'} Назад в корзину
+                  {'<'} Назад в корзину
                 </Link>
                 <Title variant={'cart'} type={'h1'}>
                   <Text text="ordering" />
                 </Title>
-                              
-                
+
                 {/* <pre>{stateListTest1 ? (
                       `
                   
@@ -738,7 +746,7 @@ const OrderComponent = ({
                               issued_date: values.issued_date,
                               comment: values.comment,
                               agree_personal_data: values.agree_personal_data,
-                              waitForCall: values.waitForCall,
+                              waitForCall: values.waitForCall, 
                               needPassport: values.needPassport,
                             }}
                             role_configuration={role_configuration}
@@ -803,7 +811,8 @@ const OrderComponent = ({
                     </CartViews.Text>
                   </CartViews.BlockRightSide>
                   {/* { ROLE.RETAIL === role?( */}
-                  {ROLE.RETAIL === role ? (
+
+                 { ROLE.RETAIL === role ? (
                     <>
                       <CartViews.BlockRightSide>
                         <CartViews.Text type={'text-default'}>
@@ -818,30 +827,34 @@ const OrderComponent = ({
                         </CartViews.Text>
                       </CartViews.BlockRightSide>
 
-                      <CartViews.BlockRightSide>
-                        {cart_contentOrder.delivery ? (
-                          <>
-                            <CartViews.Text type={'text-default'}>
-                              <Text text={'shipping'} />
-                            </CartViews.Text>
-                            <CartViews.Text type={'text-default_currency'}>
-                              {priceNowDilevery
-                                ? `${priceNowDilevery}
+                      {fieldCountry !== 'country' ? (
+                      
+                        <CartViews.BlockRightSide>
+                          {cart_contentOrder.delivery ? (
+                            <>
+                              <CartViews.Text type={'text-default'}>
+                                <Text text={'shipping'} />
+                              </CartViews.Text>
+                              <CartViews.Text type={'text-default_currency'}>
+                                {priceNowDilevery
+                                  ? `${priceNowDilevery}
                             ${currenssies}`
-                                : null}
-                            </CartViews.Text>
-                          </>
-                        ) : null}
-                      </CartViews.BlockRightSide>
+                                  : null}
+                              </CartViews.Text>
+                            </>
+                          ) : null}
+                        </CartViews.BlockRightSide>
+                      ) : null}
                     </>
-                  ) : ROLE.WHOLESALE === role ?
-                    (<div>Доставка: <span>По тарифам КАРГО</span></div>)
-                    :
-                    ROLE.DROPSHIPPER === role ?
-                      (<div>Доставка: <span>По весу, рассчитывается при упаковке</span></div>)
-                      : null
-                    }
-
+                  ) : ROLE.WHOLESALE === role ? (
+                    <div>
+                      Доставка: <span>По тарифам КАРГО</span>
+                    </div>
+                  ) : ROLE.DROPSHIPPER === role ? (
+                    <div>
+                      Доставка: <span>По весу, рассчитывается при упаковке</span>
+                    </div>
+                  ) : null}
                   <CartViews.Line />
                   <CartViews.BlockRightSide mb={20}>
                     <CartViews.Text type={'text-title'}>
@@ -849,20 +862,17 @@ const OrderComponent = ({
                     </CartViews.Text>
                     <CartViews.Text type={'text-title'}>
                       {/* добавляем к сумме стоимость доставки */}
-                      { <>
-                    {ROLE.RETAIL === role?(
-                      priceNowDilevery?
-                          (
-                            (cart_contentOrder.price + priceNowDilevery)
-                          ):(
-                              cart_contentOrder.price
-                            )  
-                    ):(
-                      cart_contentOrder.price 
-                    )
-                    }&nbsp;
-                    {currenssies}
-                        </>}
+                      {
+                        <>
+                          {ROLE.RETAIL === role
+                            ? priceNowDilevery
+                              ? (cart_contentOrder.price + priceNowDilevery).toFixed(2)
+                              : cart_contentOrder.price
+                            : cart_contentOrder.price}
+                            &nbsp;
+                          {currenssies}
+                        </>
+                      }
                     </CartViews.Text>
                   </CartViews.BlockRightSide>
                   <CartViews.CommentOrder
@@ -870,7 +880,12 @@ const OrderComponent = ({
                     handleChange={handleChange}
                     value={values.comment_order}
                     // placeholder={'Написать комментарий к заказу...'}
-                    placeholder={'При желании укажите информацию для Менеджера по упаковке (например, что Вы желаете сделать отправку по своей накладной СDEK, отправить товар без бирок и тп...)'}
+                    placeholder={
+                      ROLE.RETAIL !== role?
+                      'При желании укажите информацию для Менеджера по упаковке (например, что Вы желаете сделать отправку по своей накладной СDEK, отправить товар без бирок и тп...)'
+                      :'При желании укажите информацию для Менеджера по упаковке'
+                      
+                    }
                   />
                   {/* <CartViews.LinkToFirmalization
                   type={'btn'}

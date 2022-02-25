@@ -40,8 +40,6 @@ const [stateChecked, setStateChecked] = useState(true)
           });
       };
     
-
-  console.log('el', el)
   return (
 
     (role !== ROLE.WHOLESALE)

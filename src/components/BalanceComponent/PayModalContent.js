@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { GxForm, GxButton, GxIcon } from '@garpix/garpix-web-components-react';
+import { GxForm } from '@garpix/garpix-web-components-react';
 import ModalContentViews from '../../Views/ModalContentViews';
 import Input from '../../Views/Input';
-import { paperclip } from '../../images';
 import { Formik, ErrorMessage } from 'formik';
 import { payModalScheme } from '../../utils/schemesFormic';
 import ErrorField from '../../Views/ErrorField';
@@ -10,11 +9,10 @@ import Error from '../../Views/Error';
 import Button from '../../Views/Button';
 import Text from '../../components/Text';
 import api from '../../api';
-import { doc } from 'prettier';
 import { useHistory, Prompt } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 import InfoBalanse from './InfoBalance/InfoBalanse';
-
+import ErrMessageForm from '../Popupe/ErrMessageForm';
 
 const orderApi = api.orderApi;
 
@@ -37,6 +35,8 @@ const PayModalContent = ({
 
   const { userPage, dispatch } = useStoreon('userPage');
   const [stateClickSend, setStateClickSend] = useState(false)
+  const [errClickSend, setErrClickSend] = useState(false)
+
   const history = useHistory();
   const { slug } = userPage
 
@@ -62,8 +62,9 @@ const PayModalContent = ({
     if (fdPayments.get('receipt') === 'null'){
       console.log('fdPayments----1', (fdPayments.get('receipt') === 'null'))
       console.log('fdPayments----2', history.location.pathname === '/balance')
+      setErrClickSend(true)
+      // let resulcConfirm = confirm('Вы не приложили копию чека об оплате (2 а варианта вернутся и приложить или оплатить позже)')
 
-      let resulcConfirm = confirm('Вы не приложили копию чека об оплате (2 а варианта вернутся и приложить или оплатить позже)')
       resulcConfirm ? null : history.location.pathname === '/balance' ? closeModal() : history.push('/balance')
         // {< Prompt
         //       message = {(location, action) => {
@@ -105,6 +106,9 @@ const PayModalContent = ({
     }
   };
 
+  const setHistory=(path)=>{
+    history.push(path)
+  }
 
   return (
     <ModalContentViews.ModalWrapper customClassName={'modal-payments'}>
@@ -131,6 +135,9 @@ const PayModalContent = ({
         }
       </>
       }
+
+      {errClickSend ? <ErrMessageForm setErrClickSend={setErrClickSend} setHistory={setHistory}/>:null}
+
       <ModalContentViews.WarningBlock>
         <ModalContentViews.SubTitle>Реквизиты для пополнения баланса:</ModalContentViews.SubTitle>
         <div dangerouslySetInnerHTML={{ __html: requisites.requisites }}></div>

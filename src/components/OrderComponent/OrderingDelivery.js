@@ -70,7 +70,7 @@ const OrderingDelivery = ({
         delivery_condition={delivery_condition}
         setActiveVariantPayments={setActiveVariantPayments}
       />
-      {formEnabled ? (
+      {/* {formEnabled ? (
         <React.Fragment>
           <OrderingViews.OrderingDeliveryHeadForm
             waitForCall={waitForCall}
@@ -92,7 +92,7 @@ const OrderingDelivery = ({
             />
           ) : null}
         </React.Fragment>
-      ) : null}
+      ) : null} */}
     </OrderingViews.OrderingDeliverySection>
   );
 };
