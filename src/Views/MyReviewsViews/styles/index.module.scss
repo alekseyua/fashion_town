@@ -228,6 +228,7 @@
         background-color: $g;
         margin-right: 5px;
         object-fit: cover;
+        overflow: hidden;
         &_wrap {
           @include flex(lc);
         }

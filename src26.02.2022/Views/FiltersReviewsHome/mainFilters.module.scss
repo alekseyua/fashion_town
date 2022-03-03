@@ -1,0 +1,10 @@
+@import '../../styles/variables/index.scss';
+
+.main-filters {
+    &__list {
+        @include tabs;
+        ::part(base) {
+            width: auto;
+        }
+    }
+}

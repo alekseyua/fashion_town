@@ -12,6 +12,7 @@ const ProfileLevelData = ({
   progress = '900',
   setModalStates,
   profile,
+  reloadDataReview,
 }) => {
   const closeModal = () => {
     setModalStates({
@@ -20,6 +21,7 @@ const ProfileLevelData = ({
     });
   };
   const openModalFinalyAddReview = (data) => {
+    data ? reloadDataReview(): null
     return setModalStates({
       content: (
         <ModalContentViews.ModalWrapper>
@@ -62,7 +64,7 @@ const ProfileLevelData = ({
 
   return (
     <section>
-      <div className={style['cabinet-formblock']}>
+      {/* <div className={style['cabinet-formblock']}>
         <div className={style['cabinet-formblock__top']}>
           <h2 className={style['cabinet-formblock__heading']}>Мой статус по бонусной программе</h2>
         </div>
@@ -91,7 +93,7 @@ const ProfileLevelData = ({
             <div className={style['cabinet_reviews__rating_circle']}></div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className={style['cabinet_reviews__btnwrap']}>
         <Button onClick={openModalAddReview} variant={'cabinet_default'}>
           <Text text="add.review" />

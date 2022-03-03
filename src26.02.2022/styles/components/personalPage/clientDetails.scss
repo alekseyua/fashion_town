@@ -1,0 +1,83 @@
+.cabinet {
+  &_clients {
+    &__subheader {
+      color: $dg2;
+      margin-bottom: 20px;
+      &-black {
+        color: $p;
+      }
+    }
+    &__infoblock {
+      padding: 20px 30px;
+      border: 1px solid #f1f1f1;
+      @include flex(st);
+      margin-bottom: 60px;
+      @include tablet-md {
+        flex-direction: column;
+      }
+    }
+    &__left {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 10px;
+      width: 100%;
+      margin-right: 10px;
+      @include tablet-md {
+        grid-template-columns: 1fr;
+      }
+      &_head {
+        @extend %cab-h1;
+      }
+      &_text {
+        color: $dg2;
+        margin-bottom: 20px;
+      }
+      &_wrap {
+          &-balance {
+            @include tablet-md {
+                order: 3;
+                margin-bottom: 20px;
+              }
+          }
+      }
+    }
+    &__button {
+      &::part(label) {
+        @extend %text-link;
+        color: $b;
+      }
+      &::part(base) {
+          @include tablet-md {
+              padding: 0;
+          }
+      }
+    }
+    &__balance {
+      &_wrapper,
+      &_left,
+      &_right {
+        width: 100%;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+      }
+      &_wrapper {
+        background-color: var(--gx-color-gray);
+        margin-top: 14px;
+        justify-content: space-between;
+        max-width: 250px;
+      }
+      &_left {
+        background-color: var(--gx-color-accent);
+        justify-content: center;
+        padding: 4px;
+        color: var(--gx-color-lightpink);
+      }
+      &_right {
+        color: var(--gx-color-green);
+        justify-content: center;
+        padding: 4px;
+      }
+    }
+  }
+}

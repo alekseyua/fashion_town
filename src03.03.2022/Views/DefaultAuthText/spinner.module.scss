@@ -1,0 +1,16 @@
+.wrapper {
+  border-radius: 50px;
+  background-color: var(--gx-color-accent2);
+  height: 20px;
+  width: 20px;
+}
+.spinner {
+  --indicator-color: var(--gx-color-white);
+  &::part(base) {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: -11px;
+    stroke-width: 4px;
+  }
+}

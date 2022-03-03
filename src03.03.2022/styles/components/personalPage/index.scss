@@ -1,0 +1,1490 @@
+@import '../../../Views/Button/styles/CabinetDefaultVariant.module.scss';
+@import '../../../Views/PersonalPageViews/styles/wrapper.module.scss';
+@import './reviews.scss';
+@import './clientDetails.scss';
+.cabinet {
+  &-row {
+    @include row(15);
+  }
+  &-leftcol {
+    @include col(3, 15);
+  }
+  &-rightcol {
+    @include col(9, 15);
+  }
+  &-formblock {
+    position: relative;
+    margin-bottom: 40px;
+    background: $w;
+    border: 1px solid #f1f1f1;
+
+    &__top {
+      background-color: var(--gx-color-pink3);
+      @include flex(lc);
+      padding: 1px 20px;
+    }
+    &__heading {
+      @include h(3);
+    }
+    &__content {
+      padding: 20px 20px 30px;
+
+      small {
+        color: $dg2;
+      }
+    }
+  }
+  &-delaccount {
+    @include flex(lc);
+    opacity: 0.75;
+    margin-left: auto;
+
+    &:hover {
+      opacity: 1;
+    }
+    &__text {
+      color: $rd;
+      @extend %text-link;
+    }
+    &__icon {
+      width: 20px;
+      display: block;
+      margin-left: 5px;
+    }
+  }
+  &-form {
+    &__row {
+      @include row(10);
+    }
+    &__col {
+      @include col(6, 10);
+    }
+    &__end {
+      padding-top: 20px;
+      @include flex(sc);
+
+      &right {
+        text-align: right;
+      }
+    }
+  }
+  &-addresses {
+    @include row(10);
+  }
+  &-address {
+    @include col(4, 10);
+    @include flex(lt);
+    border: 2px solid #f3eff3;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 18px 20px;
+    transition: 0.2s;
+
+    &:hover {
+      background: #fcfbfc;
+    }
+    &new {
+      @include col(4, 10);
+      @include flex(cc);
+      background: #f7f4fc;
+      @extend %text-btn;
+      text-align: center;
+      color: $a2;
+      margin-bottom: 20px;
+      padding: 18px 20px;
+
+      &:hover {
+        background: #fcfbfc;
+        text-decoration: underline;
+      }
+    }
+    &__icon {
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    &__desc {
+      width: 100%;
+      font-size: 14px;
+    }
+    &__value {
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    &__name {
+      margin-bottom: 10px;
+    }
+    &__actions {
+      margin-top: 18px;
+      @include flex(sc);
+      opacity: 0;
+      transition: 0.2s;
+    }
+    &:hover &__actions {
+      opacity: 1;
+    }
+    &__phone {
+      margin-bottom: 20px;
+    }
+  }
+  &-heading {
+    @include h(3);
+    margin-bottom: 20px;
+    @include tablet-md {
+      margin-left: 15px;
+    }
+  }
+  &-topfilter {
+    margin-bottom: 20px;
+
+    &__left {
+      max-width: 280px;
+    }
+  }
+  &-table {
+    width: 100%;
+    border-collapse: 0;
+    border-spacing: 0;
+    tr,
+    td {
+      &:hover {
+        background-color: #f7f4fc;
+      }
+    }
+    tr {
+      border-bottom: 5px solid transparent;
+    }
+    th,
+    td {
+      padding: 11px 0 11px 20px;
+    }
+    th {
+      background: $a2;
+      color: $w;
+      font-weight: bold;
+      text-align: left;
+      @extend %cab-h2;
+      border-right: 2px solid $w;
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+    &__tdfull {
+      padding: 10px 0 !important;
+    }
+    &__th {
+      position: relative;
+    }
+    &__thlink {
+      opacity: 0.5;
+      --icon-width: 16px;
+      position: absolute;
+      top: -8px;
+      right: -20px;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  &-status {
+    font-weight: bold;
+    color: $a;
+    @include flex(lc);
+
+    &__icon {
+      flex-shrink: 0;
+      @include flex(cc);
+    }
+    &__title {
+      margin-left: 5px;
+    }
+    &--change,
+    &--cancel {
+      color: $rd;
+    }
+    &--send {
+      color: $gr;
+    }
+  }
+  &-inforeview {
+    background: $g;
+    border-radius: 4px;
+    padding: 30px;
+    text-align: center;
+    @include flex(cc);
+    @include flexcol(n);
+
+    &__heading {
+      @extend %cab-h1;
+      margin-bottom: 10px;
+    }
+    &__text {
+      margin-bottom: 10px;
+    }
+    &__btns {
+      @include flex(cc);
+      flex-wrap: wrap;
+    }
+    &__btn {
+      min-width: 210px;
+      margin: 10px 10px 0;
+    }
+  }
+  &-textsmall {
+    color: $dg2;
+    margin-bottom: 20px;
+    @extend %text-small;
+  }
+  &-balance {
+    border: 2px solid $g;
+    border-radius: 4px;
+    padding: 20px;
+    min-width: 216px;
+    @include flex(lt);
+    margin-right: 20px;
+    margin-bottom: 30px;
+
+    &__items {
+      @include flex(lt);
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    &__icon {
+      flex-shrink: 0;
+      margin-right: 15px;
+      margin-top: 5px;
+    }
+    &__desc {
+      width: 100%;
+    }
+    &__value {
+      @extend %cab-h1;
+      color: $a;
+      margin-bottom: 5px;
+    }
+    &__text {
+      color: $dg2;
+    }
+  }
+  &-warning {
+    @include flex(lt);
+    margin-bottom: 30px;
+
+    &__icon {
+      flex-shrink: 0;
+      opacity: 0.5;
+      margin-right: 10px;
+
+      --icon-width: 20px;
+    }
+    &__desc {
+      width: 100%;
+
+      a {
+        @extend %text-small;
+        color: $b;
+      }
+    }
+    &__text {
+      margin-bottom: 10px;
+    }
+  }
+  &__heading {
+    @include h(3);
+    margin-bottom: 20px;
+  }
+  &_mobile_wrapper {
+    @include padding-for-mobile;
+  }
+  &_subtext {
+    color: $dg2;
+    margin-bottom: 30px;
+  }
+
+  &_myshop {
+    &__section {
+      border: 1px solid #f1f1f1;
+      margin-bottom: 40px;
+      &_head {
+        background-color: $g2;
+        @include h(3);
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      &_content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        &_block {
+          height: 129px;
+          position: relative;
+          background-color: $w;
+          border: 2px solid rgba(243, 239, 243, 0.3);
+          border-radius: 4px;
+          padding: 20px;
+          margin-bottom: 20px;
+          @include flex(cc);
+          @include col(4, 10);
+          @include mobile {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: 0;
+            margin-right: 0;
+            justify-content: center;
+          }
+          &:hover {
+            background-color: rgba(243, 239, 243, 0.3);
+            box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2),
+              16px 16px 32px rgba(222, 226, 242, 0.3);
+            border-radius: 4px;
+            & .cabinet_myshop__section_content_icon {
+              visibility: visible;
+            }
+            & .cabinet_myshop__section_counthead {
+              text-decoration: underline;
+            }
+          }
+        }
+        &_icon {
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          visibility: hidden;
+          &::part(base) {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+      &_wrapper {
+        @include row(10);
+        @include mobile {
+          flex-direction: column;
+        }
+        &_block {
+          @include col(4, 10);
+          @include mobile {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: 0;
+            margin-right: 0;
+            justify-content: center;
+          }
+        }
+      }
+      &_count {
+        &block {
+          background-color: $w;
+          border: 2px solid rgba(243, 239, 243, 0.3);
+          border-radius: 4px;
+          padding: 20px;
+          margin-bottom: 20px;
+          @include col(4, 10);
+          @include mobile {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: 0;
+            margin-right: 0;
+            justify-content: center;
+          }
+          &:hover {
+            background-color: rgba(243, 239, 243, 0.3);
+            box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2),
+              16px 16px 32px rgba(222, 226, 242, 0.3);
+            border-radius: 4px;
+            & .cabinet_myshop__section_counticon {
+              visibility: visible;
+            }
+            & .cabinet_myshop__section_counthead {
+              text-decoration: underline;
+            }
+          }
+        }
+        &head {
+          @extend %cab-h3;
+          margin-bottom: 39px;
+        }
+        &bottom {
+          @include flex(sc);
+        }
+        &icon {
+          visibility: hidden;
+          &::part(base) {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        &er {
+          @include h(4);
+          color: $a2;
+          text-align: right;
+        }
+      }
+      &_btn {
+        &_wrapper {
+          @include flex(sc);
+          flex-wrap: wrap;
+        }
+        &_del {
+          @include mobile-lg {
+            margin-top: 40px;
+          }
+        }
+      }
+      &_btn-back {
+        margin: 62px 0 462px 0;
+        max-width: 248px;
+        width: 100%;
+        height: 58px;
+        padding: 7px 0;
+      }
+      &_pay {
+        &-bold {
+          font-weight: bold;
+        }
+        &btn {
+          &::part(base) {
+            color: $b;
+          }
+        }
+      }
+      &_info {
+        &block {
+          background-color: rgba(243, 239, 243, 0.5);
+          border-radius: 4px;
+          padding: 15px;
+          margin-top: 20px;
+        }
+        &text {
+          @extend %text-small;
+          color: $dg2;
+          &-bold {
+            font-weight: bold;
+          }
+        }
+      }
+      &_input {
+        margin-bottom: 20px;
+      }
+      &_btn {
+        align-self: flex-end;
+      }
+      &_settings {
+        &_block {
+          @include flex(lc);
+          @include col(4, 10);
+          @include mobile {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: 0;
+            margin-right: 0;
+            justify-content: center;
+          }
+        }
+        &_logo {
+          min-width: 96px;
+          max-width: 96px;
+          min-height: 96px;
+          max-height: 96px;
+          border: 2px solid $a;
+          border-radius: 50%;
+          margin-right: 20px;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          &_upload {
+            background-color: rgba(29, 27, 30, 0.5);
+            display: flex;
+            align-items: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding-bottom: 2px;
+          }
+          &_icon {
+            margin: 0 auto;
+          }
+        }
+
+        &_head {
+          @extend %text-small;
+          color: $dg2;
+          margin-bottom: 5px;
+        }
+        &_btn {
+          &::part(base) {
+            padding: 0;
+          }
+        }
+      }
+    }
+    &__tabs {
+      justify-content: space-between;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      overflow: visible;
+      @include tablet-lg {
+        overflow-x: auto;
+      }
+
+      // margin-bottom: 20px;
+    }
+    &__tab {
+      @include flex(cc);
+      background-color: rgba(243, 239, 243, 0.5);
+      flex: 1;
+      position: relative;
+      border: 2px solid transparent;
+      // width: 25%;
+      &:focus {
+        box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+        @include tablet-lg {
+          box-shadow: none;
+        }
+      }
+      &[active] {
+        background-color: $w;
+        box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+        border-radius: 2px;
+
+        @include tablet-lg {
+          border: 2px solid $dg;
+          box-shadow: none;
+        }
+        &::after {
+          content: '';
+          height: 14px;
+          width: 14px;
+          background-color: $w;
+          position: absolute;
+          bottom: -12px;
+          left: 50%;
+          transform: rotate(45deg) translateX(-50%);
+          @include tablet-lg {
+            display: none;
+          }
+        }
+      }
+      &::part(base) {
+        color: $a;
+        @extend %text-small;
+        font-weight: bold;
+        text-transform: uppercase;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+      &_info {
+        @include flex(st);
+        background-color: $pil;
+        padding: 8px 20px;
+        &_text {
+          @extend %text-small;
+          color: $a2;
+          line-height: 140%;
+        }
+        &_close {
+          margin-left: 30px;
+        }
+      }
+      &_wrapper {
+        padding: 20px;
+        background: rgba(243, 239, 243, 0.3);
+        box-shadow: inset -4px 0px 8px rgba(0, 0, 0, 0.05), inset 4px 0px 8px rgba(0, 0, 0, 0.05);
+        &-scroll {
+          max-height: 716px;
+          overflow-y: auto;
+          padding: 20px;
+          background: rgba(243, 239, 243, 0.3);
+          box-shadow: inset -4px 0px 8px rgba(0, 0, 0, 0.05), inset 4px 0px 8px rgba(0, 0, 0, 0.05);
+          // Scrollbar styles
+          // moz
+          scrollbar-color: $dg $g; /* «цвет ползунка» «цвет полосы скроллбара» */
+          scrollbar-width: thin;
+          // webkit
+          &::-webkit-scrollbar {
+            width: 10px;
+            background-color: $g; /* «цвет полосы скроллбара» */
+          }
+          &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: $dg; /* «цвет ползунка» */
+          }
+        }
+      }
+      &_textarea {
+        &::part(label),
+        &::part(base) {
+          font-size: 14px;
+        }
+      }
+      &_upload {
+        &_wrapper {
+          @include flex(lc);
+          margin-top: 6px;
+        }
+        &_btn {
+          &::part(base) {
+            padding: 2px 5px;
+            height: auto;
+            border: 2px solid $dg;
+            border-radius: 4px;
+            background-color: $g;
+            &:hover {
+              border: 2px solid $a2;
+            }
+          }
+          &::part(label) {
+            line-height: 100%;
+          }
+        }
+        &_text {
+          margin-left: 10px;
+        }
+      }
+      &_btn {
+        margin-right: 5px;
+        margin-left: 5px;
+        margin-top: 10px;
+        &wrap {
+          padding: 20px;
+          background-color: $g;
+          @include flex(rc);
+          flex-wrap: wrap;
+          @include mobile-lg {
+            justify-content: center;
+          }
+        }
+      }
+      &_logo {
+        &_block {
+          @include flex(lc);
+          flex-wrap: wrap;
+          &-margin {
+            @include flex(lc);
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+          }
+        }
+        &_wrap {
+          background-color: $g;
+          padding: 10px;
+          @include mobile-lg {
+            min-width: 100%;
+          }
+        }
+        &_preview {
+          background-color: $w;
+          border: 2px solid $p;
+          box-sizing: border-box;
+          @extend %cab-h1;
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+          min-width: 266px;
+          min-height: 55px;
+          @include flex(cc);
+          @include mobile-lg {
+            min-width: 100%;
+          }
+        }
+        &_img {
+          background-color: $w;
+          max-width: 266px;
+          max-height: 55px;
+          object-fit: contain;
+        }
+        &_desc {
+          display: flex;
+          flex-direction: column;
+          margin-left: 20px;
+          @include mobile-lg {
+            margin-top: 20px;
+            margin-left: 0;
+          }
+        }
+        &_text {
+          display: block;
+          font-size: 12px;
+          color: $dg2;
+        }
+        &_btn {
+          &::part(base) {
+            padding: 0;
+            color: $b;
+          }
+          &-red {
+            &::part(base) {
+              padding: 0;
+              color: $rd;
+            }
+          }
+        }
+      }
+      &_box {
+        margin-top: 30px;
+      }
+    }
+    &__contacts {
+      &_wrapper {
+        margin-bottom: 30px;
+      }
+      &_header {
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: $dg;
+        font-size: 14px;
+        line-height: 120%;
+      }
+      &_line {
+        width: 100%;
+        height: 1px;
+        background-color: $dg;
+        margin-top: 13px;
+      }
+      &_input {
+        margin-top: 10px;
+        &::part(base) {
+          border: 2px solid $dg;
+          border-radius: 2px;
+          color: $p;
+          &:hover {
+            border: 2px solid $dg2;
+            box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+            border-radius: 4px;
+          }
+        }
+        &::part(label) {
+          font-size: 12px;
+          color: $p2;
+          opacity: 0.75;
+          line-height: 140%;
+        }
+        &-half {
+          @include col(6, 10);
+          margin-top: 10px;
+          @include mobile-lg {
+            @include col(12, 10);
+          }
+          &::part(base) {
+            border: 2px solid $dg;
+            border-radius: 2px;
+            color: $p;
+            &:hover {
+              border: 2px solid $dg2;
+              box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+              border-radius: 4px;
+            }
+          }
+          &::part(label) {
+            font-size: 12px;
+            color: $p2;
+            opacity: 0.75;
+            line-height: 140%;
+          }
+        }
+      }
+      &_flex {
+        @include row(10);
+      }
+    }
+    &__live {
+      &_album {
+        padding-bottom: 20px;
+        border-bottom: 1px solid $dg;
+        margin-bottom: 20px;
+        &_checkbox {
+          &::part(base) {
+            @extend %text-link;
+          }
+        }
+        &_wrapper {
+          padding-left: 28px;
+        }
+        &_grid {
+          margin-top: 20px;
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          grid-gap: 5px;
+          @include tablet-lg {
+            grid-template-columns: repeat(6, 1fr);
+          }
+          @include mobile {
+            grid-template-columns: repeat(4, 1fr);
+          }
+          @include mobile-lg {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+      }
+      &_card {
+        background: $g;
+        border: 1px solid $dg;
+        padding: 5px;
+        position: relative;
+        height: 128px;
+        &_checkbox {
+          position: absolute;
+          top: 5px;
+          left: 5px;
+        }
+        &_image {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+      &_filters {
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        @include flex(sc);
+        flex-wrap: wrap;
+        @include mobile {
+          justify-content: center;
+        }
+      }
+      &_datepicker {
+        height: 38px;
+        border: 2px solid $dg;
+        &_wrap {
+          @include flex(cc);
+          @include mobile {
+            margin-top: 20px;
+          }
+        }
+        &_rectangle {
+          width: 14px;
+          height: 2px;
+          background-color: $p;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  &-clients {
+    &__wrapper {
+      @include flex(sc);
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+
+      @include tablet-md {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      @include mobile {
+        flex-direction: column;
+      }
+      &-margin_top {
+        margin-top: 20px;
+      }
+    }
+    &__table_wrapper {
+      overflow-x: auto;
+    }
+    &__select {
+      min-width: 280px;
+      @include mobile {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      &::part(base) {
+        color: $p;
+        font-size: 14px;
+      }
+      &::part(base-input) {
+        border: 2px solid $dg;
+        border-radius: 2px;
+        color: $p;
+      }
+      &::part(input) {
+        @extend %cab-h2;
+        color: $p;
+      }
+      &_item {
+        &::part(base) {
+          &:hover {
+            color: $p;
+            background-color: $g2;
+          }
+        }
+      }
+    }
+    &__search {
+      min-width: 250px;
+      &::part(base) {
+        color: $p;
+        font-size: 14px;
+        border: 2px solid $dg;
+      }
+      & gx-icon {
+        height: 16px;
+        width: 16px;
+        color: $p;
+      }
+      @include mobile {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  &-promocode {
+    &__delete {
+      margin-left: auto;
+      &::part(base) {
+        color: $a;
+        text-decoration: underline;
+        &:hover {
+          color: $a2;
+        }
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+    &__new {
+      @include col(4, 10);
+      @include flex(cc);
+      background: #f7f4fc;
+      @extend %text-btn;
+      text-align: center;
+      color: $a2;
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      &::part(base) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        color: var(--gx-color-accent2);
+        line-height: 140%;
+        letter-spacing: 0.1em;
+        border-radius: 2px;
+        font-weight: bold;
+      }
+
+      &:hover {
+        background: #fcfbfc;
+        text-decoration: underline;
+      }
+      @include tablet-lg {
+        @include col(6, 10);
+      }
+      @include mobile {
+        @include col(12, 10);
+      }
+    }
+    &-block {
+      @include col(4, 10);
+      border: 2px solid #f3eff3;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 20px;
+      &:hover {
+        background-color: $g;
+        & .cabinet-promocode-block__dropdown_btn {
+          &::part(base) {
+            background-color: rgba(88, 63, 76, 0.05);
+          }
+        }
+      }
+      &__top {
+        @include flex(sc);
+        margin-bottom: 30px;
+        &wrap {
+          @include flex(lc);
+        }
+      }
+      &__head {
+        @extend %cab-h4;
+        margin-left: 10px;
+      }
+      &__icon {
+        width: 20px;
+      }
+      &__dropdown {
+        &::part(base) {
+          padding: 0;
+          border: none;
+        }
+        &_item {
+          &::part(base) {
+            padding: 10px;
+            &:hover {
+              background-color: $g2;
+              color: $p;
+            }
+          }
+        }
+        &_btn {
+          &::part(base) {
+            padding: 0 6px;
+            border: none;
+            &:focus {
+              box-shadow: none;
+            }
+          }
+        }
+      }
+      &__middle {
+        margin-bottom: 5px;
+      }
+      &__discount {
+        color: $dg2;
+      }
+      &__bottom {
+        margin-top: 65px;
+        @include flex(rc);
+      }
+      &__btn {
+        &::part(base) {
+          color: $b;
+        }
+      }
+      &__activated {
+        @extend %text-link;
+        color: $gr;
+      }
+      @include tablet-lg {
+        @include col(6, 10);
+      }
+      @include mobile {
+        @include col(12, 10);
+      }
+    }
+  }
+  &_market {
+    &_topblock {
+      padding: 30px;
+      box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
+      border-radius: 6px;
+      margin-bottom: 60px;
+      &__wrapper {
+        max-width: 387px;
+      }
+      &__top_line {
+        @include flex(sc);
+        margin-bottom: 24px;
+      }
+      &__profit {
+        @extend %cab-h1;
+        &_count {
+          @extend %cab-h1;
+          color: $gr;
+        }
+      }
+      &__line {
+        @include flex(sc);
+        margin-top: 18px;
+      }
+      &__orders {
+        &_count {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+      }
+      &__proceeds {
+        &_count {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+      }
+      &__cost {
+        &_count {
+          font-size: 16px;
+          text-transform: uppercase;
+          color: $rd;
+        }
+      }
+    }
+    &__status {
+      @include tablet-md {
+        margin-top: 30px;
+      }
+      &::part(base-input) {
+        border: 1px solid $p;
+        border-radius: 2px;
+        padding: 1px 5px;
+      }
+      &::part(input) {
+        font-size: 12px;
+      }
+      &::part(icon) {
+        color: $p;
+      }
+      &_item {
+        &::part(base) {
+          font-size: 12px;
+          padding: 4px 22px;
+          color: $p;
+          &:hover {
+            color: $p;
+            background-color: $g2;
+          }
+        }
+      }
+    }
+    &__row {
+      @include row-flex;
+      margin-top: 25px;
+      padding-bottom: 40px;
+    }
+    &__leftcol {
+      width: calc(100% - 209px - 30px);
+      @include mobile {
+        width: 100%;
+      }
+    }
+    &__rightcol {
+      width: 209px;
+      margin-left: 30px;
+      @include tablet-md {
+        margin-left: 20px;
+        margin-right: 10px;
+      }
+      @include mobile {
+        // убрать в модалку
+        display: none;
+      }
+    }
+    &__catlink {
+      @include flex(cc);
+      background-color: $g2;
+      height: 30px;
+      font-size: 16px;
+      line-height: 140%;
+      color: $p;
+      @include mobile {
+        margin: 10px 0;
+        height: 44px;
+      }
+      &:hover {
+        color: $p;
+        background-color: $pil;
+      }
+      &_wrapper {
+        &-desktop {
+          margin-bottom: 25px;
+          @include mobile {
+            display: none;
+          }
+        }
+        &-mobile {
+          /*display: none;*/
+          @include mobile {
+            display: block;
+            margin: 20px 10px;
+          }
+        }
+      }
+    }
+    &__add {
+      &_wrapper {
+        padding: 10px 20px;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+        @include flex(sc);
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+      &_count {
+        margin: 0 10px;
+      }
+      &_count,
+      &_text {
+        @extend %text-link;
+      }
+    }
+    &__card {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+      grid-gap: 10px;
+      padding: 15px 18px;
+      border-radius: 4px;
+      border: 2px solid transparent;
+      @include tablet-lg {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @include mobile-lg {
+        grid-template-columns: 1fr;
+      }
+      &:hover {
+        background: rgba(243, 239, 243, 0.3);
+        border: 2px solid $a;
+      }
+      &_info {
+        display: flex;
+        @include tablet-lg {
+          grid-column-start: 1;
+          grid-column-end: 5;
+        }
+        @include mobile-lg {
+          grid-column-start: 1;
+          grid-column-end: 2;
+        }
+      }
+      &_image {
+        width: 72px;
+        height: 97px;
+        object-fit: cover;
+        padding: 4px;
+        margin-right: 10px;
+        background-color: var(--gx-color-gray);
+        margin: 0 10px;
+      }
+      &_name {
+        margin: 0;
+      }
+      &_price {
+        @extend %cab-h4;
+        margin-bottom: 10px;
+        @include mobile-lg {
+          order: 3;
+          margin: 0;
+        }
+        &_head {
+          margin-top: 0;
+          margin-bottom: 10px;
+          font-size: 12px;
+          color: $dg2;
+          letter-spacing: 0.04em;
+          @include mobile-lg {
+            margin: 0;
+          }
+        }
+        &-old {
+          margin: 0;
+          font-size: 12px;
+          letter-spacing: 0.04em;
+          text-decoration-line: line-through;
+        }
+        &-red {
+          color: $rd;
+        }
+        &_wrap {
+          @include mobile-lg {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+        }
+      }
+      &_input {
+        max-width: 120px;
+        &::part(base) {
+          // font-family: Noto Sans;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 120%;
+          height: 30px;
+        }
+        &::part(input) {
+          height: 30px;
+        }
+      }
+    }
+  }
+}
+
+.no_margin {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Стили из Views/CatalogViews/styles/filters.module.scss
+// Тупо скопипастил потому что не смог подключить.
+// Можно потом удалить блок, написанные мной будут ниже этого
+
+.catfilter {
+  position: relative;
+  &__mob {
+    @include mobile {
+      display: none;
+    }
+    &-visible {
+      @include mobile {
+        display: block;
+      }
+    }
+  }
+  @include mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+    // стили для мобилки при открытии блока
+    position: fixed;
+    z-index: 1;
+    background-color: $w;
+    width: 100%;
+    top: 64px;
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 120px;
+  }
+  &-block {
+    margin-bottom: 25px;
+
+    &__heading {
+      @extend %cab-h2;
+      margin-bottom: 15px;
+      margin-top: -5px;
+    }
+    &__bottom {
+      @include flex(sc);
+      @extend %text-link;
+      flex-wrap: wrap;
+    }
+    &__toggle {
+      &::part(base) {
+        background-color: transparent;
+        color: $b;
+        border: none;
+        font-size: 12px;
+        width: 100px;
+        display: block;
+        padding: 0;
+        text-align: left;
+        &:hover {
+          outline: none;
+          box-shadow: none;
+        }
+        &:active {
+          outline: none;
+          box-shadow: none;
+        }
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+      }
+    }
+    &__reset {
+      &::part(base) {
+        background-color: transparent;
+        color: $rd;
+        border: none;
+        font-size: 12px;
+        line-height: 140%;
+        width: 100%;
+        padding: 0;
+        display: block;
+        text-align: right;
+        &:hover {
+          outline: none;
+          box-shadow: none;
+        }
+        &:active {
+          outline: none;
+          box-shadow: none;
+        }
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+      }
+    }
+  }
+  &-item {
+    margin: 10px 0;
+    position: relative;
+    @include flex(sc);
+    cursor: pointer;
+
+    &__count {
+      flex-shrink: 0;
+      font-size: 12px;
+      color: $p;
+      opacity: 0.5;
+    }
+  }
+  &-search {
+    margin-bottom: 10px;
+  }
+  &-scroll {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 232px;
+    padding-right: 5px;
+    &.active {
+      max-height: fit-content;
+    }
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      background-color: $w;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $dg;
+      border-radius: 2px;
+    }
+    &wrap {
+      border-top: 2px solid #f3eff3;
+      border-bottom: 2px solid #f3eff3;
+    }
+  }
+  &-showme {
+    background: $a2;
+    color: $w;
+    font-weight: bold;
+    height: 40px;
+    line-height: 38px;
+    padding: 0 20px 0 25px;
+    position: absolute;
+    left: 99%;
+    z-index: 4;
+    @include flex(lc);
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 8% 100%, 0% 50%);
+    border-radius: 4px;
+
+    span {
+    }
+  }
+}
+.buttons_wrapper {
+  @include flex(sc);
+}
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Стили из Views/CatalogViews/styles/filters.module.scss закончились
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Стили для фильтров, написанных мной
+
+.catfilter {
+  &-scroll {
+    &wrap {
+      padding: 5px 0;
+    }
+  }
+  &-price {
+    &__wrap {
+      @include flex(sc);
+      margin-bottom: 5px;
+    }
+    &__category {
+    }
+    &__input {
+      width: 100px;
+
+      &::part(base) {
+        // font-family: Noto Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 120%;
+        height: 30px;
+      }
+      &::part(input) {
+        height: 30px;
+      }
+    }
+  }
+}
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Стили для фильтров, написанных мной закончились

@@ -1,0 +1,271 @@
+@import '../../styles/fonts/index.scss';
+@import '../../styles/variables/index.scss';
+%heading {
+  font-weight: bold;
+  @extend %font-head;
+  margin: 0;
+}
+%cab-h2 {
+  @extend %font;
+  font-weight: bold;
+  font-size: 16px;
+}
+@mixin flex($type) {
+  display: flex;
+  @if ($type == 'lc') {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  @if ($type == 'sc') {
+    justify-content: space-between;
+    align-items: center;
+  }
+  @if ($type == 'rc') {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @if ($type == 'cc') {
+    justify-content: center;
+    align-items: center;
+  }
+  @if ($type == 'ct') {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  @if ($type == 'lt') {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @if ($type == 'st') {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  @if ($type == 'rt') {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+
+.input {
+  &::part(base) {
+    font-size: 14px;
+    margin: 14px 0;
+
+    &:focus-within {
+    }
+  }
+  &::part(label) {
+  }
+  &::part(control) {
+    background: transparent;
+    border: 2px solid $p;
+    border-radius: 4px;
+  }
+}
+.input:not([checked='false']) {
+  &::part(control) {
+    background: $p;
+  }
+}
+.input:not([checked]) {
+  &::part(control) {
+    background: transparent;
+  }
+}
+.switch {
+  width: 100%;
+  display: block;
+
+  &::part(base) {
+    width: 100%;
+    display: block;
+    position: relative;
+
+    &:focus-within {
+    }
+  }
+  &::part(label) {
+    @extend %cab-h2;
+    margin: 0;
+    padding-right: 40px;
+    width: 100%;
+    display: block;
+    position: relative;
+    min-height: 20px;
+    box-sizing: border-box;
+
+    &:before {
+      width: 34px;
+      height: 20px;
+      border-radius: 16px;
+      position: absolute;
+      background: $dg;
+      top: 0;
+      right: 0;
+      content: '';
+      transition: 0.2s;
+    }
+    &:after {
+      top: 3px;
+      right: 17px;
+      position: absolute;
+      content: '';
+      background: $w;
+      width: 14px;
+      height: 14px;
+      border-radius: 100%;
+      transition: 0.2s;
+    }
+  }
+  &::part(control) {
+    background: transparent;
+    border: 2px solid $dg;
+    border-radius: 4px;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+  }
+}
+.switch[checked='true'] {
+  &::part(control) {
+    border-color: $a2;
+    background: $a2;
+  }
+  &::part(label) {
+    &:before {
+      background: $a2;
+    }
+    &:after {
+      top: 3px;
+      right: 3px;
+    }
+  }
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  border: 1px solid $dg;
+  margin-right: 6px;
+  display: block;
+}
+
+.light {
+  &::part(base) {
+    @include flex(lc);
+  }
+  &::part(label) {
+    font-size: 14px;
+    letter-spacing: 0;
+    color: $p;
+    @include flex(lc);
+  }
+  &::part(control) {
+    background: transparent;
+    border: 2px solid $dg;
+    border-radius: 4px;
+    width: 14px;
+    height: 14px;
+  }
+  span {
+    display: block;
+  }
+  i {
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    border: 1px solid $dg;
+    margin-right: 6px;
+    display: block;
+  }
+  &:hover {
+    &::part(control) {
+      border-color: $a2;
+    }
+    &::part(label) {
+      color: $a2;
+    }
+  }
+}
+.light[checked='true'] {
+  &::part(control) {
+    border-color: $a2;
+    background: $a2;
+  }
+  &::part(label) {
+    // color: $a2;
+  }
+}
+
+.light[checked] {
+  &::part(control) {
+    border-color: $a2;
+    background: $a2;
+  }
+  &::part(label) {
+    // color: $a2;
+  }
+}
+
+.light[checked='false'] {
+  &::part(control) {
+    background: transparent;
+    border: 2px solid $dg;
+  }
+  &::part(label) {
+    color: $p;
+  }
+}
+
+.large {
+  &::part(base) {
+    &:focus-within {
+    }
+  }
+  &::part(label) {
+  }
+  &::part(input) {
+  }
+}
+
+.product__selected_checkbox {
+  &::part(base) {
+    margin: 0;
+  }
+}
+
+.anotherLight {
+  &::part(base) {
+    font-size: 12px;
+    margin: 14px 0;
+    &:focus-within {
+    }
+  }
+  &::part(label) {
+  }
+  &::part(control) {
+    background: transparent;
+    border: 2px solid $dg;
+    border-radius: 4px;
+  }
+}
+.anotherLight:not([checked='false']) {
+  &::part(control) {
+    background: $p;
+    border-color: $p;
+  }
+}
+.anotherLight:not([checked]) {
+  &::part(control) {
+    background: transparent;
+
+    border-color: $dg;
+  }
+}
+
+.informations_block{
+  margin-top: 0;
+}

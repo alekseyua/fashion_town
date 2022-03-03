@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"todo-tree.filtering.useBuiltInExcludes": "search excludes",
+		"todo-tree.tree.expanded": true,
+		"emmet.showSuggestionsAsSnippets": true,
+		"emmet.triggerExpansionOnTab": true,
+		"reactSnippets.settings.prettierEnabled": true,
+		"firefox.keepProfileChanges": true
+	}
+}

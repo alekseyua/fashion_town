@@ -25,13 +25,14 @@ const InformationDelivery = (props) => {
     breadcrumbs,
     info_delivery,
   } = props;
+
   const { user = {}, shop = {}, role, passport, organization, links, balance } = profile;
   const { is_has_shop, shop_link } = shop;
   const { username = '' } = user;
   //todo: можно пропсом кастрировать футер
-  const retailData = components[0].children[0];
+  const retailData = components[0].children[2];
   const dropData = components[0].children[1];
-  const whosaleData = components[0].children[2];
+  const whosaleData = components[0].children[0];
   useEffect(() => {
     let whosaleInfo, retailInfo, dropInfo;
     info_delivery.forEach((el) => {
@@ -49,6 +50,7 @@ const InformationDelivery = (props) => {
       woosalePaymentsInfo: whosaleInfo,
     });
   }, [info_delivery]);
+  console.log('components', retailData.title)
   return (
     <Layout profile={profile} {...props}>
       <Modal.StorControllerModal />
@@ -58,32 +60,45 @@ const InformationDelivery = (props) => {
           <Title variant={'information-payments__title'} type={'h1'}>
             {components[0].title}
           </Title>
-          <InformationViews.PaymentsTextBlock>
+          {/* <InformationViews.PaymentsTextBlock>
             <InformationViews.PaymentsTitle>{retailData.title}</InformationViews.PaymentsTitle>
 
             <InformationViews.PaymentsDescription>
               <div dangerouslySetInnerHTML={{ __html: retailData.content }}></div>
             </InformationViews.PaymentsDescription>
-          </InformationViews.PaymentsTextBlock>
+          </InformationViews.PaymentsTextBlock> */}
         </InformationViews.PaymentsConteiner>
-        {role === ROLE.RETAIL || role === ROLE.UNREGISTRED ? null : (
-          <React.Fragment>
+        {role === ROLE.RETAIL || role === ROLE.UNREGISTRED ?
+        (<React.Fragment>
             <InformationViews.PaymentsTextBlock>
-              <InformationViews.PaymentsTitle>{whosaleData.title}</InformationViews.PaymentsTitle>
-
+              <InformationViews.PaymentsTitle>{retailData.title}</InformationViews.PaymentsTitle>
               <InformationViews.PaymentsDescription>
-                <div dangerouslySetInnerHTML={{ __html: whosaleData.content }}></div>
+                <div dangerouslySetInnerHTML={{ __html: retailData.content }}></div>
               </InformationViews.PaymentsDescription>
             </InformationViews.PaymentsTextBlock>{' '}
-            <InformationViews.PaymentsTextBlock>
-              <InformationViews.PaymentsTitle>{dropData.title}</InformationViews.PaymentsTitle>
-
-              <InformationViews.PaymentsDescription>
-                <div dangerouslySetInnerHTML={{ __html: dropData.content }}></div>
-              </InformationViews.PaymentsDescription>
-            </InformationViews.PaymentsTextBlock>
           </React.Fragment>
-        )}
+        ) : role === ROLE.WHOLESALE ? 
+        (<React.Fragment>
+          <InformationViews.PaymentsTextBlock>
+            <InformationViews.PaymentsTitle>{whosaleData.title}</InformationViews.PaymentsTitle>
+            <InformationViews.PaymentsDescription>
+              <div dangerouslySetInnerHTML={{ __html: whosaleData.content }}></div>
+            </InformationViews.PaymentsDescription>
+          </InformationViews.PaymentsTextBlock>{' '}
+        </React.Fragment>
+        ): role === ROLE.DROPSHIPPER ?
+        (<React.Fragment>
+          <InformationViews.PaymentsTextBlock>
+            <InformationViews.PaymentsTitle>{dropData.title}</InformationViews.PaymentsTitle>            
+            <InformationViews.PaymentsDescription>
+              <div dangerouslySetInnerHTML={{ __html: dropData.content }}></div>
+            </InformationViews.PaymentsDescription>
+          </InformationViews.PaymentsTextBlock>{' '}
+        </React.Fragment>
+        ):null
+      
+      
+      }
       </Container>
     </Layout>
   );

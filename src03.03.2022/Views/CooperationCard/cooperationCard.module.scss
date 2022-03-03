@@ -1,0 +1,110 @@
+@import '../../styles/variables/index.scss';
+@import '../../styles/fonts/index.scss';
+
+.cooperation-card {
+  @include col(6, 15);
+  border-radius: 2px;
+
+  @include tablet-lg {
+    @include col(12, 15);
+    margin-bottom: 15px;
+  }
+
+  &-wrap {
+    @include flex(lt);
+    align-items: stretch;
+    height: 100%;
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 357px;
+    @include mobile {
+      width: 100%;
+      max-width: 100%;
+      max-height: 460px;
+      overflow: hidden;
+    }
+    img {
+      display: block;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+  &__info {
+    @include flexcol(s, n);
+    align-items: center;
+    padding: 63px 20px 59px;
+    flex-grow: 1;
+    background-color: var(--gx-color-white);
+  }
+  &__content {
+    margin-bottom: 60px;
+  }
+  &__content,
+  &__extra {
+    @include flexcol(n);
+    align-items: center;
+  }
+  &__title {
+    margin-bottom: 8px;
+    text-transform: none;
+  }
+  &__text {
+    p {
+      margin: 0;
+      margin-bottom: 20px;
+      @extend %font;
+      // font-family: 'Champagne & Limousines Bold Italic', sans-serif;
+      line-height: 120%;
+      letter-spacing: 0.04em;
+      text-align: center;
+      font-size: 18px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+    &-bottom {
+      margin-bottom: 18px;
+      @extend %font;
+      // font-family: 'Champagne & Limousines Bold Italic', sans-serif;
+      line-height: 140%;
+      letter-spacing: 0.04em;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+  &__link {
+    // display: inline-block;
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 26px;
+    border: 2px solid var(--gx-color-darkgray);
+    border-radius: 2px;
+    background-color: var(--gx-color-white);
+    text-transform: uppercase;
+    // font-family: 'Nato Sans', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gx-color-accent2);
+    height: 0px;
+    &:hover {
+      border: 2px solid var(--gx-color-accent2);
+      transition: 0.3s;
+    }
+    &:active {
+      color: var(--gx-color-white);
+      background-color: var(--gx-color-accent2);
+      transition: 0.3s;
+    }
+  }
+}

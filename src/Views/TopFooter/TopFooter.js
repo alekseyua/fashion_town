@@ -72,53 +72,42 @@ const TopFooter = ({
     <div className={style['top-footer']}>
       <div className={'container'}>
         <div className={style['top-footer-wrap']}>
-          {/*           
-          <FooterInfo
-            site_configuration={site_configuration}
-            content={state.main_info}
-            logo={true}
-            data={state.main_link}
-            callbackOnClick={openModalFeedback}
-          /> */}
+
           <div className={style['top-footer__inner']}>
-          <div className={style['top-footer__left']}>
-            <div className={style1['footer-logo']}>
-              <Logo site_configuration={site_configuration} />
+            <div className={style['top-footer__left']}>
+              <div className={style1['footer-logo']}>
+                <Logo site_configuration={site_configuration} />
+              </div>
+
+              <div>
+                <div className={style1['footer-info__content']}>{state.main_info}</div>
+                <div className={style1['footer-info__link']} onClick={openModalFeedback}>
+                  <i className={style1['footer-info__link-img']}>
+                    <img src={state.main_link.icon} alt="footer icon" width={'10px'} height={'10px'} />
+                  </i>
+                  <span className={style1['footer-info__link-name']}>{state.main_link.name}</span>
+                </div>
+              </div>
             </div>
 
-            <div className={style1['footer-info__content']}>{state.main_info}</div>
-
-            <div className={style1['footer-info__link']} onClick={openModalFeedback}>
-              <i className={style1['footer-info__link-img']}>
-                <img src={state.main_link.icon} alt="footer icon" width={'10px'} height={'10px'} />
-              </i>
-              <span className={style1['footer-info__link-name']}>{state.main_link.name}</span>
+            <div className={style['top-footer__center']}>
+              {state.menu.map((el, i) => {
+                return <FooterMenu key={i} menu={el.footer_menu} title={el.footer_menu_title} />;
+              })}
             </div>
-          </div>
 
-          <div className={style['top-footer__center']}>
-            {state.menu.map((el, i) => {
-              return <FooterMenu key={i} menu={el.footer_menu} title={el.footer_menu_title} />;
-            })}
-          </div>
-
-          {/* <FooterInfo
-            classModificator={'right'}
-            content={state.delivery_info}
-            link={state.delivery_link}
-            title={state.main_info_title}
-          /> */}
-          <div className={style['top-footer__right']}>
-            <h4 className={style1['footer-info__title']}>ДОСТАВКА</h4>
-            <div className={style['footer-info__content']}>{state.delivery_info}</div>
-            <div className={style1['footer-info__link']} onClick={openModalFeedback}>
-              <i className={style1['footer-info__link-img']}>
+            <div className={style['top-footer__right']}>
+              <h4 className={style1['footer-info__title']}>ДОСТАВКА</h4>
+              <div className={style['footer-info__content']}>{state.delivery_info}</div>
+              <div className={style1['footer-info__link']} onClick={openModalFeedback}>
+                <i className={style1['footer-info__link-img']}>
                   <img src={state.delivery_link.icon} alt="footer icon" width={'10px'} height={'10px'} />
-              </i>
-              <span className={style1['footer-info__link-name']}>{state.delivery_link.name}</span>
+                </i>
+                <span className={style1['footer-info__link-name']}>{state.delivery_link.name}</span>
+              </div>
             </div>
           </div>
-          </div> 
+
           <div className={style['top-footer__center--mob']}>
             {state.menu.map((el, i) => {
               return <FooterMenu key={i} menu={el.footer_menu} title={el.footer_menu_title} />;

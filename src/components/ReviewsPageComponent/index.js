@@ -45,7 +45,7 @@ const ReviewsPageComponent = ({ breadcrumbs, title, location, profile, insta_lin
     page: 1,
     page_size: 10,
     product__isnull: false,
-    // ordering: 'created_at',
+    checkFilter: false,
     // is_with_media: false,
     ...qs.parse(location.search),
   };
@@ -147,7 +147,7 @@ const ReviewsPageComponent = ({ breadcrumbs, title, location, profile, insta_lin
         </Title>
         <InformationViews.HowToWrapper>
           <InformationViews.SubTitle variant={'subtitle-reviews'}>
-            Заработай лайки за свой отзыв, чтобы получить дополнительную скидку! Больше отзывов
+            Больше отзывов
             можно посмотреть в нашем Instagram
           </InformationViews.SubTitle>
           <FetcherList
@@ -171,6 +171,9 @@ const ReviewsPageComponent = ({ breadcrumbs, title, location, profile, insta_lin
                 isNext,
                 isPrev,
               } = data;
+
+              const resultsReversed = !filterParams?.checkFilter? results.reverse(): results;
+              console.log('filterParams', filterParams)
               return (
                 <>
                   <InformationViews.WrapperButtonReviews>
@@ -207,6 +210,7 @@ const ReviewsPageComponent = ({ breadcrumbs, title, location, profile, insta_lin
                           ...filterParams,
                           product__isnull: filterParams.product__isnull,
                           ordering: value,
+                          checkFilter: true,
                         });
                       }}
                     />
@@ -221,7 +225,7 @@ const ReviewsPageComponent = ({ breadcrumbs, title, location, profile, insta_lin
                       data-cy={`checkBoxInPageRewiews`}
                     />
                   </InformationViews.WrapperSortReviews>
-                  {results.map((el) => {
+                  {resultsReversed.map((el) => {
                     return <ReviewsCard blockEnableView {...el} key={el.id} />;
                   })}
                   <InformationViews.PaginationsWrapper>

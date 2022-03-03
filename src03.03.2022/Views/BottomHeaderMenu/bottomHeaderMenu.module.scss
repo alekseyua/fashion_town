@@ -1,0 +1,35 @@
+@import '../../styles/variables/index.scss';
+
+.bottom-header-menu {
+  // padding-top: 30px;
+  @include mobile {
+    display: none;
+  }
+
+  &.scrolled {
+    padding: 10px 0;
+    @include mobile {
+      display: none; 
+    }
+  }
+
+  &__list {
+    @include ul;
+    @include flex(cc);
+    @media (min-width: 1460px) {
+      justify-content: space-evenly;
+    }
+    @media (min-width: 1420px) {
+			letter-spacing: calc((-3 + 6) * ((100vw - 320px) / (1920 - 320)));
+		}
+
+    @include laptop-sm {
+      display: none;
+    }
+  }
+
+  &__li {
+    position: relative;
+    margin-right: 40px;
+  }
+}

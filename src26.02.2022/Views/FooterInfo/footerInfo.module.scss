@@ -1,0 +1,89 @@
+@import '../../styles/variables/index.scss';
+@import '../../styles/fonts/index.scss';
+
+.footer {
+  &-info {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #8f8c98;
+    margin-right: 37px;
+    @include tablet-lg {
+      margin: 0;
+      width: 100%;
+    }
+    &.right {
+      max-width: 410px;
+      width: 100%;
+      margin-right: 0;
+      @include tablet-lg {
+          max-width: 100%;
+      }
+    }
+    &__title {
+      // @include h(4);
+      @extend %heading;
+      font-size: 24px;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+    &__content {
+      margin-top: 10px;
+      font-size: 12px;
+      &>div>:first-child{
+        display: none;
+      }
+      &>div>:last-child{
+        display: none;
+      }
+      @include mobile {
+        text-align: center;
+      }
+      p {
+        margin: 0;
+      }
+    }
+    &__link {
+      @include flex(lc);
+      margin-top: 5px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      @media (max-width:480px) {
+        justify-content: center;
+      }
+      &-name {
+        color: var(--gx-color-accent2);
+        border-bottom: 1px dashed var(--gx-color-accent2);
+      }
+      &-img {
+        height: 20px;
+        width: auto;
+        margin-right: 6px;
+      }
+    }
+  }
+  &-logo {
+    // margin-bottom: 28px;
+    // margin-bottom: 10px;
+    right: -40px;
+    position: relative;
+    @media (max-width: 680px) {
+      right: 0px;
+    }
+
+  }
+}
+.relative {
+  &-container {
+    @include tablet-lg {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

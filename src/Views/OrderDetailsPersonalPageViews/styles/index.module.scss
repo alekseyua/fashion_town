@@ -1,6 +1,40 @@
 @import '../../../styles/variables/index.scss';
 @import '../../../styles/fonts/index.scss';
 .cabinet_orders_details {
+   &__text-link{
+      font-size: 18px;
+      margin: 0;
+      color: #2B3044;
+      // &:hover {
+      //     --spacing: 4px;
+      //     --stroke: #275EFE;
+      //     --stroke-delay: .1s;
+      //     --offset: 180px;
+      // }
+    }
+    // &__link {
+    //     display: inline-block;
+    //     position: relative;
+    //     text-decoration: none;
+    //     color: inherit;
+    //     margin: 0 var(--spacing, 0px);
+    //     transition: margin .25s;
+    // }
+    // &__image {
+    //         width: 76px;      </div>
+    //         height: 40px;
+    //         position: absolute;
+    //         left: 50%;
+    //         bottom: 0;
+    //         transform: translate(-50%, 7px) translateZ(0);
+    //         fill: none;
+    //         stroke: var(--stroke, var(--line));
+    //         stroke-linecap: round;
+    //         stroke-width: 2px;
+    //         stroke-dasharray: var(--offset, 69px) 278px;
+    //         stroke-dashoffset: 361px;
+    //         transition: stroke .25s ease var(--stroke-delay, 0s), stroke-dasharray .35s;
+    //     }
   &__card {
     display: flex;
     justify-content: space-between;
@@ -579,4 +613,13 @@
     padding-right: 5px;
   }
 }
+
+
+
+:root {
+    --text: #2B3044;
+    --line: #BBC1E1;
+    --line-active: #275EFE;
+}
+
 

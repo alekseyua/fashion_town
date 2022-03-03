@@ -1,20 +1,31 @@
 @import '../../styles/variables/index.scss';
 .logo {
-  --icon-width: 228px;
-  --icon-height: 50px;
+  --icon-width: 328px;
+  --icon-height: 100px;
   min-width: 0;
-  max-width: 228px;
-  max-height: 50px;
+  max-width: 438px;
+  max-height: 100%;
+  height: 50px;
+  width: 350px;
+  overflow: hidden;
   color: var(--gx-color-black);
-  margin-top: 3px;
-  line-height: 1;
   position: relative;
-  display: block;
-  &>img{
-    // background-color: #fff;
-    object-fit:fill;
-    max-height: 50px;
-    min-width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-img{
+    height: 70px;
+    width: 250px;
+    left: 30px;
+    max-height: 100%;
+    position: absolute;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    @media (max-width:780px) {
+      position: relative;
+      left: 0;
+    }
   }
 
   &:hover {
@@ -36,7 +47,7 @@
     }
     &>img{
       // background-color: #fff;
-      object-fit:fill;
+      object-fit:cover;
       max-height: 50px;
       min-width: 200px;
     }
@@ -44,7 +55,7 @@
   @include mobile-lg{
     &>img{
       background-color: #fff;
-      object-fit:fill;
+      object-fit:cover;
       max-height: 50px;
       min-width: 180px;
     }

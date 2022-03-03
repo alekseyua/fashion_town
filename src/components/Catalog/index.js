@@ -243,7 +243,7 @@ const Catalog = ({
   useEffect(() => {
     setDataUpdateCatalog(true)
   }, [updateCurrenssies])
-  // *****************************************************
+
   return (
     <React.Fragment>
       <Container>
@@ -345,8 +345,6 @@ const Catalog = ({
             // console.log('newContent', newContent)
 
 
-           
-
 
 
             return (
@@ -355,7 +353,9 @@ const Catalog = ({
                   <CatalogViews.Catalog>
                     <Title variant={'catalog-heading'} type={'h1'}>
                       {getTitleForDocument(filterParams)}
+
                     </Title>
+
                     {/* <WarningBlock
                       variant={'catalog-wrapper-mobile'}
                       // textWarning={<div dangerouslySetInnerHTML={{ __html: newContent }}></div>}
@@ -405,7 +405,9 @@ const Catalog = ({
                                     handleSubmit();
                                   }}
                                 />
+                                {role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED ?
                                 <CheckBoxFilters role={role} {...paramsForUpdateCardSet} />
+                                :null}
                                 {checkIsShowCategorysAndProducType() ? (
                                   <AsyncTypeProductFilters
                                     categories={byProductTyoe}
@@ -546,6 +548,7 @@ const Catalog = ({
                                   isHit={el.isHit}
                                   sizes={el.sizes}
                                   product_rc={el.product_rc}
+                                  article={el?.id}//article}
                                 />
                               );
                             })}

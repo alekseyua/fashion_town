@@ -1,0 +1,149 @@
+@import '../../../styles/fonts/index.scss';
+
+.cabinet {
+  &-clients {
+    &__wrapper {
+      @include flex(sc);
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+
+      @include tablet-md {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      @include mobile {
+        flex-direction: column;
+      }
+      &-margin_top {
+        margin-top: 20px;
+      }
+    }
+    &__table_wrapper {
+      overflow-x: auto;
+    }
+    &__select {
+      min-width: 280px;
+      @include mobile {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      &::part(base) {
+        color: $p;
+        font-size: 14px;
+      }
+      &::part(base-input) {
+        border: 2px solid $dg;
+        border-radius: 2px;
+        color: $p;
+      }
+      &::part(input) {
+        @extend %cab-h2;
+        color: $p;
+      }
+      &_item {
+        &::part(base) {
+          &:hover {
+            color: $p;
+            background-color: $g2;
+          }
+        }
+      }
+    }
+    &__search {
+      min-width: 250px;
+      &::part(base) {
+        color: $p;
+        font-size: 14px;
+        border: 2px solid $dg;
+      }
+      & gx-icon {
+        height: 16px;
+        width: 16px;
+        color: $p;
+      }
+      @include mobile {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  &-heading {
+    @include h(3);
+    margin-bottom: 20px;
+    @include tablet-md {
+      margin-left: 15px;
+    }
+  }
+  &_market {
+    &_topblock {
+      padding: 30px;
+      box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
+      border-radius: 6px;
+      margin-bottom: 60px;
+      &__wrapper {
+        max-width: 387px;
+      }
+      &__top_line {
+        @include flex(sc);
+        margin-bottom: 24px;
+      }
+      &__profit {
+        @extend %cab-h1;
+        &_count {
+          @extend %cab-h1;
+          color: $gr;
+        }
+      }
+      &__line {
+        @include flex(sc);
+        margin-top: 18px;
+      }
+      &__orders {
+        &_count {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+      }
+      &__proceeds {
+        &_count {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+      }
+      &__cost {
+        &_count {
+          font-size: 16px;
+          text-transform: uppercase;
+          color: $rd;
+        }
+      }
+    }
+    &__status {
+      @include tablet-md {
+        margin-top: 30px;
+      }
+      &::part(base-input) {
+        border: 1px solid $p;
+        border-radius: 2px;
+        padding: 1px 5px;
+      }
+      &::part(input) {
+        font-size: 12px;
+      }
+      &::part(icon) {
+        color: $p;
+      }
+      &_item {
+        &::part(base) {
+          font-size: 12px;
+          padding: 4px 22px;
+          color: $p;
+          &:hover {
+            color: $p;
+            background-color: $g2;
+          }
+        }
+      }
+    }
+  }
+}

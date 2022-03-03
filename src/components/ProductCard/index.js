@@ -9,7 +9,7 @@ import ModalContentViews from '../../Views/ModalContentViews';
 import AsyncComponent from '../../components/AsyncComponent';
 import classNames from 'classnames';
 import api from '../../api';
-
+import {ROLE} from '../../const'
 const defaultIamgesSet = [defaultProductCard]; 
 const apiProfile = api.profileApi;
 const apiContent = api.contentApi;
@@ -23,7 +23,7 @@ const AsyncProductCard = AsyncComponent(() => {
 });
 
 const ProductCard = ({
-  profile, 
+  // profile, 
   url = '#',
   title = 'title',
   id = '0',
@@ -46,6 +46,7 @@ const ProductCard = ({
   disabledHover = false,
   is_collection = false,
   setCardIdproductFromSlider=Function.prototype,
+  article,
 }) => {
 
   const { currenssies } = useStoreon('currenssies'); //currenssies role_configuration
@@ -61,6 +62,9 @@ const ProductCard = ({
   const [modalContent, setModalContent] = useState({
     content: null,
   });
+  const { userPage } = useStoreon('userPage');
+  const { profile } = userPage;
+  const { role } = profile;
 
   const setModalStates = () => {
     getProductDetails();
@@ -149,6 +153,7 @@ const ProductCard = ({
   };
 
 
+  
   const getProductDetails = () => {
     apiContent
       .getProduct(id)
@@ -168,7 +173,7 @@ const ProductCard = ({
                   reviews_statistic={productModalData.reviews_statistic}
                   reviewsCount={productModalData.reviewsCount}
                   title={res.title}
-                  brand={res.brand}
+                  brand={ role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED ? res.brand : ''}
                   prices={res.prices}
                   recommended_price={productModalData.recommended_price}
                   colors={res.colors} 
@@ -187,6 +192,7 @@ const ProductCard = ({
                   profile={profile}
                   is_collection={res.is_collection}
                   product_rc={res.product_rc}
+                  article={article}
                 />
               </ModalContentViews.ContentBlock>
             </ModalContentViews.ModalWrapper>
@@ -226,7 +232,7 @@ const ProductCard = ({
         url={url}
         title={title}
         id={id}
-        brand={brand}
+        brand={ role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED ?brand : '' }
         grid={grid}
         favorite={nowFavorite}
         prices={newPrice}
@@ -244,6 +250,7 @@ const ProductCard = ({
         profile={profile}
         is_collection={is_collection}
         setCardIdproductFromSlider={setCardIdproductFromSlider}
+        article={article}
       />
     </React.Fragment>
   );

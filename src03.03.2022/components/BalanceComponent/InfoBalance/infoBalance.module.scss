@@ -1,0 +1,24 @@
+.balance{
+
+    &__now{
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        &--red{
+            &>span{
+                color:rgb(97, 46, 78);
+                font-weight: 900;
+            }
+        }
+    }
+    &__all-price{
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: 700;
+        &>span{
+            font-size: 18px;
+            color: rgb(10, 106, 34);
+        }
+    }
+}

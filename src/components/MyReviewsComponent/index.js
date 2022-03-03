@@ -6,10 +6,16 @@ import api from '../../api';
 
 const apiContent = api.contentApi;
 
-const MyReviewsComponent = ({ setModalStates }) => {
+const MyReviewsComponent = ({ setModalStates, reloadDataReviewStart, setReloadDataReviewStart }) => {
   const initialFilters = { page_size: 10 };
   return (
-    <FetcherList isScrollTop={true} initFilter={initialFilters} api={apiContent.getMyReviewList}>
+    <FetcherList 
+      isScrollTop={true} 
+      initFilter={initialFilters} 
+      api={apiContent.getMyReviewList}
+      reloadDataReviewStart={reloadDataReviewStart}  
+      setReloadDataReviewStart={setReloadDataReviewStart}  
+    >
       {(data) => {
         const {
           count,
@@ -26,6 +32,12 @@ const MyReviewsComponent = ({ setModalStates }) => {
           isNext,
           isPrev,
         } = data;
+        const updateItems = () =>{
+          console.log('data',data)
+          setReloadDataReviewStart(false)
+          data?.reload();}
+         reloadDataReviewStart ? updateItems():null
+        
         return (
           <>
             {results.map((el) => {

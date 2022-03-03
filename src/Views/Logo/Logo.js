@@ -23,8 +23,13 @@ useEffect(()=>{
         [style['mobile']]: mobile,
       })}
     >
-      <img src={logoFirm} label="Fashion Town" />
-      
+      {/* <img src={logoFirm} label="Fashion Town" /> */}
+      <div 
+        className={style["logo-img"]}
+        style={{
+          backgroundImage: `url(${logoFirm})`
+        }}
+      ></div>
      { /*<GxIcon src={site_configuration?.logo_1} label="Fashion Town" /> */}
     </NavLink>
 

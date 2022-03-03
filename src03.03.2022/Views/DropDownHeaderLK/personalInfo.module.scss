@@ -1,0 +1,47 @@
+@import '../../styles/fonts/index.scss';
+.wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  &-ellipse {
+    // font-family: Cormorant Garamond;
+    @extend %font;
+    height: 60px;
+    width: 60px;
+    font-size: 32px;
+    border-radius: 60px;
+    align-items: center;
+    line-height: 170%;
+    border: 2px solid var(--gx-color-lightmauve);
+    box-sizing: border-box;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  &-name_and_role {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--gx-color-primary);
+    letter-spacing: 0.02em;
+    padding-left: 10px;
+    max-width: calc(100% - 60px);
+    word-wrap: break-word;
+    p {
+      margin: 0;
+    }
+    &-name {
+    }
+    &-role {
+      position: relative;
+      top: -5px;
+      font-weight: normal;
+      font-size: 12px;
+      opacity: 0.5;
+    }
+  }
+}
+
+.icon {
+  --icon-width: 16px;
+  --icon-height: 16px;
+}

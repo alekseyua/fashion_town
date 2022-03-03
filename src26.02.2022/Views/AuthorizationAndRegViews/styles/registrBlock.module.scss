@@ -1,0 +1,19 @@
+.wrapper {
+  width: 100%;
+  &-help_text {
+    color: var(--gx-color-darkgray2);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 140%;
+    letter-spacing: 0.04em;
+  }
+  &-link {
+    color: var(--gx-color-blue);
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    letter-spacing: 0.04em;
+  }
+}

@@ -35,6 +35,8 @@ const Card = ({
   review_videos,
   setModalStates,
 }) => {
+  console.log('created_at', created_at)
+
   const widthScreen = window.innerWidth;
   const getPlusPhoto = () => {
     if (widthScreen <= 375) {
@@ -87,9 +89,10 @@ const Card = ({
           <div className={style['cabinet_history__card_publication']}>
             <div>
               <p className={style['cabinet_history__card_head']}>
-                {dayjs(created_at).format('DD.MM.YYYY')}
+                {/* {dayjs(created_at).format('DD.MM.YYYY')} */}
+                {dayjs(api.language, created_at).format('DD.MM.YYYY')}
               </p>
-              <p className={style['cabinet_history__card_text']}>34 бонуса (-ов)</p>
+              {/* <p className={style['cabinet_history__card_text']}>34 бонуса (-ов)</p> */}
             </div>
             <div className={style['cabinet_history__card_bonus_wrap']}>
               <div className={style['cabinet_history__card_bonus_likes_wrap']}>

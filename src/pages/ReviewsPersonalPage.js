@@ -13,7 +13,10 @@ const ReviewsPersonalPage = (props) => {
   const { is_has_shop, shop_link } = shop;
   const { username } = user;
   //todo: можно пропсом кастрировать футер
-
+  const [reloadDataReviewStart, setReloadDataReviewStart] = useState(false);
+  const reloadDataReview = () => {
+    setReloadDataReviewStart(true)
+  }
   return (
     <Layout responsive {...props}>
       <Modal.ModalCreator {...modalStates} setModalStates={setModalStates} />
@@ -34,10 +37,14 @@ const ReviewsPersonalPage = (props) => {
         }
         rightChildComponent={
           <>
-            <MyReviewsViews.ProfileLevelData setModalStates={setModalStates} profile={profile.id} />
+            <MyReviewsViews.ProfileLevelData setModalStates={setModalStates} profile={profile.id} reloadDataReview={reloadDataReview}/>
             <MyReviewsViews.WrapperHistory>
               <MyReviewsViews.HistoryHead />
-              <MyReviewsComponent setModalStates={setModalStates} />
+              <MyReviewsComponent 
+                setModalStates={setModalStates} 
+                reloadDataReviewStart={reloadDataReviewStart} 
+                setReloadDataReviewStart={setReloadDataReviewStart}
+              />
             </MyReviewsViews.WrapperHistory>
           </>
         }

@@ -35,6 +35,7 @@ const ProductPreview = ({
   breadcrumbs = [],
   productId = 0,
   title = 'title',
+  article = 'test article',
   brand,
   prices = { more_3_item_price: 0, more_5_item_price: 0, old_price: 0, price: 0 },
   recommended_price = 0,
@@ -168,6 +169,7 @@ const ProductPreview = ({
           collections: getCollections(res.collections),
           is_collection: res.is_collection,
           product_sku: res?.product_sku,
+          article: res?.article ? res?.article : res.id,
         });
       })
       .catch(err=>console.error(`ERROR getProduct(newProductId) ${err}`));
@@ -235,7 +237,8 @@ const ProductPreview = ({
         site_configuration={site_configuration}
         collections={prodSectionsProp.collections}
         is_collection={prodSectionsProp.is_collection}
-          product_sku={prodSectionsProp.product_sku}
+        product_sku={prodSectionsProp.product_sku}
+        article={prodSectionsProp?.article}
       />
       {prodSectionsProp.content || prodSectionsProp.extra ? (
         <SectionDescription content={prodSectionsProp.content} extra={prodSectionsProp.extra} />

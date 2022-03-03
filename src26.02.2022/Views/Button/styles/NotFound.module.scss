@@ -1,0 +1,30 @@
+@import '../../../styles/variables/index';
+.btn {
+  --gx-transition-fast: 0.3s;
+  --gx-input-height-medium: auto;
+  &::part(base) {
+    outline: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    padding: 0;
+    color: var(--gx-color-primary2);
+    border: 2px solid transparent;
+    background: transparent;
+    text-align: right;
+    letter-spacing: 0.04em;
+    line-height: 140%;
+    border-bottom: 1px dashed #4b454b80;
+    @include tablet-lg {
+      font-size: 18px;
+    }
+    &:hover {
+      opacity: 0.9;
+    }
+    &:active {
+      opacity: 1;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

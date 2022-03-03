@@ -19,7 +19,7 @@ import { v4 } from 'uuid';
 import styleModal from '../../Views/ModalCreator/modalCreator.module.scss';
 import { useHistory } from 'react-router-dom';
 import Popupe from '../Popupe';
-
+import {ROLE} from '../../const'
 
 const AsyncWorldStandardSizesChart = AsyncComponent(() => {
   return import('../../Views/WorldStandardSizesChart');
@@ -75,12 +75,15 @@ const SectionProdPage = ({
   role_configuration,
   site_configuration,
   product_sku,
+  article,
   ...props
 }) => {
   const history = useHistory();
   const { currenssies } = useStoreon('currenssies'); //currenssies
   const [modalStates, setmodalStates] = useState({ show: false });
-  const { stateCountCart, dispatch } = useStoreon('stateCountCart')
+  const { stateCountCart, dispatch } = useStoreon('stateCountCart');
+  const { userPage } = useStoreon('userPage');
+  const {role} = userPage.profile;
   const shereRef = useRef();
   const collectionRef = useRef();
 
@@ -123,6 +126,8 @@ const SectionProdPage = ({
   const [reviewsCountHook, setReviewsCountHook] = useState();
   const [reviewHook, setReviewHook] = useState();
   const [mediaHook, setMediaHook] = useState();
+  const [mediaFirstHook, setMediaFirstHook] = useState();
+
   let newProduct_sku = [];//Array.from(product_sku);
   const [showPopapInfoColection, setShowPopapInfoColection] = useState({
     show: false,
@@ -328,7 +333,10 @@ useEffect(() => {
         })
     }
   };
+
+
   //   //******************сделать попап******************************* */
+  
   const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
     setCustomModalStates({
       ...customModalStates,
@@ -343,7 +351,7 @@ useEffect(() => {
               priceOneProduct={recommended_priceHook}
               allPrice={pricesHook.old_price}
               currentPrice={pricesHook.price}
-              image={mediaHook[0].image_thumb}
+              image={mediaHook[0].image.includes('http://') ? mediaHook[0].image : mediaFirstHook[0].image}
               handleClose={closeCustomModal}
               />
           </ModalContentViews.ContentBlock>
@@ -355,7 +363,7 @@ useEffect(() => {
 // ******************************************************************************************************
   newProduct_sku = mediaHook;
   const getColorForMedia = (colorData) =>{
-    console.log('click color', colorData);
+    setMediaFirstHook(media)
     let arr = Array.from(product_sku);
     let filterArr = arr.filter(item => item.color === colorData);
     setMediaHook(filterArr);
@@ -565,7 +573,11 @@ useEffect(() => {
                       styleSocialItems={styleSocialItems}
                       media={mediaHook}
                     />
-                    <ProductDetailsViews.BrandName name={brandHook} />
+                    {
+                      role === ROLE.RETAIL || role === ROLE.UNREGISTRED?
+                      null
+                    :<ProductDetailsViews.BrandName name={brandHook} />
+                    }
                     {titleHook && titleHook !== 'title' ? (
                       <Title variant={'prodpage__title'} type={'h1'}>
                         {titleHook}
@@ -623,6 +635,7 @@ useEffect(() => {
                         description={role_configuration.delivery_condition}
                       />
                     ) : null}
+                    <div><h5>Артикл: {article}</h5></div>
                   </ProductDetailsViews.DataProductRigth>
                 </ProductDetailsViews.DataProductRow>
               </Container>

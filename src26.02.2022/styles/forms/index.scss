@@ -1,0 +1,22 @@
+.form {
+
+  &-group {
+    margin-bottom: 22px;
+    position: relative;
+  }
+  &--alignright {
+    @include flex(rc);
+  }
+  &-input {
+    &__iconright {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+
+      gx-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}

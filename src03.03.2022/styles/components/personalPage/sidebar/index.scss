@@ -1,0 +1,154 @@
+.cabinet {
+  &-sidebar {
+    &user {
+      background: #FFF2F3;
+      margin-bottom: 30px;
+      border-radius: 2px;
+    }
+    &store {
+      background: #F7F4FC;
+      margin-bottom: 30px;
+      border-radius: 2px;
+    }
+    &__top {
+      @include flex(lc);
+      padding: 30px 30px 20px;
+    }
+    &__ava {
+
+      &wrap {
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        background: $w;
+        border: 2px solid $pi2;
+        flex-shrink: 0;
+        margin-right: 20px;
+        @include flex(cc);
+        overflow: hidden;
+
+        .cabinet-sidebarstore & {
+          border-color: $dg2;
+        }
+      }
+      &name {
+        @extend %font-head;
+        @include h(3);
+      }
+      // &img {
+      //   max-width: 60px;
+      //   max-height: 60px;
+      //   object-fit: cover;
+      // }
+    }
+    &__user {
+
+      &info {
+        width: 100%;
+      }
+      &name {
+        @extend %cab-h2;
+        margin-bottom: 3px;
+      }
+      &role {
+        @extend %text-small;
+        opacity: .5;
+      }
+    }
+    &__balance {
+
+      &row {
+        @include flex(sc);
+        padding: 0 30px 20px;
+      }
+      &block {
+
+      }
+      &label {
+        @extend %text-small;
+        opacity: .5;
+      }
+      &value {
+        @extend %cab-h1;
+        color: $a2;
+      }
+      &btns {
+        flex-shrink: 0;
+      }
+    }
+    &__menu {
+      padding-bottom: 30px;
+
+      &link {
+        padding: 9px 30px;
+        display: block;
+        letter-spacing: .5px;
+        color: $p;
+        font-size: 16px;
+        position: relative;
+        width: 100%;
+        @include tablet-md {
+          width: 33%;
+        }
+        @include mobile {
+          padding: 9px 5px;
+        }
+        @include mobile-lg {
+          width: 100%;
+        }
+        &.active {
+        /*   background: $pil; */
+
+          .cabinet-sidebarstore & {
+            background: #eae4f5;
+          }
+        }
+        &:hover {
+          // color: $a2;
+          color: $p;
+          color: var(--gx-color-primary);
+          background: #ffeaee;
+
+          .cabinet-sidebarstore & {
+            background: #f2eef9;
+          }
+        }
+      }
+      &count {
+        @include flex(cc);
+        position: absolute;
+        right: 30px;
+        top: 8px;
+        border-radius: 12px;
+        background: $pil;
+        min-width: 24px;
+        height: 24px;
+        padding-left: 4px;
+        padding-right: 4px;
+        color: $p;
+        font-size: 14px;
+        font-weight: bold;
+
+        .cabinet-sidebarstore & {
+          background: #eae4f5;
+        }
+      }
+    }
+    &__newstorebtn {
+      @extend %text-btn;
+      @include flex(cc);
+      background: $p;
+      color: $w;
+      margin-bottom: 30px;
+      padding: 19px 30px;
+      border-radius: 2px;
+
+      img {
+        width: 20px;
+        height: 20px;
+        display: block;
+        margin-right: 10px;
+      }
+    }
+  }
+}
