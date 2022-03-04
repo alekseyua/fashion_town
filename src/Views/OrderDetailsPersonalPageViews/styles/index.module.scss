@@ -1,40 +1,53 @@
 @import '../../../styles/variables/index.scss';
 @import '../../../styles/fonts/index.scss';
-.cabinet_orders_details {
-   &__text-link{
-      font-size: 18px;
-      margin: 0;
-      color: #2B3044;
-      // &:hover {
-      //     --spacing: 4px;
-      //     --stroke: #275EFE;
-      //     --stroke-delay: .1s;
-      //     --offset: 180px;
-      // }
+@import '../../../styles/global/index.scss';
+
+
+p {
+    position: relative;
+    font-size: 20px;
+    top: 0px;
+    margin: 0;
+    color: var(--textLink);
+    a {
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        margin: 0 var(--spacing, 0px);
+        transition: margin .25s;
+        &>svg {
+            width: 96px;
+            height: 55px;
+            position: absolute;
+            min-width: 100%;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, 7px) translateZ(0);
+            fill: none;
+            stroke: var(--stroke, var(--line));
+            stroke-linecap: round;
+            stroke-width: 2px;
+            stroke-dasharray: var(--offset, 79px) 268px;
+            stroke-dashoffset: 371px;
+            transition: stroke .25s ease var(--stroke-delay, 0s), stroke-dasharray .35s;
+        }
+        &:hover {
+            --spacing: 4px;
+            --stroke: var(--line-active);
+            --stroke-delay: .1s;
+            --offset: 190px;
+            margin-left: 0px;
+        }
     }
-    // &__link {
-    //     display: inline-block;
-    //     position: relative;
-    //     text-decoration: none;
-    //     color: inherit;
-    //     margin: 0 var(--spacing, 0px);
-    //     transition: margin .25s;
-    // }
-    // &__image {
-    //         width: 76px;      </div>
-    //         height: 40px;
-    //         position: absolute;
-    //         left: 50%;
-    //         bottom: 0;
-    //         transform: translate(-50%, 7px) translateZ(0);
-    //         fill: none;
-    //         stroke: var(--stroke, var(--line));
-    //         stroke-linecap: round;
-    //         stroke-width: 2px;
-    //         stroke-dasharray: var(--offset, 69px) 278px;
-    //         stroke-dashoffset: 361px;
-    //         transition: stroke .25s ease var(--stroke-delay, 0s), stroke-dasharray .35s;
-    //     }
+}
+
+
+
+.cabinet_orders_details {
+  &__info{
+    padding: 10px 20px;
+  }
   &__card {
     display: flex;
     justify-content: space-between;
@@ -57,7 +70,7 @@
     margin-left: 15px;
     @extend %font;
     color: $dg2;
-    font-size: 14px;
+    font-size: 24px;
     line-height: 140%;
   }
   &__track {
@@ -68,15 +81,16 @@
     padding-bottom: 20px;
     margin-bottom: 20px;
     @include flex(cc);
-    @include mobile {
-      flex-direction: column;
-    }
+    flex-direction: column;
   }
   &__number {
     font-size: 22px;
     font-weight: bold;
     margin-left: 10px;
-  }
+     word-break: break-word;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    }
   &__ordercard {
     box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
     border-radius: 6px;
@@ -230,6 +244,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    margin-right: 20px;
   }
   &__paystatus {
     color: $a;

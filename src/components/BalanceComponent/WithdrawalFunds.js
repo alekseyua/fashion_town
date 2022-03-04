@@ -24,7 +24,7 @@ const WithdrawalFunds = ({ setModalStates }) => {
 
   return (
     <PersonalPageViews.WrapperForm>
-      <PersonalPageViews.HeadingBlock title={'Вывод денежных средств'} />
+      <PersonalPageViews.HeadingBlock title={'Возврат денежных средств в связи с отменой заказа'} />
       <PersonalPageViews.ContentBlock>
         <PersonalPageViews.SmallTextGray>
           Вы можете оплачивать покупки или вывести деньги на реквизиты банковского счета физического

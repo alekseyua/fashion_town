@@ -93,7 +93,6 @@ import catalogIcon from './icon/catalogIcon.svg';
 import arrowDown from './icon/arrowDownNoFill.svg';
 import arrowTop from './icon/arrowTopNoFill.svg';
 import chatIcon from './icon/chat.svg';
-
 // CategoryCard
 import categoryCard1 from './CategoryCard/categoryCard-1.jpg';
 import categoryCard2 from './CategoryCard/categoryCard-2.jpg';
@@ -166,7 +165,13 @@ import reviewMiddle from './landing/reviewMiddle.png';
 import reviewBottom from './landing/reviewBottom.png';
 import reviewImage from './landing/head.png';
 
+//link
+import link from './link/link.svg';
+
+
+
 export {
+  link,
   logo,
   dropdownIcon,
   closeIcon,

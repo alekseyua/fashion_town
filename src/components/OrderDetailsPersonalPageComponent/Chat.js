@@ -99,7 +99,7 @@ const Chat = ({ order_id, setModalStates }) => {
         return (
           <GxForm noValidate onSubmit={handleSubmit}>
             <OrderDetailsPersonalPageViews.WrapperChat>
-              <OrderDetailsPersonalPageViews.HeadChat />
+              <OrderDetailsPersonalPageViews.HeadChat setModalStates={setModalStates}/>
               <OrderDetailsPersonalPageViews.ChatFieldsWrapper>
                 {correspondenceState.map((el, i) => {
                   if (el.is_me) {

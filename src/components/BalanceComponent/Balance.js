@@ -58,9 +58,11 @@ const Balance = ({ setModalStates, role }) => {
             />
           ) : null}
         </PersonalPageViews.BalanceItemsWrapper>
+        {ROLE.RETAIL !== role ? (
         <Button onClick={openModalPay} variant={'cabinet_default'}>
           пополнить баланс 
         </Button>
+        ) : null}
       </PersonalPageViews.ContentBlock>
     </PersonalPageViews.WrapperForm>
   );

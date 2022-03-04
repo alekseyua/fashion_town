@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +7,7 @@ import { GxIcon } from '@garpix/garpix-web-components-react';
 import VidjetChatComponent from '../components/VidjetChatComponent';
 import ButtonScrollTopComponent from '../components/ButtonScrollTopComponent';
 import { useStoreon } from 'storeon/react';
+import Modal from '../Views/ModalCreator';
 
 const Layout = ({
   headerModClosed = false,
@@ -16,7 +17,7 @@ const Layout = ({
   title = 'Main title',
   description = '',
   main_menu,
-  cabinet_menu,
+  cabinet_menu, 
   header_menu,
   footer_menu,
   announce,
@@ -32,6 +33,8 @@ const Layout = ({
 
 const { userPage } = useStoreon('userPage');
 const { profile } = userPage;
+const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
+  modalStates ? console.log('modalState', modalStates):null
 if ( profile === undefined ){
   window.location?.reload()
 }
@@ -64,6 +67,8 @@ if ( profile === undefined ){
         <meta name="description" content={description} />
       </Helmet>
       <main className={mainClassModufy}>
+        <Modal.ModalCreator {...modalStates} setModalStates={setModalStates} />
+        <Modal.StorControllerModal />
         <VidjetChatComponent />
         {children}
        <ButtonScrollTopComponent/>

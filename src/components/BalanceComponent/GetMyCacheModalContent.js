@@ -26,12 +26,13 @@ const GetMyCacheModalContent = ({ closeModal }) => {
     longComments: Text({ text: 'long.comments' }),
   };
   const onSubmit = () => {
+    console.log('click get many')
     //!
   };
   return (
     <ModalContentViews.ModalWrapper customClassName={'modal-payments'}>
       <ModalContentViews.CloseBtn closeModal={closeModal} />
-      <ModalContentViews.HeaderBlock mb={'20px'} title={'Вывод денежных средств'} />
+      <ModalContentViews.HeaderBlock mb={'20px'} title={'Возврат денежных средств в связи с отменой заказа'} />
       <ModalContentViews.WarningBlock>
         Оформление возврата возможно только при наличии скан-копии заявления на возврат,
         прикрепленного в форматах .jpg (jpeg), .png, bmp, .zip, .rar, .pdf. Для отправки нескольких
