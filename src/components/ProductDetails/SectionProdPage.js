@@ -635,7 +635,7 @@ useEffect(() => {
                         description={role_configuration.delivery_condition}
                       />
                     ) : null}
-                    <div><h5>Артикл: {article}</h5></div>
+                    <div><h5><strong>Артикул:</strong> {article}</h5></div>
                   </ProductDetailsViews.DataProductRigth>
                 </ProductDetailsViews.DataProductRow>
               </Container>

@@ -19,7 +19,7 @@ const App = ({ lang, pageServer, ...props }) => {
   const { dispatch } = useStoreon();
   const { stateCountRestart } = useStoreon('stateCountRestart');
   const { updateCurrenssies } = useStoreon('updateCurrenssies');
-  const { updateCurrenssiesForOrders } = useStoreon('updateCurrenssiesForOrders');
+  const { stateUpdateBalance } = useStoreon('stateUpdateBalance');
   const { statusRequstOrderCountryPayment } = useStoreon('statusRequstOrderCountryPayment');
 
   
@@ -33,14 +33,12 @@ const App = ({ lang, pageServer, ...props }) => {
   if (token){
   //********************************************************************************* */ 
   useEffect(() => {
-    console.log('stateCountCart')
     api
       .cartApi
       .getCartData()
       .then(res => {
          dispatch('stateCountCart/add', res)
 
-        // dispatch('updateCurrenssiesForOrders/update', !updateCurrenssiesForOrders)
     })
       .catch(err => console.log("ERROR CONNECT!!!!", err))
   }, [stateCountRestart, updateCurrenssies])
@@ -64,7 +62,8 @@ const App = ({ lang, pageServer, ...props }) => {
       .catch(err => console.error(`ERROR BALANCE ${err}`))
   }, [
     updateCurrenssies,
-    stateValuePoly.statePayment
+    stateValuePoly.statePayment,
+    stateUpdateBalance
   ])
 
   //********************************************************************************* */ 

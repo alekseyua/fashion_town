@@ -5,6 +5,7 @@ import style from './newsCard.module.scss';
 
 const NewsCard = (props) => {
   const { img, title, date, url = '#', description = '' } = props;
+  
   return (
     <div className={style['news-card']}>
       <div className={style['news-card-wrap']}>

@@ -4,18 +4,18 @@
 
 
 p {
-    position: relative;
-    font-size: 20px;
-    top: 0px;
-    margin: 0;
-    color: var(--textLink);
+    // position: relative;
+    // font-size: 20px;
+    // top: 0px;
+    // margin: 0;
+    // color: var(--textLink);
     a {
-        display: inline-block;
-        position: relative;
-        text-decoration: none;
-        color: inherit;
-        margin: 0 var(--spacing, 0px);
-        transition: margin .25s;
+        // display: inline-block;
+        // position: relative;
+        // text-decoration: none;
+        // color: inherit;
+        // margin: 0 var(--spacing, 0px);
+        // transition: margin .25s; 
         &>svg {
             width: 96px;
             height: 55px;
@@ -56,6 +56,7 @@ p {
     border: 1px solid $g;
     margin-bottom: 10px;
     flex-direction: column;
+    overflow: hidden;
   }
   &__title {
     @include h(4);
@@ -115,6 +116,7 @@ p {
     &-block {
       display: flex;
       justify-content: space-around;
+      max-width: 100%;
     }
   }
   &__image {
@@ -139,6 +141,7 @@ p {
   &__base_info {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
     font-style: normal;
     &__wrapper {
       @include row(9);
@@ -148,13 +151,14 @@ p {
       }
     }
     &__col {
-      @include col(6, 9);
+      @include col(6, 8);
       @include mobile-lg {
         width: 100%;
         padding-left: 9px;
         padding-right: 9px;
         margin: 0;
       }
+      flex-wrap: nowrap;
     }
     &__brand {
       font-weight: 500;
@@ -177,18 +181,24 @@ p {
       margin-bottom: 5px;
       display: flex;
       flex-wrap: nowrap;
-      flex-direction: column;
+      // flex-direction: column;
+      min-width: 150px;
       &-black {
         color: $p2;
       }
       &-red {
         color: $rd;
       }
-      &-status {
+      &--status-main{
+        display: flex;
+
+      }
+      &--status {
         background-color: rgba(243, 239, 243, 0.7);
         border-radius: 4px;
         color: $p2;
       }
+
     }
     &__icon {
       width: 16px;
@@ -328,8 +338,10 @@ p {
     }
     &left,
     &right {
-      @include col(6, 15);
-      @include mobile {
+      @include col(15, 15);
+      // @include col(6, 15);
+
+      @include mobile { 
         @include col(12, 0);
       }
     }
@@ -342,10 +354,12 @@ p {
   }
   &__chat {
     box-shadow: 0px 0px 44px rgba(0, 0, 0, 0.15);
-    margin-top: 30px;
+    // margin-top: 30px;
     margin-bottom: 10px;
     position: sticky;
-    top: 200px;
+    max-width: 370px;
+    min-width: 320px;
+    // top: 200px;
     &_head {
       // @extend %cab-h2;
       @include h(3);
@@ -362,7 +376,7 @@ p {
       }
     }
     &_field {
-      height: 450px;
+      height: 350px;
       overflow-y: auto;
       display: flex;
       flex-direction: column-reverse;
@@ -537,13 +551,25 @@ p {
   }
 }
 
+.btn__order-item--block-canceled{
+  display: flex;
+  justify-content: flex-end
+}
+
 .btn__order-item--canceled{
-  color: rgb(134, 98, 216);
-  margin-top: 5px;
-  border-radius: 10%;
-  transition: .6s all ease-out;
+  transition: background-color .6s ease-out;
+  font-size: 14px; 
+  cursor: pointer;
+  margin-bottom: 2px;
+  background-color: rgba(242, 142, 142, .789);
+  border: none;
+  padding: 3px;
+  
   &:hover{
-    background-color: rgb(211, 65, 65);
+    // width: 100%;
+    // height: 100%; 
+    color:rgb(255, 255, 255);
+    background-color: rgba(138, 0, 0, .5);
   }
 }
 // ********************************************
@@ -555,12 +581,23 @@ p {
       background-color: $g;
       height: 100%;
       padding: 10px;
+      width: 100%;
       overflow-y: auto;
       &-comment {
         max-width: 100%;
         display: block;
-        word-wrap: break-word;
-        margin-bottom: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 10px;
+        &-text{
+          flex: 0 1 80%;
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+        }
+        &-image{
+          flex: 0 0 40px;
+        }
       }
       &-files {
         max-width: 100%;

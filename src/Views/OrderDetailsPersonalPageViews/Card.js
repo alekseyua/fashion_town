@@ -13,8 +13,9 @@ const Card = ({
   title,
   size,
   color,
-  change_agreement,
+  change_agreement, 
   comment,
+  commentImage = 'http://91.218.229.240:8000/media/uploads/2022/2/photo-2022-02-19-12-07-11-iiata_225x300.jpg',
   order,
   prices,
   image,
@@ -24,7 +25,6 @@ const Card = ({
   id,
   setModalStates,
 }) => {
-  // console.log('statusOrder={status}', statusOrder)
   const apiCart = api.cartApi;
   const { stateValuePoly, dispatch } = useStoreon('stateValuePoly');
   const fileInputRef = React.useRef(null);
@@ -34,7 +34,7 @@ const Card = ({
     text: null
   });
   const [idGoods, setIdGoods] = useState();
-  const [textComment, setTextComment] = useState(comment);
+  const [textComment, setTextComment] = useState({ comment: comment, image: commentImage});
 
   const [amountFile, setAmountFile] = useState(null);
   const fd = new FormData();
@@ -65,9 +65,14 @@ const Card = ({
     api.orderApi
       .orderAddComment(fd)
       .then(res => {
-        setTextComment(res.answer)
+        // setTextComment(res.answer)
         console.log(`RESAULT orderAddComment "scabinet_orders_icon-paymentendFilesFromFileField"${res}`, res);
-        setTextComment(res.comment)
+        setTextComment(
+          {
+            comment: res?.comment,
+            image: res?.image
+          }
+          )
 
         setStateFile({
           id: 1,
@@ -204,7 +209,6 @@ const Card = ({
     });
   };
 
-  console.log('amountFile', stateFile)
   return (
     <div className={style['cabinet_orders_details__card']}>
       <div className={style['cabinet_orders_details__wrapper-block']}>
@@ -258,7 +262,7 @@ const Card = ({
                 </span> */}
               </div>
               <div className={style['cabinet_orders_details__base_info__desc']}>
-              <div>
+                <div className={style['cabinet_orders_details__base_info__desc--status-main']}>
                 {status.id !== 'payment_waiting' && status.id !== 'paid' && status.id !== 'packaging' && status.id !== 'sended' ?
                   <GxIcon
                     slot="icon-left"
@@ -276,23 +280,28 @@ const Card = ({
                           : null
                 }
                 {/* id: "ordered" title: "Товар заказан" */}
-                <span className={style["cabinet_orders_details__base_info__desc-status"]}>
+                <span className={style["cabinet_orders_details__base_info__desc--status"]}>
                   {status.title}
                 </span>
                 </div>
-                <div>
-                {status.id === 'payment_waiting' || status.id === 'collection' || status.id === 'paid'  ?
-                  (<GxButton
-                    variant="default"
-                    className={style['btn__order-item--canceled']}
-                    key={id}
-                    onClick={() => deleteElementOrder(id, order)}
-                  >отменить</GxButton>
-                  ) : null
-                }
-                </div>
+
               </div>
             </div>
+          </div>
+
+          <div
+            className={style['btn__order-item--block-canceled']}
+          >
+            {status.id === 'payment_waiting' || status.id === 'collection' || status.id === 'paid' || status.id === 'redeemed' ?
+            (<button
+            variant="default"
+            className={style['btn__order-item--canceled']}
+            key={id}
+            onClick={() => deleteElementOrder(id, order)}
+            >отменить</button>
+            ) : null
+            }
+            {/* 🗑️ отменить */}
           </div>
 
         </div>
@@ -310,16 +319,37 @@ const Card = ({
           if (!Array.isArray(preview) && preview) {
             preview = [preview];
           }
+  function splitString(stringToSplit, separator) {
+    var arrayOfStrings = stringToSplit.split(separator);  
+    return arrayOfStrings
+  }
+  
 
           return (
             <div className={style['ordering_comment']}>
               <div className={style['ordering_comment__field']}>
                 <div
                   className={style['ordering_comment__field-comment']}
-                // onClick={(e)=>console.log("sss",e.current.value)} 
                 >
-                  {textComment}
-                  {/* {state.comment_render[id]} */}
+                  <div
+                   className={style['ordering_comment__field-comment-text']}
+                  >
+                  {splitString(textComment.comment, '_').map(el=>{
+                    return <span>{el}</span>
+                  })}
+                  </div>
+                  {textComment.image?<div 
+                    className={style['ordering_comment__field-comment-image']}
+                    style={
+                    { 
+                      backgroundImage: `url(${textComment.image})`,
+                        backgroundPosition: 'center',
+                      backgroundRepeat:'no-repeat',
+                        backgroundSize: 'contain',
+                        width : '40px',
+                        height: '70px'
+                      }
+                  }></div>:null}
                 </div>
                 <div className={style['ordering_comment__field-files']}>
                   {/* {state.files[id] && renderImageSet(state.files[id], serializeFileList)} */}
@@ -389,184 +419,3 @@ const Card = ({
 };
 
 export default React.memo(Card);
-
-//      {/* Card 1 end */}
-//      <div className="cabinet_orders_details__card">
-//      <div className="cabinet_orders_details__wrapper-block">
-//        <img src={productCard1} className="cabinet_orders_details__image_thumb" />
-//        <div className="cabinet_orders_details__base_info">
-//          <div className="cabinet_orders_details__base_info__brand">NAME BRAND</div>
-//          <div className="cabinet_orders_details__base_info__title">Свитер такой-то</div>
-//          <div className="cabinet_orders_details__base_info__wrapper">
-//            <div className="cabinet_orders_details__base_info__col">
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <Text text={'size'} />:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">S</span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <Text text={'color'} />:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  пепельно-розовый
-//                </span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Замена:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  разрешена
-//                </span>
-//              </div>
-//            </div>
-//            <div className="cabinet_orders_details__base_info__col">
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Кол-во:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">1 шт.</span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Цена:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-red">90 zl </span>
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  (45 ZL/шт.)
-//                </span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <GxIcon
-//                  slot="icon-left"
-//                  src={change}
-//                  className="cabinet_orders_details__base_info__icon"
-//                />
-//                <span className="cabinet_orders_details__base_info__desc-status">
-//                  Замена
-//                </span>
-//              </div>
-//            </div>
-//          </div>
-//          <div className="cabinet_orders_details__base_info__desc">
-//            Комментарий:{' '}
-//            <span className="cabinet_orders_details__base_info__desc-black">
-//              какой-то текст в несколько строк возможен здесь какой-то текст в несколько
-//              строк возможен здесь
-//            </span>
-//          </div>
-//        </div>
-//      </div>
-//    </div>
-//    {/* Card 2 end */}
-//    <div className="cabinet_orders_details__card">
-//      <div className="cabinet_orders_details__wrapper-block">
-//        <img src={productCard1} className="cabinet_orders_details__image_thumb" />
-//        <div className="cabinet_orders_details__base_info">
-//          <div className="cabinet_orders_details__base_info__brand">NAME BRAND</div>
-//          <div className="cabinet_orders_details__base_info__title">Свитер такой-то</div>
-//          <div className="cabinet_orders_details__base_info__wrapper">
-//            <div className="cabinet_orders_details__base_info__col">
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <Text text={'size'} />:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">S</span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <Text text={'color'} />:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  пепельно-розовый
-//                </span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Замена:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  разрешена
-//                </span>
-//              </div>
-//            </div>
-//            <div className="cabinet_orders_details__base_info__col">
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Кол-во:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">1 шт.</span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Цена:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-red">90 zl </span>
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  (45 ZL/шт.)
-//                </span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <GxIcon
-//                  slot="icon-left"
-//                  src={change}
-//                  className="cabinet_orders_details__base_info__icon"
-//                />
-//                <span className="cabinet_orders_details__base_info__desc-status">
-//                  Замена
-//                </span>
-//              </div>
-//            </div>
-//          </div>
-//          <div className="cabinet_orders_details__base_info__desc">
-//            Комментарий:{' '}
-//            <span className="cabinet_orders_details__base_info__desc-black">
-//              какой-то текст в несколько строк возможен здесь какой-то текст в несколько
-//              строк возможен здесь
-//            </span>
-//          </div>
-//        </div>
-//      </div>
-//    </div>
-//    {/* card 3 end */}
-//    <div className="cabinet_orders_details__card">
-//      <div className="cabinet_orders_details__wrapper-block">
-//        <img src={productCard1} className="cabinet_orders_details__image_thumb" />
-//        <div className="cabinet_orders_details__base_info">
-//          <div className="cabinet_orders_details__base_info__brand">NAME BRAND</div>
-//          <div className="cabinet_orders_details__base_info__title">Свитер такой-то</div>
-//          <div className="cabinet_orders_details__base_info__wrapper">
-//            <div className="cabinet_orders_details__base_info__col">
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <Text text={'size'} />:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">S</span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <Text text={'color'} />:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  пепельно-розовый
-//                </span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Замена:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  разрешена
-//                </span>
-//              </div>
-//            </div>
-//            <div className="cabinet_orders_details__base_info__col">
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Кол-во:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-black">1 шт.</span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                Цена:{' '}
-//                <span className="cabinet_orders_details__base_info__desc-red">90 zl </span>
-//                <span className="cabinet_orders_details__base_info__desc-black">
-//                  (45 ZL/шт.)
-//                </span>
-//              </div>
-//              <div className="cabinet_orders_details__base_info__desc">
-//                <GxIcon
-//                  slot="icon-left"
-//                  src={change}
-//                  className="cabinet_orders_details__base_info__icon"
-//                />
-//                <span className="cabinet_orders_details__base_info__desc-status">
-//                  Замена
-//                </span>
-//              </div>
-//            </div>
-//          </div>
-//          <div className="cabinet_orders_details__base_info__desc">
-//            Комментарий:{' '}
-//            <span className="cabinet_orders_details__base_info__desc-black">
-//              какой-то текст в несколько строк возможен здесь какой-то текст в несколько
-//              строк возможен здесь
-//            </span>
-//          </div>
-//        </div>
-//      </div>
-//    </div>

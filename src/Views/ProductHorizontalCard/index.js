@@ -150,7 +150,7 @@ const ProductHorizontalCard = ({
           <GxIcon src={closeRed} className={style['product__delete-mobile_icon']} />
         </Button>
       </div>
-      <div className={style['product__sales_info']}>
+      <div className={style['product__sales_info']}> 
         <div>
           {old_price !== '0.00' ? (
             <div className={style['product__sales_info-current_price-empty']}>{old_price}</div>

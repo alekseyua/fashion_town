@@ -25,7 +25,7 @@ const NewsComponent = ({ titlePage = 'новости', rubrics }) => {
     <NewViews.Wrapper>
       <Breadcrumbs breadcrumbs={tempBreadCrumbs} />
       <Title variant={'page__news'} type={'h1'}>
-        новости1
+        новости
       </Title>
       <FetcherList isScrollTop={true} initFilter={initialFilters} api={apiContent.getNews}>
         {(data) => {
@@ -44,7 +44,6 @@ const NewsComponent = ({ titlePage = 'новости', rubrics }) => {
             isNext,
             isPrev,
           } = data;
-
           return (
             <>
               <NewViews.Tags
@@ -55,19 +54,20 @@ const NewsComponent = ({ titlePage = 'новости', rubrics }) => {
                 activePage={activePage}
               />
               <NewViews.NewsContainer
-                key={data.id*222}
               >
                 {results.map((el, i) => {
-                  return (
+          console.log('results',el,i)
+
+                  return (<>
                     <NewsCard
-                      key={el.id + i}
+                      key={el.id}
                       img={el.image}
                       title={el.title}
                       date={el.created_at}
                       description={el.description}
                       url={el.url}
                     />
-                  );
+                  </>);
                 })}
               </NewViews.NewsContainer>
               <NewViews.PaginationContainer>

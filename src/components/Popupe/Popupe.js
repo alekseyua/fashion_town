@@ -40,8 +40,16 @@ useEffect(()=>{
   setCollectionsGoods(dataPopup)
 }, [dataPopup])
 
+const testCollection = (collections) =>{
+ let res = collections.items.sort((a, b) => (a.size.id > b.size.id) ? 1 : -1)
+    return res
+
+}
+
+
+
   return (
-    <motion.div
+    <motion.div 
       initial={{
         opacity:0
       }}
@@ -81,7 +89,7 @@ useEffect(()=>{
             />
           </ModalContentViews.ContentBlock>
         </ModalContentViews.ModalWrapper>
-      </GxModal>
+        </GxModal>
         <div className={style['popup__main']}>
           <button
               type="button"
@@ -105,7 +113,7 @@ useEffect(()=>{
             {dataPopup.map((collections, index) => {
               let res = dataPopup[index].items.map(redeemed => redeemed.redeemed)
                let enableBtn = res.filter(item=>item===false?true:false)
-              console.log(`dataPopup res ${index}`, enableBtn.length)
+              let colec = testCollection(collections)
               return(
               <li 
                 key={collections.id} 
@@ -123,7 +131,7 @@ useEffect(()=>{
                     <div className={style['popup__item-title item-title-body']}>
                     <div className={style['popup__item-title item-title']}>
                       <div className={style['item-title__image']}>
-                          <img src={collections?.items[0]?.size?.image} className={style['popup__image']} />
+                          <div style={{backgroundImage: `url(${collections?.items[0]?.size?.image})`}} className={style['popup__image']} />
                       </div>
                     </div>
                       <AsyncLabels items={lables} />
@@ -175,7 +183,8 @@ useEffect(()=>{
                               [style['prodpage-sizes__items']]: true
                             })}
                           >
-                            {collections.items.map((el, i) => {
+                            {colec.map((el, i) => {
+
                               return (
                                 <li key={el.size.uuid} className={style['prodpage-sizes__item']}>
                                   <GxButton
@@ -199,10 +208,6 @@ useEffect(()=>{
                     </div>
                   </div>
                   <div className={style['body-collectiion__control']}>
-
-
-
-
                     <button 
                       type="button" 
                         className={enableBtn.length ? style['body-collectiion__btn-apply'] : style['body-collectiion__btn-apply--disable']}
@@ -216,8 +221,7 @@ useEffect(()=>{
                             alert('Вы не указали размер заказа')
                           }
                         }
-                        }
-                        
+                        }                        
                     >
                         {enableBtn.length ?'Участвовать в сборе':'Сбор собран'}
                     </button>

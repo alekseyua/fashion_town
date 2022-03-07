@@ -166,8 +166,7 @@ const ExportCatalogComponents = ({ role, multy_choise_filters }) => {
                   Скачать фото
                 </Title>
                 <WarningBlock variant={'warning_wrapper__grid-texta2'} wrapVariant={'nomargin'}>
-                  Подсказка для дропшипперов, что у них действует ограничение на скачивание, если
-                  нет созданного и-м
+                  В данном разделе Вы можете скачивать фото понравившихся  товаров непосредственно на Ваши устройства. При желании можно использовать фильтр.
                 </WarningBlock>
               </CatalogViews.Catalog>
             </CatalogViews.Row>

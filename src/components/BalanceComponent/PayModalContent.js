@@ -34,6 +34,8 @@ const PayModalContent = ({
 
 
   const { userPage, dispatch } = useStoreon('userPage');
+  const { stateUpdateBalance } = useStoreon('stateUpdateBalance');
+
   const [stateClickSend, setStateClickSend] = useState(false)
   const [errClickSend, setErrClickSend] = useState(false)
 
@@ -60,31 +62,16 @@ const PayModalContent = ({
     fdPayments.set('comment', data.comment);
     fdPayments.set('receipt', data.receipt);
     if (fdPayments.get('receipt') === 'null'){
-      console.log('fdPayments----1', (fdPayments.get('receipt') === 'null'))
-      console.log('fdPayments----2', history.location.pathname === '/balance')
       setErrClickSend(true)
-      // let resulcConfirm = confirm('Вы не приложили копию чека об оплате (2 а варианта вернутся и приложить или оплатить позже)')
-
-      resulcConfirm ? null : history.location.pathname === '/balance' ? closeModal() : history.push('/balance')
-        // {< Prompt
-        //       message = {(location, action) => {
-        //   if (action === 'POP') {
-        //     console.log("Backing up...")
-        //   }
-
-        //   return location.pathname.startsWith("/app")
-        //     ? true
-        //     : `Are you sure you want to go to ${location.pathname}?`
-        // }}
-        // />}
-
+      resulcConfirm ? null : history.location.pathname === '/balance' ? closeModal() : history.push('balance')
     }else{
     setStateClickSend(true)
     orderApi
       .createPayments(fdPayments)
       .then((res) => {
-        dispatch('stateValuePoly/change', { statePayment: true })
-        !slug === 'balance' ? history.push('/orders') : history.push('/balance');
+        dispatch('stateUpdateBalance/update', !stateUpdateBalance)
+
+        !(slug === 'balance') ? history.push('orders') : history.push('balance');
         closeModal();
         callbackSubmit();
       })
@@ -100,7 +87,7 @@ const PayModalContent = ({
             }
           }
         }
-        !(slug === "balance") ? history.push('/cart') : history.push('/balance');
+        !(slug === "balance") ? history.push('cart') : history.push('balance');
         closeModal();
       });
     }

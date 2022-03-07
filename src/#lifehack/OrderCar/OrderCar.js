@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import './orderCar.css';
 import { useStoreon } from 'storeon/react';
 
- const OrderCar = (enabled, addOrder) => {
-	const [styleCar, setStyleCar] = useState('orderCar disable');
+const OrderCar = ({enabled, styleCar, setStyleCar}) => {
+	
 	const { orderFunc, dispatch } = useStoreon('orderFunc');
-	const [ clickCar, setClickCar ] = useState(enabled.enabled)
+	const [ clickCar, setClickCar ] = useState(enabled)
 		const lifehack = () =>{
-
+			window?.localStorage?.removeItem('numOrder')
 			setStyleCar('orderCar animate');
 			//return addOrder;
-			setClickCar(enabled.enabled) 
+			setClickCar(enabled) 
 			dispatch('orderFunc/state', true);
 		}
 
@@ -18,10 +18,10 @@ import { useStoreon } from 'storeon/react';
 		<div className="oderMain">
 			<button 
 				className={styleCar}
-				disabled={clickCar} 
-				onClick={()=>{return lifehack()}}
+				// disabled={clickCar} 
+				onClick={lifehack}
 			>
-				<span className="default">{!enabled.enabled ? "ОФОРМИТЬ ЗАКАЗ" :"ОФОРМИТЬ ЗАКАЗ"}</span>
+				<span className="default">{!enabled ? "ОФОРМИТЬ ЗАКАЗ" :"ОФОРМИТЬ ЗАКАЗ"}</span>
 				<span className="success">Заказ принят в работу
 					<svg viewBox="0 0 12 10">
 						<polyline points="1.5 6 4.5 9 10.5 1"></polyline>

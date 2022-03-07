@@ -5,6 +5,7 @@ import PersonalPageViews from '../Views/PersonalPageViews';
 import PersonalPageComponent from '../components/PersonalPageComponent';
 import { useStoreon } from 'storeon/react';
 import OrderDetailsPersonalPageComponent from '../components/OrderDetailsPersonalPageComponent';
+import Chat from '../components/OrderDetailsPersonalPageComponent/Chat';
 
 const initialCartData = {
   cartitem_set: [],
@@ -36,6 +37,7 @@ const OrderDetailsPersonalPage = (props) => {
       <Modal.StorControllerModal />
       <PersonalPageViews.WrapperPage
         leftChildComponent={
+          <>
           <PersonalPageComponent.SidebarEntryPersonalPage
             shop={shop}
             create_shop={shop_link}
@@ -47,6 +49,8 @@ const OrderDetailsPersonalPage = (props) => {
             role={role}
             setModalStates={setModalStates}
           />
+            <Chat order_id={order.id} setModalStates={setModalStates} />
+          </>
         }
         rightChildComponent={
           <OrderDetailsPersonalPageComponent

@@ -58,12 +58,14 @@ const OrderComponent = ({
   const history = useHistory();
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
   const { stateValuePoly } = useStoreon('stateValuePoly');
-
+  const { numberIdProduct } = useStoreon('numberIdProduct');
   const { stateCountRestart } = useStoreon('stateCountRestart');
   const { updateCurrenssies } = useStoreon('updateCurrenssies');
   const { updateCurrenssiesForOrders } = useStoreon('updateCurrenssiesForOrders');
   const { statusRequstOrderCountryPayment } = useStoreon('statusRequstOrderCountryPayment');
 
+
+  const [styleCar, setStyleCar] = useState('orderCar disable');
   const { dataBalance } = useStoreon('dataBalance');
   const { orderCountryPayment } = useStoreon('orderCountryPayment');
   const { currenssies } = useStoreon('currenssies'); //currenssies
@@ -81,7 +83,7 @@ const OrderComponent = ({
     content: null,
     cusstomClassNameModalResize: null,
   });
-  const [statusFildValue, setStatusFildValue] = useState(null);
+  const [statusFildValue, setStatusFildValue] = useState(+window?.localStorage?.getItem('numOrder'));
   const [openTooltip, setOpenTooltip] = useState(false);
   const [listOrders, setlistOrders] = useState([
     {
@@ -89,7 +91,6 @@ const OrderComponent = ({
       value: 1,
     },
   ]);
-
   //************************************** */
   const { cart_slug, page_type_cart } = site_configuration;
   const orderApi = api.orderApi;
@@ -126,7 +127,8 @@ const OrderComponent = ({
   });
 
   const changeStatusOrder = (e) => {
-    setStatusFildValue(e.target.value);
+    window?.localStorage?.removeItem('numOrder')
+    setStatusFildValue(+e.target.value);
   };
 
   const closeModal = () => {
@@ -192,18 +194,14 @@ const OrderComponent = ({
 
   // **************************************************************************************************************************************
   const getNowCurrencyNowCountry = (country) => {
-    console.log('country',country)
 
     if (fieldCountryOut !== 'country') {
-      console.log('fieldCountryOut !==country',fieldCountryOut !== 'country')
       if (country === fieldCountryOut) {
-      console.log('country === fieldCountryOut',country === fieldCountryOut)
 
         fieldCountryOut !== 'country'
         orderApi
           .getCountryDeliviry({ country: fieldCountryOut, currency: currenssies })
           .then((res) => {
-            console.log('res.price',res)
             setPriceNowDilevery(res.price);
           })
           .catch((err) => console.error(`ERROR!!!!! ${err}`));
@@ -391,6 +389,7 @@ const OrderComponent = ({
 
   const getEnabledToPayments = (values, errors) => {
     //устанавливаем состояние как делать оплату online(1) или с баланса(3)
+    // debugger;
     if (!statusFildValue) {
       values.payment_methods === 1 ? setValueStatePay(1) : setValueStatePay(3);
       if (
@@ -422,9 +421,10 @@ const OrderComponent = ({
         return false;
       }
     } else {
-      if (document.querySelector('.orderCar').classList.contains('disable')) {
-        document.querySelector('.orderCar').classList.remove('disable');
-      }
+      styleCar === 'orderCar disable' ? setStyleCar('orderCar'):null
+      // if (document.querySelector('.orderCar').classList.contains('disable')) {
+      //   document.querySelector('.orderCar').classList.remove('disable');
+      // }
       return true;
     }
   };
@@ -676,7 +676,6 @@ const OrderComponent = ({
           } else {
             null;
           }
-
           return (
             <React.Fragment>
               <GxCol
@@ -693,13 +692,13 @@ const OrderComponent = ({
                 <Title variant={'cart'} type={'h1'}>
                   <Text text="ordering" />
                 </Title>
-
-                {/* <pre>{stateListTest1 ? (
+                {statusFildValue ? <h4>Заказ № {listOrders.filter(item => item.id === statusFildValue)[0]?.order_number}</h4>:<h4>новый заказ</h4>}
+                {/* <pre>{listOrders ? (
                       `
                   
-                  статус запроса: ${stateListTest1.status}
+                  test = ${listOrders.filter(item => item.id === statusFildValue)}
                   ответ на запрос:
-                  ${JSON.stringify(stateListTest1.data, null, 2)}
+                  ${JSON.stringify(listOrders, null, 2)}
                   sdsad
                   
                  `
@@ -918,7 +917,11 @@ const OrderComponent = ({
                     </GxTooltip>
                   </div>
                   {/* новая версия кнопки оформит заках */}
-                  <OrderCar enabled={getEnabledToPayments(values, errors)} />
+                  <OrderCar 
+                    enabled={getEnabledToPayments(values, errors)} 
+                    setStyleCar={setStyleCar} 
+                    styleCar={styleCar}
+                  />
 
                   <CartViews.BlockRightSide mt={20} mb={20}>
                     <CheckBox

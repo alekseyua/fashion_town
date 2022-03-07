@@ -65,12 +65,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 30px;
-    padding-left: 50px;
+    // padding-right: 30px;
+    // padding-left: 50px;
     @include mobile {
       flex-direction: row-reverse;
-      padding-left: 10px;
-      padding-right: 45%;
+      // padding-left: 10px;
+      // padding-right: 45%;
     }
     @include tablet-md {
       justify-content: flex-end;

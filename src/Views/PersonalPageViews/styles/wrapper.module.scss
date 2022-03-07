@@ -2,6 +2,9 @@
 @import '../../../styles/variables/index.scss';
 
 .cabinet {
+  &-sidebaruser{
+    max-width: 600px;
+  }
   &-row {
     margin-top: 30px;
     @include row(15);
@@ -14,19 +17,31 @@
     }
   }
   &-leftcol {
-    @include col(3, 15);
-    @include tablet-md {
+    @include col(4, 15);
+    @include tablet-mmd {
+      flex-direction: row;
+      display: flex;
+      justify-content: space-between;
       width: 100%;
-      margin-left: 0;
+      margin-right: 10px;
+      margin-left: 10px
     }
-  }
-  &-rightcol {
-    @include col(9, 15);
-    @include tablet-md {
+    @include mobile {
+      flex-direction:column;
+      align-items: center;
       margin-right: 0;
       margin-left: 0;
       width: 100%;
     }
+  }
+  &-rightcol {
+    @include col(8, 15);
+    @include tablet-mmd {
+      margin-right: 10px;
+      margin-left: 10px;
+      width: 100%;
+    }
+
   }
   &-formblock {
     position: relative;

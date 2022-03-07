@@ -265,7 +265,6 @@ export const stateCountCart = store => {
   // переменная запрос на обновление карзины
   store.on('@init', () => ({ stateCountRestart: false }));
   store.on('stateCountRestart/add', ({ stateCountRestart }, obj) => {
-    console.log('obj----',obj)
      return { stateCountRestart: obj }
   })
   // получаем всю карзину
@@ -424,10 +423,20 @@ export const activeItemMenu = store => {
 
 }
 
-
+//--------------------04.03.2022--------------------------------
+//обновление баланса
+//*********************** */
+export const stateUpdateBalance = store => {
+  store.on('@init', () => ({ stateUpdateBalance: false }));
+  store.on('stateUpdateBalance/update', ({ stateUpdateBalance }, obj) => {
+    console.log('stateUpdateBalance', stateUpdateBalance)
+    return { stateUpdateBalance: obj }
+  })
+}
 
 
 export const storeonParams = [
+  stateUpdateBalance,
   orderCountryPayment,
   wishlistAl,
   valueStock,

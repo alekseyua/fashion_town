@@ -168,12 +168,16 @@ const createTdForTable = (data = [], currenssies) => {
 
 // *****************************************************************************************
 
-const btnAddOrderItems = async () => {
+const btnAddOrderItems = async (el) => {
+  // console.log('el',el)
+  window.localStorage.setItem('numOrder', el.id)
+
+  // dispatch('numberIdProduct/add', el.order_number)
   //нужно ввести переменную со значением который говорит что должен быть выподающий список
  const result = await api.orderApi.listOrderItem()
-                  // .then(res=>res)
-                  // .then(()=>{return res})
-                  // .catch(err=>err);
+//                   // .then(res=>res)
+//                   // .then(()=>{return res})
+//                   // .catch(err=>err);
   history.push('catalog');
 }
 

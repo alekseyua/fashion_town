@@ -3,7 +3,6 @@ import style from '../styles/index.module.scss';
 import { ROLE } from '../../../const';
 
 const OrderingDeliveryDescription = ({ role }) => {
-  console.log('role delivery', role)
   return (
     <>
     {

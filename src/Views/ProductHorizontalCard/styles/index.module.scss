@@ -83,6 +83,7 @@
   &__sales_info {
     display: flex;
     flex-wrap: wrap;
+    flex-direction:column;
     // font-family: Noto Sans;
     @extend %font;
     font-style: normal;

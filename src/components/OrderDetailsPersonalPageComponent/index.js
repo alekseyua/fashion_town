@@ -52,13 +52,10 @@ const OrderDetailsPersonalPageComponent = ({
   const { currenssies, dispatch } = useStoreon('currenssies');
 
   const getOrderItem = () => { 
-    console.log('res id', id)
-
     orderApi
       .getOrderItems({ order_id: id })
       .then((res) => {
         setOrderItems(res);
-        console.log('res orders', res[0])
         res[0]?.items?getAmountGoods(res):null
       })
       .catch(err => console.log(`Ошибка получения списка товаров находящихся в заказе №${id}`, err));
@@ -71,14 +68,11 @@ const OrderDetailsPersonalPageComponent = ({
     },0)
     // console.log('amount', amount)
         setOrderItemLength(amount);
-
   }
-
 
   useEffect(() => {
     getOrderItem();
   }, [slug, currenssies, enableBtn]);
-
 
   //сделать если опт
   useEffect(()=>{
@@ -103,18 +97,14 @@ const OrderDetailsPersonalPageComponent = ({
       .orderApi
       .cancelOrderItem(params)
       .then(res => {
-
         setEnableBtn(!enableBtn)
-        console.log('cancelOrderItem --', res)
-           // history.push('/orders')
       })
       .catch(err => console.log('ERROR btnDelOrder dont work', err));
   }
   // *****************************************************************************************
   useEffect(() => {
-    console.log('change currency')
     orderApi
-      .getOrders()
+      .getOrders() 
       .then(res => {
         let result = {
           id : 111,
@@ -146,8 +136,7 @@ const OrderDetailsPersonalPageComponent = ({
         setDataOrder(resData)
       })
     }, [dataOrderItem])
-
-
+  console.log('orderItems', orderItems)
   return (
     <>
       <OrderDetailsPersonalPageViews.Wrapper>
@@ -196,6 +185,7 @@ const OrderDetailsPersonalPageComponent = ({
                     brand={el.brand}
                     change_agreement={el.change_agreement}
                     comment={el.comment}
+                    commentImage={el?.comment_image !== "-" ? el?.comment_image : null}
                     image={el.image}
                     deleteElementOrder={deleteElementOrder}
                     setModalStates={setModalStates}
@@ -221,6 +211,7 @@ const OrderDetailsPersonalPageComponent = ({
                             brand={item.brand}
                             change_agreement={item.change_agreement}
                             comment={item.comment}
+                            commentImage={item?.comment_image !== '-'? item?.comment_image:null}
                             image={item.image}
                             deleteElementOrder={deleteElementOrder}
                             id={item.id}
@@ -236,7 +227,7 @@ const OrderDetailsPersonalPageComponent = ({
             )}
           </OrderDetailsPersonalPageViews.LeftSideCol>
           <OrderDetailsPersonalPageViews.RightSideCol>
-            <Chat order_id={id} setModalStates={setModalStates} />
+            
           </OrderDetailsPersonalPageViews.RightSideCol>
         </OrderDetailsPersonalPageViews.CardSectionWrapper>
       </OrderDetailsPersonalPageViews.Wrapper>

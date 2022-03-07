@@ -19,8 +19,6 @@ const DefaultCartPreview = ({ page_type_catalog }) => {
 
 
   useEffect(() => {
-    console.log('currenssies1111',currenssies)
-
     let cleanupRecomProducs = false;
     contentApi
       .getCatalogData()

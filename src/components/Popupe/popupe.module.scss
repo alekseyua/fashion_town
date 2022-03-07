@@ -1,46 +1,48 @@
 @import '../../styles/variables/index.scss';
 
 .popup{ 
-   border: 1px solid black;
-   position: fixed;
-   background-color: rgba(17, 17, 17,.5);
-   left: 0;
-   top: 0;
-   margin: auto 0;
-   padding: 20px;
-   width: 100%;
-   height: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   z-index: 10000;
-   
-   &__close{
-       position: absolute;
-       top: 5px;
-       right: -15px;
-       margin: 10px;
-       color: $pi2;
-       width: 20px;
-       font-size: 20px;
-       height: 20px;
-       background: none;
-       border:none;
-       cursor: pointer;
-  
-   }
+    border: 1px solid black;
+    position: fixed;
+    background-color: rgba(17, 17, 17,.5);
+    left: 0;
+    top: 0;
+    margin: auto 0;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000; 
+    
+    &__close{
+        position: absolute;
+        top: 5px;
+        right: -15px;
+        margin: 10px;
+        color: $pi2;
+        width: 20px;
+        font-size: 20px;
+        height: 20px;
+        background: none;
+        border:none;
+        cursor: pointer;
+
+    }
 
     &__container{
-
         background-color: rgba(255, 255, 255, .9);
-        width: 80%;
+        width: 90%;
         height: 80%;
         padding: 0 20px;
         position: absolute;
         overflow: hidden;
         overflow-y: auto;
         overflow-x: hidden;
-        max-width: 1400px;
+        max-width: 1600px;
+        @media (max-width:480px) {
+          padding: 0;
+        }
     }
     &__main{
         position: relative;
@@ -51,13 +53,16 @@
     }
     
     &__image{
-        object-fit: fill;
         left: 0;
         top: 0;
         // width: 100%;
         height: 100%;
-        // min-width: 457px;
-        // min-height: 610px;
+        min-width: 270px;
+        min-height: 410px;
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        // background-image: url();
     }
     &__list{
         width: 100%;
@@ -80,7 +85,7 @@
         }
     }
     &__item{
-            flex: 1 0 48%;
+            flex: 1 0 33%;
             background-color: rgb(245, 196, 196);
             border: 2px double rgb(245, 152, 152);
             position: relative;
@@ -125,7 +130,13 @@
         width: 100%;
         align-items: center;
         justify-content: center;
+        color: #fff;
+        &>h1{
+          color: #fff;
+          @include adaptiv-font(15,30);
+        }
         &-title{
+            color: #fff;
             text-align: center;
             text-transform: uppercase;
         }
@@ -157,7 +168,7 @@
         background-color: #000000;
         color:rgb(255, 255, 255);
         margin: 15px;
-        @include adaptiv-font(15,30);
+        @include adaptiv-font(12,20);
         cursor: pointer;
         transform-style: preserve-3d;
         transition: all 1000ms ease; 

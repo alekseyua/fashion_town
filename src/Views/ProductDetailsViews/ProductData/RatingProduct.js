@@ -42,25 +42,26 @@ const RatingProduct = ({
   const social_links = [
     {
       icon: fbIcon,
-      url: `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Ffacebook-login%2Fweb%2F&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=113869198637480`
+      url: `https://www.facebook.com/sharer/sharer.php?u=`
       // url: site_configuration?.fb_link ? `http://www.facebook.com/sharer/sharer.php?s=100&p%5Btitle%5D=[${pathPageProduct}]&p%5Bsummary%5D=[${textPageProduct}]&p%5Burl%5D=[${pathPageProduct}]&p%5Bimages%5D%5B0%5D=[${imagePageProduct}]" target="_blank"` : '#',
       // https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Ffacebook-login%2Fweb%2F&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=113869198637480
     },
     {
       icon: igIcon,
-      url: site_configuration?.insta_link ? 'https://www.linkedin.com/cws/share?url=' : '#',
+      url: `http://instagram.com/###?direct/inbox&text=`,
     },
     {
       icon: vkIcon,
-      url: site_configuration?.vk_link ? 'https://vk.com/share.php?url=' : '#',
+      url: 'https://vk.com/share.php?url=',
     },
     {
       icon: waIcon,
-      url: site_configuration?.whatsapp_link ? site_configuration.whatsapp_link : '#',
+      //https://api.whatsapp.com/send/?phone&text=%D0%92%D0%B0%D1%82%D1%81%D0%B0%D0%BF+%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%3A+%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B8+%D0%B4%D0%BB%D1%8F+%D0%BE%D1%82%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B8+%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D1%8F+%D0%B1%D0%B5%D0%B7+%D1%81%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F+%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0+%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD%D0%B0+%28%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%29+-+https%3A%2F%2Fnetolink.ru%2Fwhatsapp-link%2F&app_absent=0
+      url: `https://api.whatsapp.com/send/?phone&text=`,
     },
     {
       icon: vIcon,
-      url: site_configuration?.viber_link ? site_configuration.viber_link : '#',
+      url: `viber://forward?text=`,
     },
     {
       icon: telIcon,
@@ -81,8 +82,13 @@ const RatingProduct = ({
 
 const henderShare = (social)=>{
   // window.open(`http://www.facebook.com/sharer/sharer.php?s=100&p%5Btitle%5D=[${pathPageProduct}]`,'_blank','toolbar=0,status=0,width=626,height=436')
-     window.open(`${social}${pathPageProduct}&text=${textPageProduct}&%2F${media[0].image}`,"",'_blank','height=500','width=600')
+    // window.open(`${social}${pathPageProduct}&text=${textPageProduct}&%2F${media[0].image}`,"",'_blank','height=500','width=600')
+     //вайбер
+//
+// console.log('social',social)
+// console.log('${pathPageProduct}',`${pathPageProduct}`)
 
+window.open(`${social}${pathPageProduct}`,"",'_blank','height=500','width=600')
 
 }
   return (

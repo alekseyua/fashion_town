@@ -14,7 +14,6 @@ const SendChatBlock = ({
   sendCommentFromTextField,
 }) => {
   const fileInputRef = React.useRef();
-  console.log('values.file_list', values.file_list.name)
   return (
     <div className={style['cabinet_orders_details__chat_send']}>
       <div className={style['cabinet_orders_details__chat_send_form']}>

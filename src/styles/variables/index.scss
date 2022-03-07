@@ -207,7 +207,7 @@ $maxWidthContainer: 1400;
     @content;
   }
 }
-
+ 
 @mixin tablet-mmd {
   @media screen and (max-width: 960px) {
     @content;

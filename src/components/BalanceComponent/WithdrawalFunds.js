@@ -27,10 +27,11 @@ const WithdrawalFunds = ({ setModalStates }) => {
       <PersonalPageViews.HeadingBlock title={'Возврат денежных средств в связи с отменой заказа'} />
       <PersonalPageViews.ContentBlock>
         <PersonalPageViews.SmallTextGray>
-          Вы можете оплачивать покупки или вывести деньги на реквизиты банковского счета физического
-          лица российского банка. Операция осуществляется в течение 3-5 дней.
+          Согласно п.5 ДОГОВОРа оказания услуг по подбору и выкупу одежды (публичная оферта).
+           Вы можете запросить возврат денежных средств,
+           воспользовавшись формой ниже. Необходимо приложить скан заполненного заявления
         </PersonalPageViews.SmallTextGray>
-        <PersonalPageViews.BalanceItemsWrapper>
+        {/* <PersonalPageViews.BalanceItemsWrapper>
           <PersonalPageViews.WarningHelpText
             icon={infoAccent}
             wraningText={
@@ -39,9 +40,9 @@ const WithdrawalFunds = ({ setModalStates }) => {
             linkText={'Заявление на возврат'}
             to={'#'}
           />
-        </PersonalPageViews.BalanceItemsWrapper>
+        </PersonalPageViews.BalanceItemsWrapper> */}
         <Button onClick={openModalGetMyCache} variant={'cabinet_default'}>
-          вывести деньги
+          Оформить возрат
         </Button>
       </PersonalPageViews.ContentBlock>
     </PersonalPageViews.WrapperForm>

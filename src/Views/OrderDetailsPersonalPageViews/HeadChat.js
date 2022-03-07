@@ -15,7 +15,6 @@ const HeadChat = ({ setModalStates}) => {
     });
   };
   const heandlerClickInfo = () => {
-    console.log('click info')
     setModalStates({
       content: (<>
         <ModalContentViews.CloseBtn closeModal={closeModal} />

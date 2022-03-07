@@ -34,7 +34,6 @@ const Layout = ({
 const { userPage } = useStoreon('userPage');
 const { profile } = userPage;
 const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
-  modalStates ? console.log('modalState', modalStates):null
 if ( profile === undefined ){
   window.location?.reload()
 }
