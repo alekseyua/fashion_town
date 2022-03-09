@@ -63,6 +63,7 @@ const OrderComponent = ({
   const { updateCurrenssies } = useStoreon('updateCurrenssies');
   const { updateCurrenssiesForOrders } = useStoreon('updateCurrenssiesForOrders');
   const { statusRequstOrderCountryPayment } = useStoreon('statusRequstOrderCountryPayment');
+  const { stateUpdateBalance } = useStoreon('stateUpdateBalance');
 
 
   const [styleCar, setStyleCar] = useState('orderCar disable');
@@ -264,7 +265,8 @@ const OrderComponent = ({
             .createOrder(params)
             .then((res) => {
               dispatch('stateCountRestart/add', !stateCountRestart);
-
+            dispatch('stateUpdateBalance/update', !stateUpdateBalance)
+ 
               history.push('orders');
               //document.location.href = "/ru/orders";//???????????????????????????????? с ru или без ru
             })
@@ -305,6 +307,8 @@ const OrderComponent = ({
             const order_id = res.id;
             openModalPay(order_id, dataBalance.balance, params.total_cost);
             dispatch('stateCountRestart/add', !stateCountRestart);
+            dispatch('stateUpdateBalance/update', !stateUpdateBalance)
+
             // history.push('orders');
           })
           .catch((err) => {
@@ -356,6 +360,7 @@ const OrderComponent = ({
             .then((res) => {
               // openModalPay(order_id,dataBalance.balance, params.total_cost);
               dispatch('stateCountRestart/add', !stateCountRestart);
+              dispatch('stateUpdateBalance/update', !stateUpdateBalance)
 
               history.push('orders');
               //document.location.href = "/ru/orders";//???????????????????????????????? с ru или без ru

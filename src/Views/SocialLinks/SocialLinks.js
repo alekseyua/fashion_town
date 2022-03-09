@@ -11,7 +11,6 @@ const SocialLinks = (props) => {
     <div className={style['social-links']}>
       <nav className={style['social-links__list']}>
         {social_links.map((el, key) => {
-          console.log('el links',el)
           return (
             <li key={v4()} className={style['social-links__list-item']}>
               <div onClick={()=>redirectURL(el.url)}>

@@ -45,11 +45,12 @@ const OrderDetailsPersonalPageComponent = ({
   const [dataOrder, setDataOrder] = useState({});
   const [newOrderItems, setNewOrderItems] = useState([]);
   const [orderItemLength, setOrderItemLength] = useState(0);
-  const [enableBtn, setEnableBtn] = useState(true)
-
+  const [enableBtn, setEnableBtn] = useState(true);
+  const [ state, setState ] = useState(false);
   const [dataOrderItem, setDataOrderItem] = useState([]);
 
   const { currenssies, dispatch } = useStoreon('currenssies');
+  const { stateUpdateBalance } = useStoreon('stateUpdateBalance');
 
   const getOrderItem = () => { 
     orderApi
@@ -98,9 +99,17 @@ const OrderDetailsPersonalPageComponent = ({
       .cancelOrderItem(params)
       .then(res => {
         setEnableBtn(!enableBtn)
-      })
-      .catch(err => console.log('ERROR btnDelOrder dont work', err));
-  }
+        console.log('result delete')
+
+          setState(!state)
+
+        })
+        .catch(err => console.log('ERROR btnDelOrder dont work', err));
+    }
+    useEffect(()=>{
+
+      dispatch('stateUpdateBalance/update', !stateUpdateBalance)
+    }, [state])
   // *****************************************************************************************
   useEffect(() => {
     orderApi
@@ -125,7 +134,7 @@ const OrderDetailsPersonalPageComponent = ({
         setDataOrderItem(massiveOrder)
       })
       .catch(err => console.error(`ERROR from request getOrders`, err))
-  }, [currenssies])
+  }, [currenssies, state])
 
     useEffect(()=>{
       let resData={};
@@ -135,7 +144,7 @@ const OrderDetailsPersonalPageComponent = ({
         :null
         setDataOrder(resData)
       })
-    }, [dataOrderItem])
+    }, [dataOrderItem, state])
   console.log('orderItems', orderItems)
   return (
     <>

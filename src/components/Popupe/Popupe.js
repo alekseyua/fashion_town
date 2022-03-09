@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import style from './popupe.module.scss';
 import { motion } from 'framer-motion';
 import { GxButton, GxIcon, GxModal } from '@garpix/garpix-web-components-react';
@@ -7,6 +7,8 @@ import ModalContentViews from '../../Views/ModalContentViews';
 import classNames from 'classnames';
 import Text from '../Text';
 import { useStoreon } from 'storeon/react';
+import { v4 } from 'uuid';
+
 
 const Popupe = ({ 
   dataPopup,
@@ -33,18 +35,45 @@ const Popupe = ({
   in_cart_countHook,
   heandlerAddCollections,
 }) => {
-const [ collectionsGoods, setCollectionsGoods ] = useState();
+const [ classState, setClassState ] = useState(new Set());
 const [sizeCollection, setSizeCollection] = useState(0);
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
-useEffect(()=>{
-  setCollectionsGoods(dataPopup)
-}, [dataPopup])
+// useEffect(()=>{
+//   setCollectionsGoods(dataPopup)
+// }, [dataPopup])
 
-const testCollection = (collections) =>{
+  console.log('dataPopup =', dataPopup)
+const sortCollection = (collections) =>{
+
  let res = collections.items.sort((a, b) => (a.size.id > b.size.id) ? 1 : -1)
-    return res
+ res = res.map(el=>{
+  let result = el;
+   result = {
+     ...result,
+     test: null
+   }
 
+  result = {
+      ...result,
+      test: classState
+    }
+
+    return result
+  } 
+  )
+    return res
 }
+  const addOrRemoveEl = useCallback((el) => {
+    setClassState((prev) => {
+      if (prev.has(+el)) { // если есть - убираем
+        prev.delete(+el);
+      } else { // если нет - добавляем
+        prev.clear()
+        prev.add(+el);
+      }
+      return new Set(prev);
+    });
+  }, [classState]);
 
 
 
@@ -58,7 +87,23 @@ const testCollection = (collections) =>{
         transition:{duration:.5}
       }}
       className={style['popup']}     
-    >     
+    >    
+      <button
+        type="button"
+        className={style['popup__close']}
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(false)
+          setShowPopapInfoColection({
+            ...showPopapInfoColection,
+            show: false,
+            content: null,
+          });
+        }}
+      >
+        X
+      </button>
+
       <motion.div 
         initial={{
           scale: 0,
@@ -72,6 +117,8 @@ const testCollection = (collections) =>{
 
         className={style['popup__container']}
       > 
+        {/* <ModalContentViews.CloseBtn closeModal={closeModal} /> */}
+
         <GxModal
           onGx-after-hide={closeModal}
           open={modalStates.show}
@@ -81,7 +128,6 @@ const testCollection = (collections) =>{
           })}
         >
         <ModalContentViews.ModalWrapper>
-          <ModalContentViews.CloseBtn closeModal={closeModal} />
           <ModalContentViews.ContentBlock>
             <AsyncWorldStandardSizesChart
               site_configuration={site_configuration}
@@ -91,21 +137,7 @@ const testCollection = (collections) =>{
         </ModalContentViews.ModalWrapper>
         </GxModal>
         <div className={style['popup__main']}>
-          <button
-              type="button"
-              className={style['popup__close']}
-              onClick={(e) => {
-                e.preventDefault();
-                setIsOpen(false)
-                setShowPopapInfoColection({
-                  ...showPopapInfoColection,
-                  show: false,
-                  content: null,
-                });
-              }}
-            >
-              X
-            </button>
+ 
           <ul 
             className={style['popup__list']}
           >
@@ -113,7 +145,8 @@ const testCollection = (collections) =>{
             {dataPopup.map((collections, index) => {
               let res = dataPopup[index].items.map(redeemed => redeemed.redeemed)
                let enableBtn = res.filter(item=>item===false?true:false)
-              let colec = testCollection(collections)
+              let colec = sortCollection(collections)
+
               return(
               <li 
                 key={collections.id} 
@@ -143,9 +176,8 @@ const testCollection = (collections) =>{
                         in_cart_count={in_cart_countHook}
                       />
                       <div className={style['prodpage-colors']}>
-                        <p className={style['prodpage-colors__name']}>
-                          <>
-                            <span>
+                        <div className={style['prodpage-colors__name']}>
+                             <span>
                               <Text text="color" />: &nbsp;
                             </span>
                             {collections?.items[0]?.size?.color_name}
@@ -160,12 +192,10 @@ const testCollection = (collections) =>{
                                 backgroundColor: collections?.items[0]?.size?.color,
                               }}
                             >.</div>
-                          </>
-                        </p>
+                        </div>
                       </div>
                     <div className={style['body-collectiion__goods']}>
                       <div className={style['body-collection__size']}>
-
                           <GxButton
                             onClick={openTableModal}
                             className={style['prodpage-sizes__btn']}
@@ -178,27 +208,34 @@ const testCollection = (collections) =>{
                             ></GxIcon>
                             Таблица размеров
                           </GxButton>
+
                           <ul
-                            className={classNames({
-                              [style['prodpage-sizes__items']]: true
-                            })}
+                            // className={classNames({
+                            //   [style['prodpage-sizes__items']]: true
+                            // })}
+                            className={style['prodpage-sizes__items']}
                           >
                             {colec.map((el, i) => {
 
                               return (
-                                <li key={el.size.uuid} className={style['prodpage-sizes__item']}>
-                                  <GxButton
-                                    disabled={el.redeemed}
-                                    onClick={() => {
+                                <li 
+                                  key={v4(i*2)} 
+                                  className={style['prodpage-sizes__itemPopupe']}
+                                >
+                                  <button
+                                    key={v4(i)}
+                                    disabled={classState.has(collections.id + (el.size.id + index * 444)) ? '' : el.redeemed}
+                                    type="button"
+                                    id={collections.id + (el.size.id+index*444)}
+                                    style={el.test.has(collections.id + (el.size.id + index * 444)) ? { background: 'rgb(199, 149, 149)' } : null}
+                                    onClick={(e) => {
+                                      addOrRemoveEl(e.target.id)
                                       setSizeCollection(el.size.id)
                                     }}
-                                    className={classNames({
-                                      [style['prodpage-sizes__size-button']]: true,
-                                      // [style['active']]: selectedSizeList === el.size.uuid,
-                                    })}
+                                    className={style['prodpage-sizes__size-buttonPopupe']}
                                   >
                                     {el.size.title}
-                                  </GxButton>
+                                  </button>
                                 </li>
                               );
                             })}
@@ -215,7 +252,7 @@ const testCollection = (collections) =>{
                         onClick={() => {
                           if (sizeCollection) { 
                             let countCart = stateCountCart.in_cart + 1;
-                          dispatch('stateCountCart/add', { ...stateCountCart, in_cart: countCart })
+                            dispatch('stateCountCart/add', { ...stateCountCart, in_cart: countCart })
                             heandlerAddCollections(1, false, collections?.items[0]?.size?.color_id, sizeCollection)
                           }else{
                             alert('Вы не указали размер заказа')
@@ -223,7 +260,7 @@ const testCollection = (collections) =>{
                         }
                         }                        
                     >
-                        {enableBtn.length ?'Участвовать в сборе':'Сбор собран'}
+                        {enableBtn.length ?'Добавить в корзину':'Сбор собран'}
                     </button>
 
                  </div>

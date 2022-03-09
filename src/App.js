@@ -33,12 +33,13 @@ const App = ({ lang, pageServer, ...props }) => {
   if (token){
   //********************************************************************************* */ 
   useEffect(() => {
+    console.log('stateCountCart+++++++++')
+
     api
       .cartApi
       .getCartData()
       .then(res => {
          dispatch('stateCountCart/add', res)
-
     })
       .catch(err => console.log("ERROR CONNECT!!!!", err))
   }, [stateCountRestart, updateCurrenssies])
@@ -47,6 +48,7 @@ const App = ({ lang, pageServer, ...props }) => {
   //********************************************************************************* */ 
 
   useEffect(() => {
+    console.log('balance+++++++++')
     api
       .getUserBalance({
         "currency": currency

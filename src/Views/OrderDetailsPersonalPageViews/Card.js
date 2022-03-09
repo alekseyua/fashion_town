@@ -320,6 +320,8 @@ const Card = ({
             preview = [preview];
           }
   function splitString(stringToSplit, separator) {
+    console.log('stringToSplit', stringToSplit)
+    if (stringToSplit === undefined) return []
     var arrayOfStrings = stringToSplit.split(separator);  
     return arrayOfStrings
   }

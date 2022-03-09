@@ -17,8 +17,8 @@
     
     &__close{
         position: absolute;
-        top: 5px;
-        right: -15px;
+        top: 5%;
+        left: 94%;
         margin: 10px;
         color: $pi2;
         width: 20px;
@@ -39,7 +39,7 @@
         overflow: hidden;
         overflow-y: auto;
         overflow-x: hidden;
-        max-width: 1600px;
+        max-width: 1700px;
         @media (max-width:480px) {
           padding: 0;
         }
@@ -57,7 +57,8 @@
         top: 0;
         // width: 100%;
         height: 100%;
-        min-width: 270px;
+        min-width: 250px;
+        max-width: 350px;
         min-height: 410px;
         background-position: center;
         background-size: 100% 100%;
@@ -92,7 +93,7 @@
             margin-bottom: 5px;
             margin-right: 5px;
             min-height: 700px;
-            max-width: 500px;
+            max-width: 450px;
             // height: 250px;
             display: flex;
             align-items: center;
@@ -161,7 +162,9 @@
         padding: 15px;
     }
     &__size{}
-    &__control{}
+    &__control{
+      margin-top: 20px;
+    }
     &__btn-apply{
         width: 90%;
         height: 70px;
@@ -172,38 +175,55 @@
         cursor: pointer;
         transform-style: preserve-3d;
         transition: all 1000ms ease; 
+        overflow: hidden;
         &:after{
-          top: -100%;
-          left: 0;
+          top: 0%;
+          left: -100%;
           width: 100%;
+          height: 100%;
+          position: absolute;
+          background: rgba(rgb(255, 141, 141),1);
+          // content: 'Добавить в корзину  ';
+          content:'';
+          // transform-origin: left bottom;
+          // transform: rotateX(90deg);
+          // box-shadow: 5px 5px 5px #000;
+          transition: left 1s ease-in;
+
+        }
+        &:before{
+          top: 0%;
+          left: 0%;
+          width: 100%;
+          height: 100%;
           position: absolute;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: $a2;
           content: 'Добавить в корзину  ';
-          transform-origin: left bottom;
-          transform: rotateX(90deg);
+          z-index: 9999;
           box-shadow: 5px 5px 5px #000;
-          height: 70px;
-          transition: all 2s ease-in;
-
         }
         &:hover{
-          background-color:$a2;
-          box-shadow: 5px 5px 5px #000;
-          transform-origin: center bottom;
-        	transform: rotateX(-90deg) translateY(100%);
-          transition: all 1s ease-in;
+          // background-color:$a2;
+          // background: rgba(rgb(4, 4, 4),.6);
+          color: #000;
+          // box-shadow: 5px 5px 5px #000;
+          &:after{
+            left: 0;
+          }
+          // transform-origin: center bottom;
+        	// transform: rotateX(-90deg) translateY(100%);
+          // transition: all 1s ease-in;
         }
         &--disable{
           background-color: rgb(104, 104, 104);
-           width: 90%;
-        height: 70px;
-        color:rgb(255, 255, 255);
-        margin: 15px;
-        @include adaptiv-font(15,30);
-        cursor: not-allowed;
+          width: 90%;
+          height: 70px;
+          color:rgb(255, 255, 255);
+          margin: 15px;
+          @include adaptiv-font(15,30);
+          cursor: not-allowed;
         }
     }
 }
@@ -211,77 +231,30 @@
 
 .prodpage{
   &-sizes {
-    &__size-button {
-      &.active {
-        &::part(base) {
-          min-width: 67px;
-          min-height: 43px;
-          color: var(--gx-color-white);
-          font-weight: bold;
-          padding: 0 20px;
-          border: 2px solid $g;
-          box-sizing: border-box;
-          background-color: var(--gx-color-primary);
-          border: 2px solid var(--gx-color-primary);
-          box-sizing: border-box;
-          border-radius: 2px;
-          &:disabled {
-            background-color: var(--gx-color-gray);
-          }
-          &:hover {
-            background-color: var(--gx-color-primary);
-          }
-        }
-        &::part(label) {
-          margin-top: 1px;
-        }
+    &__size-buttonPopupe {
+      min-width: 67px;
+      min-height: 43px;
+      color: rgb(10, 10, 10);
+      font-weight: bold;
+      padding: 0 20px;
+      border: 2px solid $g;
+      box-sizing: border-box;
+      // background-color: $pi3;
+      border: 2px solid $p;
+      box-sizing: border-box;
+      border-radius: 2px;
+      
+     &:disabled {
+        background-color: #3a3838;
+        color: rgb(119, 64, 64);
+        pointer-events: none;
+        cursor: not-allowed;
       }
-      &::part(base) {
-        min-width: 67px;
-        min-height: 43px;
-        color: $p;
-        font-weight: bold;
-        padding: 0 20px;
-        border: 2px solid $g;
-        box-sizing: border-box;
-        border-radius: 2px;
-
-        &:hover {
-          border-color: $p;
-          background-color: transparent;
-        }
+      &:hover {
+        background-color: $p;
+        color: $pi2;
+        cursor: pointer;
       }
-      &::part(label) {
-        margin-top: 1px;
-      }
-      &:disabled {
-        &::part(base) {
-          background-color: var(--gx-color-gray);
-        }
-      }
-    }
-    &__size-tooltip {
-      --gx-tooltip-background-color: #fff;
-      --gx-z-index-modal: 1000;
-      &::part(base) {
-        // z-index: 9;
-        width: 180px;
-        color: $p;
-        border: 2px solid $g;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.11);
-      }
-    }
-    &__size-button.disabled {
-      &::part(base) {
-        color: var(--gx-color-darkgray);
-        border-color: var(--gx-color-gray);
-        background-color: var(--gx-color-gray);
-      }
-    }
-    &__icon {
-      --icon-width: 16px;
-      --icon-height: 16px;
-      margin-right: 5px;
     }
 
     &__items {
@@ -297,11 +270,10 @@
       }
       
     }
-     &__item {
+     &__itemPopupe {
       margin-right: 10px;
       margin-bottom: 10px;
-      background-color: #000;
-
+      background-color: $w;     
       &:last-child {
         margin-right: 0;
       }

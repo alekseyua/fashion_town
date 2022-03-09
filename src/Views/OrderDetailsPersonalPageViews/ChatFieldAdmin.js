@@ -21,7 +21,7 @@ const ChatFieldAdmin = ({
       <div className={style['cabinet_orders_details__chatmessage_wrapper']}>
         <div className={style['cabinet_orders_details__chatmessage_name']}>{user}</div>
         <div className={style['cabinet_orders_details__chatmessage_date']}>
-          {dayjs(api.language, created_at).format('DD.MM.YY HH:MM')}
+          {dayjs(api.language, created_at).format('DD.MM.YYYY HH:MM')}
         </div>
       </div>
       <div className={style['cabinet_orders_details__chatmessage_text']}>
