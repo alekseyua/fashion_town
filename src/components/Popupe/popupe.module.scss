@@ -176,6 +176,29 @@
         transform-style: preserve-3d;
         transition: all 1000ms ease; 
         overflow: hidden;
+        position: relative;
+        &-active{
+          width: 90%;
+          height: 70px;
+          color:rgb(255, 255, 255);
+          margin: 15px;
+          @include adaptiv-font(12,20);
+          cursor: pointer;
+          transform-style: preserve-3d;
+          transition: all 1000ms ease; 
+          overflow: hidden;
+          position: relative;
+          // &:after{
+          //   background-color: rgba(7, 136, 12,.8);
+          //   opacity: 1;
+          //   position: absolute;
+          //   left: 0;
+          //   top: 0;
+          //   content:"";
+          //   width: 100%;
+          //   height: 100%;
+          // }
+        }
         &:after{
           top: 0%;
           left: -100%;
@@ -183,14 +206,10 @@
           height: 100%;
           position: absolute;
           background: rgba(rgb(255, 141, 141),1);
-          // content: 'Добавить в корзину  ';
           content:'';
-          // transform-origin: left bottom;
-          // transform: rotateX(90deg);
-          // box-shadow: 5px 5px 5px #000;
           transition: left 1s ease-in;
+        }        
 
-        }
         &:before{
           top: 0%;
           left: 0%;

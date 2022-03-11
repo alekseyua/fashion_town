@@ -697,7 +697,7 @@ const OrderComponent = ({
                 <Title variant={'cart'} type={'h1'}>
                   <Text text="ordering" />
                 </Title>
-                {statusFildValue ? <h4>Заказ № {listOrders.filter(item => item.id === statusFildValue)[0]?.order_number}</h4>:<h4>новый заказ</h4>}
+                {statusFildValue ? <h4>Заказ № {listOrders.filter(item => item.id === statusFildValue)[0]?.order_number}</h4>:null}
                 {/* <pre>{listOrders ? (
                       `
                   

@@ -21,7 +21,7 @@ const OrderCar = ({enabled, styleCar, setStyleCar}) => {
 				// disabled={clickCar} 
 				onClick={lifehack}
 			>
-				<span className="default">{!enabled ? "ОФОРМИТЬ ЗАКАЗ" :"ОФОРМИТЬ ЗАКАЗ"}</span>
+				<span className="default">{!enabled ? "ОФОРМИТЬ ЗАКАЗ НА ВЫКУП" :"ОФОРМИТЬ ЗАКАЗ НА ВЫКУП"}</span>
 				<span className="success">Заказ принят в работу
 					<svg viewBox="0 0 12 10">
 						<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
