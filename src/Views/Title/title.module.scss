@@ -164,15 +164,16 @@
   }
 }
 
-// .cart {
-//   font-family: Noto Sans;
-//   font-style: normal;
-//   font-weight: bold;
-//   font-size: 32px;
-//   line-height: 140%;
-//   letter-spacing: 0.02em;
-//   color: var(--gx-color-primary);
-// }
+.cart-min {
+  font-family: Noto Sans;
+  font-style: normal;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 22px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+  color: var(--gx-color-primary);
+}
 .cart {
   @include h(2);
   text-transform: uppercase;

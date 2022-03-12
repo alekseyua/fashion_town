@@ -217,21 +217,22 @@ const Card = ({
           {total_price} {currentCurrcensies}
         </div>
 
-          <Button
-            onClick={() => {
-                 setStateAction({
-                x: [20, -200],
-                opacity: [.8, .6, .4, .2, 0]
-              })
-              deleteProductFromCart(id)
-            }}
-            className={style['product__delete']}
-            gxVariant={'text'}
-            >
-            <GxIcon slot={'icon-right'} src={closeJustIcon} />
-          </Button>
+ 
       </div>
       </div>
+      <Button
+        onClick={() => {
+          setStateAction({
+            x: [20, -200],
+            opacity: [.8, .6, .4, .2, 0]
+          })
+          deleteProductFromCart(id)
+        }}
+        className={style['product__delete']}
+        gxVariant={'text'}
+      >
+        <GxIcon slot={'icon-right'} src={closeJustIcon} />
+      </Button>
     </motion.div>
   );
 };

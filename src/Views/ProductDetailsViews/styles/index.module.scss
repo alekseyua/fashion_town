@@ -48,6 +48,8 @@
     }
     @include mobile {
       padding: 0;
+      margin: 0;
+      width: 100%;
     }
     // Уменьшение высоты слайдера для старых ноутбуков по желанию заказчика START
     @include laptop-old {

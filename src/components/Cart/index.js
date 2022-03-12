@@ -538,7 +538,14 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
       <GxRow>
         <GxCol sizeLg={12} sizeMd={12} sizeSm={12} sizeXl={9} sizeXs={12} className="cart__left">
-          <Title variant={'cart'} type={'h1'}>
+          <Title variant={'cart-min'} type={'h3'}>
+            {(role === ROLE.WHOLESALE) ?
+              <Text text={'minShopping.cart'} />
+              :null
+          }
+          </Title>
+
+            <Title variant={'cart'} type={'h1'}>
             <Text text={'shopping.cart'} />: ({
               //****************************************************************************** */
               // здесь необходимо просчитать и показать общее количество товара
@@ -701,7 +708,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
             </CartViews.BlockRightSide>
 
             <CartViews.LinkToFirmalization
-              enabled={agreeWitheRegulations && is_performed}
+              enabled={ role === ROLE.WHOLESALE ? (agreeWitheRegulations && is_performed && in_cart>=30) : (agreeWitheRegulations && is_performed)}
               to={checkout_slug}
             >
               <Text text={'go.to.registration'} />
@@ -714,7 +721,9 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
                 onGx-change={(e) => {
                   const checked = e.target.checked;
                   if (checked === null) return;
-                  setAgreeWitheRegulations(checked);
+                  
+                    setAgreeWitheRegulations(checked);
+                  
                 }}
                 label={
                   <CartViews.Text type={'text-label'}>

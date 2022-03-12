@@ -270,6 +270,7 @@
   "favorits.product": "Featured Products",
   "favorits.product.not.find": "There are no items in the favorites.",
   "shopping.cart": "Shopping cart",
+  "minShopping.cart": "One order must be at least 30 pcs.",
   "you.order": "You order",
   "product.s": "product (s)",
   "order.cost": "Order cost",

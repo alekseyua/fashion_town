@@ -38,6 +38,9 @@
     width: 80%;
     max-width: 1920px;
     align-items: center;
+    @include tablet-md{
+      width: 65%;
+    }
     @include mobile {
       display: none;
     }

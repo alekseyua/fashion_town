@@ -1,54 +1,45 @@
 @import '../variables/index.scss';
 
-// @font-face {
-//   font-family: 'Noto Sans';
-//   src: url('./NotoSans-Bold.woff2') format('woff2'), url('./NotoSans-Bold.woff') format('woff');
-//   font-weight: bold;
-//   font-style: normal;
-//   font-display: swap;
-// }
-// @font-face {
-//   font-family: 'Noto Sans';
-//   src: url('./NotoSans.woff2') format('woff2'), url('./NotoSans.woff') format('woff');
-//   font-weight: normal;
-//   font-style: normal; 
-//   font-display: swap;
-// }
-
-
 @font-face {
-  font-family: "Magnoliascript";
+  font-family: 'Noto Sans';
+  src: url('./NotoSans-Bold.woff2') format('woff2'), url('./NotoSans-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
   font-display: swap;
-  src: url("../fonts/Magnoliascript.woff") format("woff"), url("../fonts/Magnoliascript.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
 }
-
 @font-face {
-  font-family: "AleksandraC";
+  font-family: 'Noto Sans';
+  src: url('./NotoSans.woff2') format('woff2'), url('./NotoSans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
   font-display: swap;
-  src: url("../fonts/AleksandraC.woff") format("woff"), url("../fonts/AleksandraC.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
 }
-
 @font-face {
-  font-family: "tangak";
+  font-family: 'Cormorant Garamond';
+  src: url('./CormorantGaramond-Regular.woff2') format('woff2'),
+    url('./CormorantGaramond-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
   font-display: swap;
-  src: url("../fonts/tangak.woff") format("woff"), url("../fonts/tangak.woff2") format("woff2");
-  font-weight: "400";
-  font-style: "normal";
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('./CormorantGaramond-Bold.woff2') format('woff2'),
+    url('./CormorantGaramond-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 // ***********************************************************************
 
 %font {
   // font-family: 'Noto Sans', sans-serif;
-  font-family: 'AleksandraC';
+  font-family: 'Noto Sans';
 
 }
 %font-head {
   // font-family: 'Cormorant Garamond', sans-serif;
-  font-family: 'AleksandraC';
+  font-family: 'Cormorant Garamond';
 }
 %heading {
   font-weight: bold;
