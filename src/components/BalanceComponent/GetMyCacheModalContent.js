@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { GxForm, GxButton, GxIcon } from '@garpix/garpix-web-components-react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ModalContentViews from '../../Views/ModalContentViews';
 import Input from '../../Views/Input';
 import { paperclip } from '../../images';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage, Form, Field, FieldArray } from 'formik';
 import { payModalScheme } from '../../utils/schemesFormic';
 import ErrorField from '../../Views/ErrorField';
 import Button from '../../Views/Button';
 import Text from '../../components/Text';
 import api from '../../api';
+import * as yup from 'yup'
 
 const GetMyCacheModalContent = ({ closeModal }) => {
+  const history = useHistory();
+  const orderApi = api.orderApi;
+  const [stateClickSend, setStateClickSend] = useState(false)
+  const inputRef = useRef()
   const initialValues = {
     fio: null,
     amount: null,
     beneficiaryBankAccountNumber: null,
     beneficiaryBankBIC: null,
-    file: null,
+    fileInput: null,
   };
   const errorsMessenge = {
     symbol: 'symbol',
@@ -25,10 +30,131 @@ const GetMyCacheModalContent = ({ closeModal }) => {
     shortComments: Text({ text: 'short.comments' }),
     longComments: Text({ text: 'long.comments' }),
   };
-  const onSubmit = () => {
-    console.log('click get many')
-    //!
+  const onSubmit = (data) => {
+    // alert(JSON.stringify(data, null, 2))
+    console.log('click get many', data)
+    setStateClickSend(true)
+    // orderApi
+    //   .getRandomRequizites()
+    //   .then((res) => {
+    //     console.log('click res', res)
+
+      const fdPayments = new FormData();
+      // fdPayments.set('requisites_id', requisites.id);
+        fdPayments.set('cost', data.amount);
+        fdPayments.set('name', data.fio);
+        fdPayments.set('number', data.beneficiaryBankAccountNumber);
+        fdPayments.set('bank', data.beneficiaryBankBIC);
+        fdPayments.set('receipt', data.fileInput);
+
+
+      // if (fdPayments.get('receipt') === 'null') {
+      //   setErrClickSend(true)
+      //   resulcConfirm ? null : history.location.pathname === '/balance' ? closeModal() : history.push('balance')
+      // } else {
+      orderApi
+        .returnManyQuery(fdPayments)
+        .then((res) => {
+          alert('заявка отправлена :)')
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.log("PayModalContent.js ERROR", err)
+            closeModal();
+                     }
+        });
+      // }
+    // })
+    // .catch((err) =>console.log(`err ${err}`))
+
   };
+
+  /**
+   * Получаем массив файлов из FileList
+   * @param {*} fileList 
+   */
+  const getFileArray = (fileList) => {
+    return Array.from(fileList)
+  }
+  /**
+   * Хелпер для установки занчения в формике
+   * пример будет актуален для инпутов с одним файлом
+   * для множественных значений нужно будет переработать
+   * @param {*} event 
+   * @param {*} values 
+   * @param {*} arrayHelper 
+   */
+  const handleFileChange = (event, values, arrayHelper) => {
+    const arrFiles = getFileArray(event.target.files)
+    const file = arrFiles.length ? arrFiles[0] : undefined
+    if (!file) return
+    // Проверяем есть ли значения
+    if (Array.isArray(values)) {
+      /**
+       * Заменяем значение по индексу 0 на наш новый файл
+       * обратите внимение что мы вставляем объект { file: File }
+       * так будет лечге валидировать
+       * если нужно будет валифировать другие свойства файла то расширьте объект
+       * и схему валидации 
+       * @example { file: File, type: File.type }
+       * 
+       * для варианта с множеством файлом предлагаю вам вынести часть
+       * кода с <FieldArray> в отдельный компонент, при передачи пропров 
+       * компонент будет рендериться зановов и вы будете всегда работать 
+       * с чистым arrayHelper и только всегда пушить
+       */
+      arrayHelper.replace(0, { file })
+    } else {
+      // Или вставляем если ещё нет ни одного значения
+      arrayHelper.push({ file })
+    }
+    /**
+     * Создаём новый fileList, хотя от того можно отказаться
+     * вставляем его в наш ref
+     */
+    const dt = new DataTransfer()
+    arrFiles.forEach((file) => {
+      dt.items.add(file)
+    })
+    inputRef.current.files = dt.files
+  }
+  /**
+   * Дополнительное действие при очистке формы
+   * без него может не срабатывать onChange
+   */
+  const handleDelete = () => {
+    const dt = new DataTransfer()
+    // Тут вставляем пустой FileList
+    inputRef.current.files = dt.files
+  }
+  /**
+   * Валидационная схема
+   * Если вы будете расширять схему валидации для файла 
+   * то начните после file: yup..., ВАШ КОД ДАЛЕЕ
+   */
+  const validationShema = yup.object().shape({
+    fileInput: yup.array().of(yup.object().shape({
+      // test('НАЗВАНИЕ ОШИБКИ', 'ОПИСАНИЕ ОШИБКИ', Функция проверки)
+      file: yup.mixed().test('fileSize', 'fileSize', (value) => value ? value.size < 1 : false),
+    }))
+  })
+  /**
+   * Функция для печати ошибок
+   * для ошибок массивов в errors будет обхект 
+   * типа { [НАЗВАНИЕ ОШИБКИ]: ОПИСАНИЕ ОШИБКИ }
+   * @param {*} errors 
+   */
+  const printErrors = (errors) => {
+    if (Array.isArray(errors)) {
+      return errors.map((obj) => Object.values(obj).map((error) => <p key={error}>{error}</p>))
+    }
+    if (typeof errors === 'string') {
+      return errors
+    }
+    return null
+  }
+
+
   return (
     <ModalContentViews.ModalWrapper customClassName={'modal-payments'}>
       <ModalContentViews.CloseBtn closeModal={closeModal} />
@@ -41,75 +167,127 @@ const GetMyCacheModalContent = ({ closeModal }) => {
       </ModalContentViews.WarningBlock>
       <ModalContentViews.ContentBlock>
         <ModalContentViews.ContentBlock>
+
           <Formik
-            validationSchema={payModalScheme(errorsMessenge)}
+            // validationSchema={payModalScheme(errorsMessenge)}
+            validateOnChange
+            validateOnBlur
+            validateOnMount
+            // validationSchema={validationShema}
             initialValues={initialValues}
-            onSubmit={onSubmit}
+            onSubmit={async (values) => {
+              onSubmit(values)
+            }}
           >
-            {({ handleSubmit, handleChange, values, errors, setFieldValue, touched }) => {
+            {({ errors, touched, values, isValid, handleSubmit, handleReset }) => {
+
               return (
-                <GxForm noValidate onGx-submit={handleSubmit}>
-                  <Input
-                    value={values.amountCredited}
-                    type={'number'}
-                    variant={'largeCustomLabel'}
-                    className={'input-mt_20'}
-                    name={'amountCredited'}
-                    autocomplete={'off'}
-                    onGx-input={handleChange}
-                    helpText={
-                      errors.amountCredited && touched ? (
-                        <ErrorField message={errors.amountCredited} />
-                      ) : null
-                    }
-                    label={'Сумма*'}
-                  />
-                  <Input
-                    value={values.fio}
-                    variant={'largeCustomLabel'}
-                    className={'input-mt_20'}
-                    name={'fio'}
-                    autocomplete={'off'}
-                    onGx-input={handleChange}
-                    helpText={errors.fio && touched ? <ErrorField message={errors.fio} /> : null}
-                    label={'ФИО владельца счёта*'}
-                  />
-                  <Input
-                    value={values.beneficiaryBankAccountNumber}
-                    variant={'largeCustomLabel'}
-                    className={'input-mt_20'}
-                    name={'beneficiaryBankAccountNumber'}
-                    autocomplete={'off'}
-                    onGx-input={handleChange}
-                    helpText={
+                <Form>
+                  <label>
+                    Сумма*
+                    <Field
+                      name={'amount'}
+                      className={'input-mt_20'}
+                      type={'number'}
+                      value={values.amount}
+                    />
+                    {errors.amount && touched ? (
+                      <ErrorField message={errors.amount} />
+                    ) : null}
+                  </label>
+                      <hr> 
+</hr>
+
+                  <label>
+                    ФИО владельца счёта*
+                    <Field
+                      name={'fio'}
+                      className={'input-mt_20'}
+                      type={'text'}
+                      value={values.fio}
+                    />
+                    {errors.fio && touched ? <ErrorField message={errors.fio} /> : null}
+                  </label>
+                <hr>
+                  </hr>
+
+                  <label>
+                    № счёта в банке получателе*
+                    <Field
+                      name={'beneficiaryBankAccountNumber'}
+                      className={'input-mt_20'}
+                      type={'text'}
+                      value={values.beneficiaryBankAccountNumber}
+                    />
+                    {
                       errors.beneficiaryBankAccountNumber && touched ? (
                         <ErrorField message={errors.beneficiaryBankAccountNumber} />
                       ) : null
                     }
-                    label={'№ счёта в банке получателе*'}
-                  />
-                  <Input
-                    value={values.beneficiaryBankBIC}
-                    variant={'largeCustomLabel'}
-                    className={'input-mt_20'}
-                    name={'beneficiaryBankBIC'}
-                    autocomplete={'off'}
-                    onGx-input={handleChange}
-                    helpText={
+                  </label>
+                  <hr>
+</hr>
+                  <label>
+                    БИК банка получателя*
+                    <Field
+                      name={'beneficiaryBankBIC'}
+                      className={'input-mt_20'}
+                      type={'text'}
+                      value={values.beneficiaryBankBIC}
+                    />
+                    {
                       errors.beneficiaryBankBIC && touched ? (
                         <ErrorField message={errors.beneficiaryBankBIC} />
                       ) : null
                     }
-                    label={'БИК банка получателя*'}
+                  </label>
+                  <hr>
+</hr>
+                  <label htmlFor={`fileInput`}>
+                    Прикрепить
+                  </label>
+                  <FieldArray
+                    name={`fileInput`}
+                    render={arrayHelper => (
+                      <>
+                        <input
+                          multiple
+                          ref={inputRef}
+                          name={`fileInput`}
+                          type={`file`}
+                          // accept={`.pdf`}
+                          onChange={(event) => {
+                            handleFileChange(event, values.fileInput, arrayHelper)
+                          }}
+                        />
+                        {/* {printErrors(errors.fileInput)} */}
+                      </>
+                    )}
                   />
-                  <ModalContentViews.FileInputCustom label={""} setFieldValue={setFieldValue} />
-                  <Button type={'submit'} full variant={'black_btn'}>
+
+
+
+                  {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
+                  <hr>
+                  </hr>
+                  <button type="submit" disabled={!isValid} onClick={handleSubmit}>Submit</button>
+                </Form>
+              )
+            }}
+          </Formik>
+
+
+          {/* 
+
+                 <ModalContentViews.FileInputCustom label={"Прикрепить"} setFieldValue={setFieldValue} />
+
+                  <Button type={'submit'} stateClickSend={stateClickSend} full variant={'black_btn'}>
                     ОПЛАТИТЬ
                   </Button>
                 </GxForm>
               );
             }}
-          </Formik>
+          </Formik> */}
         </ModalContentViews.ContentBlock>
         <ModalContentViews.CenterPosition></ModalContentViews.CenterPosition>
       </ModalContentViews.ContentBlock>

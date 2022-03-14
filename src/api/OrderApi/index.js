@@ -57,7 +57,10 @@ export default class OrderApi extends AbstractBaseApi {
     return res.data;
   };
   // ******************************************************************************
-
+  returnManyQuery = async (params = {}) => {
+    const res = await this.post(`/order/payment_outputs/`, params);
+    return res.data;
+  };
   // order/order_list
   listOrderItem = async (params = {}) => {
     const res = await this.get(`/order/order/`, params);

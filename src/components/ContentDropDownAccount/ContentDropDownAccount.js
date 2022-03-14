@@ -8,6 +8,7 @@ import Retailer from './Retailer';
 import Dropshipper from './Dropshipper';
 import Wholesale from './Wholesale';
 import { useHistory} from 'react-router-dom'
+import { useStoreon } from 'storeon/react';
 
 /**
  * на основе роли выберет нужный контент
@@ -24,6 +25,9 @@ const ContentDropDownAccount = ({
   const { role, user = {}, shop = { is_has_shop: false }, status } = profile;
   const { first_name = 'Имя', last_name = 'Фамилия' } = user;
   const history = useHistory();
+  const { userPage, dispatch } = useStoreon('userPage')
+
+
   const logOut = () => {
     console.log('выход с аккаунта');
     const ft_token = getCookie('ft_token');
@@ -83,6 +87,7 @@ const ContentDropDownAccount = ({
       />
     ),
   };
+console.log('status',status)
   switch (status) {
     case 0:
       return variantDropDown.unregistred;

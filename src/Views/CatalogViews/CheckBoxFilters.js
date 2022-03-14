@@ -75,9 +75,9 @@ const CheckBoxFilters = ({ values, handleChangeFilters, fp_const, role }) => {
       </div>
       <div className={style['catfilter-block']}>
         <div className={style['catfilter-block__content']}>
-          {role.number !== ROLE.RETAIL ? (
+          {role !== ROLE.RETAIL ? (
             <React.Fragment>
-              {role.number !== ROLE.WHOLESALE ? (
+              {role !== ROLE.WHOLESALE ? (
                 <div className={style['catfilter-item']}>
                   <CheckBox
                     checked={values.is_in_collection}

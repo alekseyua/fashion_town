@@ -69,8 +69,8 @@ const SectionProdPage = ({
   is_liked,
   media = [],
   in_cart_count,
-  is_collection,// белевое значение является товар колекцией
-  collections, //!ждёмс колекций
+  is_collection,
+  collections,
   product_rc,
   role_configuration,
   site_configuration,
@@ -134,11 +134,6 @@ const SectionProdPage = ({
     content: null
   })
 
-
-
-
-
-
   //   //заганяем начальные значения 
 //отлавливаем клик вне блока поделится
   useEffect(() => {
@@ -147,15 +142,6 @@ const SectionProdPage = ({
     return () => document.removeEventListener('click', clickOut);
   }, []);
   
-  
-  // useEffect(() => {
-
-  //       const clickOut = (e) => collectionRef.current.contains(e.target) || console.log('click out block')
-  //       document.addEventListener('click', clickOut);
-  //       return () => document.removeEventListener('click', clickOut);
-  // }, []);
-
-
   // цвет
   useEffect(() => {
     let color = colors.filter(el => el.selected)
@@ -254,9 +240,6 @@ useEffect(() => {
       collection : null,
       // pack ??????
     }
-
-
-
     colorsn.id || sizesn.id?(
     apiContent
       .getProduct(productId, params)
@@ -334,10 +317,7 @@ useEffect(() => {
     }
   };
 
-
-  //   //******************сделать попап******************************* */
-  
-  const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
+    const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
     setCustomModalStates({
       ...customModalStates,
       show: true,
@@ -381,7 +361,7 @@ useEffect(() => {
 
     let realColor = color ? color : colorsn.id;
     let realSize = size ? size : sizesn.id;
-    // console.log('realColor', realColor);
+    console.log('is_collection', collectionsHook);
     // console.log('realSize', realSize);
     // console.log('color', color);
     // console.log('size', size);
@@ -393,6 +373,7 @@ useEffect(() => {
       color: realColor,
       size: realSize,
       qty: count || 1,
+      is_collection: collectionsHook,
       // is_pack: adding_type !== 'item',
     };
     console.log('params', params)
@@ -425,8 +406,6 @@ useEffect(() => {
     console.log('sizesn', sizesn);
     console.log('colorsn', colorsn);
   };
-
-
 
   const lables = [
     {
@@ -499,14 +478,14 @@ useEffect(() => {
       >
       </Popupe>
     }) }
-  }
-  
+  }  
 
   const [isOpen, setIsOpen]=useState();
   useEffect(() => {
     const body = document.querySelector('body');
     body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen])
+
 
   return (
     <Formik enableReinitialize onSubmit={submitProduct}>

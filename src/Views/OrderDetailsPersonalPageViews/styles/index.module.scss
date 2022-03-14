@@ -117,6 +117,13 @@ p {
       display: flex;
       justify-content: space-around;
       max-width: 100%;
+      @include laptop-sm {
+          &:first-child{
+            min-width: 150px;
+            width: 100%;
+            min-height: 210px;
+          }
+      }
     }
   }
   &__image {
@@ -126,6 +133,10 @@ p {
       object-fit: cover;
       margin-right: 10px;
       transition: height .6s ease-in-out .5s;
+      @include laptop-sm {
+         width: 150px;
+         height: 210px;
+      }
       // &:hover{
       //   position: absolute;
       //   width: 30%;
@@ -146,7 +157,7 @@ p {
     &__wrapper {
       @include row(9);
       margin-bottom: 5px;
-      @include mobile-lg {
+      @include laptop-sm {
         flex-direction: column;
       }
     }
@@ -271,6 +282,7 @@ p {
   &__tooltipicon {
     margin-bottom: 20px;
     margin-left: 10px;
+    margin-right: 20px;
 
     &::part(base) {
       border-style: none;
@@ -338,8 +350,8 @@ p {
     }
     &left,
     &right {
-      @include col(15, 15);
-      // @include col(6, 15);
+      // @include col(15, 15);
+      @include col(6, 15);
 
       @include mobile { 
         @include col(12, 0);
@@ -358,7 +370,7 @@ p {
     margin-bottom: 10px;
     position: sticky;
     max-width: 370px;
-    min-width: 320px;
+    // min-width: 320px;
     // top: 200px;
     &_head {
       // @extend %cab-h2;
@@ -553,7 +565,11 @@ p {
 
 .btn__order-item--block-canceled{
   display: flex;
-  justify-content: flex-end
+  justify-content: flex-end;
+  @include laptop-sm{ 
+  justify-content: space-evenly;
+  }
+  // margin-right: 10px;
 }
 
 .btn__order-item--canceled{
@@ -561,10 +577,10 @@ p {
   font-size: 14px; 
   cursor: pointer;
   margin-bottom: 2px;
-  background-color: rgba(242, 142, 142, .789);
+  background-color: rgba(240, 196, 196, 0.789);
   border: none;
-  padding: 3px;
-  
+  text-transform: uppercase;
+  padding: 3px 7px;  
   &:hover{
     // width: 100%;
     // height: 100%; 

@@ -114,7 +114,7 @@ const App = ({ lang, pageServer, ...props }) => {
 
       dispatch('currenssies/update', DEFAULT_CURRENCIES);
     } else {
-      dispatch('currenssies/update', currency);
+      dispatch('currenssies/update', currency); 
     }
   }, [currency]);
   //********************************************************************************* */ 

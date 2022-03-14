@@ -13,7 +13,7 @@ const AccessCheck = ({ first_name = 'first_name', last_name = 'last_name', logOu
         last_name={last_name}
         role={Text({ text: 'retailBuyer' })}
       />
-      <DropDownHeaderLK.Line />
+      <DropDownHeaderLK.Line /> 
       <DefaultAuthText.HelpText>
         Администратор проверяет введенные вами данные. Дождитесь обновления статуса проверки
       </DefaultAuthText.HelpText>

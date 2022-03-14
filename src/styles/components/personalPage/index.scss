@@ -11,6 +11,10 @@
   }
   &-rightcol {
     @include col(9, 15);
+    @include mobile{
+    @include col(15, 15);
+    
+    }
   }
   &-formblock {
     position: relative;
@@ -295,7 +299,8 @@
     margin-bottom: 20px;
   }
   &_mobile_wrapper {
-    @include padding-for-mobile;
+    overflow: hidden;
+    // @include padding-for-mobile;
   }
   &_subtext {
     color: $dg2;

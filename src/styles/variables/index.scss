@@ -198,7 +198,7 @@ $maxWidthContainer: 1400;
 
 @mixin laptop-sm {
   @media screen and (max-width: 1366px) {
-    @content;
+    @content; 
   }
 }
 

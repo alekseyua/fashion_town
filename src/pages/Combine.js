@@ -177,6 +177,20 @@ const Combine = (props) => {
             const DevPage = PAGE_TYPES['development-page'];
             return <DevPage {...page} {...props} />;
           }
+          const pageStatus = page.profile.status;
+          // принудительно задаём статус незарегестрированого пользователя до подтверждения
+          if (pageStatus !== 3){
+          let profile = {
+            ...page.profile,
+            role : 0
+          }
+          console.log('prof', profile)
+           page = {
+              ...page,
+              profile
+          }
+          } 
+
           page ? dispatch('userPage/add', page) : null;
           page ? setRoleConfiguration(page) : null;
           return <Page {...page} {...props} cartUpdate={stateCountCart} />;

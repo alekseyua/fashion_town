@@ -20,6 +20,9 @@ import { GxButton, GxIcon } from '@garpix/garpix-web-components-react';
 import { useStoreon } from 'storeon/react';
 import style from './styles/index.module.scss';
 import ModalContentViews from '../../Views/ModalContentViews';
+import PayModalContent from '../../components/BalanceComponent/PayModalContent';
+import api from '../../api';
+import Button from '../../Views/Button';
 
 const OrderBaseDetails = ({
   payment_method,
@@ -74,7 +77,7 @@ const OrderBaseDetails = ({
   };
   const { userPage }  = useStoreon('userPage');
   const { role }      = userPage.profile;
-
+  const orderApi = api.orderApi;
   const closeModal = () => {
     setModalStates({
       content: null,
@@ -110,8 +113,10 @@ const OrderBaseDetails = ({
                         : status.id === 'sended' ?
                           `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
                           : status.id === 'canceled' ?
-                            `Заказ №${numberOrder} был отменен по причине ${comment ? comment : 'нужен авто ответ'}.`
-                            : 'no bla-bla-bla'
+                            `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
+                            : status.id === 'return' ?
+                              `По Заказу №${numberOrder} оформлен возврат`
+                            :role === ROLE.WHOLESALE? `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
           }
             </p>
 
@@ -121,7 +126,16 @@ const OrderBaseDetails = ({
     });
   }
 
-
+    const openModalPay = (e) => {
+      e.preventDefault()
+      orderApi.getRandomRequizites().then((res) => {
+          setModalStates({
+            content: <PayModalContent closeModal={closeModal} requisites={res} order_id={true} />,
+            show: true,
+            addClass: 'modal-payments',
+          });
+        });
+    };
   return (
     <div className={style['cabinet_orders_details__ordercard']}>
       <div className={style['cabinet_orders_details__wrapper']}>
@@ -141,6 +155,13 @@ const OrderBaseDetails = ({
             >
               <GxIcon src={toolTipIcon} />
             </GxButton>
+            
+            {status.id === 'payment_waiting'?
+              <Button onClick={openModalPay} variant={'cabinet_default'}>
+                оплатить заказ 
+              </Button>
+              :null
+            }
           </div>
           <div className={style['cabinet_orders_details__middle']}>
             <div className={style['cabinet_orders_details__pay']}>
@@ -181,6 +202,37 @@ const OrderBaseDetails = ({
           </CartViews.BlockRightSide>
 
           {(role === ROLE.RETAIL)
+          ?( <>  
+            <CartViews.BlockRightSide>
+              <CartViews.Text type={'text-default'}>
+                <Text text={'sale'} />
+              </CartViews.Text>
+              <CartViews.Text type={'text-red'}>
+                {discount} {currentCurrcensies}
+              </CartViews.Text>
+            </CartViews.BlockRightSide>
+            <CartViews.BlockRightSide>
+              <CartViews.Text type={'text-default'}>
+                <Text text={'shipping'} />
+              </CartViews.Text>
+              <CartViews.Text type={'text-default_currency'}>
+                              {delivery_cost ? (
+                                <>
+                                &nbsp;                                
+                                  {delivery_cost}&nbsp;
+                                  {currentCurrcensies}{' '}
+                                </>
+                              ):( 
+                                <>
+                                  {null}
+                                </>
+                              )}
+                            
+                {/* 130 {currentCurrcensies} */}
+              </CartViews.Text>
+            </CartViews.BlockRightSide>
+          </>)
+          :(role === ROLE.DROPSHIPPER)
           ?( <>  
             <CartViews.BlockRightSide>
               <CartViews.Text type={'text-default'}>

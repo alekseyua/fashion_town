@@ -35,6 +35,7 @@ const Balance = ({ setModalStates, role }) => {
       });
     });
   };
+
   return (
     <PersonalPageViews.WrapperForm>
       <PersonalPageViews.HeadingBlock title={Text({ text: 'balance' })} />

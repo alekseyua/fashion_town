@@ -172,7 +172,6 @@ const OrderDetailsPersonalPageComponent = ({
           setModalStates={setModalStates}
           numberOrder={slug}
         />
-
         <OrderDetailsPersonalPageViews.ListTable
           count={role !== ROLE.WHOLESALE ? orderItems.length : orderItemLength}
           specification={specification}
@@ -236,6 +235,7 @@ const OrderDetailsPersonalPageComponent = ({
             )}
           </OrderDetailsPersonalPageViews.LeftSideCol>
           <OrderDetailsPersonalPageViews.RightSideCol>
+          <Chat order_id={order.id} setModalStates={setModalStates} />
             
           </OrderDetailsPersonalPageViews.RightSideCol>
         </OrderDetailsPersonalPageViews.CardSectionWrapper>

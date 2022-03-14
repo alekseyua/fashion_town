@@ -292,7 +292,7 @@ const Card = ({
           <div
             className={style['btn__order-item--block-canceled']}
           >
-            {status.id === 'payment_waiting' || status.id === 'collection' || status.id === 'paid' || status.id === 'redeemed' ?
+            {status.id === 'payment_waiting' || status.id === 'collection' || status.id === 'paid' ?
             (<button
             variant="default"
             className={style['btn__order-item--canceled']}

@@ -439,6 +439,10 @@
     &__add {
 
       &-to-cart {
+        &--span{
+          text-transform: uppercase;
+        }
+
         &-click{
           pointer-events: auto;
           --gx-transition-medium: 250ms;
@@ -506,6 +510,7 @@
       padding: 0 20px 6px;
       font-size: 44px;
       font-weight: unset;
+      text-transform: uppercase;
     }
     &__down-button::part(base) {
       padding: 0 19px 0px;
@@ -523,6 +528,7 @@
       font-size: 14px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      
       &--color{
         &__red{
           background-color: red;
@@ -643,8 +649,9 @@
         }
       }
       &-btn {
-        margin-left: 22px;
+        // margin-left: 22px;
         height: 59px;
+
       }
     }
     &__text {
@@ -664,9 +671,8 @@
         border-radius: 3px;
       }
       &::part(label) {
-
         // font-size: 33px;
-        @include adaptiv-font(10px,24px);
+        @include adaptiv-font(10px,22px);
         @include tablet-md{
           @include adaptiv-font(15px,24px);
         }

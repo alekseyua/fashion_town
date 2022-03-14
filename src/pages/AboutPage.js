@@ -14,11 +14,10 @@ import {
   mainAboutImg,
 } from '../images';
 import Title from '../Views/Title';
-
+ 
 const AboutPage = (props) => {
 
   const { breadcrumbs, components, site_configuration } = props;
-
   const firstSection = components.filter((el) => el.id === 9)[0];
   const platformSection = components.filter((el) => el.id === 10)[0];
   const platformListSection = components.filter((el) => el.id === 11)[0];

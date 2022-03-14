@@ -538,12 +538,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
       <GxRow>
         <GxCol sizeLg={12} sizeMd={12} sizeSm={12} sizeXl={9} sizeXs={12} className="cart__left">
-          <Title variant={'cart-min'} type={'h3'}>
-            {(role === ROLE.WHOLESALE) ?
-              <Text text={'minShopping.cart'} />
-              :null
-          }
-          </Title>
 
             <Title variant={'cart'} type={'h1'}>
             <Text text={'shopping.cart'} />: ({
@@ -561,6 +555,12 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
             setFullItemCartCheckedState={setFullItemCartCheckedState}
             oneClick={oneClick}
           />
+          <Title variant={'cart-min'} type={'h3'}>
+            {(role === ROLE.WHOLESALE) ?
+              <Text text={'minShopping.cart'} />
+              : null
+            }
+          </Title>
           <CartViews.WrapperCards>
 
 

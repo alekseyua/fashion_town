@@ -216,48 +216,9 @@ const SizesItems = ({
           </GxButton>
         </p>
       ) : null}
-            {/* добавляем кнопку для добавления сбора если сбор 0 */}
-      {role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length ===0? (
 
-          <React.Fragment>
-          <div className={style['prodpage-range__box']}>
-            <p className={style['prodpage-range__title']}>Условие покупки:</p>
-            <p className={style['prodpage-range__condition']}>{product_rc}</p>
-            <div className={style['prodpage-range__wrap']}>
-              {/* <p className={style['prodpage-range__text']}>Размеры: s, m, l, xl </p>
-              <p className={style['prodpage-range__text']}>Стоимость ряда: 140 ZL </p> */}
-            </div>
-          </div>
-            <div className={style['add-collection']}>
-             {/* <GxButton
-                    onClick={() => {
-                console.log('role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length !== 0')
-                console.log('role === ROLE.DROPSHIPPER', role === ROLE.DROPSHIPPER);
-                console.log('collections', collections);
-                console.log('listCollectionsHook.length !== 0', listCollectionsHook.length !== 0);
-
-              }}
-                    className={style['prodpage-range__button']}
-                  >
-                    "для тестов"
-            </GxButton> */}
-            
-            {/* {listCollectionsHook.length === 0
-            ?<motion.div 
-            initial={{x:0}}
-            animate={{x:-30}}
-            exit={{x:0}}
-            transition={{
-              duration:2,
-              repeat: Infinity
-            }}
-            className={style['hand-arrow']}>👈🏻<span>Кнопка сбора "Размерный ряд"</span></motion.div>
-            :null} */}
-
-            </div>
-          </React.Fragment>
-      )
-        : (role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length !==0 ? (
+            {/* добавляем кнопку для добавления сбора если сбор > 0 */}
+      { role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length !==0 ? (
         <React.Fragment>
           {/* Условие покупки */}
           <div className={style['prodpage-range__box']}>
@@ -281,7 +242,19 @@ const SizesItems = ({
             </div>
           </div>
         </React.Fragment>
-      ) : null)
+      ) : 
+          <React.Fragment>
+          {/* не показываем кнопку для добавления сбора если сбор 0 */}
+            <div className={style['prodpage-range__box']}>
+              <p className={style['prodpage-range__title']}>Условие покупки:</p>
+              <p className={style['prodpage-range__condition']}>{product_rc}</p>
+              <div className={style['prodpage-range__wrap']}>
+              </div>
+            </div>
+            <div className={style['add-collection']}>
+            </div>
+          </React.Fragment>
+     
       }
 
       {renderSizesFromCollectionOrSky()}
@@ -290,7 +263,7 @@ const SizesItems = ({
           <GxIcon className={style['prodpage-sizes__remainder-btn']} src={fire}></GxIcon>
           Осталось:{in_stock_count} ед.
         </p>
-      ) : null}
+      ) : null} 
     </div>
   );
 };

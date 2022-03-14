@@ -24,7 +24,7 @@ const TrackDetails = ({ nubmerTrack = '80110156803221' }) => {
             color: `#820c78`
         }    
         }>
-          отследить посылку &nbsp;
+          Отследить посылку &nbsp;
           <Link 
             to="#"
           onClick={openLink}

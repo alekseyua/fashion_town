@@ -114,7 +114,9 @@ const ControlButtons = ({
           ref={cartRef}
           slot="icon-left" 
           src={shoppingIcon}></GxIcon>
-            <span> в корзине: {countInBtn} шт.</span>
+            <span 
+              className={style['prodpage-control-buttons__add-to-cart--span']}
+            > в корзине: {countInBtn} шт.</span>
           </p>
           <GxButton
             onClick={(e) => {
