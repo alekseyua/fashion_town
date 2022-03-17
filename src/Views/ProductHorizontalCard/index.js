@@ -56,6 +56,7 @@ const ProductHorizontalCard = ({
       selected: selected,
       qty: qty,
       oldQty: countProducts,
+      is_collection: true
     });
   };
   const decCounterProduct = () => {

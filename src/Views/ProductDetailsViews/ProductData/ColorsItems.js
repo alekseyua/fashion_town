@@ -17,7 +17,7 @@ const ColorsItems = ({ items = [], setColorsn, colorsn, getColorForMedia }) => {
     setClickDelay('')
     const delayClk = setTimeout(() => {
       setClickDelay(null)
-    }, 500);
+    }, 700);
     return () => clearTimeout(delayClk)
   }, [items.length, colorsn.id])
 

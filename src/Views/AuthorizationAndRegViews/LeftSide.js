@@ -13,7 +13,7 @@ console.log('video', videoReg)
       {/* <img className={style['wrapper__image']} src={image} alt={Text({ text: 'backgroundAuth' })} /> */}
       <Player 
         className="news-details-page__slider_item" 
-        // controls={false}
+          controls={true}
           muted
           autoPlay={"autoplay"}
           preLoad={"auto"}

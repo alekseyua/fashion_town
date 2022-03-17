@@ -651,6 +651,8 @@ header {
   }
 }
 
+
+
 // Это была последняя надежда пробиться к стилям слайдера
 div[class*='prodpage__left'] {
   .swiper-button-prev,
@@ -673,7 +675,18 @@ div[class*='prodpage__left'] {
     bottom: 0;
   }
 }
-
+.inner-areon{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: pulse-mobile 1.5s infinite;
+  transition: background-color .3s, color .3s, box-shadow .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
 .inner-chat{
   width: 50px;
   height: 50px;
@@ -862,6 +875,12 @@ main {
 }
 
 
+.video-react-control-bar-auto-hide{
+  // opacity: 0;
+  transform: scale(0);
+}
+
+
 @keyframes pulse{
   0%{
     box-shadow: 0 0 0 0 transparentize(#e29a9a, .6)}
@@ -878,3 +897,5 @@ main {
   100%{
     box-shadow: 0 0 0 0 transparentize(#e29a9a, 1)}
   }
+
+

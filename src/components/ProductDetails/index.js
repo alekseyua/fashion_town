@@ -241,7 +241,7 @@ const ProductPreview = ({
         article={prodSectionsProp?.article}
       />
       {prodSectionsProp.content || prodSectionsProp.extra ? (
-        <SectionDescription content={prodSectionsProp.content} extra={prodSectionsProp.extra} />
+          <SectionDescription content={prodSectionsProp.content} extra={prodSectionsProp.extra} article={prodSectionsProp?.article}/>
       ) : null}
       <SectionReviews
         reviews_statistic={reviews_statistic}

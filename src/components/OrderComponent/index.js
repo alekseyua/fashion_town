@@ -406,10 +406,10 @@ const OrderComponent = ({
         /**
          * необходимо исправить добавление и удаление стилей по React
          */
-
-        if (document.querySelector('.orderCar').classList.contains('disable')) {
-          document.querySelector('.orderCar').classList.remove('disable');
-        }
+        styleCar === 'orderCar disable' ? setStyleCar('orderCar'):null
+        // if (document.querySelector('.orderCar').classList.contains('disable')) {
+        //   document.querySelector('.orderCar').classList.remove('disable');
+        // }
         //?если нужен паспорт то проверим валидность введённых данных
         if (values.needPassport && !values.waitForCall) {
           if (Object.keys(errors).length == 0 && values.agree_personal_data) {

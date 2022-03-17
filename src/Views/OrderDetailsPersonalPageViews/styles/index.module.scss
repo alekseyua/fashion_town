@@ -38,6 +38,8 @@ p {
             --stroke-delay: .1s;
             --offset: 190px;
             margin-left: 0px;
+               text-decoration: underline $pi2;
+
         }
     }
 }
@@ -280,10 +282,24 @@ p {
     margin-right: 10px;
   }
   &__tooltipicon {
-    margin-bottom: 20px;
-    margin-left: 10px;
-    margin-right: 20px;
-
+    // margin-bottom: 20px;
+    // margin-right: 20px;
+    // margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+    
+    &>gx-icon {
+      overflow: hidden;
+      &:hover {
+        border-radius: 60%;
+        background-color: rgb(197, 55, 145);
+      }
+    }
+    
     &::part(base) {
       border-style: none;
       background-color: transparent;
@@ -560,6 +576,10 @@ p {
     @include mobile {
       margin-bottom: 20px;
     }
+  }
+  &__text-link--link{
+    text-decoration: underline;
+
   }
 }
 

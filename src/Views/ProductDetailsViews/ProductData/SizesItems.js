@@ -42,7 +42,7 @@ const SizesItems = ({
     setClickDelay('')
     const delayClk = setTimeout(() => {
       setClickDelay(null)
-    }, 500);
+    }, 700);
     return ()=>clearTimeout(delayClk)
   }, [sizes.length, sizesn.id])
   

@@ -240,6 +240,7 @@ useEffect(() => {
       collection : null,
       // pack ??????
     }
+
     colorsn.id || sizesn.id?(
     apiContent
       .getProduct(productId, params)
@@ -383,7 +384,9 @@ useEffect(() => {
       .then((res) => {
         setChangeColorBtn({ red: false, green: false });
         setIn_cart_countHook(count)
+        if (collectionsHook) dispatch('stateCountRestart/add', !stateCountRestart)
         
+
          if (openModalSucces && stateCountCart.in_cart === 0) {
           openModalSuccessAddToCart(colorsn, sizesn);
          }
@@ -614,7 +617,7 @@ useEffect(() => {
                         description={role_configuration.delivery_condition}
                       />
                     ) : null}
-                    <div><h5><strong>Артикул:</strong> {article}</h5></div>
+                    {/* <div><h5><strong>Артикул:</strong> {article}</h5></div>  */}
                   </ProductDetailsViews.DataProductRigth>
                 </ProductDetailsViews.DataProductRow>
               </Container>

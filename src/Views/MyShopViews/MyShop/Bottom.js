@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 const Bottom = ({ storeIcon, toolTipIcon, domain }) => {
   return (
     <>
-      <Link to={domain} target="_blank" className={style['cabinet-sidebar__newstorebtn']}>
+     {/* временно делаем кнопку не активной в стилях */}
+      <Link 
+      to={domain} 
+      target="_blank" 
+      className={style['cabinet-sidebar__newstorebtn']}
+      >
         <img src={storeIcon} alt="store" />
         <span>мой магазин</span>
       </Link>

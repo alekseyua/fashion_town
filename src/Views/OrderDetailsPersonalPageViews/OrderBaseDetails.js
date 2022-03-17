@@ -146,16 +146,17 @@ const OrderBaseDetails = ({
               className={style['cabinet_orders_details__icon']}
             />
             {status.title}
-            <GxButton
-              circle
-              size="sm"
-              variant="info"
-              className={style['cabinet_orders_details__tooltipicon']}
-              onClick={heandlerClickInfo}
-            >
-              <GxIcon src={toolTipIcon} />
-            </GxButton>
-            
+            <div className='inner-areon'>
+              <button
+                circle
+                size="sm"
+                variant="info"
+                className={style['cabinet_orders_details__tooltipicon']}
+                onClick={heandlerClickInfo}
+              >
+                <GxIcon src={toolTipIcon} />
+              </button>
+            </div>
             {status.id === 'payment_waiting'?
               <Button onClick={openModalPay} variant={'cabinet_default'}>
                 оплатить заказ 

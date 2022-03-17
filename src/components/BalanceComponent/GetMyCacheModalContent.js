@@ -11,7 +11,7 @@ import Button from '../../Views/Button';
 import Text from '../../components/Text';
 import api from '../../api';
 import * as yup from 'yup'
-
+import style from './style/getMyCacheModalContent.module.scss'
 const GetMyCacheModalContent = ({ closeModal }) => {
   const history = useHistory();
   const orderApi = api.orderApi;
@@ -32,7 +32,7 @@ const GetMyCacheModalContent = ({ closeModal }) => {
   };
   const onSubmit = (data) => {
     // alert(JSON.stringify(data, null, 2))
-    console.log('click get many', data)
+    console.log('click get many', data.fileInput[0].file)
     setStateClickSend(true)
     // orderApi
     //   .getRandomRequizites()
@@ -45,7 +45,7 @@ const GetMyCacheModalContent = ({ closeModal }) => {
         fdPayments.set('name', data.fio);
         fdPayments.set('number', data.beneficiaryBankAccountNumber);
         fdPayments.set('bank', data.beneficiaryBankBIC);
-        fdPayments.set('receipt', data.fileInput);
+    fdPayments.set('receipt', data.fileInput[0].file);
 
 
       // if (fdPayments.get('receipt') === 'null') {
@@ -55,7 +55,8 @@ const GetMyCacheModalContent = ({ closeModal }) => {
       orderApi
         .returnManyQuery(fdPayments)
         .then((res) => {
-          alert('заявка отправлена :)')
+          closeModal();
+          // alert('заявка отправлена :)')
         })
         .catch((err) => {
           if (err.response) {
@@ -182,95 +183,109 @@ const GetMyCacheModalContent = ({ closeModal }) => {
             {({ errors, touched, values, isValid, handleSubmit, handleReset }) => {
 
               return (
-                <Form>
-                  <label>
-                    Сумма*
-                    <Field
-                      name={'amount'}
-                      className={'input-mt_20'}
-                      type={'number'}
-                      value={values.amount}
-                    />
-                    {errors.amount && touched ? (
-                      <ErrorField message={errors.amount} />
-                    ) : null}
-                  </label>
-                      <hr> 
-</hr>
+                <Form
+                  className={style['form__group']}
+                >
+                  <div className={style["form__wrapper"]}>
 
-                  <label>
-                    ФИО владельца счёта*
-                    <Field
-                      name={'fio'}
-                      className={'input-mt_20'}
-                      type={'text'}
-                      value={values.fio}
+                    <label
+                      className={style['label-mt_20']}
+                    >
+                      Сумма*
+                      <Field
+                        name={'amount'}
+                        className={style['input-mt_20']}
+                        type={'number'}
+                        value={values.amount}
+                      />
+                      {errors.amount && touched ? (
+                        <ErrorField message={errors.amount} />
+                      ) : null}
+                    </label>
+
+                    <label
+                      className={style['label-mt_20']}
+                    >
+                      ФИО владельца счёта*
+                      <Field
+                        name={'fio'}
+                        className={style['input-mt_20']}
+                        type={'text'}
+                        value={values.fio}
+                      />
+                      {errors.fio && touched ? <ErrorField message={errors.fio} /> : null}
+                    </label>
+
+
+                    <label
+                      className={style['label-mt_20']}
+                    >
+                      № счёта в банке получателе*
+                      <Field
+                        name={'beneficiaryBankAccountNumber'}
+                      className={style['input-mt_20']}
+                        type={'number'}
+                        value={values.beneficiaryBankAccountNumber}
+                      />
+                      {
+                        errors.beneficiaryBankAccountNumber && touched ? (
+                          <ErrorField message={errors.beneficiaryBankAccountNumber} />
+                        ) : null
+                      }
+                    </label>
+
+                    <label
+                      className={style['label-mt_20']}
+                    >
+                      БИК банка получателя*
+                      <Field
+                        name={'beneficiaryBankBIC'}
+                        className={style['input-mt_20']}
+                        type={'text'}
+                        value={values.beneficiaryBankBIC}
+                      />
+                      {
+                        errors.beneficiaryBankBIC && touched ? (
+                          <ErrorField message={errors.beneficiaryBankBIC} />
+                        ) : null
+                      }
+                    </label>
+
+                    <label
+                      className={style['label-mt_20']}
+                      htmlFor={`fileInput`}
+                    >
+                      Прикрепить
+                    </label>
+                    <FieldArray
+                      name={`fileInput`}
+                      render={arrayHelper => (
+                        <>
+                          <input
+                            // multiple
+                            ref={inputRef}
+                            name={`fileInput`}
+                            type={`file`}
+                            // accept={`.pdf`}
+                            onChange={(event) => {
+                              handleFileChange(event, values.fileInput, arrayHelper)
+                            }}
+                          />
+                          {/* {printErrors(errors.fileInput)} */}
+                        </>
+                      )}
                     />
-                    {errors.fio && touched ? <ErrorField message={errors.fio} /> : null}
-                  </label>
-                <hr>
+                      {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
+                  </div>
+
+                  <hr>
                   </hr>
-
-                  <label>
-                    № счёта в банке получателе*
-                    <Field
-                      name={'beneficiaryBankAccountNumber'}
-                      className={'input-mt_20'}
-                      type={'text'}
-                      value={values.beneficiaryBankAccountNumber}
-                    />
-                    {
-                      errors.beneficiaryBankAccountNumber && touched ? (
-                        <ErrorField message={errors.beneficiaryBankAccountNumber} />
-                      ) : null
-                    }
-                  </label>
-                  <hr>
-</hr>
-                  <label>
-                    БИК банка получателя*
-                    <Field
-                      name={'beneficiaryBankBIC'}
-                      className={'input-mt_20'}
-                      type={'text'}
-                      value={values.beneficiaryBankBIC}
-                    />
-                    {
-                      errors.beneficiaryBankBIC && touched ? (
-                        <ErrorField message={errors.beneficiaryBankBIC} />
-                      ) : null
-                    }
-                  </label>
-                  <hr>
-</hr>
-                  <label htmlFor={`fileInput`}>
-                    Прикрепить
-                  </label>
-                  <FieldArray
-                    name={`fileInput`}
-                    render={arrayHelper => (
-                      <>
-                        <input
-                          multiple
-                          ref={inputRef}
-                          name={`fileInput`}
-                          type={`file`}
-                          // accept={`.pdf`}
-                          onChange={(event) => {
-                            handleFileChange(event, values.fileInput, arrayHelper)
-                          }}
-                        />
-                        {/* {printErrors(errors.fileInput)} */}
-                      </>
-                    )}
-                  />
-
-
-
-                  {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
-                  <hr>
-                  </hr>
-                  <button type="submit" disabled={!isValid} onClick={handleSubmit}>Submit</button>
+                  <button 
+                  type="submit" 
+                  disabled={!isValid} 
+                  onClick={handleSubmit}
+                  className={style['button__form']}
+                  >оформить возврат</button>
                 </Form>
               )
             }}

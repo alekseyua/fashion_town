@@ -41,8 +41,7 @@ const Balance = ({ setModalStates, role }) => {
       <PersonalPageViews.HeadingBlock title={Text({ text: 'balance' })} />
       <PersonalPageViews.ContentBlock>
         <PersonalPageViews.SmallTextGray>
-          Вы можете пополнять баланс, <strong>после подтверждения</strong> зачисления денежных
-          средств, администратор переводит их в статус <strong>«доступно»</strong>.
+          В данном разделе Вы можете пополнять баланс.  <strong>После подтверждения </strong>зачисления денежных средств, администратор переводит их в статус <strong>«доступно»</strong>.
         </PersonalPageViews.SmallTextGray>
         <PersonalPageViews.BalanceItemsWrapper>
           <PersonalPageViews.BalanceItem

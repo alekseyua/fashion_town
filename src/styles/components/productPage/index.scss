@@ -3,6 +3,11 @@
 .productdescription {
   @include padding-for-mobile;
   padding-top: 21px;
+  &__inner-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   &__row {
     @include row-flex;
     @include padding-for-mobile;

@@ -27,7 +27,7 @@ const WithdrawalFunds = ({ setModalStates }) => {
       <PersonalPageViews.HeadingBlock title={'Возврат денежных средств в связи с отменой заказа'} />
       <PersonalPageViews.ContentBlock>
         <PersonalPageViews.SmallTextGray>
-          Согласно п.5 ДОГОВОРа оказания услуг по подбору и выкупу одежды (публичная оферта).
+          Согласно п.5 договора оказания услуг по подбору и выкупу одежды (публичная оферта).
            Вы можете запросить возврат денежных средств,
            воспользовавшись формой ниже. Необходимо приложить скан заполненного заявления
         </PersonalPageViews.SmallTextGray>

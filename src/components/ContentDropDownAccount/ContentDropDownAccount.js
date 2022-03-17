@@ -87,7 +87,6 @@ const ContentDropDownAccount = ({
       />
     ),
   };
-console.log('status',status)
   switch (status) {
     case 0:
       return variantDropDown.unregistred;

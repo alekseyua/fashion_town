@@ -39,15 +39,17 @@ const HeadChat = ({ setModalStates}) => {
   return (
     <div className={style['cabinet_orders_details__chat_head']}>
       <div className={style['cabinet_orders_details__paystatus']}>
-        <GxButton
-          circle
-          size="sm"
-          variant="info"
-          className={style['cabinet_orders_details__tooltipicon']}
-          onClick={heandlerClickInfo}
-        >
-          <GxIcon src={toolTipIcon} />
-        </GxButton>
+        <div className='inner-areon'>
+          <button
+            circle
+            size="sm"
+            variant="info"
+            className={style['cabinet_orders_details__tooltipicon']}
+            onClick={heandlerClickInfo}
+          >
+            <GxIcon src={toolTipIcon} />
+          </button>
+        </div>
       </div>
       
       Чат по заказу
