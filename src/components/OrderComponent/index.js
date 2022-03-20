@@ -156,7 +156,7 @@ const OrderComponent = ({
         setmodalStates({
           content: (
             <PayModalContent
-              closeModal={closeModal}
+              // closeModal={closeModal}
               requisites={res}
               callbackSubmit={callbackSubmit}
               order_id={order_id}
@@ -214,7 +214,7 @@ const OrderComponent = ({
   const creteOrder = (values) => {
     const date = dayjs(api.language, values.issued_date).format('DD.MM.YYYY');
     // const date = dayjs(Api.language, values.issued_date).format('DD.MM.YYYY');
-    const params = {
+    let params = {
       payment_method: values.payment_methods,
       delivery_method: values.variant,
       delivery_address: values.selectedAdress,
@@ -230,13 +230,19 @@ const OrderComponent = ({
       comment_order: values.comment_order,
       order_cost: cart_contentOrder.price,
       discount: cart_contentOrder.discount,
-      delivery_cost: cart_contentOrder.delivery.price || null, //cart_content.delivery.price,
-      total_cost: cart_contentOrder.total_price + cart_contentOrder.delivery.price,
+      total_cost: cart_contentOrder.price + priceNowDilevery,
       currency: currenssies,
       add_goods_order_id: statusFildValue,
     };
-    // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"-доделать проверку
+      role !== ROLE.DROPSHIPPER? 
+      params = {
+        ...params,
+        delivery_cost: priceNowDilevery
+      }
+      :null //cart_content.delivery.price,
 
+    // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"-доделать проверку
+console.log(`params detal order`, params)
     if (role === ROLE.DROPSHIPPER) {
       //если дробшипер списание со счета при достаточном количестве денег на счету
       //*************************************************************************** */
@@ -922,7 +928,7 @@ const OrderComponent = ({
                     </GxTooltip>
                   </div>
                   {/* новая версия кнопки оформит заках */}
-                  <OrderCar 
+                  <OrderCar  
                     enabled={getEnabledToPayments(values, errors)} 
                     setStyleCar={setStyleCar} 
                     styleCar={styleCar}

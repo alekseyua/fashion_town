@@ -34,13 +34,15 @@ const { userPage } = useStoreon('userPage');
 let { profile } = userPage;
 const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
 if ( profile === undefined ){
-     window.location?.reload()
+console.log('profile если undefined',profile)
+
+     window.location.reload()
 }
-// console.log('profile',profile)
+console.log('profile',profile)
   const cabinet_data = {
     // wishlist: profile.wishlist,
     cart: cartUpdate.in_cart,
-    notifications: profile?.notifications
+    notifications: profile.notifications
   };
   const mainClassModufy = classNames({
     main: main,
@@ -52,7 +54,7 @@ if ( profile === undefined ){
         headerModClosed={headerModClosed}
         header_menu={header_menu}
         main_menu={main_menu}
-        site_configuration={userPage?.site_configuration}
+        site_configuration={userPage.site_configuration}
         announce={announce}
         cabinet_data={cabinet_data}
         profile={profile}
@@ -74,7 +76,7 @@ if ( profile === undefined ){
       </main>
       <Footer
         year={year}
-        policy={site_configuration?.policy}
+        policy={site_configuration.policy}
         footer_menu={footer_menu}
         role_configuration={role_configuration}
         site_configuration={site_configuration}

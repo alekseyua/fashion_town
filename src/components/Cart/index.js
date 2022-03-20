@@ -149,10 +149,11 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
   useEffect(() => {
     // if (getCart.in_cart > 0) {
-    if (role === ROLE.WHOLESALE) {//если опт
       console.log('stateCountCart', stateCountCart)
+
+    if (role === ROLE.WHOLESALE) {//если опт
       setIs_performed(stateCountCart.is_performed)
-      // if (stateCountCart.in_cart === stateCountCart.selected) setEnab(true)
+      console.log('stateCountCart.in_cart === stateCountCart.selected',stateCountCart.in_cart,stateCountCart.in_cart === stateCountCart.selected,stateCountCart.selected)
       let goods = {
         collectiion: [],
         is_pack: [],
@@ -160,76 +161,37 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         other_goods: []
       }
   
-      // -----------------------------------------------
-
-      // **********cartitem_set -> Nois_pack
-
-      let resultsNoIs_pack = [];
-      let finishResultNoIs_pack = [];
-
-      Object.keys(stateCountCart.cartitem_set).length ?
-        (resultsNoIs_pack = stateCountCart.cartitem_set.map(items => {
-          let result = items.items.map(res => !res.is_pack && !res.is_collection);// if res.is_pack то получаем pack
-          // if !res.is_pack то получаем все остальные значение
-          if (result[0]) return items
-        })
-        ) : "null";
-
-      // ???????????? под вопросом может не работать как надо нужно проследить
-      Object.keys(resultsNoIs_pack).length ?
-        finishResultNoIs_pack = resultsNoIs_pack.filter(el => el ? el : null)
-        : null
-      console.log('товары которые являются не коллекцией и не пачкой', finishResultNoIs_pack)
-
-      //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
-      Object.keys(resultsNoIs_pack).length && fullItemCartCheckedState ?
-        finishResultNoIs_pack = finishResultNoIs_pack.map(res => {
-          let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
-          setFullItemCartCheckedState(false)
-          return { ...res, items }
-        }) : null
-      // ----------------------------------------------
-
-      // **********cartitem_set -> is_pack
+     
+//       //*********************************************************************************** */
+//       // ====================================================================================
+//       // **********cartitem_set -> is_pack
       let resultsIs_pack = [];
-      let finishResultIs_pack = [];
-      let goodsInPack = [];
+       let goodsInPack = [];
       let resultsIn_stock_pack = [];
+      let arrPack = stateCountCart.cartitem_set
 
-      Object.keys(stateCountCart.cartitem_set).length ?
-        (resultsIs_pack = stateCountCart.cartitem_set.map((items, i) => {
-          let result = items.items.filter(res => res.is_pack ? res : null);// if res.is_pack то получаем pack
-          // if !res.is_pack то получаем все остальные значение
-          if (!!result[i]) return result
-        })
+      Object.keys(arrPack).length ?
+        (resultsIs_pack = arrPack.reduce((prev, cur, i) => {
+              prev.push(...cur.items.filter(el=>el.is_pack))
+          return prev
+        },[])
         ) : null;
-      if (Object.keys(resultsIs_pack).length) {
-        resultsIs_pack = resultsIs_pack.filter(item => item !== undefined)
-        finishResultIs_pack = resultsIs_pack.reduce((prev, cur) => {
-          let dataRes = prev.concat(...cur)
-          return dataRes;
-        }, [])
-      }
-      console.log('товар пачка1', resultsIs_pack)
-      console.log('товар пачка2', finishResultIs_pack)
-
+          // получаем Array [ (1) […] ]
       // **********in_stock -> is_pack в наличие но пачкой
       Object.keys(stateCountCart.in_stock).length ?
         resultsIn_stock_pack = stateCountCart.in_stock.filter(items => items.is_pack)
         : null
-      console.log('товар пачка3', resultsIn_stock_pack)
-
+          // получаем Array [ {…}, {…} ]
       //объеденяем пачки +
-      if (!!Object.keys(finishResultIs_pack).length && !!Object.keys(resultsIn_stock_pack).length) {
-        console.log('test1_pack', !!Object.keys(finishResultIs_pack).length, !!Object.keys(resultsIn_stock_pack).length)
-        collectionGoods = [...finishResultIs_pack, ...resultsIn_stock_pack]
-      } else if (!!Object.keys(finishResultIs_pack).length && !(!!Object.keys(resultsIn_stock_pack).length)) {
-        console.log('test2_pack', !!Object.keys(finishResultIs_pack).length, !(!!Object.keys(resultsIn_stock_pack).length))
-        collectionGoods = [...finishResultIs_pack]
-      } else if (!(!!Object.keys(finishResultIs_pack).length) && !!Object.keys(resultsIn_stock_pack).length) {
-        console.log('test2_pack', !!Object.keys(finishResultIs_pack).length, !(!!Object.keys(resultsIn_stock_pack).length))
-        collectionGoods = [...resultsIn_stock_pack]
+      if (!!Object.keys(resultsIs_pack).length && !!Object.keys(resultsIn_stock_pack).length) {
+        goodsInPack = [...resultsIs_pack, ...resultsIn_stock_pack]
+      } else if (!!Object.keys(resultsIs_pack).length && !(!!Object.keys(resultsIn_stock_pack).length)) {
+        goodsInPack = [...resultsIs_pack]
+      } else if (!(!!Object.keys(resultsIs_pack).length) && !!Object.keys(resultsIn_stock_pack).length) {
+        goodsInPack = [...resultsIn_stock_pack]
       }
+          //Array [ {…}, {…} ] + Array [ (1) […] ]
+          // получаем Array(3) [ {…}, {…}, {…} ]
       //длелаем чтобы выделяло элементы +
       Object.keys(goodsInPack).length && fullItemCartCheckedState ?
         goodsInPack = goodsInPack.map(res => {
@@ -237,130 +199,131 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           setFullItemCartCheckedState(false)
           return items
         }) : null
-
-      console.log('товар пачка', goodsInPack)
-      // ----------------------------------------------
-      // ----------------------------------------------
-      //*********************************************************************************** */
-      // ====================================================================================
-      // **********cartitem_set -> is_collections +
+//       // ----------------------------------------------
+//       // ----------------------------------------------
+//       //*********************************************************************************** */
+//       // ====================================================================================
+//       // **********cartitem_set -> is_collections +
       let resultsIs_collection = [];
-      let finishResultIs_collection = [];
       let collectionGoods = [];
-
-      Object.keys(stateCountCart.cartitem_set).length ?
-        (resultsIs_collection = stateCountCart.cartitem_set.map((items, i) => {
-          let result = []
-          result = items.items.filter(res => res.is_collection ? res : null);// if res.Is_collection то получаем collection
-          if (!!result[i]) return result
-        })
+      let arrCollec = stateCountCart.cartitem_set
+      Object.keys(arrCollec).length ?
+        (resultsIs_collection = arrCollec.reduce((prev, cur, i) => {
+              prev.push(...cur.items.filter(el=>el.is_collection))
+          return prev
+        },[])
         ) : null;
-      if (Object.keys(resultsIs_collection).length) {
-        resultsIs_collection = resultsIs_collection.filter(item => item !== undefined)
-        finishResultIs_collection = resultsIs_collection.reduce((prev, cur) => {
-          let dataRes = prev.concat(...cur)
-          return dataRes;
-        }, [])
-      }
-      // **********in_stock -> is_collection в наличие но коллекцией +
+//       // **********in_stock -> is_collection в наличие но коллекцией +
       let resultsIn_stock_colec = [];
       Object.keys(stateCountCart.in_stock).length ?
         resultsIn_stock_colec = stateCountCart.in_stock.filter(items => items.is_collection)
         : null
+//         // получаем Array(8) [ {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…} ]
+ 
+
       //объеденяем коллекцию +
-      if (!!Object.keys(finishResultIs_collection).length && !!Object.keys(resultsIn_stock_colec).length) {
-        console.log('test1', !!Object.keys(finishResultIs_collection).length, !!Object.keys(resultsIn_stock_colec).length)
-        collectionGoods = [...finishResultIs_collection, ...resultsIn_stock_colec]
-      } else if (!!Object.keys(finishResultIs_collection).length && !(!!Object.keys(resultsIn_stock_colec).length)) {
-        console.log('test2', !!Object.keys(finishResultIs_collection).length, !(!!Object.keys(resultsIn_stock_colec).length))
-        collectionGoods = [...finishResultIs_collection]
-      } else if (!(!!Object.keys(finishResultIs_collection).length) && !!Object.keys(resultsIn_stock_colec).length) {
-        console.log('test2', !!Object.keys(finishResultIs_collection).length, !(!!Object.keys(resultsIn_stock_colec).length))
+      if (!!Object.keys(resultsIs_collection).length && !!Object.keys(resultsIn_stock_colec).length) {
+      console.log(`1`)
+        collectionGoods = [...resultsIs_collection, ...resultsIn_stock_colec]
+      } else if (!!Object.keys(resultsIs_collection).length && !(!!Object.keys(resultsIn_stock_colec).length)) {
+      console.log(`2`)
+        collectionGoods = [...resultsIs_collection]
+      } else if (!(!!Object.keys(resultsIs_collection).length) && !!Object.keys(resultsIn_stock_colec).length) {
+      console.log(`3`)
         collectionGoods = [...resultsIn_stock_colec]
       }
-      //длелаем чтобы выделяло элементы +
-      Object.keys(collectionGoods).length && fullItemCartCheckedState ?
-        collectionGoods = collectionGoods.map(res => {
-          let items = { ...res, selected: fullItemCartChecked }
-          setFullItemCartCheckedState(false)
-          return items
-        }) : null
-      // ----------------------------------------------
 
-      
-         
-      
-      console.log('collectionGoods***=', collectionGoods)
-      // **********in_stock -> no_is_pack
-      let inStockNoInpack = [];
+//       //длелаем чтобы выделяло элементы +
+      Object.keys(collectionGoods).length && fullItemCartCheckedState ?
+      collectionGoods = collectionGoods.map(res => {
+        let items = { ...res, selected: fullItemCartChecked }
+        setFullItemCartCheckedState(false)
+        return items
+      }) : null
+//       // ----------------------------------------------
+//       // **********in_stock -> no_is_pack
+      let inStockNoInpackNoInCollec = [];
       Object.keys(stateCountCart.in_stock).length ?
-        inStockNoInpack = stateCountCart.in_stock.filter(el => !el.is_pack && !el.is_collection)
+        inStockNoInpackNoInCollec = stateCountCart.in_stock.filter(el => !el.is_pack && !el.is_collection)
         : null
       //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
-
       Object.keys(stateCountCart.in_stock).length && fullItemCartCheckedState ?
-        inStockNoInpack = inStockNoInpack.map(el => ({ ...el, selected: fullItemCartChecked }))
+        inStockNoInpackNoInCollec = inStockNoInpackNoInCollec.map(el => ({ ...el, selected: fullItemCartChecked }))
         : null
-      // ----------------------------------------------
+//       // ----------------------------------------------
+//  // -----------------------------------------------
+//       //*********************************************************************************** */
+//       // ====================================================================================
+//       // **********cartitem_set -> Nois_pack and Nois_collection
+
+      let resultsNoIs_packAndNoIsCollec = [];
+      let finishResultNoIs_packNoIs_collection = [];
+      let arrNoColAndNoPack = stateCountCart.cartitem_set
+      Object.keys(arrNoColAndNoPack).length ?
+        (resultsNoIs_packAndNoIsCollec = arrNoColAndNoPack.reduce((prev, cur,i) => {
+          let arr = cur.items.filter(el=>!el.is_collection && !el.is_pack)
+          if(!!arr.length){
+            prev.push({...cur, items:arr})
+          }
+          return prev
+        },[])
+        ) : null;
+
+       //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
+      Object.keys(resultsNoIs_packAndNoIsCollec).length && fullItemCartCheckedState ?
+        resultsNoIs_packAndNoIsCollec = resultsNoIs_packAndNoIsCollec.map(res => {
+          let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
+          setFullItemCartCheckedState(false)
+          return { ...res, items }
+        }) : null
+//       // ----------------------------------------------
 
 
-
-      // *-*-*-*-*-*-*-*-*-*-*-*-*-*
+//       // *-*-*-*-*-*-*-*-*-*-*-*-*-*
       goods = {
         collectiion: collectionGoods,
         is_pack: goodsInPack,
-        in_stock: inStockNoInpack,
-        other_goods: finishResultNoIs_pack //res.cartitem_set
+        in_stock: inStockNoInpackNoInCollec,
+        other_goods: resultsNoIs_packAndNoIsCollec //res.cartitem_set
       }
       
-      console.log('goods', goods)
+//       console.log('goods', goods)
+
       setGoodsStateOpt(goods)
       // проверяем наличее чеков у всех карточек, создаём новый массив и отправляем запрос на бэк
       if (fullItemCartCheckedState) {
         let updateProduct = []
         let updateProduct1 = []
-        let updateProduct2 = []
-        let updateProduct3 = []
         let allArr1 = []
         let allArr2 = []
         let allArr3 = []
         let allArr4 = []
-        let allArr5 = []
+
+        //собираем в массив все элементы cartitem_set NoIs_pack
+
+          updateProduct = resultsNoIs_packAndNoIsCollec.reduce((prev,cur) => {
+            prev.push(...cur.items.filter(el=>el))
+            return prev
+          },[])
+
+          updateProduct1 = updateProduct.filter(el => el.length)
+          for (let i = 0; i < updateProduct1.length; i++) {
+            allArr1 = [...allArr1, ...updateProduct1[i]]
+          }
+       console.log(`товар inStockNoInpackNoInCollec = ${goodsInPack}`,inStockNoInpackNoInCollec)
+
+        allArr1 = updateProduct.filter(el=>el);
+        allArr2 = collectionGoods.filter(el=>el);
+        allArr3 = inStockNoInpackNoInCollec.filter(el=>el);
+        allArr4 = goodsInPack.filter(el=>el);
 
 
         //собираем в массив все элементы cartitem_set NoIs_pack
-        updateProduct = finishResultNoIs_pack.map(items => {
-          let res = items.items.filter(el => el)
-          return res
-        })
-        updateProduct1 = updateProduct.filter(el => el.length)
-        for (let i = 0; i < updateProduct1.length; i++) {
-          allArr1 = [...allArr1, ...updateProduct1[i]]
-        }
-        //собираем в массив все элементы cartitem_set Is_pack
-        finishResultIs_pack
-        updateProduct2 = finishResultIs_pack.map(items => {
-          let res = items.items.filter(el => el)
-          return res
-        })
-        updateProduct3 = updateProduct2.filter(el => el.length)
-        for (let i = 0; i < updateProduct3.length; i++) {
-          allArr2 = [...allArr2, ...updateProduct3[i]]
-        }
+//
+        let updateProductAllArr = [...allArr1, ...allArr2, ...allArr3, ...allArr4]
 
-        //собираем в массив все элементы in_stock -> is_pack
-        allArr3 = resultsIn_stock_pack.filter(el => el)
-
-        //собираем в массив все элементы in_stock -> no_is_pack
-        allArr4 = inStockNoInpack.filter(el => el)
-
-        //собираем в массив все элементы in_stock -> no_is_collection
-        allArr5 = collectionGoods.filter(el => el)
-
-        let updateProductAllArr = [...allArr1, ...allArr2, ...allArr3, ...allArr4, ...allArr5]
-        console.log('updateProductAllArr', updateProductAllArr)
         updateProductAllArr = updateProductAllArr.map(el => ({ id: el.id, selected: el.selected, qty: el.qty }))
-        console.log('updateProductAllArr2', updateProductAllArr)
+       console.log(`товар коллекцией в cartitem_set = ${updateProductAllArr}`,updateProductAllArr)
 
         updateProductFromCart(updateProductAllArr),
         setFullItemCartCheckedState(!fullItemCartCheckedState)
@@ -573,7 +536,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   }
 
   /********************************************************************** */
-
+console.log('amount',in_cart >= 30)
   let testArr = massiveCart.cartitem_set.find(el => el.title === "Lara")
   return (
     <Container>
@@ -624,6 +587,8 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
             setEnab={setEnab}
             setFullItemCartCheckedState={setFullItemCartCheckedState}
             oneClick={oneClick}
+            countInCart ={stateCountCart.in_cart}
+            countSelected={stateCountCart.selected}
           />
           <Title variant={'cart-min'} type={'h3'}>
             {(role === ROLE.WHOLESALE) ?

@@ -27,7 +27,7 @@ const WithdrawalFunds = ({ setModalStates }) => {
       <PersonalPageViews.HeadingBlock title={'Возврат денежных средств в связи с отменой заказа'} />
       <PersonalPageViews.ContentBlock>
         <PersonalPageViews.SmallTextGray>
-          Согласно п.5 договора оказания услуг по подбору и выкупу одежды (публичная оферта).
+          Согласно п.5 Договора оказания услуг по подбору и выкупу одежды (публичная оферта).
            Вы можете запросить возврат денежных средств,
            воспользовавшись формой ниже. Необходимо приложить скан заполненного заявления
         </PersonalPageViews.SmallTextGray>
@@ -41,8 +41,8 @@ const WithdrawalFunds = ({ setModalStates }) => {
             to={'#'}
           />
         </PersonalPageViews.BalanceItemsWrapper> */}
-        <Button onClick={openModalGetMyCache} variant={'cabinet_default'}>
-          Оформить возрат
+        <Button onClick={openModalGetMyCache} variant={'cabinet_default'}  style={{minWidth: 211}}>
+          Оформить возврат
         </Button>
       </PersonalPageViews.ContentBlock>
     </PersonalPageViews.WrapperForm>

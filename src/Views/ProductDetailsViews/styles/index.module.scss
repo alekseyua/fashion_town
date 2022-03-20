@@ -664,15 +664,18 @@
         color: $pi;
         // background-color: var(--gx-color-primary);
         min-height: 59px;
-        min-width: 59px;
-        max-width:380px;
-        
+        min-width: 376px;
+        max-width:376px;
+        width: 100%;
         @include flex(cc);
         border-radius: 3px;
+        &:hover{
+          color: $a2;
+        }
       }
       &::part(label) {
         // font-size: 33px;
-        @include adaptiv-font(10px,22px);
+        @include adaptiv-font(10px,24px);
         @include tablet-md{
           @include adaptiv-font(15px,24px);
         }

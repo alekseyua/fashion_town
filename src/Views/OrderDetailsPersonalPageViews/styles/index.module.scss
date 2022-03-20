@@ -135,6 +135,7 @@ p {
       object-fit: cover;
       margin-right: 10px;
       transition: height .6s ease-in-out .5s;
+      cursor: pointer;
       @include laptop-sm {
          width: 150px;
          height: 210px;

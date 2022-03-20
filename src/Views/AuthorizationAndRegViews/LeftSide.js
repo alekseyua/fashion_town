@@ -27,7 +27,7 @@ console.log('video', videoReg)
       <div className={style['wrapper__marcket-info']}>
         {/* todo: inner rich text */}
         <div className={style['wrapper__upper-title']}>
-          ТОРГОВАЯ БИЗНЕС-ПЛАТФОРМА для Розничных, оптовых покупателей и дропшипперов
+          ТОРГОВАЯ БИЗНЕС-ПЛАТФОРМА для Розничных, оптовых партнеров и дропшипперов
         </div>
         {/* todo: inner rich text */}
         <div className={style['wrapper__midle-title']}>FASHION TOWN</div>

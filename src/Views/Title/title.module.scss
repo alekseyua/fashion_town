@@ -167,12 +167,12 @@
 .cart-min {
   font-family: Noto Sans;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 500;
   margin-top: 10px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 140%;
   letter-spacing: 0.02em;
-  color: var(--gx-color-primary);
+  color: var(--gx-color-pink);
 }
 .cart {
   @include h(2);

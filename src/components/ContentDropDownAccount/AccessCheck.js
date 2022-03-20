@@ -15,7 +15,7 @@ const AccessCheck = ({ first_name = 'first_name', last_name = 'last_name', logOu
       />
       <DropDownHeaderLK.Line /> 
       <DefaultAuthText.HelpText>
-        Администратор проверяет введенные вами данные. Дождитесь обновления статуса проверки
+        Администратор проверяет введенные Вами данные. Дождитесь обновления статуса проверки
       </DefaultAuthText.HelpText>
       <Button full variant={'gray_full_width'} to={page_type_auth}>
         <DefaultAuthText.Spinner slot={'icon-left'} />

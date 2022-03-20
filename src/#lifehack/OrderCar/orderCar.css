@@ -108,6 +108,22 @@
     background: linear-gradient(var(--start), var(--stop));
     position: absolute;
   }
+
+  .orderCar .car__name{
+    position: absolute;
+    width: 20px;
+    height: 20px;   
+    left: 5%;
+    z-index: 2;
+    top: 11px;
+    font-weight: 900;
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(24px);
+  }
+
   .orderCar .truck {
     width: 60px;
     height: 41px;
@@ -127,7 +143,7 @@
     display: block;
     background: var(--white);
     border-radius: 1px;
-    transform-origin: 100% 50%;
+    transform-origin: 100% 50%; 
     transform: rotate(var(--r));
   }
   .orderCar .truck:before {

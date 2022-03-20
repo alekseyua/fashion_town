@@ -34,8 +34,6 @@ const Card = ({
   const [countProducts, setCountProducts] = useState()
   const [select, setSelect] = useState()
   const [stateAction, setStateAction] = useState();
-  //const [select, setSelect] = useState()
-
 
  useEffect(()=>{
   setSelect(selected)
@@ -65,7 +63,6 @@ const Card = ({
   }, [qty]);
 
   if (!product.image || product.image === '#') product.image = categoryCard1;
-
   // ***************************************************
   const changeValueCounterProduct = (e) => {
     let value = Number(e.target.value);
@@ -115,8 +112,12 @@ const Card = ({
           {/* инфо о товаре */}
         <div className={style['product__base_info']}>
           <div className={style['product__base_info__brand']}>{brand}</div>
+        <Link
+          to={is_packUrl ? is_packUrl : cartitem_setUrl}
+        >
           <div className={style['product__base_info__title']}>{title}</div>
-          <div className={style['product__base_info__size']}>Размер: {is_packSize ? is_packSize : size}</div>
+        </Link>        
+        <div className={style['product__base_info__size']}>Размер: {is_packSize ? is_packSize : size}</div>
           <div className={style['product__base_info__color']}>Цвет: {is_packColor ? is_packColor : color}</div>
           <div className={style['product__base_info__condition']}>
             Условие покупки:

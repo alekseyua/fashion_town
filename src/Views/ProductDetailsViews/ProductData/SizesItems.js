@@ -197,7 +197,6 @@ const SizesItems = ({
     }
   };
 
-
   return (
     <div className={style['prodpage-sizes']}>
       {!modalView ? (
@@ -218,7 +217,7 @@ const SizesItems = ({
       ) : null}
 
             {/* добавляем кнопку для добавления сбора если сбор > 0 */}
-      { role === ROLE.DROPSHIPPER && collections && listCollectionsHook.length !==0 ? (
+      {(role === ROLE.DROPSHIPPER || role === ROLE.WHOLESALE)  ? (
         <React.Fragment>
           {/* Условие покупки */}
           <div className={style['prodpage-range__box']}>
@@ -228,7 +227,8 @@ const SizesItems = ({
             </div>
           </div>
             {/* кнопка  Иформация по открытым сборам*/}
-          <div className={style['prodpage-range__wrap-mb']}>
+          {collections && listCollectionsHook.length !== 0 ?
+          (<div className={style['prodpage-range__wrap-mb']}>
             <div className={style['prodpage-range__wrap-btn']}>
               <GxButton
                   onClick={()=>{
@@ -241,13 +241,16 @@ const SizesItems = ({
               </GxButton>
             </div>
           </div>
+          ):null
+}
         </React.Fragment>
       ) : 
           <React.Fragment>
           {/* не показываем кнопку для добавления сбора если сбор 0 */}
+
             <div className={style['prodpage-range__box']}>
-              <p className={style['prodpage-range__title']}>Условие покупки:</p>
-              <p className={style['prodpage-range__condition']}>{product_rc}</p>
+              {/* <p className={style['prodpage-range__title']}>Условие покупки:</p>
+              <p className={style['prodpage-range__condition']}>{product_rc}</p> */}
               <div className={style['prodpage-range__wrap']}>
               </div>
             </div>

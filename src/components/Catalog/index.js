@@ -243,7 +243,7 @@ const Catalog = ({
   useEffect(() => {
     setDataUpdateCatalog(true)
   }, [updateCurrenssies])
-
+console.log(`newProfile`,newProfile)
   return (
     <React.Fragment>
       <Container>
@@ -252,7 +252,7 @@ const Catalog = ({
           initFilter={{ page_size: 30 }}
           isScrollTop={true}
           api={apiContent.getCatalogData}
-          profile={newProfile}
+          profile={newProfile} 
         >
           {(data) => {
 

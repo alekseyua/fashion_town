@@ -18,7 +18,7 @@
     }
   }
   &-leftcol {
-    @include col(4, 15);
+    @include col(3, 15);
     @include tablet-mmd {
       flex-direction: row;
       display: flex;
@@ -36,14 +36,15 @@
     }
   }
   &-rightcol {
-    // @include col(8, 15);
-    @include tablet-mmd {
+    @include col(8, 15);
+    @include tablet-md {
       // margin-right: 10px;
       // margin-left: 10px;
-      width: 100%;
-
     }
-
+    @include tablet-mmd {
+      width: 100%;
+    
+    }
   }
   &-formblock {
     position: relative;
@@ -89,6 +90,13 @@
     }
   }
   &-form {
+    &__link-feedback {
+      color: $a2;
+      cursor: pointer;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
     &__row {
       @include row(10);
     }

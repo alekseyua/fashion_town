@@ -30,6 +30,7 @@ const [stateChecked, setStateChecked] = useState(true)
           {
               id: id,
               change_agreement: checked,
+              qty: el.qty
             },
           ]) 
           .then(res=>{
@@ -59,7 +60,11 @@ const [stateChecked, setStateChecked] = useState(true)
             </div>
 
             <div className={style["content-card"]}>
-              <div className={style["content-card__title"]}>{el.product.title}</div>
+              <Link     
+                to={el.url}
+              >
+                <div className={style["content-card__title"]}>{el.product.title}</div>
+              </Link>
               <div className={style["content-card__brand"]}>{el.product.brand}</div>
 
               <div className={style["content-card__info"]}>
@@ -73,7 +78,7 @@ const [stateChecked, setStateChecked] = useState(true)
                       className={style['ordering_card__tooltip']}
                     >
                       <CheckBox
-                        checked={stateChecked}
+                        checked={!stateChecked}
                         onGx-change={changeAgreement}
                         label={
                           <span className={style['ordering_card__change_text']}>Согласие на замену</span>

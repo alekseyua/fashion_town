@@ -13,7 +13,7 @@ const ProductWhosaleIsCollectionHorizontalCard = ({
   return (
     <div className={style['wrapper-woosale']}>
       <CartViews.Line />
-      <CartViews.Text type={'text-brand'}>Товары коллекцией</CartViews.Text>
+      <CartViews.Text type={'text-brand'}>Товары размерными рядами</CartViews.Text>
 
       {items.map(el => {
         return (

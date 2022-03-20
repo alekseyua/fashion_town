@@ -86,6 +86,8 @@ export default class ContentApi extends AbstractBaseApi {
   };
 
   getProduct = async (id, params = {}) => {
+console.log(`params`, params)
+
     const res = await this.get(`/catalog/product/${id}/`, params);
     return res.data;
   };

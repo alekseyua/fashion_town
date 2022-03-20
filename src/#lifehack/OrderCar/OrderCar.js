@@ -29,12 +29,13 @@ const OrderCar = ({enabled, styleCar, setStyleCar}) => {
 				</span>
 				<div className="box"></div>
 				<div className="truck">
-				<div className="back"></div>
-				<div className="front">
-					<div className="window"></div>
-				</div>
-				<div className="light top"></div>
-				<div className="light bottom"></div>
+					<div className="car__name">FT</div>
+					<div className="back"></div>
+					<div className="front">
+						<div className="window"></div>
+					</div>
+					<div className="light top"></div>
+					<div className="light bottom"></div>
 				</div>
 				<div className="lines"></div>
 			</button>

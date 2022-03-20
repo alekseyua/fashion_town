@@ -328,6 +328,7 @@ useEffect(() => {
           <ModalContentViews.ContentBlock>
             <ModalContentViews.AddToCartBlock
               title={title}
+              product_rcHook={product_rcHook}
               size={`Размер: ${currentSize.title}`}
               priceOneProduct={recommended_priceHook}
               allPrice={pricesHook.old_price}

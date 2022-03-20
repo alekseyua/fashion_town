@@ -31,8 +31,6 @@ const TradingPlatformLayout = ({ first_screen, page_type_catalog }) => {
 
               {/* <div className={style['body-slogan']}>
               <div className={style["sign"]}>
-                   
-                  
                   <span className={style["fast-flicker"]}>F</span>ASHI<span className={style["flicker"]}>ON</span>&nbsp;TO<span className={style["fast-flicker"]}>W</span>N
               </div>
               </div> */}

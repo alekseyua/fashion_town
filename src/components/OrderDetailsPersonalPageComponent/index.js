@@ -128,6 +128,8 @@ const OrderDetailsPersonalPageComponent = ({
             status : orders.status.status,
             total: orders.total,
           }
+          console.log('resData', orders)
+
           massiveOrder.push(result)
         });
 
@@ -142,6 +144,7 @@ const OrderDetailsPersonalPageComponent = ({
         order.id === id ?
         resData = order
         :null
+
         setDataOrder(resData)
       })
     }, [dataOrderItem, state])

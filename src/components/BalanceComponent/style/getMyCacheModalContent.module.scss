@@ -1,9 +1,12 @@
+@import '../../../styles/variables/index.scss';
 .input-mt_20{
-    background-color: rgba(214, 214, 214, 0.133);
-    border: none;
-    height: 30px;
-    border-bottom: 1px solid rgb(209, 202, 202);
+    // background-color: rgba(214, 214, 214, 0.133);
+    border: 1px solid $g;
+    height: 54px;
     padding: 0 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    // color: $g2;
     position: relative;
     z-index: 4;
     &:after{
@@ -30,6 +33,10 @@
     border: 1px solid rgb(237, 198, 198);
     background-color: rgb(0, 0, 0);
     color: #fff;
+    font-size: 14px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
     &:hover{
         background-color: rgb(60, 53, 53);
     }

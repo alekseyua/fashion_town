@@ -45,7 +45,7 @@
   font-weight: bold;
   @extend %font-head;
   margin: 0;
-  letter-spacing: 10px;
+  // letter-spacing: 10px;
 }
 %cab-h1 {
   @extend %font;

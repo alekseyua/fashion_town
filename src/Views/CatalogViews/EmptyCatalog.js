@@ -15,7 +15,7 @@ const EmptyCatalog = ({}) => {
               По вашему запросу ничего не найдено.
             </Title>
             <CartViews.Text type={'text-under_title'}>
-              Попробуйте уточнить в службе поддержки...
+              {/* Попробуйте уточнить в службе поддержки... */}
             </CartViews.Text>
           </GxCol>
         </GxRow>

@@ -33,7 +33,6 @@ const MyReviewsComponent = ({ setModalStates, reloadDataReviewStart, setReloadDa
           isPrev,
         } = data;
         const updateItems = () =>{
-          console.log('data',data)
           setReloadDataReviewStart(false)
           data?.reload();}
          reloadDataReviewStart ? updateItems():null

@@ -5,6 +5,7 @@ import { useStoreon } from 'storeon/react';
 import Button from '../Button';
 import style from './styles/index.module.scss';
 import { useHistory } from 'react-router';
+import { ROLE } from '../../const';
 
 const AddToCartBlock = ({
   title = 'Свитер такой-то',
@@ -15,6 +16,7 @@ const AddToCartBlock = ({
   currentPrice = false,
   sale = false,
   handleClose,
+  product_rcHook
 }) => {
 
   const { dispatch, currenssies, stateCountRestart } = useStoreon('currenssies', 'stateCountRestart'); //currenssies
@@ -37,7 +39,11 @@ const AddToCartBlock = ({
           />
           <div className={style['add_to_cart-wrapper-content--description']}>
             <span>{title}</span>
+            {
+            role === ROLE.RETAIL?
             <span>{size}</span>
+            :<span>{product_rcHook}</span>
+            }
           </div>
         </div>
         <div className={style['add_to_cart-wrapper-content--currency_desc']}>

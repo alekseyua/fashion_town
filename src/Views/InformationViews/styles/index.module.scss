@@ -428,13 +428,14 @@
       line-height: 140%;
       letter-spacing: 0.04em;
       color: var(--gx-color-primary);
+      margin-bottom: 20px;
     }
     &-link {
-      margin-top: 25px;
+      // margin-top: 25px;
       display: inline-block;
       text-align: center;
       max-height: 50px;
-      padding: 18px 26px;
+      padding: 14px 26px;
       border: 2px solid var(--gx-color-darkgray);
       border-radius: 2px;
       background-color: var(--gx-color-white);
