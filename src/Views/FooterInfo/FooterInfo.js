@@ -31,7 +31,10 @@ const FooterInfo = (props) => {
       >
         {logo ? (
           <div className={style['footer-logo']}>
-            <Logo site_configuration={site_configuration} />
+            <Logo 
+              site_configuration={site_configuration} 
+              siteLocation={'footer'}  
+            />
           </div>
         ) : (
           <h4 className={style['footer-info__title']}>

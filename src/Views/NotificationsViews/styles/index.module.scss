@@ -30,7 +30,7 @@
         outline: none;
       }
       &::part(base) {
-        color: var(--gx-color-blue);
+        color: $a2;
         &::before {
           content: '•';
           margin-right: 10px;
@@ -91,7 +91,7 @@
         margin-left: 10px;
         margin-right: 10px;
         &-unread {
-          background-color: var(--gx-color-blue);
+          background-color: $a2;
         }
       }
       &_date {

@@ -64,14 +64,13 @@ const Item = ({
               [style['cabinet_notifications__item_mark-unread']]: !isRead,
             })}
           ></span>
-          <span
-            className={classNames({
-              [style['cabinet_notifications__item_header']]: true,
-              [style['cabinet_notifications__item_header-unread']]: !isRead,
-            })}
+          {/* <span
+            
           >
             {message}
-          </span>
+          </span> */}
+          <div dangerouslySetInnerHTML={{ __html: message }}></div>
+
         </div>
         <span className={style['cabinet_notifications__item_date']}>{date}</span>
       </div>

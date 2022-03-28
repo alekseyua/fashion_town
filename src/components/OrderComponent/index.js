@@ -230,7 +230,7 @@ const OrderComponent = ({
       comment_order: values.comment_order,
       order_cost: cart_contentOrder.price,
       discount: cart_contentOrder.discount,
-      total_cost: cart_contentOrder.price + priceNowDilevery,
+      total_cost: cart_contentOrder.price + priceNowDilevery? priceNowDilevery : 0,
       currency: currenssies,
       add_goods_order_id: statusFildValue,
     };
@@ -242,7 +242,7 @@ const OrderComponent = ({
       :null //cart_content.delivery.price,
 
     // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"-доделать проверку
-console.log(`params detal order`, params)
+console.log(`params detal valueStatePay`, valueStatePay)
     if (role === ROLE.DROPSHIPPER) {
       //если дробшипер списание со счета при достаточном количестве денег на счету
       //*************************************************************************** */
@@ -264,6 +264,7 @@ console.log(`params detal order`, params)
             openModalRejectedOrdering('cart');
           });
       } else {
+        console.log(`params.total_cost < dataBalance.balance`,params.total_cost , dataBalance.balance)
         if (params.total_cost < dataBalance.balance) {
           //если достаточно денег на счету
           orderApi
@@ -661,7 +662,7 @@ console.log(`params detal order`, params)
             modalStates.cusstomClassNameModalResize,
         })}
       >
-        <ModalContentViews.CloseBtn closeModal={closeModal} />
+        <ModalContentViews.CloseBtn closeModal={null} />
         {modalStates.content}
       </GxModal>
 
@@ -923,7 +924,7 @@ console.log(`params detal order`, params)
                         placeholder="Добавить товары к существующему заказу"
                         options={options}
                         onGx-change={changeStatusOrder}
-                        variant={'old-order__list'}
+                        variant='old-order__list'
                       ></Select>
                     </GxTooltip>
                   </div>

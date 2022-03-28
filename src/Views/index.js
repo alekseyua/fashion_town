@@ -34,11 +34,8 @@ const { userPage } = useStoreon('userPage');
 let { profile } = userPage;
 const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
 if ( profile === undefined ){
-console.log('profile если undefined',profile)
-
      window.location.reload()
 }
-console.log('profile',profile)
   const cabinet_data = {
     // wishlist: profile.wishlist,
     cart: cartUpdate.in_cart,

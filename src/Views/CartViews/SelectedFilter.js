@@ -4,15 +4,26 @@ import Button from '../Button';
 import style from './styles/index.module.scss';
 import { GxTooltip } from '@garpix/garpix-web-components-react';
 
-const SelectedFilter = ({ setFullItemCartChecked, setFullItemCartCheckedState, multipleDeleteFromCart, tooltipOpen, oneClick, setEnab, enab,countInCart, countSelected }) => {
+const SelectedFilter = (
+  { 
+    setFullItemCartChecked, 
+    fullItemCartChecked, 
+    setFullItemCartCheckedState, 
+    multipleDeleteFromCart, 
+    tooltipOpen, 
+    oneClick, 
+    setEnab, 
+    enab
+  }
+) => {
   return (
     <div className={style['selected-filters']}>
       <CheckBox
-        checked={(countInCart===countSelected) === enab?enab:countInCart===countSelected}
-        onGx-change={(e) => {
-          setEnab((c) => !c)
-          setFullItemCartCheckedState(true)
-          setFullItemCartChecked(!enab)
+        checked={enab?'checked':''}
+        onGx-change={() => {
+          setEnab(!enab);
+          setFullItemCartCheckedState(true);
+          setFullItemCartChecked(!fullItemCartChecked);
         }}
         variant="input"
         label={!enab ? 'Выделить все' : 'Снять выделение'}
@@ -24,11 +35,7 @@ const SelectedFilter = ({ setFullItemCartChecked, setFullItemCartCheckedState, m
         placement="top"
         open={tooltipOpen}
       >
-        <Button
-          onClick={multipleDeleteFromCart}
-          variant={'delete'}
-          disabled={oneClick}
-        >
+        <Button onClick={multipleDeleteFromCart} variant={'delete'} disabled={oneClick}>
           Удалить выбранные
         </Button>
       </GxTooltip>

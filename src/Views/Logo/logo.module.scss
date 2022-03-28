@@ -13,11 +13,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  &-head  {
+    max-width: 230px;
+    max-height: 50px;
+    height: 40px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 400px) {
+      max-width: 186px;
+    }
+  }
+  &-footer  {
+    max-width: 438px;
+    max-height: 140px;
+    height: 140px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
   &-img{
-    height: 70px;
+    height: 100%;
     width: 100%;
     max-width: 270px;
-    left: 30px;
+    top: 0;
+    left: 0px;
     max-height: 100%;
     position: absolute;
     background-position: center;

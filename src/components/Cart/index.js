@@ -71,8 +71,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   const { stateValuePoly } = useStoreon('stateValuePoly');
   const { stateCountCart } = useStoreon('stateCountCart');
   const { stateCountRestart } = useStoreon('stateCountRestart');
-  // console.log('stateCountCart',stateCountCart)
-  // ******************************
   const [goodsStateDropAndRetail, setGoodsStateDropAndRetail] = useState({});
   const [goodsStateOpt, setGoodsStateOpt] = useState({});
   const [in_cart, setIn_cart] = useState();
@@ -89,8 +87,8 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   // const [] = useState();
   // const [] = useState();
   // const [] = useState();
-  const [enab, setEnab] = useState(false) 
-  const [fullItemCartChecked, setFullItemCartChecked] = useState(false);
+  const [enab, setEnab] = useState(); 
+  const [fullItemCartChecked, setFullItemCartChecked] = useState();
   const [fullItemCartCheckedState, setFullItemCartCheckedState] = useState(false);
   const [agreeWitheRegulations, setAgreeWitheRegulations] = useState(true);
   const [cartData, setCartData] = useState(initialCartData);
@@ -106,6 +104,14 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   const [stateClickBtn, setStateClickBtn] = useState(false)
 
   // *****************************
+  useEffect(()=>{
+    setEnab((!!stateCountCart.in_cart === !!stateCountCart.selected) ? true : false);
+  },[(stateCountCart.in_cart === stateCountCart.selected)])
+
+  useEffect(()=>{
+    setFullItemCartChecked((!!stateCountCart.in_cart === !!stateCountCart.selected) ? true : false);
+  },[(stateCountCart.in_cart === stateCountCart.selected)])
+
 
   useEffect(() => {
     setIn_cart(stateCountCart.in_cart)
@@ -148,12 +154,9 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   //***************************************************************** */
 
   useEffect(() => {
-    // if (getCart.in_cart > 0) {
-      console.log('stateCountCart', stateCountCart)
 
     if (role === ROLE.WHOLESALE) {//если опт
       setIs_performed(stateCountCart.is_performed)
-      console.log('stateCountCart.in_cart === stateCountCart.selected',stateCountCart.in_cart,stateCountCart.in_cart === stateCountCart.selected,stateCountCart.selected)
       let goods = {
         collectiion: [],
         is_pack: [],
@@ -162,9 +165,8 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       }
   
      
-//       //*********************************************************************************** */
-//       // ====================================================================================
-//       // **********cartitem_set -> is_pack
+       //*********************************************************************************** */
+       // **********cartitem_set -> is_pack
       let resultsIs_pack = [];
        let goodsInPack = [];
       let resultsIn_stock_pack = [];
@@ -176,12 +178,12 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           return prev
         },[])
         ) : null;
-          // получаем Array [ (1) […] ]
+
       // **********in_stock -> is_pack в наличие но пачкой
       Object.keys(stateCountCart.in_stock).length ?
         resultsIn_stock_pack = stateCountCart.in_stock.filter(items => items.is_pack)
         : null
-          // получаем Array [ {…}, {…} ]
+
       //объеденяем пачки +
       if (!!Object.keys(resultsIs_pack).length && !!Object.keys(resultsIn_stock_pack).length) {
         goodsInPack = [...resultsIs_pack, ...resultsIn_stock_pack]
@@ -190,8 +192,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       } else if (!(!!Object.keys(resultsIs_pack).length) && !!Object.keys(resultsIn_stock_pack).length) {
         goodsInPack = [...resultsIn_stock_pack]
       }
-          //Array [ {…}, {…} ] + Array [ (1) […] ]
-          // получаем Array(3) [ {…}, {…}, {…} ]
+
       //длелаем чтобы выделяло элементы +
       Object.keys(goodsInPack).length && fullItemCartCheckedState ?
         goodsInPack = goodsInPack.map(res => {
@@ -199,11 +200,11 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           setFullItemCartCheckedState(false)
           return items
         }) : null
-//       // ----------------------------------------------
-//       // ----------------------------------------------
-//       //*********************************************************************************** */
-//       // ====================================================================================
-//       // **********cartitem_set -> is_collections +
+       // ----------------------------------------------
+       // ----------------------------------------------
+      //*********************************************************************************** */
+      // ====================================================================================
+       // **********cartitem_set -> is_collections +
       let resultsIs_collection = [];
       let collectionGoods = [];
       let arrCollec = stateCountCart.cartitem_set
@@ -213,35 +214,31 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           return prev
         },[])
         ) : null;
-//       // **********in_stock -> is_collection в наличие но коллекцией +
+       // **********in_stock -> is_collection в наличие но коллекцией +
       let resultsIn_stock_colec = [];
       Object.keys(stateCountCart.in_stock).length ?
         resultsIn_stock_colec = stateCountCart.in_stock.filter(items => items.is_collection)
         : null
-//         // получаем Array(8) [ {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…} ]
  
 
       //объеденяем коллекцию +
       if (!!Object.keys(resultsIs_collection).length && !!Object.keys(resultsIn_stock_colec).length) {
-      console.log(`1`)
         collectionGoods = [...resultsIs_collection, ...resultsIn_stock_colec]
       } else if (!!Object.keys(resultsIs_collection).length && !(!!Object.keys(resultsIn_stock_colec).length)) {
-      console.log(`2`)
         collectionGoods = [...resultsIs_collection]
       } else if (!(!!Object.keys(resultsIs_collection).length) && !!Object.keys(resultsIn_stock_colec).length) {
-      console.log(`3`)
         collectionGoods = [...resultsIn_stock_colec]
       }
 
-//       //длелаем чтобы выделяло элементы +
+       //длелаем чтобы выделяло элементы +
       Object.keys(collectionGoods).length && fullItemCartCheckedState ?
       collectionGoods = collectionGoods.map(res => {
         let items = { ...res, selected: fullItemCartChecked }
         setFullItemCartCheckedState(false)
         return items
       }) : null
-//       // ----------------------------------------------
-//       // **********in_stock -> no_is_pack
+
+      //        **********in_stock -> no_is_pack
       let inStockNoInpackNoInCollec = [];
       Object.keys(stateCountCart.in_stock).length ?
         inStockNoInpackNoInCollec = stateCountCart.in_stock.filter(el => !el.is_pack && !el.is_collection)
@@ -250,11 +247,9 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       Object.keys(stateCountCart.in_stock).length && fullItemCartCheckedState ?
         inStockNoInpackNoInCollec = inStockNoInpackNoInCollec.map(el => ({ ...el, selected: fullItemCartChecked }))
         : null
-//       // ----------------------------------------------
-//  // -----------------------------------------------
-//       //*********************************************************************************** */
-//       // ====================================================================================
-//       // **********cartitem_set -> Nois_pack and Nois_collection
+
+      /*********************************************************************************** */
+      //       **********cartitem_set -> Nois_pack and Nois_collection
 
       let resultsNoIs_packAndNoIsCollec = [];
       let finishResultNoIs_packNoIs_collection = [];
@@ -287,8 +282,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         other_goods: resultsNoIs_packAndNoIsCollec //res.cartitem_set
       }
       
-//       console.log('goods', goods)
-
       setGoodsStateOpt(goods)
       // проверяем наличее чеков у всех карточек, создаём новый массив и отправляем запрос на бэк
       if (fullItemCartCheckedState) {
@@ -310,7 +303,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           for (let i = 0; i < updateProduct1.length; i++) {
             allArr1 = [...allArr1, ...updateProduct1[i]]
           }
-       console.log(`товар inStockNoInpackNoInCollec = ${goodsInPack}`,inStockNoInpackNoInCollec)
 
         allArr1 = updateProduct.filter(el=>el);
         allArr2 = collectionGoods.filter(el=>el);
@@ -319,12 +311,8 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
 
         //собираем в массив все элементы cartitem_set NoIs_pack
-//
         let updateProductAllArr = [...allArr1, ...allArr2, ...allArr3, ...allArr4]
-
         updateProductAllArr = updateProductAllArr.map(el => ({ id: el.id, selected: el.selected, qty: el.qty }))
-       console.log(`товар коллекцией в cartitem_set = ${updateProductAllArr}`,updateProductAllArr)
-
         updateProductFromCart(updateProductAllArr),
         setFullItemCartCheckedState(!fullItemCartCheckedState)
       }
@@ -345,16 +333,17 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           : null
 
       let resultTurn = []
-      fullItemCartCheckedState ?
-        (
-          goodsInStock = goodsInStock.map(el => ({ ...el, selected: fullItemCartChecked })),
-
-          goodsOther = goodsOther.map(el => ({ ...el, selected: fullItemCartChecked })),
-          // .map(el => ({ ...el, selected: fullItemCartChecked }))
-          resultTurn = [...goodsInStock, ...goodsOther].map(el => ({ id: el.id, selected: el.selected })),
+      fullItemCartCheckedState
+        ? ((goodsInStock = goodsInStock.map((el) => ({ ...el, selected: fullItemCartChecked }))),
+          (goodsOther = goodsOther.map((el) => ({ ...el, selected: fullItemCartChecked }))),
+          (resultTurn = [...goodsInStock, ...goodsOther].map((el) => ({
+            id: el.id,
+            selected: el.selected,
+            qty: el.qty,
+          }))),
           updateProductFromCart(resultTurn),
-          setFullItemCartCheckedState(!fullItemCartCheckedState)
-        ) : null
+          setFullItemCartCheckedState(!fullItemCartCheckedState))
+        : null;
 
 
       goods = {
@@ -366,7 +355,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
     /**================================================================================================================= */
     setCartData(stateCountCart);
     newMassiveProducts(stateCountCart)
-    // }
+
   }, [stateCountCart.in_cart, fullItemCartChecked, stateCountCart.total_price])
 
   const [massiveCart, setMassiveCart] = useState(initialMassiveCart);
@@ -536,7 +525,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   }
 
   /********************************************************************** */
-console.log('amount',in_cart >= 30)
   let testArr = massiveCart.cartitem_set.find(el => el.title === "Lara")
   return (
     <Container>
@@ -583,6 +571,7 @@ console.log('amount',in_cart >= 30)
             multipleDeleteFromCart={multipleDeleteFromCart}
             tooltipOpen={tooltipNoSelectedProductsOpen}
             setFullItemCartChecked={setFullItemCartChecked}
+            fullItemCartChecked = {fullItemCartChecked}
             enab={enab}
             setEnab={setEnab}
             setFullItemCartCheckedState={setFullItemCartCheckedState}

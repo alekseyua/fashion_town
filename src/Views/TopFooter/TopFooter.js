@@ -76,7 +76,10 @@ const TopFooter = ({
           <div className={style['top-footer__inner']}>
             <div className={style['top-footer__left']}>
               <div className={style1['footer-logo']}>
-                <Logo site_configuration={site_configuration} />
+                <Logo 
+                  site_configuration={site_configuration}
+                  siteLocation={'footer'}
+                />
               </div>
 
               <div>

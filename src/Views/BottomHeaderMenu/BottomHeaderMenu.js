@@ -59,22 +59,22 @@ const MenuItems = ({ el, isSelected, handleClick = Function.prototype, i, fucRef
         <motion.div
 
           key={v4()}
-          style={{
-            position: 'relative',
-            fontWeight: 900,
-          }}
-          initial={{
-            color: '#000',
-            scale: 1,
-          }}
-          animate={{
-            scale: isSelected ? 1.2 : 1,
-            color: isSelected ? '#933468' : '#000',
-          }}
-          onClick={() => handleClick()}
+          // style={{
+          //   position: 'relative',
+          //   fontWeight: 900,
+          // }}
+          // initial={{
+          //   color: '#000',
+          //   scale: 1,
+          // }}
+          // animate={{
+          //   scale: isSelected ? 1.2 : 1,
+          //   color: isSelected ? '#933468' : '#000',
+          // }}
+          // onClick={() => handleClick()}
         >
           {el.title}
-          {isSelected && <ActiveLine />}
+          {/* {isSelected && <ActiveLine />} */}
         </motion.div>
       </Link>
     </li>
@@ -86,11 +86,11 @@ const ActiveLine = () => {
     <motion.div
       layoutId="activeItems"
       style={{
-        width: '100%',
-        height: '4px',
-        position: 'absolute',
-        bottom: '-6px',
-        backgroundColor: 'rgb(147, 52, 104)',
+        // width: '100%',
+        // height: '4px',
+        // position: 'absolute',
+        // bottom: '-6px',
+        // backgroundColor: 'rgb(147, 52, 104)',
       }}
     ></motion.div>
   );

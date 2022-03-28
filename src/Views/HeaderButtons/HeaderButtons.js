@@ -134,7 +134,10 @@ const HeaderButtons = ({
 
       {navigation ? (
         <>
-          {isScrolled ? <Logo isLight={!isScrolled} /> : null}
+          {isScrolled ? <Logo 
+            isLight={!isScrolled} 
+            siteLocation={'head'}
+          /> : null}
           {/* //!button */}
 
           <SearchPageViews.SearchWrapper

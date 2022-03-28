@@ -132,8 +132,8 @@ const Chat = ({ order_id, setModalStates }) => {
                 sendCommentFromTextField={sendCommentFromTextField}
               />
             </OrderDetailsPersonalPageViews.WrapperChat>
-          </GxForm>
-        );
+          </GxForm> 
+        ); 
       }}
     </Formik>
   );

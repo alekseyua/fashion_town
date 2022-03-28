@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 
 const Select = ({
   className,
-  label,
+  label="",
   placeholder,
   options = [],
   selectSettings,

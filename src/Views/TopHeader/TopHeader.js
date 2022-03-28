@@ -69,7 +69,11 @@ const TopHeader = ({
       })}
     >
       <div className={style['top-header-wrapper']}>
-        <Logo site_configuration={site_configuration} mobile isLight={false} />
+        <Logo 
+          site_configuration={site_configuration}
+          mobile isLight={false}
+          siteLocation={'head'}
+        />
 
         <TopHeaderMenu
           handlerActiveDropDownMenuItem={handlerActiveDropDownMenuItem}

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './orderCar.css';
+import './orderCar.scss';
 import { useStoreon } from 'storeon/react';
 
 const OrderCar = ({enabled, styleCar, setStyleCar}) => {

@@ -35,9 +35,10 @@
     // justify-content: space-around;
     align-content: center;
     flex-wrap: nowrap;
-    width: 80%;
-    max-width: 1920px;
+    width: 100%;
+    // max-width: 1920px;
     align-items: center;
+    flex: 1 1;
     @include tablet-md{
       width: 65%;
     }
@@ -86,6 +87,7 @@
     padding: 0 60px;
     margin-top: 10px;
     width: 100%;
+
     @include padding-for-mobile;
     @include mobile {
       display: flex;
@@ -98,18 +100,26 @@
   }
   &-logo {
     // margin-right: 100px;
-    flex: 0 0 20%;
-    @include mobile {
-    flex: 0 0 100%;
-      width: auto;
-    }
+    flex: 0 0 250px;
+    display: flex;
+    justify-content: center;
+    // @media (max-width: 960px) {
+    //   flex: 0 0 50%;
+    // }   
+//  @include mobile {
+//     flex: 0 0 100%;
+//       width: auto;
+//     }
   }
   &__group-menu {
-    padding-right: 100px;
+    // padding-right: 100px;
     position: relative;
-    flex: 1 0 80%;
+    flex: 1 1;
+    
     @media (min-width: 1670px) {
       font-size: calc((12 + 14) * ((100vw - 320px) / (1920 - 320)));
+      flex: 1 1;
+
     }
     // font-size: 24px;
     width: 100%;
@@ -119,9 +129,11 @@
     position: relative;
     width: 100%;
     // margin-right: 550px;
+
     @include mobile {
       display: none;
     }
+    
   }
   &__burger-wrapper {
     display: none;

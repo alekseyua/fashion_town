@@ -667,6 +667,7 @@
         min-width: 376px;
         max-width:376px;
         width: 100%;
+        font-size: 16px;
         @include flex(cc);
         border-radius: 3px;
         &:hover{
@@ -675,9 +676,9 @@
       }
       &::part(label) {
         // font-size: 33px;
-        @include adaptiv-font(10px,24px);
+        @include adaptiv-font(10px,20px);
         @include tablet-md{
-          @include adaptiv-font(15px,24px);
+          @include adaptiv-font(15px,20px);
         }
       }
     }

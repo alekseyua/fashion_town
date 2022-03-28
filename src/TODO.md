@@ -1,5 +1,38 @@
 заметки
-               
+
+Login: root
+Password: ABkxb52RF8
+Выделенный IP: 91.218.229.240
+    supervisorctl restart Server
+
+GET
+http://91.218.229.240:8000/api/v1/order/correspondence_order_item/?order_item_id=№ товара
+
+POST
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                PreviewSlider
                SectionProdPage
                ProductPreview

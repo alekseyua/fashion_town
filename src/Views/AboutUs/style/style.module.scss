@@ -1,0 +1,644 @@
+@import '../../../styles/variables/index.scss';
+.about__container {
+	max-width:1400px;
+	//.about__container-wrapper{}
+	&-wrapper{
+		max-width: 1400px; 
+		height: 100%;
+		margin: 0 auto;
+	}
+}
+.about__company {}
+.about__experiens {}
+.about__info {}
+.info-about__content {}
+.about__tehnology {}
+.about__question {}
+.about__tehnology-info {}
+
+
+.company-about {
+	width: 100%;
+	height: 572px;
+	background-color: #F2F2F2;
+	@media (max-width: 1280px) {
+		height: 532px;
+	}
+	@media (max-width: 980px) {
+		height: 500px;
+	}
+	@media (max-width: 682px) {
+		height: 550px;
+	}
+	@media (max-width: 582px) {
+		height: 480px;
+	}
+	@media (max-width: 495px) {
+		height: 520px;
+	}
+	@media (max-width: 404px) {
+		height: 550px;
+	}
+	@media (max-width: 374px) {
+		height: 580px;
+	}
+	//.company-about__container{}
+	&__container{
+		margin-left: 113px;
+		@media (max-width: 980px) {
+			margin: 0;
+			padding: 30px;
+			overflow: hidden;
+		}
+	}
+	//.company-about__bread-crumbs {}
+	&__bread-crumbs {
+	}
+	//.company-about__block {}
+	&__block {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		justify-content: space-between;
+		position: relative;
+		@media (max-width: 960px) {
+		padding: 0 10px;
+			justify-content: space-evenly;
+		}
+	}
+	//.company-about__content {}
+	&__content {
+		flex: 0 1 45%;
+		margin-top: 90px;
+		min-width: 310px;
+		background: transparent;
+		position: relative;
+		@media (max-width: 980px) {
+		flex: 0 1 70%;
+		margin-top: 50px;
+		z-index: 4;
+		}
+		@media (max-width: 582px) {
+		flex: 0 1 100%;
+		margin-top: 50px;
+		}
+		@media (max-width: 444px) {
+		flex: 0 1 100%;
+		}
+	}
+	//.company-about__title {}
+	&__title {
+		font-family: 'Cormorant';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 65px;
+		line-height: 60px;
+		color: #222222;
+		@media (max-width: 444px) {
+			font-size: 55px;
+		}
+		@media (max-width: 425px) {
+			font-size: 50px;
+		}
+	}
+	//.company-about__description {}
+	&__description {
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 28px;
+		color: #222222;
+	}
+	//.company-about__btn {}
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 227px;
+		width: 100%;
+		height: 52px;
+		background-color: #000000;
+		color: #fff;
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 26px;
+		&:hover{
+			background-color: $pi3;
+		}
+	}
+	//.company-about__image {}
+	&__image {
+		flex: 1 1 60%;
+		background-repeat: no-repeat;
+		width: 100%;
+		position: relative;
+		z-index: 5;
+        height: 600px;
+		@media (max-width: 980px) {
+			height: 700px;
+			position: absolute;
+			z-index: 3;
+			opacity: .6;
+			left: 50%;
+			transform: translateX(-20%);
+		}
+	}
+}
+.bread-crumbs {
+	//.bread-crumbs__list {}
+	&__list {
+		display: flex;
+	}
+	//.bread-crumbs__items {}
+	&__items {
+		margin-right: 10px;
+		position: relative;
+		list-style-type: none;
+		position: relative;
+		&:not(:last-child){
+				&:after{
+					content: "/";
+					width: 1px;
+					height: 100%;
+					color: #222222;
+					position: relative;
+					margin-left: 10px;
+				}
+		}
+	}
+	//.bread-crumbs__link {}
+	&__link {
+		text-decoration: none;
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 28px;
+		color: #222222;
+	}	
+}
+.experiens-about {
+	width: 100%;
+	//.experiens-about__inner{}
+	// margin: 0 15px;
+	@media (max-width: 480px) {
+		margin: 20px 0 0;
+
+	}
+	&__inner{
+		max-width: 1170px;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		@media (max-width: 1280px) {
+			justify-content: center;
+		}
+
+	}
+	//.experiens-about__container {}
+	&__container {
+		width: 370px;
+		height: 189px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction:column;		
+		background: #FFFFFF;
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.14);
+		border-radius: 10px;
+		transform: translateY(-55px);
+		z-index: 5;
+		&:not(:last-child){
+			margin-right: 10px;
+		}
+		@media (max-width: 1180px) {
+			width: 280px;
+			height: 170px;
+			margin-bottom: 15px;
+		}
+	}
+	//.experiens-about__logo {}
+	&__logo {
+		background-repeat: no-repeat;
+		background-position: center;
+		width: 60px;
+		height: 60px;
+		margin-bottom: 15px;
+	}
+	//.experiens-about__title {}
+	&__title {
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 800;
+		font-size: 20px;
+		line-height: 24px;
+		text-align: center;
+		color: #E6ACB3;
+	}
+	//.experiens-about__description {}
+	&__description {
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+		text-align: center;
+		color: #222222;
+	}
+}
+
+.info-about {
+	//.info-about__inner {}
+	&__inner {
+		display: flex;
+		max-width: 1170px;
+		height: 442px;
+		margin: 0 auto;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		position: relative;
+		padding: 0 15px;
+		@media (max-width: 1180px) {
+			padding: 0;
+			justify-content: center;
+		}
+	}
+	//.info-about__image {}
+	&__image {
+		position: relative;
+		flex: 1 1 46%;
+		border-radius: 20px;
+		width: 100%;
+		height: 100%;
+		background-position: right;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		@media (max-width: 1180px) {
+			background-size: 80% 80%;
+			flex: 1 1 33%;
+			background-position: top;
+		}
+		@media (max-width: 980px) {
+			background-size: 100% 100%;
+			position: absolute;
+			opacity: .6;
+		}
+		@media (max-width: 980px) {
+			// min-width: 560px;
+			background-size: cover;
+			background-position: center;
+		}
+	}
+}
+.content-about-info {
+	position: relative;
+	flex: 1 1 46%;
+	padding: 20px 30px;
+	@media (max-width: 1180px) {
+		max-width: 530px;
+		padding: 50px 15px; 
+		flex: 0 1 56%;
+	}
+	@media (max-width: 980px) {
+		max-width: 530px;
+		padding: 60px 15px; 
+		flex: 1 1 0%;
+	}
+	@media (max-width: 350px) {
+		padding: 30px 15px; 
+	}
+	//.content-about-info__title {}
+	&__title {
+		font-family: 'Cormorant';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 50px;
+		line-height: 50px;
+		color: #222222;
+		margin-bottom: 23px;
+		@media (max-width: 1180px) {
+			font-size: 40px;
+			line-height: 45px;
+
+		}
+		@media (max-width: 980px) {
+			font-size: 35px;
+			line-height: 35px;
+
+		}
+		@media (max-width: 680px) {
+			font-size: 30px;
+			line-height: 30px;
+		}
+	}
+	//.content-about-info__text {}
+	&__text {
+		display: flex;
+		align-items: flex-start;
+		&:not(:last-child){
+			margin-bottom: 10px;
+		}
+	}
+	//.content-about-info__text-badge {}
+	&__text-badge {
+		max-width: 100%;
+		max-height: 100%;
+		width: 30px;
+		height: 30px;
+		background-repeat: no-repeat;
+
+	}
+	//.content-about-info__text-text {}
+	&__text-text {
+		margin-left: 10px;
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 34px;
+		color: #222222;
+		@media (max-width: 980px) {
+			line-height: 34px;
+		}
+		@media (max-width: 424px) {
+			line-height: 24px;
+		}
+	}
+	//.content-about-info__btn{}
+	&__btn{
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 35px;
+		max-width: 227px;
+		width: 100%;
+		height: 52px;
+		background-color: #000000;
+		color: #fff;
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 26px;
+		&:hover{
+			background-color: $pi3;
+		}
+	}
+}
+
+.tehnology-about {
+	margin: 80px 0;
+	height: 484px;
+	width: 100%;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+
+	//.tehnology-about__image {}
+	&__image {
+		width: 100%;
+		height: 100%;
+		// max-height: 372px;
+		background-repeat: no-repeat;
+		background-size: 100%;
+	}
+	//.tehnology-about__content {}
+	&__content {
+		position: absolute;
+		// transform: translateY(130px);
+		bottom: 0;
+		width: 1170px;
+		height: 405px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: #FFFFFF;
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.14);
+		border-radius: 10px;
+		@media (max-width: 1200px) {
+			width: 95%;
+		}
+	}
+	//.tehnology-about__badge {}
+	&__badge {
+		width: 80px;
+		height: 80px;
+		background-repeat: no-repeat;
+		background-size: contain;
+
+	}
+	//.tehnology-about__title {}
+	&__title {
+		font-family: 'Cormorant';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 50px;
+		line-height: 50px;
+		text-align: center;
+		color: #222222;
+		@media (max-width: 1180px) {
+			font-size: 40px;
+			line-height: 45px;
+
+		}
+		@media (max-width: 980px) {
+			font-size: 35px;
+		line-height: 35px;
+
+		}
+		@media (max-width: 680px) {
+			font-size: 30px;
+			line-height: 30px;
+
+		}
+	}
+	//.tehnology-about__contex {}
+	&__contex {
+		max-width: 860px;
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 32px;
+		text-align: center;
+		color: #222222;
+	}
+}
+
+.question-about {
+	//.question-about__inner {}
+	// width: 100%;
+	padding: 15px;
+	&__inner {
+		margin: 0 auto;
+		width: 1170px;
+		display: flex;
+		justify-content: space-between;
+		@media (max-width: 1180px) {
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+		}
+	}
+	//.question-about__card {}
+	&__card {
+		&:not(:last-child){
+			margin-right: 30px;
+			@media (max-width: 600px) {
+				margin: 0;
+			}
+		}
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		// padding: 0 15px;
+
+	}
+	//.question-about__card-image {}
+	&__card-image {
+		width: 570px;
+		height: 343px;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		@media (max-width: 600px) {
+			width: 100%;
+		}
+
+	}
+	//.question-about__card-title {}
+	&__card-title {
+		margin-top: 33px;
+		font-family: 'Cormorant';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 50px;
+		line-height: 50px;
+		color: #222222;
+	}
+	//.question-about__card-text {}
+	&__card-text {
+		margin-top: 17px;
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 20px;
+		line-height: 32px;
+		color: #222222;
+	}
+	//.question-about__card-list {}
+	&__card-list {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	//.question-about__card-list-items {}
+	&__card-list-items {
+		list-style-type: none;
+		display: flex;
+		// text-align: gn-items: center;
+		width: 100%;
+	}
+	//.question-about__card-list-image {}
+	&__card-list-image {
+		flex: 0 0 30px;
+		height: 30px;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		margin-right: 15px;
+		display: inline-block;
+	}
+	//.question-about__card-list-item {}
+	&__card-list-item {
+		flex: 0 1 100%;
+		// padding-top: 5px;
+		font-family: 'Manrope';
+		background: transparent;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 26px;
+		color: #222222;
+	}
+}
+
+.tehnology-info-about {
+	margin-top: 65px;
+	background-color: #F6F6F6;
+	padding: 0 15px;
+	//.tehnology-info-about__inner {}
+	&__inner {
+		margin: 0 auto;
+		width: 1170px;
+		@media (max-width: 1180px) {
+			width: 100%;
+		}
+	}
+	//.tehnology-info-about__container {}
+	&__container {
+		display: flex;
+		padding-top: 80px;
+		justify-content: space-between;
+		@media (max-width: 1180px) {
+			flex-direction: column-reverse;
+		}
+	}
+	//.tehnology-info-about__context {}
+	&__context {
+		flex: 1 1 100%;
+		max-width: 611px;
+		max-height: 360px;
+		padding: 0 15px;
+	}
+	//.tehnology-info-about__title {}
+	&__title {
+		font-family: 'Cormorant';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 50px;
+		line-height: 50px;
+		color: #222222;
+		@media (max-width: 1180px) {
+			font-size: 40px;
+			line-height: 45px;
+
+		}
+		@media (max-width: 980px) {
+			font-size: 35px;
+		line-height: 35px;
+
+		}
+		@media (max-width: 680px) {
+			font-size: 30px;
+			line-height: 30px;
+
+		}
+	}
+	//.tehnology-info-about__text {}
+	&__text {
+		font-family: 'Manrope';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 28px;
+		color: #222222;
+	}
+	//.tehnology-info-about__image {}
+	&__image {
+		flex: 0 1 470px;
+		height: 442px;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: top;
+		// background-size: 100%;
+	}
+}

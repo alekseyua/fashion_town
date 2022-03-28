@@ -134,6 +134,21 @@ import defaultImageCard from './news/defaultImageCard.png';
 //woman sizes
 import womanSizes from './womansizes/womansizes.svg';
 
+//AboutUs
+
+import pic1 from './AboutUs/1.svg';
+import pic2 from './AboutUs/2.svg';
+import pic3 from './AboutUs/3.svg';
+import pic4 from './AboutUs/4.svg';
+import badge from './AboutUs/badge.svg';
+import info from './AboutUs/info.svg';
+import question_1 from './AboutUs/question_1.svg';
+import question_2 from './AboutUs/question_2.svg';
+import tehnologyBadge from './AboutUs/tehnology-badge.svg';
+import tehnologyFone from './AboutUs/tehnology-fone.svg';
+import tehnologyInfo from './AboutUs/tehnology-info.svg';
+
+
 //about page
 import aboutIcon1 from './aboutpage/1.svg';
 import aboutIcon2 from './aboutpage/2.svg';
@@ -171,6 +186,17 @@ import link from './link/link.svg';
 
 
 export {
+  pic1,
+  pic2,
+  pic3,
+  pic4,
+  badge,
+  info,
+  question_1,
+  question_2,
+  tehnologyBadge,
+  tehnologyFone,
+  tehnologyInfo,
   link,
   logo,
   dropdownIcon,

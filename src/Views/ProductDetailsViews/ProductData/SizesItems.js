@@ -17,7 +17,7 @@ const SizesItems = ({
   collections, //boolen
   selectedCollection,
   addCollectionHandler,
-  listCollectionsHook,
+  listCollectionsHook = [],
   setStatusSeletedItem,
   sizesn, 
   setSizesn,

@@ -91,7 +91,7 @@ const NotificationsComponent = ({ }) => {
             data?.reload()
           }
 
-
+            console.log(`result`, results.message)
           return (
             <>
               <NotificationsViews.Wrapper>

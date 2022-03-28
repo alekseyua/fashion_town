@@ -235,14 +235,14 @@ const OrderBaseDetails = ({
           </>)
           :(role === ROLE.DROPSHIPPER)
           ?( <>  
-            <CartViews.BlockRightSide>
+            {/* <CartViews.BlockRightSide>
               <CartViews.Text type={'text-default'}>
                 <Text text={'sale'} />
               </CartViews.Text>
               <CartViews.Text type={'text-red'}>
                 {discount} {currentCurrcensies}
               </CartViews.Text>
-            </CartViews.BlockRightSide>
+            </CartViews.BlockRightSide> */}
             <CartViews.BlockRightSide>
               <CartViews.Text type={'text-default'}>
                 <Text text={'shipping'} />
@@ -256,7 +256,8 @@ const OrderBaseDetails = ({
                                 </>
                               ):( 
                                 <>
-                                  {null}
+                                  {/* <CartViews.Text type={'text-default_currency'}>{weight} кг</CartViews.Text> */}
+                                  {'0.000'}&nbsp;{currentCurrcensies}
                                 </>
                               )}
                             

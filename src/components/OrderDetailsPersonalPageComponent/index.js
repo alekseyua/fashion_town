@@ -148,7 +148,6 @@ const OrderDetailsPersonalPageComponent = ({
         setDataOrder(resData)
       })
     }, [dataOrderItem, state])
-  console.log('orderItems', orderItems)
   return (
     <>
       <OrderDetailsPersonalPageViews.Wrapper>

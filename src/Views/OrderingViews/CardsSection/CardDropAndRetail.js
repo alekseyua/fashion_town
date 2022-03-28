@@ -19,7 +19,7 @@ const fileInputRef = React.useRef(null);
 const [ amountFile, setAmountFile ] = useState(null);
 const { userPage } = useStoreon('userPage');
 const { role } = userPage.profile;
-const [stateChecked, setStateChecked] = useState(true)
+const [stateChecked, setStateChecked] = useState(false)
 
       
       const changeAgreement = (e) => {
@@ -78,7 +78,7 @@ const [stateChecked, setStateChecked] = useState(true)
                       className={style['ordering_card__tooltip']}
                     >
                       <CheckBox
-                        checked={!stateChecked}
+                        checked={stateChecked}
                         onGx-change={changeAgreement}
                         label={
                           <span className={style['ordering_card__change_text']}>Согласие на замену</span>

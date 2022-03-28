@@ -610,16 +610,76 @@ p {
   }
 }
 // ********************************************
+
 .ordering {
   &_comment {
     display: flex;
     flex-direction: column;
+    &__up-down{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+      transition: all 2s ease-in-out;
+      animation-name: flare;
+      animation-iteration-count: infinite;
+      &:after{
+        content: '';
+        width: 10px;
+        height: 2px;
+        background-color: #000;
+        bottom: 0;
+        right: 0;
+        position: inherit;
+        transform: rotate(45deg) translateX(-3px);
+      }
+      &:before{
+        content: '';
+        width: 10px;
+        height: 2px;
+        background-color: #000;
+        bottom: 0;
+        left: 0;
+        position: inherit;
+        transform: rotate(-45deg) translateX(3px);
+      }
+    }
     &__field {
       background-color: $g;
       height: 100%;
       padding: 10px;
       width: 100%;
       overflow-y: auto;
+      position: relative;
+      &.active {
+        height: 45px;
+        // right: 10px;
+        .ordering_comment__up-down{
+          &:after{
+            content: '';
+            width: 10px;
+            height: 2px;
+            background-color: #000;
+            bottom: 0;
+            right: 0;
+            position: inherit;
+            transform: rotate(-45deg) translateX(-3px);
+          }
+          &:before{
+            content: '';
+            width: 10px;
+            height: 2px;
+            background-color: #000;
+            bottom: 0;
+            left: 0;
+            position: inherit;
+            transform: rotate(45deg) translateX(3px);
+          }
+        }
+
+      }
       &-comment {
         max-width: 100%;
         display: block;
@@ -712,3 +772,11 @@ p {
 }
 
 
+@keyframes flare {   
+  from{
+    background-color: #000;
+  }         
+  to{
+    background-color: #c33c;
+  }
+}

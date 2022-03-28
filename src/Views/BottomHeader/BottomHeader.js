@@ -35,7 +35,11 @@ const BottomHeader = ({
       <div className={style['bottom-header-wrapper']}>
         <div className={style['bottom-header__group']}>
           <div className={style['bottom-header-logo']}>
-            <Logo site_configuration={site_configuration} isLight={true} />
+            <Logo 
+              site_configuration={site_configuration} 
+              isLight={true}
+              siteLocation={'head'}
+            />
           </div>
           
           <div className={style['bottom-header__group-menu']}>

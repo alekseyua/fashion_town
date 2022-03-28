@@ -2,6 +2,7 @@
 
 .bottom-header-menu {
   // padding-top: 30px;
+  width: 100%;
   @include mobile {
     display: none;
   }
@@ -16,6 +17,8 @@
   &__list {
     @include ul;
     @include flex(cc);
+      justify-content: space-evenly;
+
     @media (min-width: 1460px) {
       justify-content: space-evenly;
     }
@@ -30,6 +33,13 @@
 
   &__li {
     position: relative;
-    margin-right: 40px;
+    // margin-right: 40px;
+    & a {
+      color: #141414;
+      font-size: 26px;
+    }
+    & a:hover{
+      color: $a2;
+    }
   }
 }
