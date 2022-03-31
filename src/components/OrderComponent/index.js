@@ -156,7 +156,7 @@ const OrderComponent = ({
         setmodalStates({
           content: (
             <PayModalContent
-              // closeModal={closeModal}
+              closeModal={closeModal}
               requisites={res}
               callbackSubmit={callbackSubmit}
               order_id={order_id}
@@ -230,19 +230,20 @@ const OrderComponent = ({
       comment_order: values.comment_order,
       order_cost: cart_contentOrder.price,
       discount: cart_contentOrder.discount,
-      total_cost: cart_contentOrder.price + priceNowDilevery? priceNowDilevery : 0,
+      total_cost: cart_contentOrder.price,
       currency: currenssies,
       add_goods_order_id: statusFildValue,
     };
       role !== ROLE.DROPSHIPPER? 
       params = {
         ...params,
-        delivery_cost: priceNowDilevery
+        delivery_cost: priceNowDilevery,
+        total_cost: priceNowDilevery ? cart_contentOrder.price + priceNowDilevery : cart_contentOrder.price + 0,
       }
       :null //cart_content.delivery.price,
-
-    // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"-доделать проверку
-console.log(`params detal valueStatePay`, valueStatePay)
+        // console.log(`params`, params)
+    // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"
+console.log(`create order rele = `, role)
     if (role === ROLE.DROPSHIPPER) {
       //если дробшипер списание со счета при достаточном количестве денег на счету
       //*************************************************************************** */
@@ -684,7 +685,7 @@ console.log(`params detal valueStatePay`, valueStatePay)
               creteOrder(values);
               dispatch('orderFunc/state', false);
               clearTimeout(timerBtn);
-            }, 7000);
+            }, 10000);
           } else {
             null;
           }

@@ -122,30 +122,43 @@ const CardWoasale = ({
                       </GxTooltip>
                     </div>
                   </div>
-
-                  <div className={style['content-card__amount']}>
-                    <span>
-                      <Text text="count" />
-                      :&nbsp;
-                    </span>
-                    {qty}&nbsp;шт.
-                  </div>
-                  <div className={style['content-card__price']}>
-                    <span>
-                      {' '}
-                      <Text text="price" />
-                      :&nbsp;
-                    </span>
-                    <span>
-                      <span className={style['content-card__price--color']}>{price}</span>&nbsp;
-                      {currenssies}
-                    </span>
-                    {old_price ? (
-                      <span className={style['content-card__price--old']}>
-                        {old_price} {currenssies}
+                  <div className={style['content-card__price-wrapper']}>
+                    <div className={style['content-card__amount']}>
+                      <span>
+                        <Text text="count" />
+                        :&nbsp;
                       </span>
-                    ) : null}
+                      {qty}&nbsp;шт.
+                    </div>
+                    <div className={style['content-card__price']}>
+                      <span>
+                        {' '}
+                        <Text text="price" />
+                        :&nbsp;
+                      </span>
+                      <span>
+                        <span className={style['content-card__price--color']}>{price}</span>&nbsp;
+                        {currenssies}
+                      </span>
+                      {old_price ? (
+                        <span className={style['content-card__price--old']}>
+                          {old_price} {currenssies}
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className={style['content-card__price']}>
+                      <span>
+                        {' '}
+                        <Text text="total" />
+                        :&nbsp;
+                      </span>
+                      <span>
+                        <span className={style['content-card__price--color']}>{(price*qty).toFixed(2)}</span>&nbsp;
+                        {currenssies}
+                      </span>
+                    </div>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -169,11 +182,23 @@ const CardWoasale = ({
                   <span className={style['content-card__price--color']}>{price}</span>&nbsp;
                   {currenssies}
                 </span>
-                {old_price ? (
-                  <span className={style['content-card__price--old']}>
-                    {old_price} {currenssies}
+                {!old_price ? (
+                  <span className={style['content-card__price-mob--old']}>
+                    111{old_price} {currenssies}
                   </span>
                 ) : null}
+              </div>
+
+              <div className={style['content-card__price-mob']}>
+                <span>
+                  {' '}
+                  <Text text="total" />
+                  :&nbsp;
+                </span>
+                <span>
+                  <span className={style['content-card__price--color']}>{(price*qty).toFixed(2)}</span>&nbsp;
+                  {currenssies}
+                </span>
               </div>
             </div>
           </div>

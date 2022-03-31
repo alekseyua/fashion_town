@@ -301,6 +301,18 @@ export const reqestIdProduct = store => {
 }
 
 
+//--------------------31.03.2022--------------------------------
+//данные увидомления
+    //*?????*********получаем ID товара для запроса************* */
+    export const notificationCount = store => {
+      store.on('@init', () => ( {notificationCount:null} ));
+      store.on('notificationCount/update', ({ notificationCount }, obj) => {
+    console.log(`notificationCount`,obj )
+
+        return {notificationCount : obj}
+      })
+    }
+
 /**
  * сдесь мы будем запихивать данные текущего продукта 
  * задумка локально менять в масивах listAlreadySaw
@@ -436,6 +448,7 @@ export const stateUpdateBalance = store => {
 
 
 export const storeonParams = [
+  notificationCount,
   stateUpdateBalance,
   orderCountryPayment,
   wishlistAl,

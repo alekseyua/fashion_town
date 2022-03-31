@@ -39,7 +39,7 @@ const AsyncPricesContainer = AsyncComponent(() => {
 const AsyncLabels = AsyncComponent(() => {
   return import('../../Views/ProductDetailsViews/ProductData/Labels');
 });
-
+ 
 const apiProfile = api.profileApi;
 const apiContent = api.contentApi;
 const apiCart = api.cartApi;
@@ -250,6 +250,8 @@ useEffect(() => {
         let size = res.sizes.filter(el => el.selected)
         setSizesn(size[0])
         setIn_cart_countHook(res.in_cart_count)
+        setIn_stock_countHook(res.in_stock_count)
+        console.log(`res in stock`, res)
         setIs_likedHook(res.is_liked)
       })
       .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
@@ -335,6 +337,7 @@ useEffect(() => {
               currentPrice={pricesHook.price}
               image={mediaHook[0].image.includes('http://') ? mediaHook[0].image : mediaFirstHook[0].image}
               handleClose={closeCustomModal}
+              sizes={sizes}
               />
           </ModalContentViews.ContentBlock>
         </ModalContentViews.ModalWrapper>
@@ -348,6 +351,7 @@ useEffect(() => {
     setMediaFirstHook(media)
     let arr = Array.from(product_sku);
     let filterArr = arr.filter(item => item.color === colorData);
+    console.log(`filter arr`, filterArr)
     setMediaHook(filterArr);
     // return newProduct_sku;
     // image: "http://91.218.229.240:8000/media/uploads/2021/9/ava.jpg"
@@ -600,6 +604,8 @@ useEffect(() => {
                       showPopapInfoColection={showPopapInfoColection}
                       heandlerPopup={heandlerPopup}
                       setIsOpen={ setIsOpen}
+                      currenssies={currenssies}
+                      pricesHook={pricesHook}
                     />
                     <AsyncControlButtons
                       countProduct={in_stock_countHook}

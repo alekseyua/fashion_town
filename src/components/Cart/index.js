@@ -254,17 +254,29 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
       let resultsNoIs_packAndNoIsCollec = [];
       let finishResultNoIs_packNoIs_collection = [];
       let arrNoColAndNoPack = stateCountCart.cartitem_set
-      Object.keys(arrNoColAndNoPack).length ?
+        // делаем первый вариант по желанию заказчика чтобы показывало товары по условиям выкупа
+
+      // Object.keys(arrNoColAndNoPack).length ?
+      //   (resultsNoIs_packAndNoIsCollec = arrNoColAndNoPack.reduce((prev, cur,i) => {
+      //     let arr = cur.items.filter(el=>!el.is_collection && !el.is_pack)
+      //     if(!!arr.length){
+      //       prev.push({...cur, items:arr})
+      //     }
+      //     return prev
+      //   },[])
+      //   ) : null;
+
+        // делаем второй вариант по желанию заказчика чтобы показывало товары по брендам   
+        Object.keys(arrNoColAndNoPack).length ?
         (resultsNoIs_packAndNoIsCollec = arrNoColAndNoPack.reduce((prev, cur,i) => {
-          let arr = cur.items.filter(el=>!el.is_collection && !el.is_pack)
+          let arr = cur.items.filter(el=>el)
           if(!!arr.length){
             prev.push({...cur, items:arr})
           }
           return prev
         },[])
         ) : null;
-
-       //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
+   
       Object.keys(resultsNoIs_packAndNoIsCollec).length && fullItemCartCheckedState ?
         resultsNoIs_packAndNoIsCollec = resultsNoIs_packAndNoIsCollec.map(res => {
           let items = res.items.map(el => ({ ...el, selected: fullItemCartChecked }))
@@ -272,7 +284,9 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           return { ...res, items }
         }) : null
 //       // ----------------------------------------------
-
+        collectionGoods = [];
+        goodsInPack =  [];
+        console.log(`collectionGoods2 = `,collectionGoods)
 
 //       // *-*-*-*-*-*-*-*-*-*-*-*-*-*
       goods = {
@@ -344,7 +358,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
           updateProductFromCart(resultTurn),
           setFullItemCartCheckedState(!fullItemCartCheckedState))
         : null;
-
 
       goods = {
         other_goods: goodsOther,
@@ -526,6 +539,8 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 
   /********************************************************************** */
   let testArr = massiveCart.cartitem_set.find(el => el.title === "Lara")
+
+console.log(`in_cart selected`, selected)
   return (
     <Container>
       <GxModal
@@ -751,7 +766,7 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
             </CartViews.BlockRightSide>
 
             <CartViews.LinkToFirmalization
-              enabled={role === ROLE.WHOLESALE ? (agreeWitheRegulations && is_performed && in_cart >= 30) : (agreeWitheRegulations && is_performed)}
+              enabled={role === ROLE.WHOLESALE ? (agreeWitheRegulations && is_performed && selected >= 30) : (agreeWitheRegulations && is_performed)}
               to={checkout_slug}
             >
               <Text text={'go.to.registration'} />

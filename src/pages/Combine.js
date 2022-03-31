@@ -147,7 +147,8 @@ const Combine = (props) => {
 
   // console.log('locale-', props);
 
-  const setRoleConfiguration = ({ role_configuration, id }) => {
+  const setRoleConfiguration = ({ role_configuration, notifications }) => {
+    dispatch('notificationCount/update', notifications);
     dispatch('role_configuration/update', role_configuration);
   };
 
@@ -190,7 +191,7 @@ const Combine = (props) => {
           //   ...page.profile,
           //   role : 0
           // }
-          // console.log('prof combine', profile)
+          // console.log('prof combine', page)
           //  page = {
           //     ...page,
           //     profile

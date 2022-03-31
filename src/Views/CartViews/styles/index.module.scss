@@ -41,6 +41,7 @@
     align-content: stretch;
     justify-content: space-between;
     align-items: stretch;
+    max-width: 350px;
     @include tablet-md {
       margin-left: 0;
       padding: 20px;

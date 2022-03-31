@@ -88,14 +88,26 @@ const [stateChecked, setStateChecked] = useState(false)
                   </div>
                 </div>
 
-                <div className={style["content-card__amount"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
-                <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
-                  {el.old_price ? (
-                    <span className={style['content-card__price--old']}>
-
-                      {el.old_price} {currenssies}
+                <div className={style['content-card__price-wrapper']}>
+                  <div className={style["content-card__amount"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
+                  <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
+                    {el.old_price ? (
+                      <span className={style['content-card__price--old']}>
+                        {el.old_price} {currenssies}
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className={style['content-card__price']}>
+                    <span>
+                      {' '}
+                      <Text text="total" />
+                      :&nbsp;
                     </span>
-                  ) : null}
+                    <span>
+                      <span className={style['content-card__price--color']}>{(el.price*el.qty).toFixed(2)}</span>&nbsp;
+                      {currenssies}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -112,7 +124,18 @@ const [stateChecked, setStateChecked] = useState(false)
 
                   {el.old_price} {currenssies}
                 </span>
-              ) : null}
+              ) : null}       
+            </div>
+            <div className={style['content-card__price-mob']}>
+              <span>
+                {' '}
+                <Text text="total" />
+                :&nbsp;
+              </span>
+              <span>
+                <span className={style['content-card__price--color']}>{(el.price*el.qty).toFixed(2)}</span>&nbsp;
+                {currenssies}
+              </span>
             </div>
           </div>
         </div>
@@ -156,17 +179,30 @@ const [stateChecked, setStateChecked] = useState(false)
                         }
                       />
                     </GxTooltip>
-                  </div>
+                  </div> 
                 </div>
 
-                <div className={style["content-card__amount"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
-                <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
-                  {el.old_price ? (
-                    <span className={style['content-card__price--old']}>
+                <div className={style['content-card__price-wrapper']}>
+                  <div className={style["content-card__amount"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
+                  <div className={style["content-card__price"]}><span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
+                    {el.old_price ? (
+                      <span className={style['content-card__price--old']}>
+                        {el.old_price} {currenssies}
+                      </span>
+                    ) : null}
+                  </div>
 
-                      {el.old_price} {currenssies}
+                  <div className={style['content-card__price']}>
+                    <span>
+                      {' '}
+                      <Text text="total" />
+                      :&nbsp;
                     </span>
-                  ) : null}
+                    <span>
+                      <span className={style['content-card__price--color']}>{(el.price*el.qty).toFixed(2)}</span>&nbsp;
+                      {currenssies}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -179,12 +215,23 @@ const [stateChecked, setStateChecked] = useState(false)
             <div className={style["content-card__amount-mob"]}><span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.</div>
             <div className={style["content-card__price-mob"]}> <span> <Text text="price" />:&nbsp;</span><span><span className={style["content-card__price--color"]}>{el.price}</span>&nbsp;{currenssies}</span>
               {el.old_price ? (
-                <span className={style['content-card__price--old']}>
-
+                <span className={style['content-card__price-mob--old']}>
                   {el.old_price} {currenssies}
                 </span>
               ) : null}
             </div>
+
+              <div className={style['content-card__price-mob']}>
+                <span>
+                  {' '}
+                  <Text text="total" />
+                  :&nbsp;
+                </span>
+                <span>
+                  <span className={style['content-card__price--color']}>{(el.price*el.qty).toFixed(2)}</span>&nbsp;
+                  {currenssies}
+                </span>
+              </div>
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import Text from '../../components/Text';
 import ContentDropDownAccount from '../../components/ContentDropDownAccount';
 import style from './headerButtons.module.scss';
 import styleDropDown from './dropDownAccountMenu.module.scss';
+import { useStoreon } from 'storeon/react';
 
 const DropDownMenuAccount = ({
   profile,
@@ -17,6 +18,7 @@ const DropDownMenuAccount = ({
   page_type_reg,
   page_home,
 }) => {
+  const { notificationCount } = useStoreon('notificationCount');
   return (
     <GxDropdown className={styleDropDown['wrapper']} hoist distance={20} skidding={-138}>
       <GxButton
@@ -36,7 +38,8 @@ const DropDownMenuAccount = ({
               [style['empty']]: !cabinet_data?.notifications,
             })}
           >
-            {cabinet_data?.notifications}
+            {/* {cabinet_data?.notifications} */}
+            {notificationCount}
           </div>
         ) : null}
       </GxButton>

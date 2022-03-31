@@ -13,7 +13,8 @@ const CreateStore = ({ create_shop = '#', role, className }) => {
     [style[className]]: !!className,
   });
   return (
-    <Link to={create_shop} className={customClassName}
+    // <Link to={create_shop} className={customClassName} //сдесь ссылка на страницу заказа магазина
+    <Link to={'#'} className={customClassName}
 
     >
       <img src={storeIcon} alt="store" />

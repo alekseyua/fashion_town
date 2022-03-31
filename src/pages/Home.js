@@ -34,7 +34,7 @@ const Home = (props) => {
     page_type_404,
     page_type_500,
   } = site_configuration;
-  
+  console.log(`banners`, banners)
  //Pages -> Home
   //элементы главной страницы 
   return (

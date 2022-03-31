@@ -26,6 +26,7 @@ const TdStatusData = ({ status = 'default', statusTitle = 'Название ст
     in_process: statusWait,
     packaging: statusPackage,
     delivery_payment_waiting: statusWork,
+    delivery_paid: statusPaid,
     closed: statusClosed,
     canceled: statusCancel,
     return: statusReturn,

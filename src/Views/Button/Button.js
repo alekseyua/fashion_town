@@ -17,6 +17,7 @@ import linkBtn from './styles/LinkBtn.module.scss';
 import notFoundBtn from './styles/NotFound.module.scss';
 import customClassNameDisactiv from './styles/disactive.module.scss';
 
+
 import classNames from 'classnames';
 
 const variantEnum = {
@@ -84,6 +85,7 @@ const Button = ({
   iconLeft,
   iconRight,
   stateClickSend,
+  disabled = false,
   ...props
 }) => {
   
@@ -91,22 +93,42 @@ const Button = ({
     [getVariantStyleBtn(variant)]: variant !== 'none',
     [className]: !!className,
     [customClassNameDisactiv.customClassNameDisactiv] : stateClickSend,
+    // [customClassNameDisactiv.checkedState] : disabled,
+
   });
-  
   return (
-    <GxButton
-      {...props}
-      onClick={onClick}
-      variant={gxVariant}
-      className={customClassName}
-      iconLeft={iconLeft}
-      iconRight={iconRight}
-      
-    >
-      {iconLeft ? <gx-icon slot="icon-left" src={iconLeft}></gx-icon> : null}
-      {children}
-      {iconRight ? <gx-icon slot="icon-right" src={iconRight}></gx-icon> : null}
-    </GxButton> 
+   <>
+      {disabled?
+        (  
+        <GxButton
+            {...props}
+            onClick={onClick}
+            variant={gxVariant}
+            className={customClassName}
+            iconLeft={iconLeft}
+            iconRight={iconRight}
+            disabled={''}
+          >
+            {iconLeft ? <gx-icon slot="icon-left" src={iconLeft}></gx-icon> : null}
+            {children}
+            {iconRight ? <gx-icon slot="icon-right" src={iconRight}></gx-icon> : null}
+          </GxButton>
+        ):(
+          <GxButton
+          {...props}
+          onClick={onClick}
+          variant={gxVariant}
+          className={customClassName}
+          iconLeft={iconLeft}
+          iconRight={iconRight}
+
+        >
+          {iconLeft ? <gx-icon slot="icon-left" src={iconLeft}></gx-icon> : null}
+          {children}
+          {iconRight ? <gx-icon slot="icon-right" src={iconRight}></gx-icon> : null}
+        </GxButton> 
+      ) }
+    </>
   );
 };
 

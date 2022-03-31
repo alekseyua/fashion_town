@@ -35,15 +35,15 @@ const AboutUs = (props) => {
                       брендов. А купить её можно не только на оптовых условиях, но и как обычный
                       розничный покупатель!
                     </p>
-                    <p>Мы работаем для Вас, Вашего бизнеса и гарlероба.</p>
+                    <p>Мы работаем для Вас, Вашего бизнеса и гардероба.</p>
                   </div>
 
-                  <Link 
+                  {/* <Link 
                     className={style["company-about__btn"]}
                     to={site_configuration.registration_slug}
                   >
                     Зарегистрироваться
-                  </Link>
+                  </Link> */}
                 </div>
 
                 <div 
@@ -80,7 +80,7 @@ const AboutUs = (props) => {
                   className={style["experiens-about__logo"]}
                   style={{backgroundImage: `url(${pic4})` }}
                 ></div>
-                <div className={style["experiens-about__title"]}>более 100</div>
+                <div className={style["experiens-about__title"]}>более 10000</div>
                 <div className={style["experiens-about__description"]}>товаров в наличии</div>
               </div>
             </div>
@@ -104,7 +104,7 @@ const AboutUs = (props) => {
                     style={{backgroundImage: `url(${badge})` }}
                   ></div>
                   <div className={style["content-about-info__text-text"]}>
-                    Эффектно выглядеть и при этом немного тратить;
+                    Эффектно выглядеть и при этом немного тратить
                   </div>
                 </div>
 
@@ -114,7 +114,7 @@ const AboutUs = (props) => {
                     style={{backgroundImage: `url(${badge})` }}
                   ></div>
                   <div className={style["content-about-info__text-text"]}>
-                    Узнавать первым о новинках одежды, парфюмерии,
+                    Быть в курсе новинок от европейских брендов и не только
                   </div>
                 </div>
 
@@ -124,7 +124,7 @@ const AboutUs = (props) => {
                     style={{backgroundImage: `url(${badge})` }}
                   ></div>
                   <div className={style["content-about-info__text-text"]}>
-                    Узнавать первым о новинках косметики ведущих европейских брендов
+                    Развивать и масштабировать свой бизнес
                   </div>
                 </div>
 
@@ -147,7 +147,7 @@ const AboutUs = (props) => {
                 className={style["tehnology-about__badge"]}
                 style={{backgroundImage: `url(${tehnologyBadge})`}}
               ></div>
-              <h3 className={style["tehnology-about__title"]}>Технология, упрощающая ваш бизнес</h3>
+              <h3 className={style["tehnology-about__title"]}>Технология, упрощающая Ваш бизнес</h3>
               <p className={style["tehnology-about__contex"]}>
                 Торговая бизнес-площадка Fashion Town – результат многолетнего опыта работы в сфере
                 электронной коммерции, предоставляющая доступ к товарам более 100 брендов на
@@ -164,32 +164,52 @@ const AboutUs = (props) => {
                   style={{backgroundImage: `url(${question_1})` }}
                 ></div>
                 <h3 className={style["question-about__card-title"]}>Почему у нас удобно</h3>
-                <p className={style["question-about__card-text"]}>
-                  Привычная и удобная для пользователей система покупок:
-                </p>
-                <ul className={style["question-about__card-list"]}>
-                  <li className={style["question-about__card-list-items"]}>
-                    <div
-                      className={style["question-about__card-list-image"]}
-                      style={{backgroundImage: `url(${badge})` }}
-                    ></div>
-                    <div className={style["question-about__card-list-item"]}>Каталог</div>
-                  </li>
-                  <li className={style["question-about__card-list-items"]}>
-                    <div
-                      className={style["question-about__card-list-image"]}
-                      style={{backgroundImage: `url(${badge})` }}
-                    ></div>
-                    <div className={style["question-about__card-list-item"]}>Корзина</div>
-                  </li>
-                  <li className={style["question-about__card-list-items"]}>
-                    <div
-                      className={style["question-about__card-list-image"]}
-                      style={{backgroundImage: `url(${badge})` }}
-                    ></div>
-                    <div className={style["question-about__card-list-item"]}>Покупка</div>
-                  </li>
-                </ul>
+                <div className={style['question-about__card-context']}>
+                    <div>
+                      <p className={style["question-about__card-text"]}>
+                        Привычная и удобная для пользователей система покупок:
+                      </p>
+                      <ul className={style["question-about__card-list"]}>
+                        <li className={style["question-about__card-list-items"]}>
+                          <div
+                            className={style["question-about__card-list-image"]}
+                            style={{backgroundImage: `url(${badge})` }}
+                          ></div>
+                          <div className={style["question-about__card-list-item"]}>Каталог</div>
+                        </li>
+                        <li className={style["question-about__card-list-items"]}>
+                          <div
+                            className={style["question-about__card-list-image"]}
+                            style={{backgroundImage: `url(${badge})` }}
+                          ></div>
+                          <div className={style["question-about__card-list-item"]}>Корзина</div>
+                        </li>
+                        <li className={style["question-about__card-list-items"]}>
+                          <div
+                            className={style["question-about__card-list-image"]}
+                            style={{backgroundImage: `url(${badge})` }}
+                          ></div>
+                          <div className={style["question-about__card-list-item"]}>Покупка</div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className={style["question-about__card-text"]}>Розничные клиенты могут:</p>
+                      <ul className={style["question-about__card-list"]}>
+                        <li className={style["question-about__card-list-items"]}>
+                          <div
+                            className={style["question-about__card-list-image"]}
+                            style={{backgroundImage: `url(${badge})` }}
+                          ></div>
+                          <div className={style["question-about__card-list-item"]}>
+                            За считанные минуты познакомится с новинками в мире моды, выбрать себе
+                            современный look, не выходя из дома и не отрываясь от по-настоящему важных
+                            дел.
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
               </div>
 
               <div className={style["question-about__card"]}>
@@ -198,7 +218,7 @@ const AboutUs = (props) => {
                   style={{backgroundImage: `url(${question_2})` }}
                 ></div>
                 <h3 className={style["question-about__card-title"]}>Почему у нас выгодно</h3>
-                <p className={style["question-about__card-text"]}>Оптовые покупатели и дропшипперы могут:</p>
+                <p className={style["question-about__card-text"]}>Оптовые партнеры и дропшипперы могут:</p>
                 <ul className={style["question-about__card-list"]}>
                   <li className={style["question-about__card-list-items"]}>
                     <div
@@ -229,22 +249,26 @@ const AboutUs = (props) => {
                       поставок товаров).
                     </div>
                   </li>
-                </ul>
-
-                <p className={style["question-about__card-text"]}>Розничные покупатели могут:</p>
-                <ul className={style["question-about__card-list"]}>
+                <li className={style["question-about__card-list-items"]}>
+                    <div
+                      className={style["question-about__card-list-image"]}
+                      style={{backgroundImage: `url(${badge})` }}
+                    ></div>
+                    <div className={style["question-about__card-list-item"]}>
+                      Начать бизнес практически с нуля
+                    </div>
+                  </li>
                   <li className={style["question-about__card-list-items"]}>
                     <div
                       className={style["question-about__card-list-image"]}
                       style={{backgroundImage: `url(${badge})` }}
                     ></div>
                     <div className={style["question-about__card-list-item"]}>
-                      За считанные минуты познакомится с новинками в мире моды, выбрать себе
-                      современный look, не выходя из дома и не отрываясь от по-настоящему важных
-                      дел.
+                      Обеспечить себе минимальные вложения на исследование новой ниши и возможностей.
                     </div>
                   </li>
                 </ul>
+
               </div>
             </div>
           </div>
@@ -254,7 +278,7 @@ const AboutUs = (props) => {
               <div className={style["tehnology-info-about__container"]}>
                 <div className={style["tehnology-info-about__context"]}>
                   <h3 className={style["tehnology-info-about__title"]}>
-                    Технология, которая экономит вам деньги и время
+                    Технология, которая экономит Вам деньги и время
                   </h3>
                   <p className={style["tehnology-info-about__text"]}>
                     Перейдя на систему закупок с помощью ТБП «Fashion Town», Вы получите не только

@@ -12,6 +12,7 @@
       margin: 0;
     }
     align-items: stretch;
+    justify-content: space-evenly;
   }
   &-card {
     @include col(3, 0);

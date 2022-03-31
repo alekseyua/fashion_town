@@ -130,7 +130,6 @@ const Card = ({
     getChatData();
   }, []);
 const [upDownBtn, setUpDownBtn] = useState(true);
-console.log(`correspondenceState`, !!correspondenceState.length)
 const clickOpenCommit = () => {
   console.log(`click`)
   setUpDownBtn(c=>!c)

@@ -52,7 +52,12 @@ const PayModalContent = ({
   };
 
 
-
+  // const closeModal = () => {
+  //   setModalStates({
+  //     content: null,
+  //     show: false,
+  //   });
+  // };
   const onSubmit = (data, { setFieldError }) => {
     const fdPayments = new FormData();
     fdPayments.set('requisites_id', requisites.id);
@@ -87,6 +92,7 @@ const PayModalContent = ({
             }
           }
         }
+        console.log(`почему ошибка ????? ${err}`,err)
         !(slug === "balance") ? history.push('cart') : history.push('balance');
         closeModal();
       });

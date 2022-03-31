@@ -4,6 +4,7 @@ import Pagination from '../../Views/Pagination';
 import Title from '../../Views/Title';
 import NotificationsViews from '../../Views/NotificationsViews';
 import api from '../../api';
+import { useStoreon } from 'storeon/react';
 
 const apiProfile = api.profileApi;
 
@@ -11,6 +12,7 @@ const NotificationsComponent = ({ }) => {
   const initialFilters = {};
   const [checkEnable, setCheckEnable] = useState(false);
   const [allCheckEnableChange, setAllCheckEnableChange] = useState([]);
+  const { notificationCount, dispatch } = useStoreon('notificationCount');
 
   // отправляем массив выделеных элементов для замены статуса
   const heandlerReed = () => {
@@ -26,12 +28,17 @@ const NotificationsComponent = ({ }) => {
   }
   // отправляем массив выделеных элементов для удаления
   const heandlerDel = () => {
+    updateArrForm(setAllCheckEnableChange)
+    console.log(`allCheckEnableChange`,allCheckEnableChange)
     apiProfile
       .postNotificationsDel({
         'ids': allCheckEnableChange
       })
       .then((res) => {
+
         updateDataForm()
+        dispatch('notificationCount/update',notificationCount-allCheckEnableChange.length)
+        setAllCheckEnableChange([])
         //window.location?.reload()
       })
       .catch((err) => console.error(`err test reques ${err}`));
@@ -83,15 +90,14 @@ const NotificationsComponent = ({ }) => {
             for (let i = 0; i < results.length; i++) {
               !checkEnable ? checkAllId.push(results[i].id) : null
             }
-            setAllCheckEnableChange(checkAllId)
+           setAllCheckEnableChange(checkAllId)
           }
 
           // обновляем форму с данными
           updateDataForm = () => {
-            data?.reload()
+            data.reload()
           }
 
-            console.log(`result`, results.message)
           return (
             <>
               <NotificationsViews.Wrapper>

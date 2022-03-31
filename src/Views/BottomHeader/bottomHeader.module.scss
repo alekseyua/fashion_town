@@ -2,7 +2,7 @@
 
 .bottom-header {
   position: fixed;
-  padding: 5px 0 5px;
+  padding: 5px 0 5px; 
   width: 100%;
   top: 48px;
   left: 0;
@@ -70,7 +70,7 @@
   }
 
   &.top {
-    top: 35px;
+    // top: 35px;
     @include mobile {
       top: auto;
     }

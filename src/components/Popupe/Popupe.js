@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import Text from '../Text';
 import { useStoreon } from 'storeon/react';
 import { v4 } from 'uuid';
-
+import {defaultProductCard} from '../../images';
 
 const Popupe = ({
   dataPopup,
@@ -24,7 +24,7 @@ const Popupe = ({
   site_configuration,
   modalStates,
   styleModal,
-  AsyncWorldStandardSizesChart,
+  AsyncWorldStandardSizesChart, 
   AsyncLabels,
   AsyncPricesContainer,
   lables,
@@ -38,8 +38,11 @@ const Popupe = ({
   const [classState, setClassState] = useState(new Set());
   const [sizeCollection, setSizeCollection] = useState(0);
   const [clickAddCollect, setClickAddCollect] = useState(false);
-
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
+  const customImg = defaultProductCard;
+
+
+
   // useEffect(()=>{
   //   setCollectionsGoods(dataPopup)
   // }, [dataPopup])
@@ -117,6 +120,15 @@ const Popupe = ({
         }}
 
         className={style['popup__container']}
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(false)
+          setShowPopapInfoColection({
+            ...showPopapInfoColection,
+            show: false,
+            content: null,
+          });
+        }}
       >
         {/* <ModalContentViews.CloseBtn closeModal={closeModal} /> */}
 
@@ -147,6 +159,7 @@ const Popupe = ({
               let res = dataPopup[index].items.map(redeemed => redeemed.redeemed)
               let enableBtn = res.filter(item => item === false ? true : false)
               let colec = sortCollection(collections)
+              console.log(`collections?.items[0]?.size?.image`,collections?.items[0]?.size?.image)
 
               return (
                 <li
@@ -163,19 +176,23 @@ const Popupe = ({
 
                   <div className={style['popup__body-collectiion body-collectiion']}>
                     <div className={style['popup__item-title item-title-body']}>
-                      <div className={style['popup__item-title item-title']}>
+                      <div className={style['popup__item-title']}>
+                        <div className={style['item-title__badge']}>
+                          <AsyncLabels items={lables} />
+                        </div>
                         <div className={style['item-title__image']}>
-                          <div style={{ backgroundImage: `url(${collections?.items[0]?.size?.image})` }} className={style['popup__image']} />
+                          <div style={{ backgroundImage: `url(${collections?.items[0]?.size?.image?collections.items[0]?.size?.image:customImg})` }} className={style['popup__image']} />
                         </div>
                       </div>
-                      <AsyncLabels items={lables} />
-                      <AsyncPricesContainer
-                        prices={pricesHook}
-                        role_configuration={role_configuration}
-                        currenssies={currenssies}
-                        recommended_price={recommended_priceHook}
-                        in_cart_count={in_cart_countHook}
-                      />
+                      <div className={style['item-title__main-price']}>
+                        <AsyncPricesContainer
+                          prices={pricesHook}
+                          role_configuration={role_configuration}
+                          currenssies={currenssies}
+                          recommended_price={recommended_priceHook}
+                          in_cart_count={in_cart_countHook}
+                        />
+                      </div>
                       <div className={style['prodpage-colors']}>
                         <div className={style['prodpage-colors__name']}>
                           <span>
@@ -228,7 +245,7 @@ const Popupe = ({
                                     disabled={classState.has(collections.id + (el.size.id + index * 444)) ? '' : el.redeemed}
                                     type="button"
                                     id={collections.id + (el.size.id + index * 444)}
-                                    style={el.test.has(collections.id + (el.size.id + index * 444)) ? { background: 'rgb(199, 149, 149)' } : null}
+                                    style={el.test.has(collections.id + (el.size.id + index * 444)) ? { background: 'rgb(0, 0, 0)', color:'rgb(255,255,255)' } : null}
                                     onClick={(e) => {
                                       addOrRemoveEl(e.target.id)
                                       setSizeCollection(el.size.id)
@@ -245,7 +262,7 @@ const Popupe = ({
                         </div>
                       </div>
                     </div>
-                    <div className={style['body-collectiion__control']}>
+                    {/* <div className={style['body-collectiion__control']}>
                       <button
                         type="button"
                         id={collections.id}
@@ -294,7 +311,7 @@ const Popupe = ({
                       {enableBtn.length ? 'Добавить в корзину' : 'Сбор собран'}
                     </button>
 
-                  </div>
+                  </div> */}
                 </div>
                 </li>
           )

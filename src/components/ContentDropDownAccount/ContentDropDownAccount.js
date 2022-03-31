@@ -32,12 +32,12 @@ const ContentDropDownAccount = ({
     console.log('выход с аккаунта');
     const ft_token = getCookie('ft_token');
     removeCookie(COOKIE_KEYS.AUTH);
-    
-    if (ft_token){
+    console.log(`boolen ft_token`, !!ft_token)
+    if (!!ft_token){
       logOut()
     }else{
       history.push('/en')
-      window.location?.reload()
+      window.location.reload()
     }
 
   };

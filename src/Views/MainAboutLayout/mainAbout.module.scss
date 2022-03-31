@@ -10,23 +10,30 @@
     top: 0;
     width: 100%;
     height: 50%;
-    background-color: var(--gx-color-white);
+    // background-color: var(--gx-color-white);
+background-color: #F2F2F2;
     z-index: 0;
     &:last-child {
       top: 50%;
-      background-color: var(--gx-color-gray2);
+background-color: #F2F2F2;
+      // background-color: var(--gx-color-gray2);
     }
   }
 
   &__content {
     position: relative;
-    padding: 60px;
-    background: url(../../images/MainAbout/mainAbout.png);
+    padding: 60px 0;
+		@include adaptive-value('padding-left',60,20,px,2);
+		@include adaptive-value('padding-right',60,20,px,2);
+    // background: url(../../images/MainAbout/mainAbout.png);
+    background-color: #F2F2F2;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 4px;
     z-index: 1;
-    @include padding-for-mobile;
+    overflow: hidden;
+    // @include padding-for-mobile;
+
     @include tablet-md {
       text-align: center;
       padding-top: 40px;
@@ -40,19 +47,21 @@
     color: var(--gx-color-accent);
     font-size: 52px;
     letter-spacing: 0.07em;
-
     @include tablet-md {
       text-align: center;
-      font-size: calc(5vw + 9px);
+      // font-size: calc(5vw + 9px);
     }
   }
 
   &__text {
     margin: 0;
     margin-bottom: 48px;
-    max-width: 50%;
+    // max-width: 50%;
+		@include adaptive-value('max-width',50,40,vw,2);
     font-size: 24px;
-    line-height: 140%;
+    // line-height: 140%;
+		@include adaptive-value('line-height',60,28,px,2);
+		@include adaptive-value('font-size',24,16,px,2);
     color: var(--gx-color-accent);
 
     & p {
@@ -103,6 +112,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
+		@include adaptive-value('right',0,-500,px,2);
+
     width: auto;
     height: auto;
     z-index: -1;

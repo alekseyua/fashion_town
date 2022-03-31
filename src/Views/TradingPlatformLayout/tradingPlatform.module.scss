@@ -72,8 +72,11 @@
   &__filters {
     @include flex('cc');
     color: var(--gx-color-primary);
+
   }
   &__filters {
+    width: 100%;
+    flex-wrap: inherit;
     @include mobile {
       flex-wrap: wrap;
     }
@@ -124,9 +127,12 @@
       background-color: var(--gx-color-accent2);
       border-color: var(--gx-color-accent2);
     }
+    @include mobile{
+      margin-right: 0;
+      width: 0;
+    }
   }
   &__filter {
-    display: block;
     margin-right: 10px;
     padding: 15px 30px;
     border: 2px solid rgba(252, 210, 215, 0.5);
@@ -135,6 +141,10 @@
     font-weight: bold;
     font-size: 12px;
     line-height: 140%;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 5px;
     &:last-child {
       margin: 0;
     }

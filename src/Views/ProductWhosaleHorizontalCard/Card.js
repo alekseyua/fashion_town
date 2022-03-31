@@ -27,7 +27,8 @@ const Card = ({
   is_packSize,
   is_packUrl,
   is_packPrice,
-  cartitem_setUrl,
+  cartitem_setUrl = '#',
+  url
 }) => {
   const { brand, color, id: producId, image, in_stock_count, size, title } = product;
 
@@ -68,10 +69,13 @@ const Card = ({
     let value = Number(e.target.value);
     (value === 0) ? value = 1 : null;
     isNaN(value) ? value = countProducts : value;
+    in_stock_count?
+      (value >= in_stock_count)? value = in_stock_count : value
+      :null
     setCountProducts(value)
       updateQty(value);
   }
-
+console.log(`test url any goods`, url)
   return (
     <motion.div
       initial={{
@@ -102,8 +106,8 @@ const Card = ({
         />
         {/*фотография  */}
         <Link
-          to={is_packUrl ? is_packUrl : cartitem_setUrl}
-        >
+          to={url}//{is_packUrl ? is_packUrl : cartitem_setUrl}
+        > 
           <img
             src={image && image !== '#' ? image : categoryCard1}
             className={style['product__image_thumb']}
@@ -184,7 +188,8 @@ const Card = ({
               -
               </Button>
             </motion.div>
-            <input
+            <input  
+              
               autoFocus
               onFocus={e => e.currentTarget.select()}
               type="text"
@@ -200,6 +205,8 @@ const Card = ({
                 transition={{ duration: .2 }}
               >                
                 <Button
+                  id={id}
+                  disabled={countProducts === in_stock_count}
                   onClick={incCounterProduct} 
                   variant={'counter-btn'} 
                   slot={'suffix'}

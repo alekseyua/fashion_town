@@ -1,9 +1,13 @@
-заметки
+  заметки
+
+разрешаем доступ для выполнения скриптов
+Set-ExecutionPolicy RemoteSigned -Scope Process
 
 Login: root
 Password: ABkxb52RF8
 Выделенный IP: 91.218.229.240
     supervisorctl restart Server
+    supervisorctl restart Server-Back
 
 GET
 http://91.218.229.240:8000/api/v1/order/correspondence_order_item/?order_item_id=№ товара
@@ -11,7 +15,8 @@ http://91.218.229.240:8000/api/v1/order/correspondence_order_item/?order_item_id
 POST
 
 
-
+			@include adaptive-value('font-size',33,20,px,2);
+			@include adaptive-value('line-height',60,28,px,2);
 
 
 

@@ -601,9 +601,8 @@
       box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
       border-radius: 4px;
       margin-top: 10px;
-      margin-bottom: 27px;
+      margin-bottom: 17px;
       min-width: 376px;
-      margin-bottom: 27px;
       max-width: max-content;
       @include mobile {
         min-width: auto;
@@ -622,10 +621,17 @@
       font-weight: bold;
       margin-top: 0;
       margin-bottom: 5px;
+      &-price{
+        color: #111;
+        font-size: 12px;
+      }
     }
     &__wrap {
-      display: flex;
-      flex-wrap: wrap;
+      font-size: 10px;
+      color: #c3c3c3;
+      & > span{
+        font-weight: 900;
+      }
       &-mb {
         display: flex;
         margin-bottom: 15px;

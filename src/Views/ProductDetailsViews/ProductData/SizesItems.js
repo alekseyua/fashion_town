@@ -26,6 +26,8 @@ const SizesItems = ({
   showPopapInfoColection,
   heandlerPopup,
   setIsOpen,
+  currenssies,
+  pricesHook,
 }) => {
   const [selectedSizeList, setselectedSizeList] = useState(false);
   
@@ -33,7 +35,6 @@ const SizesItems = ({
   const { role } = userPage.profile;
   const [ gropsSizes, setGropsSizes ] = useState([]);
   const [clickDelay, setClickDelay] = useState(null)
-  
   //делаем активной размер 
   useEffect(() => {
     let params = []
@@ -45,8 +46,7 @@ const SizesItems = ({
     }, 700);
     return ()=>clearTimeout(delayClk)
   }, [sizes.length, sizesn.id])
-  
-  
+    
   const sceletSizesRender = () => {
     return defaultSizes.map((el) => {
       return (
@@ -221,10 +221,31 @@ const SizesItems = ({
         <React.Fragment>
           {/* Условие покупки */}
           <div className={style['prodpage-range__box']}>
-            <p className={style['prodpage-range__title']}>Условие покупки:</p>
-            <p className={style['prodpage-range__condition']}>{product_rc}</p>
+            <p className={style['prodpage-range__title']}>общие условия выкупа*:</p>
+            <p className={style['prodpage-range__condition']}>{product_rc}
+            {
+              role === ROLE.WHOLESALE?
+              <div className={style['prodpage-range__condition-price']}>
+               Стоимость ряда: {(pricesHook.price * sizes.length).toFixed(2)} {currenssies}
+              </div>
+              :null
+            }
+            </p>
             <div className={style['prodpage-range__wrap']}>
+            {role === ROLE.DROPSHIPPER?
+              <>
+                «Данная модель реализуется производителем только размерным рядом. Для того, чтобы участвовать в сборе, необходимо выбрать нужный размер в одном из открытых сборов, добавить в корзину. Занятые размеры окрашены темно-серым цветом.
+                Единовременно положить в корзину можно только одну единицу товара. Выбранный размер будет зарезервирован за Вами <span>после подтверждения оплаты</span>.
+                Сбор завершён (и товары выкупаются на фирме) тогда, когда будут  заняты все размеры из ряда- об этом Вы получите уведомление в личном кабинете.»
+              </>
+              :role === ROLE.WHOLESALE?
+              <>
+                «Данная модель реализуется производителем  размерным рядом. В корзину положить можно только <span>целый размерный ряд</span>.»
+              </>
+              :null
+              }
             </div>
+
           </div>
             {/* кнопка  Иформация по открытым сборам*/}
           {collections && listCollectionsHook.length !== 0 ?
@@ -257,7 +278,6 @@ const SizesItems = ({
             <div className={style['add-collection']}>
             </div>
           </React.Fragment>
-     
       }
 
       {renderSizesFromCollectionOrSky()}
@@ -266,7 +286,8 @@ const SizesItems = ({
           <GxIcon className={style['prodpage-sizes__remainder-btn']} src={fire}></GxIcon>
           Осталось:{in_stock_count} ед.
         </p>
-      ) : null} 
+      ) : null}
+
     </div>
   );
 };

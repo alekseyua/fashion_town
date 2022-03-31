@@ -40,6 +40,7 @@ const ProductHorizontalCard = ({
   const [countProducts, setCountProducts] = useState(qty);
   const [stateAction, setStateAction] = useState();
   const [select, setSelect] = useState(selected)
+
   useEffect(() => {
     qty !== countProducts?setCountProducts(qty):null
   }, [qty])
@@ -71,16 +72,21 @@ const ProductHorizontalCard = ({
 
   if (!product.image || product.image === '#') product.image = categoryCard1;
 
-  // ***************************************************
+  // ***************************************************value = in_stock_count
   const changeValueCounterProduct = (e) => {
     let value = Number(e.target.value);
     (value === 0) ? value = 1 : null;
     isNaN(value) ? value = countProducts : value;
+    in_stock_count?
+      (value >= in_stock_count)? value = in_stock_count : value
+      :null
     setCountProducts(value)
     updateQty(value);
 
   }
-
+const changeState = (e) =>{
+  console.log(`changeState`, e)
+}
   // ***************************************************
   return (
     <motion.div
@@ -203,7 +209,14 @@ const ProductHorizontalCard = ({
             backgroundColor: "#000"
           }}
         >
-          <Button onClick={incCounterProduct} variant={'counter-btn'} slot={'suffix'}>
+          <Button
+            id={id}
+            disabled={countProducts === in_stock_count}
+            onChange={changeState}
+            onClick={incCounterProduct} 
+            variant={'counter-btn'} 
+            slot={'suffix'}
+            >
             +
           </Button>
         </motion.div>

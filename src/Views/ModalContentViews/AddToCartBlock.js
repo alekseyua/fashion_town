@@ -16,7 +16,8 @@ const AddToCartBlock = ({
   currentPrice = false,
   sale = false,
   handleClose,
-  product_rcHook
+  product_rcHook,
+  sizes
 }) => {
 
   const { dispatch, currenssies, stateCountRestart } = useStoreon('currenssies', 'stateCountRestart'); //currenssies
@@ -25,6 +26,7 @@ const AddToCartBlock = ({
   const history         = useHistory();
 
   const { role }        = userPage.profile;
+  console.log(`sizes`, currentPrice * sizes.length)
   return (
     <div className={style['add_to_cart-wrapper']}>
       <HeaderBlock title={'Добавлено в корзину'} mb={20} />
@@ -40,9 +42,13 @@ const AddToCartBlock = ({
           <div className={style['add_to_cart-wrapper-content--description']}>
             <span>{title}</span>
             {
-            role === ROLE.RETAIL?
+            role === ROLE.RETAIL || role === ROLE.DROPSHIPPER?
             <span>{size}</span>
-            :<span>{product_rcHook}</span>
+                :(
+                <>
+                <span>{product_rcHook}</span>                  
+                </>
+                )
             }
           </div>
         </div>
@@ -54,7 +60,7 @@ const AddToCartBlock = ({
           ) : null} */}
 
           {allPrice ? (
-            <div>
+            <div className={style['add_to_cart-wrapper-content--price-sell']}>
               {allPrice} {currenssies}
             </div>
             ) : null
@@ -65,6 +71,10 @@ const AddToCartBlock = ({
               {currentPrice} {currenssies}
             </span>
           ) : null
+          }
+          {role === ROLE.WHOLESALE ?
+            <div className={style['add_to_cart-wrapper-content--price']}>{(currentPrice * sizes.length).toFixed()} {currenssies}</div>
+            : null
           }
          
         </div>
