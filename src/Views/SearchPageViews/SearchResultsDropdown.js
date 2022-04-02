@@ -16,7 +16,10 @@ const SearchResultsDropdown = ({
   const { userPage } = useStoreon('userPage')
   const role = userPage.profile;
   const site_configuration = userPage.site_configuration;
-   const output = qs.stringify({ q: search_ });
+  const output = qs.stringify({ q: search_ });
+  console.log('search', search);
+  console.log('output', output);
+
   if (search_ || output) {
     return (
       <GxDropdown className={style['search-dropdown']} open={open}>

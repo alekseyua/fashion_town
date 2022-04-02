@@ -236,7 +236,7 @@ useEffect(() => {
     let params = {
       color: colorsn.id,
       size: sizesn.id,
-      productId: productId,
+      id: productId,
       collection : null,
       // pack ??????
     }
@@ -246,12 +246,11 @@ useEffect(() => {
       .getProduct(productId, params)
       .then((res) => {
         let color = res.colors.filter(el => el.selected)
-        setColorsn(color[0])
         let size = res.sizes.filter(el => el.selected)
+        setColorsn(color[0])
         setSizesn(size[0])
         setIn_cart_countHook(res.in_cart_count)
         setIn_stock_countHook(res.in_stock_count)
-        console.log(`res in stock`, res)
         setIs_likedHook(res.is_liked)
       })
       .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
@@ -320,7 +319,7 @@ useEffect(() => {
     }
   };
 
-    const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
+  const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
     setCustomModalStates({
       ...customModalStates,
       show: true,
@@ -338,14 +337,14 @@ useEffect(() => {
               image={mediaHook[0].image.includes('http://') ? mediaHook[0].image : mediaFirstHook[0].image}
               handleClose={closeCustomModal}
               sizes={sizes}
-              />
+            />
           </ModalContentViews.ContentBlock>
         </ModalContentViews.ModalWrapper>
       )
     });
   };
 
-// ******************************************************************************************************
+      // ******************************************************************************************************
   newProduct_sku = mediaHook;
   const getColorForMedia = (colorData) =>{
     setMediaFirstHook(media)
@@ -353,37 +352,21 @@ useEffect(() => {
     let filterArr = arr.filter(item => item.color === colorData);
     console.log(`filter arr`, filterArr)
     setMediaHook(filterArr);
-    // return newProduct_sku;
-    // image: "http://91.218.229.240:8000/media/uploads/2021/9/ava.jpg"
-    // image_thumb: "http://91.218.229.240:8000/media/uploads/2021/9/ava_225x300.jpg"
-    // type: "image"
-
   }
 
 
-// ******************************************************************************************************
+      // ******************************************************************************************************
   const [changeColorBtn, setChangeColorBtn] = useState({ red: false, green: false });
   const addToCart = ({ count = 1, openModalSucces,color,size }) => {
-
-    let realColor = color ? color : colorsn.id;
-    let realSize = size ? size : sizesn.id;
-    console.log('is_collection', collectionsHook);
-    // console.log('realSize', realSize);
-    // console.log('color', color);
-    // console.log('size', size);
-    // console.log('colorsn', colorsn);
-    // console.log('sizesn', sizesn);
-
-    const params = {
-      product: productId,//????????reqestIdProduct
-      color: realColor,
-      size: realSize,
-      qty: count || 1,
-      is_collection: collectionsHook,
-      // is_pack: adding_type !== 'item',
-    };
-    console.log('params', params)
-
+  let realColor = color ? color : colorsn.id;
+  let realSize = size ? size : sizesn.id;
+  const params = {
+    product: productId,
+    color: realColor,
+    size: realSize,
+    qty: count || 1,
+    is_collection: collectionsHook,
+  };
     apiCart
       .addToCart(params)
       .then((res) => {
@@ -407,12 +390,6 @@ useEffect(() => {
         dispatch('stateCountRestart/add', !stateCountRestart)
 
       });
-  };
-
-  const addCollectionHandler = (sizesn, colorsn) => {
-    console.log('productId', productId);
-    console.log('sizesn', sizesn);
-    console.log('colorsn', colorsn);
   };
 
   const lables = [
@@ -594,14 +571,10 @@ useEffect(() => {
                       in_stock_count={in_stock_countHook}
                       collections={collectionsHook}
                       sizes={sizes}
-                      addCollectionHandler={addCollectionHandler}
                       listCollectionsHook={listCollectionsHook}
                       role_configuration={role_configuration}
                       setSizesn={setSizesn}
                       sizesn={sizesn}
-                      colorsn={colorsn}
-                      setShowPopapInfoColection={setShowPopapInfoColection}
-                      showPopapInfoColection={showPopapInfoColection}
                       heandlerPopup={heandlerPopup}
                       setIsOpen={ setIsOpen}
                       currenssies={currenssies}
@@ -614,6 +587,7 @@ useEffect(() => {
                       modalView={modalView}
                       collections={collectionsHook}
                       listCollectionsHook={listCollectionsHook}
+                      sizes={sizes}
                       url={urlHook}
                       changeColorBtn={changeColorBtn}
                       setChangeColorBtn={setChangeColorBtn}

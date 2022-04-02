@@ -307,8 +307,6 @@ export const reqestIdProduct = store => {
     export const notificationCount = store => {
       store.on('@init', () => ( {notificationCount:null} ));
       store.on('notificationCount/update', ({ notificationCount }, obj) => {
-    console.log(`notificationCount`,obj )
-
         return {notificationCount : obj}
       })
     }

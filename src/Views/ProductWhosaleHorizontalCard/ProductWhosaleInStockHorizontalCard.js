@@ -15,7 +15,6 @@ const ProductWhosaleInStockHorizontalCard = ({
       <CartViews.Line />
       <CartViews.Text type={'text-brand'}>Товары в наличии</CartViews.Text>
       {items.map((el) => {
-        console.log(`el cart`, el)
         return (
           <Card
             key={el.id}

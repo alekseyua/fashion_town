@@ -33,8 +33,6 @@ const App = ({ lang, pageServer, ...props }) => {
   if (token){
   //********************************************************************************* */ 
   useEffect(() => {
-    console.log('stateCountCart+++++++++')
-
     api
       .cartApi
       .getCartData()
@@ -48,7 +46,6 @@ const App = ({ lang, pageServer, ...props }) => {
   //********************************************************************************* */ 
 
   useEffect(() => {
-    console.log('balance+++++++++')
     api
       .getUserBalance({
         "currency": currency
@@ -111,7 +108,6 @@ const App = ({ lang, pageServer, ...props }) => {
       //сохраняем в куки текущую валюту
       setCookie(COOKIE_KEYS.CURRENCIES, DEFAULT_CURRENCIES, ONE_YEARS);
       // обращаемся к функции currenssies/update и меняем состояние DEFAULT_CURRENCIES: "USD"
-
       dispatch('currenssies/update', DEFAULT_CURRENCIES);
     } else {
       dispatch('currenssies/update', currency); 

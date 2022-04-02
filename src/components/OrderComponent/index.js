@@ -241,23 +241,18 @@ const OrderComponent = ({
         total_cost: priceNowDilevery ? cart_contentOrder.price + priceNowDilevery : cart_contentOrder.price + 0,
       }
       :null //cart_content.delivery.price,
-        // console.log(`params`, params)
     // ДЕЛАЕМ ПРОВЕРКУ НА ДРОПШИПЕРА И "ПРОВЕРКУ НА НАЛИЧЕЕ ДОСТАТОЧНО ЛИ СРЕДСТ ДЛЯ ВЫКУПА ТОВАРА"
-console.log(`create order rele = `, role)
     if (role === ROLE.DROPSHIPPER) {
       //если дробшипер списание со счета при достаточном количестве денег на счету
       //*************************************************************************** */
       //online(1) или с баланса(3)
 
       if (valueStatePay === 1) {
-        //создаём заказ
         orderApi
           .createOrder(params)
           .then((res) => {
             const order_id = res.id;
-            //диалоговое окно оплаты по реквизитам
             openModalPay(order_id);
-            //document.location.href = "/ru/orders";//http://localhost:3000/order
             dispatch('stateCountRestart/add', !stateCountRestart);
           })
           .catch((err) => {
@@ -269,14 +264,11 @@ console.log(`create order rele = `, role)
         if (params.total_cost < dataBalance.balance) {
           //если достаточно денег на счету
           orderApi
-            //создаём заказ когда списуют деньги со счёта
             .createOrder(params)
             .then((res) => {
               dispatch('stateCountRestart/add', !stateCountRestart);
             dispatch('stateUpdateBalance/update', !stateUpdateBalance)
- 
               history.push('orders');
-              //document.location.href = "/ru/orders";//???????????????????????????????? с ru или без ru
             })
             .catch((err) => {
               console.log(`ERROR creteOrder pay BALANCE, ${err}`);
@@ -288,11 +280,8 @@ console.log(`create order rele = `, role)
             .createOrder(params)
             .then((res) => {
               const order_id = res.id;
-              //диалоговое окно оплаты по реквизитам
               openModalPay(order_id, dataBalance.balance, params.total_cost);
               dispatch('stateCountRestart/add', !stateCountRestart);
-              //history.push('orders');
-              //window.location.href = "/balance";//http://localhost:3000/order
             })
             .catch((err) => {
               console.log(`ERROR creteOrder pay ONLINE, ${err}`);

@@ -7,7 +7,8 @@ import api from '../../api';
 
 const apiProfile = api.profileApi;
 const YouHaveAlreadyWatched = ({
-  setCardIdproductFromSlider
+  setCardIdproductFromSlider,
+  ...rest
 }) => {
 
   const { stateValuePoly,dispatch } = useStoreon('stateValuePoly');
@@ -52,7 +53,7 @@ const YouHaveAlreadyWatched = ({
         {...sliderParams} 
         navigation={listAlreadySaw.length > 6} 
         noSwiping slidesPerView={'auto'}
-        setCardIdproductFromSlider={setCardIdproductFromSlider}
+        // setCardIdproductFromSlider={setCardIdproductFromSlider}
 
       >
         {listAlreadySaw.map((el, i) => {

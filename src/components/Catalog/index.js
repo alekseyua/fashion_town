@@ -243,7 +243,6 @@ const Catalog = ({
   useEffect(() => {
     setDataUpdateCatalog(true)
   }, [updateCurrenssies])
-console.log(`newProfile`,newProfile)
   return (
     <React.Fragment>
       <Container>

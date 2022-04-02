@@ -35,11 +35,13 @@ const { userPage } = useStoreon('userPage');
 let { profile } = userPage;
 const history = useHistory();
 const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
-console.log(`проверяеми количество запросов profile ${profile}`);
-console.log(`history`,history);
+// console.log(`проверяеми количество запросов profile ${profile}`);
+//console.log(`history`,history);
+// history.location.pathname => /order
+
 // document.location.replace('https://developer.mozilla.org/en-US/docs/Web/API/Location.reload');
 if ( profile === undefined ){
-
+  alert('page.profile === undefined of layout')
      window.location?.reload()
 }
   const cabinet_data = {

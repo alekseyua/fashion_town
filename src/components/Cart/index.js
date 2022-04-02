@@ -81,12 +81,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   const [selected, setSelected] = useState();
   const [getCart, setGetCart] = useState(stateCountCart);
   const [oneClick, setOneClick] = useState(false);
-
-  // const [] = useState();
-  // const [] = useState();
-  // const [] = useState();
-  // const [] = useState();
-  // const [] = useState();
   const [enab, setEnab] = useState(); 
   const [fullItemCartChecked, setFullItemCartChecked] = useState();
   const [fullItemCartCheckedState, setFullItemCartCheckedState] = useState(false);
@@ -164,7 +158,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         other_goods: []
       }
   
-     
        //*********************************************************************************** */
        // **********cartitem_set -> is_pack
       let resultsIs_pack = [];
@@ -238,10 +231,14 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
         return items
       }) : null
 
-      //        **********in_stock -> no_is_pack
+      //        **********in_stock -> no_is_pack and no is_collection
       let inStockNoInpackNoInCollec = [];
-      Object.keys(stateCountCart.in_stock).length ?
-        inStockNoInpackNoInCollec = stateCountCart.in_stock.filter(el => !el.is_pack && !el.is_collection)
+      // Object.keys(stateCountCart.in_stock).length ?
+      //   inStockNoInpackNoInCollec = stateCountCart.in_stock.filter(el => !el.is_pack && !el.is_collection)
+      //   : null
+
+        Object.keys(stateCountCart.in_stock).length ?
+        inStockNoInpackNoInCollec = stateCountCart.in_stock.filter(el => el)
         : null
       //длелаем чтобы выделяло элементы нужно сделать условие GOOD!!!
       Object.keys(stateCountCart.in_stock).length && fullItemCartCheckedState ?
@@ -286,7 +283,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
 //       // ----------------------------------------------
         collectionGoods = [];
         goodsInPack =  [];
-        console.log(`collectionGoods2 = `,collectionGoods)
 
 //       // *-*-*-*-*-*-*-*-*-*-*-*-*-*
       goods = {
@@ -540,7 +536,6 @@ const Cart = ({ role, checkout_slug, page_type_catalog, site_configuration }) =>
   /********************************************************************** */
   let testArr = massiveCart.cartitem_set.find(el => el.title === "Lara")
 
-console.log(`in_cart selected`, selected)
   return (
     <Container>
       <GxModal

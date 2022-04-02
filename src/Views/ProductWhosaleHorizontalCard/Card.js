@@ -75,7 +75,6 @@ const Card = ({
     setCountProducts(value)
       updateQty(value);
   }
-console.log(`test url any goods`, url)
   return (
     <motion.div
       initial={{

@@ -16,26 +16,19 @@ const SizesItems = ({
   product_rc,
   collections, //boolen
   selectedCollection,
-  addCollectionHandler,
   listCollectionsHook = [],
-  setStatusSeletedItem,
   sizesn, 
   setSizesn,
-  colorsn,
-  setShowPopapInfoColection,
-  showPopapInfoColection,
   heandlerPopup,
   setIsOpen,
   currenssies,
   pricesHook,
 }) => {
   const [selectedSizeList, setselectedSizeList] = useState(false);
-  
   const { userPage } = useStoreon('userPage')
   const { role } = userPage.profile;
   const [ gropsSizes, setGropsSizes ] = useState([]);
   const [clickDelay, setClickDelay] = useState(null)
-  //делаем активной размер 
   useEffect(() => {
     let params = []
     params = sizesn.id? sizes.map(el=>el.id === sizesn.id?{...el, ...sizesn} : {...el, selected : false}) : sizes
@@ -46,7 +39,6 @@ const SizesItems = ({
     }, 700);
     return ()=>clearTimeout(delayClk)
   }, [sizes.length, sizesn.id])
-    
   const sceletSizesRender = () => {
     return defaultSizes.map((el) => {
       return (
@@ -62,7 +54,6 @@ const SizesItems = ({
       );
     });
   };
-  
   const renderSizesSky = (data) => {
     return (
       <ul
@@ -91,7 +82,6 @@ const SizesItems = ({
       </ul>
     );
   };
-
   const renderListSizes = (data) => {
     return (
       <ul
@@ -123,7 +113,6 @@ const SizesItems = ({
       </ul>
     );
   };
-
   const renderGridSizes = (data) => {
     return (
       <React.Fragment>
@@ -161,7 +150,6 @@ const SizesItems = ({
       </React.Fragment>
     );
   };
-
   const loderForCollection = () => {
     return (
       <ul
@@ -174,8 +162,6 @@ const SizesItems = ({
       </ul>
     );
   };
-
-
   const renderSizesFromCollectionOrSky = () => {
     // скорей всего модальное окно
     if (modalView) {
@@ -196,7 +182,6 @@ const SizesItems = ({
       return renderSizesSky(gropsSizes);
     }
   };
-
   return (
     <div className={style['prodpage-sizes']}>
       {!modalView ? (
@@ -224,7 +209,7 @@ const SizesItems = ({
             <p className={style['prodpage-range__title']}>общие условия выкупа*:</p>
             <p className={style['prodpage-range__condition']}>{product_rc}
             {
-              role === ROLE.WHOLESALE?
+              role === ROLE.WHOLESALE && collections ?
               <div className={style['prodpage-range__condition-price']}>
                Стоимость ряда: {(pricesHook.price * sizes.length).toFixed(2)} {currenssies}
               </div>
@@ -279,7 +264,6 @@ const SizesItems = ({
             </div>
           </React.Fragment>
       }
-
       {renderSizesFromCollectionOrSky()}
       {in_stock_count ? (
         <p className={style['prodpage-sizes__remainder']}>

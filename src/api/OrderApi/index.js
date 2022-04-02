@@ -134,9 +134,6 @@ export default class OrderApi extends AbstractBaseApi {
   };
 
   postCorrespondence_order_item = async (params = {}) => {
-console.log(`params****---`, params)
-// http://91.218.229.240:8000/api/v1/order/correspondence_order_item/?order_item_id=№ товара
-// http://91.218.229.240:8000/api/v1/order/correspondence_order_item/?order_item_id=96861
     const res = await this.post(`/order/correspondence_order_item/`, params);
     return res.data;
   };

@@ -50,7 +50,7 @@ const Slider = ({ images, sizes, product_rc, url, profile, id, setCardIdproductF
               })}
               key={i}
               to={url}             
-              desabled={!clickDisables}
+              desabled={!clickDisables? 0 : 1}
               onClick={() => {
                 setCardIdproductFromSlider(id)
                 setClickDisables(!clickDisables);

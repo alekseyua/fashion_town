@@ -14,15 +14,12 @@ const ControlButtons = ({
   changeColorBtn,
   setChangeColorBtn,
   listCollectionsHook, //
+  sizes,
 }) => {
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
   const [ countInBtn, setCountInBtn ] = useState()
   const cartRef = createRef();
-  
-
-
-
-  const test = () =>{
+   const test = () =>{
     const cloneIcon = cartRef.current.cloneNode(true)
     const cloneIconWidth = cartRef.current.offsetWidth;//ширина изображения
     const cloneIconHeight = cartRef.current.offsetHeight;// высота изображения
@@ -62,7 +59,14 @@ const ControlButtons = ({
     (count === 1) ? setChangeColorBtn({ red: false, green: true }) : null;
     (count === -1) ? setChangeColorBtn({ red: true, green: false }) : null;
     const openModalSucces = (countInBtn === 0) ? true : false;
-    dispatch('stateCountCart/add', { ...stateCountCart, in_cart: stateCountCart.in_cart + count })
+    let countInCart;
+    console.log('collections', collections);
+    console.log('sizes', sizes);
+
+    countInCart = collections? sizes.lenght : count
+    countInCart === undefined? countInCart = 0 : countInCart = collections? sizes.lenght : count;
+    console.log('countInCart', countInCart);
+    dispatch('stateCountCart/add', { ...stateCountCart, in_cart: stateCountCart.in_cart + countInCart})
     count = countInBtn + count;
     setCountInBtn(count)
     addToCart({ count, openModalSucces });
