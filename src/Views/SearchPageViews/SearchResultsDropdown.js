@@ -17,10 +17,10 @@ const SearchResultsDropdown = ({
   const role = userPage.profile;
   const site_configuration = userPage.site_configuration;
   const output = qs.stringify({ q: search_ });
-  console.log('search', search);
-  console.log('output', output);
+  console.log('search', site_configuration?.page_type_search);
+  console.log('output', !!site_configuration?.page_type_search);
 
-  if (search_ || output) {
+  if (!!search_ || output) {
     return (
       <GxDropdown className={style['search-dropdown']} open={open}>
         <GxMenu className={style['search-dropdown__menu']}>
@@ -45,11 +45,15 @@ const SearchResultsDropdown = ({
               </Link>
             </GxMenuItem>
           ) : (
-            <Link to={{ pathname: site_configuration?.page_type_search, search: output }}>
-              <GxMenuItem className={style['search-dropdown__menu-item']}>
-                Ничего не найдено
-              </GxMenuItem>
-            </Link>
+            <>
+            {site_configuration?.page_type_search?
+             <Link to={`${site_configuration?.page_type_search}${output}` }>
+               <GxMenuItem className={style['search-dropdown__menu-item']}>
+                 Ничего не найдено
+               </GxMenuItem>
+             </Link>
+             :null}
+            </>
           )}
         </GxMenu>
       </GxDropdown>

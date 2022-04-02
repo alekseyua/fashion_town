@@ -153,7 +153,7 @@ const HeaderButtons = ({
             />
             <SearchPageViews.SearchResultsDropdown
               open={openDropDown && searchInputShow}
-              results={searchResults}
+              results={searchResults} 
               search={searchValue}
               role={role}
               site_configuration={site_configuration}
