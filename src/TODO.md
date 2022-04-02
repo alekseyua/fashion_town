@@ -6,7 +6,7 @@ Set-ExecutionPolicy RemoteSigned -Scope Process
 Login: root
 Password: ABkxb52RF8
 Выделенный IP: 91.218.229.240
-    supervisorctl restart Server
+        
     supervisorctl restart Server-Back
 
 GET

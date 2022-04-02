@@ -61,7 +61,8 @@ const PayModalContent = ({
   const onSubmit = (data, { setFieldError }) => {
     const fdPayments = new FormData();
     fdPayments.set('requisites_id', requisites.id);
-    fdPayments.set('order_id', order_id ? 11 : order_id);
+    // fdPayments.set('order_id', order_id ? 11 : order_id);
+    !!order_id?fdPayments.set('order_id', order_id):null;
     fdPayments.set('cost', data.cost);
     fdPayments.set('name', data.fio);
     fdPayments.set('comment', data.comment);
@@ -81,8 +82,7 @@ const PayModalContent = ({
         callbackSubmit();
       })
       .catch((err) => {
-        if (err.response) {
-          console.log("PayModalContent.js ERROR", err)
+        if (!!err) {
           setStateClickSend(false)
           const data = err.response.data;
           for (const key in data) {
@@ -92,9 +92,11 @@ const PayModalContent = ({
             }
           }
         }
-        console.log(`почему ошибка ????? ${err}`,err)
-        !(slug === "balance") ? history.push('cart') : history.push('balance');
-        closeModal();
+        // console.log(`почему ошибка ????? ${err}`,err)
+        // console.log(`почему ошибка ????? ${err}`,err)
+
+        // !(slug === "balance") ? history.push('orders') : history.push('balance');
+        // closeModal();
       });
     }
   };

@@ -328,7 +328,7 @@ const btnDelOrder = (data) => {
 // *****************************************************
         const executeUpdate = () => {
           setDataUpdateCheck(false);
-          data?.reload();
+          data.reload();
         }
         dataUpdateCheck?executeUpdate():null;
         // *****************************************************

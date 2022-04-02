@@ -19,11 +19,11 @@ const HistoryPayments = ({}) => {
   const [ dataUpdateCheck, setDataUpdateCheck ] =  useState(false);
   const { updateCurrenssies }                      = useStoreon('updateCurrenssies');
 
-  const { stateValuePoly }                      = useStoreon('stateValuePoly');
+  const { stateUpdateBalance }                      = useStoreon('stateUpdateBalance');
   const fileInputRef = React.useRef(null);
   const addCheck = (e, dataFeth) => {
 
-    dataFeth.updateElementByKey(
+    dataFeth.updateElementByKey( 
       {
         ...dataFeth.obj,
         receipt: 'treatment',
@@ -190,7 +190,7 @@ const HistoryPayments = ({}) => {
   // *****************************************************   
       useEffect(()=>{
         setDataUpdateCheck(true)
-      },[updateCurrenssies, stateValuePoly.statePayment])
+      },[updateCurrenssies, stateUpdateBalance])
   // *****************************************************
 
       return (
@@ -214,7 +214,7 @@ const HistoryPayments = ({}) => {
         // *****************************************************
         const executeUpdate = () => {
           setDataUpdateCheck(false);
-          data?.reload();
+          data.reload();
         }
         dataUpdateCheck?executeUpdate():null;
         // *****************************************************

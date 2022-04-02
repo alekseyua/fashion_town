@@ -272,7 +272,7 @@ console.log(`newProfile`,newProfile)
             const executeUpdate = () => {
 
               setDataUpdateCatalog(false);
-              data?.reload();
+              data.reload();
             }
             dataUpdateCatalog ? executeUpdate() : null;
             // *****************************************************

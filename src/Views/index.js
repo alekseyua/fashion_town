@@ -8,6 +8,7 @@ import VidjetChatComponent from '../components/VidjetChatComponent';
 import ButtonScrollTopComponent from '../components/ButtonScrollTopComponent';
 import { useStoreon } from 'storeon/react';
 import Modal from '../Views/ModalCreator';
+import { useHistory } from 'react-router-dom';
 
 const Layout = ({
   headerModClosed = false,
@@ -32,9 +33,14 @@ const Layout = ({
 //Views -> index
 const { userPage } = useStoreon('userPage');
 let { profile } = userPage;
+const history = useHistory();
 const [modalStates, setModalStates] = useState(Modal.defaultModalStates);
+console.log(`проверяеми количество запросов profile ${profile}`);
+console.log(`history`,history);
+// document.location.replace('https://developer.mozilla.org/en-US/docs/Web/API/Location.reload');
 if ( profile === undefined ){
-     window.location.reload()
+
+     window.location?.reload()
 }
   const cabinet_data = {
     // wishlist: profile.wishlist,

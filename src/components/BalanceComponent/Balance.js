@@ -29,7 +29,7 @@ const Balance = ({ setModalStates, role }) => {
     e.preventDefault()
     orderApi.getRandomRequizites().then((res) => {
       setModalStates({
-        content: <PayModalContent closeModal={closeModal} requisites={res} order_id={true} />,
+        content: <PayModalContent closeModal={closeModal} requisites={res}/>,
         show: true,
         addClass: 'modal-payments',
       });
