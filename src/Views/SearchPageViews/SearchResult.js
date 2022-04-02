@@ -5,11 +5,11 @@ import { sliderArrowLeft } from '../../images';
 import style from './style.module.scss';
 
 const SearchResult = ({ item }) => {
-  const { title, images, prices, url } = item;
+  const { title, images, prices, url, article } = item;
   return (
     <Link to={url} className={style['search-result']}>
       <div className={style['search-result__info']}>
-        <h4 className={style['search-result__title']}>{title}</h4>
+        <h4 className={style['search-result__title']}>{title} {article}</h4>
         <ProductPrice price={prices.price} />
       </div>
       <div className={style['search-result__images']}>

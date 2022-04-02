@@ -17,14 +17,14 @@ const SearchResultsDropdown = ({
   const role = userPage.profile;
   const site_configuration = userPage.site_configuration;
   const output = qs.stringify({ q: search_ });
-  console.log('search', site_configuration?.page_type_search);
-  console.log('output', !!site_configuration?.page_type_search);
 
   if (!!search_ || output) {
     return (
       <GxDropdown className={style['search-dropdown']} open={open}>
         <GxMenu className={style['search-dropdown__menu']}>
           {results.map((item, index) => {
+  console.log('outresultsput', item);
+
             return (
               <GxMenuItem className={style['search-dropdown__menu-item']} key={index}>
                 <SearchResult item={item} />
