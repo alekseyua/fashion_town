@@ -52,7 +52,6 @@ const Item = ({
                 setAllCheckEnableChange(getArrayNotificationDel(allCheckEnableChange, value))
                 setSelect(!select)
               }
-
             }
             }
             variant="input"

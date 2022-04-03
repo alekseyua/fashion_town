@@ -7,7 +7,6 @@ import { Player, BigPlayButton } from 'video-react';
 
 const LeftSide = ({ image = redWomen }) => {
 
-console.log('video', videoReg)
   return (
     <div className={style['wrapper']}>
       {/* <img className={style['wrapper__image']} src={image} alt={Text({ text: 'backgroundAuth' })} /> */}

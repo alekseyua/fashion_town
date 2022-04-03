@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Fetcher } from '@garpix/fetcher';
 import { useStoreon } from 'storeon/react';
 import Home from './Home';
@@ -141,12 +141,7 @@ const PAGE_TYPES = {
 
 
 const Combine = (props) => {
-  const { currenssies, dispatch } = useStoreon('currenssies');
-  const { stateCountCart } = useStoreon('stateCountCart')
-
-
-  // console.log('locale-', props);
-
+  const { stateCountCart, dispatch } = useStoreon('stateCountCart')
   const setRoleConfiguration = ({ role_configuration, notifications }) => {
     dispatch('notificationCount/update', notifications);
     dispatch('role_configuration/update', role_configuration);
@@ -165,7 +160,11 @@ const Combine = (props) => {
           let pageType, page;
           if (status === 'failed') {
             console.log('what is failed')
-            return status;
+            api.getPage({
+              params: '/order'
+            })
+            //return status;
+            return <div>Wait moment please</div>;
           } else {
             page = data.page;
             pageType = data.pageType;
@@ -184,20 +183,6 @@ const Combine = (props) => {
               alert('page.profile === undefined of Combine')
               // window.location.reload()
           }
-
-          // const pageStatus = page.profile.status;
-          // принудительно задаём статус незарегестрированого пользователя до подтверждения
-          // if (pageStatus !== 3){
-          // let profile = {
-          //   ...page.profile,
-          //   role : 0
-          // }
-          // console.log('prof combine', page)
-          //  page = {
-          //     ...page,
-          //     profile
-          // }
-          // } 
 
           page ? dispatch('userPage/add', page) : null;
           page ? setRoleConfiguration(page) : null;

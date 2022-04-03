@@ -4,7 +4,7 @@ import { garbageIcon } from '../../images';
 import CheckBox from '../../Views/CheckBox';
 import style from './styles/index.module.scss';
 
-const Header = ({ heandlerReed, heandlerDel, checkAllBox}) => {
+const Header = ({ heandlerReed, heandlerDel, checkAllBox, checkEnable}) => {
   const [select, setSelect] = useState(false)
   return (
     <div className={style["cabinet_notifications__head"]}>
@@ -14,7 +14,7 @@ const Header = ({ heandlerReed, heandlerDel, checkAllBox}) => {
           checkAllBox(e) }}
         variant="input"
         label={'Выделить все'}
-        checked={select}
+        checked={checkEnable}
       />
       <GxButton
         onClick={heandlerReed}

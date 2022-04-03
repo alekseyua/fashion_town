@@ -35,11 +35,10 @@ const NotificationsComponent = ({ }) => {
         'ids': allCheckEnableChange
       })
       .then((res) => {
-
         updateDataForm()
         dispatch('notificationCount/update',notificationCount-allCheckEnableChange.length)
+        setCheckEnable(!checkEnable)
         setAllCheckEnableChange([])
-        //window.location?.reload()
       })
       .catch((err) => console.error(`err test reques ${err}`));
   }

@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { GxButton, GxDropdown, GxIcon, GxInput } from '@garpix/garpix-web-components-react';
 import LangAndCurrencies from './LangAndCurrencies';
 import DropDownMenuAccount from './DropDownMenuAccount';
-import { useIntl } from 'react-intl';
 import { NavLink, useHistory } from 'react-router-dom';
 import style from './headerButtons.module.scss';
 import dropDownAccountMenu from './dropDownAccountMenu.module.scss';
@@ -53,35 +52,20 @@ const HeaderButtons = ({
    page_home = '#',
   } = site_configuration;
 
-  const intl = useIntl();
-  const getMenuAccount = () => { };
-  const getSearcheField = () => { };
-
-
-  const { userPage } = useStoreon('userPage');
-  const { dataBalance } = useStoreon('dataBalance');
   const { stateCountRestart,dispatch } = useStoreon('stateCountRestart');
-  const history = useHistory();
-  const [searchInputShow, setSearchInputShow] = useState(false);
-  // ___________________________________________________________________________
   const { stateCountWish } = useStoreon('stateCountWish');
   const { stateCountCart } = useStoreon('stateCountCart');
+  const { userPage } = useStoreon('userPage');
+  const history = useHistory();
+  const [searchInputShow, setSearchInputShow] = useState(false);
   const [ countInCar, setCountInCar] = useState();
-
   const searchBgRef = React.createRef(null);
+
   const role = userPage.profile;
-
-
 
   useEffect(()=>{
     setCountInCar(stateCountCart.in_cart)
   },[stateCountCart.in_cart])
-
-  /**
-   * *************************************************************************
-   */
-
-
 
   const handleClickSearchBtn = () => {
     setSearchInputShow((prevState) => !prevState);

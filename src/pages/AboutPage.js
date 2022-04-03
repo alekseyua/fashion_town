@@ -19,6 +19,7 @@ import Title from '../Views/Title';
 const AboutPage = (props) => {
 
   const { breadcrumbs, components, site_configuration } = props;
+  console.log('component', components)
   const firstSection = components.filter((el) => el.id === 9)[0];
   const platformSection = components.filter((el) => el.id === 10)[0];
   const platformListSection = components.filter((el) => el.id === 11)[0];
@@ -26,7 +27,7 @@ const AboutPage = (props) => {
   const cardFeatures = components.filter((el) => el.id === 13)[0];
   const cardFeaturesTwo = components.filter((el) => el.id === 14)[0];
   const footerSection = components.filter((el) => el.id === 15)[0];
-  const listPlantformDesc = platformListSection.children.map((el) => { 
+  const listPlantformDesc = platformListSection.children.map((el) => {
     return {
       icon: el.image,
       content: el.content,

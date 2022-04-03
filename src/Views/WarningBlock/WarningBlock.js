@@ -36,7 +36,7 @@ const WarningBlock = ({ textWarning = 'warning', variant = "wrapper" }) => {
        
       > 
 
-      Товары в Каталоге выкупаются <strong strong >&quot; Под заказ &quot; </strong>, кроме раздела <strong>&quot; В наличии&quot; </strong>
+      Товары в Каталоге выкупаются <strong>&quot; Под заказ &quot; </strong>, кроме раздела <strong>&quot; В наличии&quot; </strong>
       (с этого раздела товары сразу готовы к отправке Заказчику).В остальных случаях товар </span>
       
         <span className={style['wrapper__text-ellipsis']}>...</span>

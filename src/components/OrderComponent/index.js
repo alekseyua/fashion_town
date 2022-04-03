@@ -256,7 +256,7 @@ const OrderComponent = ({
             dispatch('stateCountRestart/add', !stateCountRestart);
           })
           .catch((err) => {
-            console.log(`ERROR creteOrder pay ONLINE, ${err}`);
+            console.log(`ERROR creteOrder pay ONLINE, ${err}`); 
             openModalRejectedOrdering('cart');
           });
       } else {

@@ -385,10 +385,10 @@ const ProductPreview = ({}) => {
               </div>
               <div className="productreviews__form">
                 <h3 className="productreviews__form-title">Оставьте отзыв</h3>
-                <GxTextarea
+                <textarea
                   className="productreviews__form-textarea"
                   placeholder="Текст отзыва"
-                ></GxTextarea>
+                ></textarea>
                 <div className="productreviews__form-upload">
                   <p className="productreviews__form-upload-desc">Фото или видео:</p>
                   <ul className="productreviews__form-upload-list">
