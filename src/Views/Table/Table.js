@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { GxButton, GxSpinner } from '@garpix/garpix-web-components-react';
+import React from 'react';
+import { GxSpinner } from '@garpix/garpix-web-components-react';
 import { v4 } from 'uuid';
 import style from './styles/table.module.scss';
-import { useStoreon } from 'storeon/react';
 
 const Table = ({ classNameTable, tableHeaderData, tableBodyData, statusLoad}) => {
 
   return (
     <table className={style[classNameTable]}>
-      <thead>
+      <thead> 
         {tableHeaderData.map((trElData, i) => {
           return (
             <tr key={v4()}>

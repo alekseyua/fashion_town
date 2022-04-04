@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import style from './style/style.module.scss';
+import AboutFt from './AboutUs';
 import {
   pic1,
   pic2,
@@ -21,6 +22,8 @@ const AboutUs = (props) => {
     <>
       <about className={style["about__container"]}>
         <div className={style["about__container-wrapper"]}>
+
+        
           <div className={style["company-about"]}>
             <div className={style["company-about__container"]}>
 

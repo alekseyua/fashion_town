@@ -1,6 +1,6 @@
   заметки
 
-разрешаем доступ для выполнения скриптов
+разрешаем доступ для выполнения скриптов 
 Set-ExecutionPolicy RemoteSigned -Scope Process
 
 Login: root
@@ -14,35 +14,34 @@ http://91.218.229.240:8000/api/v1/order/correspondence_order_item/?order_item_id
 
 POST
 
+``````plagin for work VS CODE``````
+1) Auto Rename Tag 
+2) Auto Import
+3) Beautify
+4) Better Comments
+5) Bracket Pair Colorizer 2
+6) Path Intellisense
+7) 
+
+
+```в линуксе чтобы обойти лимит ```
+When this limit is not enough to monitor all files inside a directory, the limit must be increased for Listen to work properly.
+
+You can set a new limit temporary with:
+
+$ sudo sysctl fs.inotify.max_user_watches=524288
+$ sudo sysctl -p
+
+
+
+
+
+
 
 			@include adaptive-value('font-size',33,20,px,2);
 			@include adaptive-value('line-height',60,28,px,2);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               PreviewSlider
-               SectionProdPage
-               ProductPreview
-               
-               
                   (``адаптивный миксин``)
                   
 // ************************шрифт размер адаптив****************

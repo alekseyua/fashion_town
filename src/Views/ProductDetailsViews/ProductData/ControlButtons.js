@@ -19,7 +19,7 @@ const ControlButtons = ({
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
   const [ countInBtn, setCountInBtn ] = useState()
   const cartRef = createRef();
-   const test = () =>{
+  const test = () =>{
     const cloneIcon = cartRef.current.cloneNode(true)
     const cloneIconWidth = cartRef.current.offsetWidth;//ширина изображения
     const cloneIconHeight = cartRef.current.offsetHeight;// высота изображения
@@ -48,10 +48,10 @@ const ControlButtons = ({
       opacity: 0;
       transform: scale(.5)
     `
-    const timer = setTimeout(()=>{
+    const timer = setTimeout(() => {
       cloneIcon.remove()
-      return ()=>clearTimeout(timer)
-    },4000)
+      return () => clearTimeout(timer)
+    }, 4000)
   }
 
   //******************************************************************************************************* */
@@ -60,12 +60,8 @@ const ControlButtons = ({
     (count === -1) ? setChangeColorBtn({ red: true, green: false }) : null;
     const openModalSucces = (countInBtn === 0) ? true : false;
     let countInCart;
-    console.log('collections', collections);
-    console.log('sizes', sizes);
-
     countInCart = collections? sizes.lenght : count
     countInCart === undefined? countInCart = 0 : countInCart = collections? sizes.lenght : count;
-    console.log('countInCart', countInCart);
     dispatch('stateCountCart/add', { ...stateCountCart, in_cart: stateCountCart.in_cart + countInCart})
     count = countInBtn + count;
     setCountInBtn(count)
@@ -76,7 +72,6 @@ const ControlButtons = ({
     in_cart_count !== countInBtn ? setCountInBtn(in_cart_count) : null
   },[in_cart_count])
 
-
   //*******************меняем стиль на кнопке зелёный или красный*** проверено работает***************************************** */
   const [colorBtnClick, setColorBtnClick] = useState('prodpage-control-buttons__indicator');
   useEffect(() => {
@@ -86,12 +81,9 @@ const ControlButtons = ({
     })
     )
     setColorBtnClick(styleColor)
-
   }, [changeColorBtn.red, changeColorBtn.green])
 
   //******************************************************************************************************* */
-
-
   const linkToProductPage = () => {
     if (!modalView) return null;
     return (
@@ -136,7 +128,6 @@ const ControlButtons = ({
       </div>
     );
   }else{
-
     //когда дроп, когда есть колекция, когда добавлен один пустой или не закрытый сбор
     return (
     <div className={style['prodpage-control-buttons']}>
@@ -159,7 +150,5 @@ const ControlButtons = ({
     </div>
     )
   }
-
 };
-
 export default ControlButtons;

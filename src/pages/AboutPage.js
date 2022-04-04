@@ -5,7 +5,7 @@ import Container from '../Views/Container';
 import AboutViews from '../Views/AboutViews';
 import Modal from '../Views/ModalCreator';
 import AboutUs from '../Views/AboutUs';
-
+import style from './s'
 import {
   aboutbox,
   aboutcheck,
@@ -19,7 +19,6 @@ import Title from '../Views/Title';
 const AboutPage = (props) => {
 
   const { breadcrumbs, components, site_configuration } = props;
-  console.log('component', components)
   const firstSection = components.filter((el) => el.id === 9)[0];
   const platformSection = components.filter((el) => el.id === 10)[0];
   const platformListSection = components.filter((el) => el.id === 11)[0];
@@ -44,6 +43,9 @@ const AboutPage = (props) => {
 
 
       <AboutUs site_configuration={site_configuration}/>
+      {/* <AboutUs.AboutFt classComponent={style["company-about"]}>
+
+      </AboutUs.AboutFt> */}
       {/* <AboutViews.AboutFt>
         <AboutViews.Block className={'about_page_reg__wrapper'}>
           <AboutViews.DescriptionLeftBlock>

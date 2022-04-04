@@ -3,7 +3,6 @@ import { labelHit, labelNew, labelSale, labelOnsale, defaultProductCard } from '
 import { Formik } from 'formik';
 import Container from '../../Views/Container';
 import ProductDetailsViews from '../../Views/ProductDetailsViews';
-import ControlButtons from '../../Views/ProductDetailsViews/ProductData/ColorsItems';
 import Breadcrumbs from '../../Views/Breadcrumbs';
 import ModalContentViews from '../../Views/ModalContentViews';
 import PreviewSlider from '../PreviewSlider';
@@ -15,11 +14,10 @@ import api from '../../api';
 import { ERROR_STATUS } from '../../const';
 import { useStoreon } from 'storeon/react';
 import AsyncComponent from '../AsyncComponent';
-import { v4 } from 'uuid';
 import styleModal from '../../Views/ModalCreator/modalCreator.module.scss';
 import { useHistory } from 'react-router-dom';
 import Popupe from '../Popupe';
-import {ROLE} from '../../const'
+import { ROLE } from '../../const'
 
 const AsyncWorldStandardSizesChart = AsyncComponent(() => {
   return import('../../Views/WorldStandardSizesChart');
@@ -39,14 +37,13 @@ const AsyncPricesContainer = AsyncComponent(() => {
 const AsyncLabels = AsyncComponent(() => {
   return import('../../Views/ProductDetailsViews/ProductData/Labels');
 });
- 
+
 const apiProfile = api.profileApi;
 const apiContent = api.contentApi;
 const apiCart = api.cartApi;
-const apiOrder = api.orderApi;
- 
-const SectionProdPage = ({ 
-  modalView, 
+
+const SectionProdPage = ({
+  modalView,
   url,
   productId,
   profileId,
@@ -79,69 +76,57 @@ const SectionProdPage = ({
   ...props
 }) => {
   const history = useHistory();
-  const { currenssies } = useStoreon('currenssies'); //currenssies
-  const [modalStates, setmodalStates] = useState({ show: false });
   const { stateCountCart, dispatch } = useStoreon('stateCountCart');
+  const { stateCountRestart } = useStoreon('stateCountRestart')
+  const { stateCountWish } = useStoreon('stateCountWish')
+  const { currenssies } = useStoreon('currenssies'); //currenssies
   const { userPage } = useStoreon('userPage');
-  const {role} = userPage.profile;
+  const { role } = userPage.profile;
   const shereRef = useRef();
-  const collectionRef = useRef();
-
+  const [listCollectionsHook, setListCollectionsHookHook] = useState([]);//Array data
+  const [recommended_priceHook, setRecommended_priceHook] = useState();
+  const [in_stock_countHook, setIn_stock_countHook] = useState(false);
+  const [is_bestsellerHook, setIs_bestsellerHook] = useState(false);
   const [styleSocialItems, setStyleSocialItems] = useState(false)
+  const [collectionsHook, setCollectionsHook] = useState();//boolen
+  const [is_in_stockHook, setIs_in_stockHook] = useState(false);
+  const [is_closeoutHook, setIs_closeoutHook] = useState(false);
+  const [changeColorBtn, setChangeColorBtn] = useState({ red: false, green: false });
+  const [modalStates, setmodalStates] = useState({ show: false });
+  const [in_cart_countHook, setIn_cart_countHook] = useState();
+  const [is_likedHook, setIs_likedHook] = useState(false);
+  const [product_rcHook, setProduct_rcHook] = useState();
+  const [mediaFirstHook, setMediaFirstHook] = useState();
+  const [is_newHook, setIs_newHook] = useState(false);
+  const [pricesHook, setPricesHook] = useState();
+  const [reviewHook, setReviewHook] = useState();
+  const [brandHook, setBrandHook] = useState([]);
+  const [mediaHook, setMediaHook] = useState();
+  const [titleHook, setTitleHook] = useState();
+  const [urlHook, setUrlHook] = useState([]);
+  const [colorsn, setColorsn] = useState([]);
+  const [sizesn, setSizesn] = useState([]);
+  const [isOpen, setIsOpen] = useState();
 
-   //------------------------------------------------------------------------
-   const { stateCountWish } = useStoreon('stateCountWish')
-   const { stateInPreveiwGoods } = useStoreon('stateInPreveiwGoods')
-   const { reqestIdProduct } = useStoreon('reqestIdProduct')
-   const { stateCountRestart } = useStoreon('stateCountRestart')
-// 
+  const [showPopapInfoColection, setShowPopapInfoColection] = useState({
+    show: false,
+    content: null
+  })
   const [customModalStates, setCustomModalStates] = useState({
     show: false,
     addClass: 'modal-add_to_cart',
     content: null,
   });
-  const [selectedCollection, setselectedCollection] = useState(false);
-
-  const [colorsn, setColorsn] = useState([]);
-  const [sizesn, setSizesn] = useState([]);
-  const [collectionsHook, setCollectionsHook] = useState();//boolen
-  const [listCollectionsHook, setListCollectionsHookHook] = useState([]);//Array data
-
- const [packHook, setPackHook] = useState([]);
-  const [urlHook, setUrlHook] = useState([]);
-  const [brandHook, setBrandHook] = useState([]);
-  const [titleHook, setTitleHook] = useState();
-  // const [contentHook, setСontentHook] = useState();
-  const [recommended_priceHook, setRecommended_priceHook] = useState();
-  const [pricesHook, setPricesHook] = useState();
-  const [is_newHook, setIs_newHook] = useState(false);
-  const [is_closeoutHook, setIs_closeoutHook] = useState(false);
-  const [in_stock_countHook, setIn_stock_countHook] = useState(false);
-  const [is_bestsellerHook, setIs_bestsellerHook] = useState(false);
-  const [is_in_stockHook, setIs_in_stockHook] = useState(false);
-  const [is_likedHook, setIs_likedHook] = useState(false);
-  const [product_rcHook, setProduct_rcHook] = useState();
-  const [in_cart_countHook, setIn_cart_countHook] = useState();
-  const [reviews_statisticHook, setReviews_statisticHook] = useState();
-  const [reviewsCountHook, setReviewsCountHook] = useState();
-  const [reviewHook, setReviewHook] = useState();
-  const [mediaHook, setMediaHook] = useState();
-  const [mediaFirstHook, setMediaFirstHook] = useState();
-
   let newProduct_sku = [];//Array.from(product_sku);
-  const [showPopapInfoColection, setShowPopapInfoColection] = useState({
-    show: false,
-    content: null
-  })
 
   //   //заганяем начальные значения 
-//отлавливаем клик вне блока поделится
+  //отлавливаем клик вне блока поделится
   useEffect(() => {
     const clickOut = (e) => shereRef.current.contains(e.target) || setStyleSocialItems(false);
     document.addEventListener('click', clickOut);
     return () => document.removeEventListener('click', clickOut);
   }, []);
-  
+
   // цвет
   useEffect(() => {
     let color = colors.filter(el => el.selected)
@@ -160,14 +145,14 @@ const SectionProdPage = ({
   useEffect(() => {
     in_cart_count ? setIn_cart_countHook(in_cart_count) : null
   }, [in_cart_count])
-   // рекомендованая цена товара recommended_price
+  // рекомендованая цена товара recommended_price
   useEffect(() => {
     recommended_price ? setRecommended_priceHook(recommended_price) : null
   }, [recommended_price])
-    // ссылка на Url
-    useEffect(() => {
-      url? setUrlHook(url) : null
-    }, [url])
+  // ссылка на Url
+  useEffect(() => {
+    url ? setUrlHook(url) : null
+  }, [url])
   // титулка название товара Title
   useEffect(() => {
     title ? setTitleHook(title) : null
@@ -180,10 +165,10 @@ const SectionProdPage = ({
   useEffect(() => {
     setIs_newHook(is_new)
   }, [is_new])
- // Is_closeout
- useEffect(() => {
-  setIs_closeoutHook(is_closeout)
-}, [is_closeout])
+  // Is_closeout
+  useEffect(() => {
+    setIs_closeoutHook(is_closeout)
+  }, [is_closeout])
   // количества товаров в наличии In_stock_count
   useEffect(() => {
     in_stock_count ? setIn_stock_countHook(in_stock_count) : null
@@ -196,72 +181,61 @@ const SectionProdPage = ({
   useEffect(() => {
     setIs_in_stockHook(is_in_stock)
   }, [is_in_stock])
- // описание продукта Product_rc
- useEffect(() => {
-  product_rc ? setProduct_rcHook(product_rc) : null
-}, [product_rc])
- // в мои желания Is_liked
- useEffect(() => {
-  setIs_likedHook(is_liked)
-}, [is_liked])
- //  Review reviews_statistic
- useEffect(() => {
-  reviews_statistic ? setReviews_statisticHook(reviews_statistic) : null//????????????????????????
-}, [reviews_statistic])
- //  Review reviewsCount
-useEffect(() => {
-  reviewsCount ? setReviewsCountHook(reviewsCount) : null//????????????????????????
-}, [reviewsCount])
- //  Review
- useEffect(() => {
-  review ? setReviewHook(review) : null//????????????????????????
-}, [review])
- // фото товара Media
- useEffect(() => {
-  media.length ? setMediaHook(media) : null
-}, [media.length])
+  // описание продукта Product_rc
+  useEffect(() => {
+    product_rc ? setProduct_rcHook(product_rc) : null
+  }, [product_rc])
+  // в мои желания Is_liked
+  useEffect(() => {
+    setIs_likedHook(is_liked)
+  }, [is_liked])
+  //  Review
+  useEffect(() => {
+    review ? setReviewHook(review) : null//????????????????????????
+  }, [review])
+  // фото товара Media
+  useEffect(() => {
+    media.length ? setMediaHook(media) : null
+  }, [media.length])
 
   useEffect(() => {
     setCollectionsHook(is_collection)
   }, [is_collection])
   useEffect(() => {
-     setListCollectionsHookHook(collections)
+    setListCollectionsHookHook(collections)
   }, [collections])
 
-  
-
-  //    //создаём запрос для данных при изменении цвета или размера
+  //    создаём запрос для данных при изменении цвета или размера
   //    //****************************************************************** */
   useEffect(() => {
     let params = {
       color: colorsn.id,
       size: sizesn.id,
       id: productId,
-      collection : null,
+      collection: null,
       // pack ??????
     }
-
-    colorsn.id || sizesn.id?(
-    apiContent
-      .getProduct(productId, params)
-      .then((res) => {
-        let color = res.colors.filter(el => el.selected)
-        let size = res.sizes.filter(el => el.selected)
-        setColorsn(color[0])
-        setSizesn(size[0])
-        setIn_cart_countHook(res.in_cart_count)
-        setIn_stock_countHook(res.in_stock_count)
-        setIs_likedHook(res.is_liked)
-      })
-      .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
-    ):null
+    colorsn.id || sizesn.id ? (
+      apiContent
+        .getProduct(productId, params)
+        .then((res) => {
+          let color = res.colors.filter(el => el.selected)
+          let size = res.sizes.filter(el => el.selected)
+          setColorsn(color[0])
+          setSizesn(size[0])
+          setIn_cart_countHook(res.in_cart_count)
+          setIn_stock_countHook(res.in_stock_count)
+          setIs_likedHook(res.is_liked)
+        })
+        .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
+    ) : null
 
   }, [colorsn.id, sizesn.id])
   // //****************************************************************** */
   const openTableModal = () => {
     setmodalStates({
       ...modalStates,
-      show: true, 
+      show: true,
     });
   };
   const closeModal = () => {
@@ -277,11 +251,11 @@ useEffect(() => {
     });
   };
 
-    const submitProduct = (data) => {
-      console.log(`submitProduct`, data);
-    };
+  const submitProduct = (data) => {
+    console.log(`submitProduct`, data);
+  };
 
-  //   // проверено работает возможно надо допилить в случае ошибки обновление карточки подумаем ????
+  //   проверено работает возможно надо допилить в случае ошибки обновление карточки подумаем ????
   //   //*************************************************************** */
   const addWishlistProduct = (productId, profileId) => {
     if (!is_likedHook) {
@@ -292,9 +266,7 @@ useEffect(() => {
         })
         .then(res => {
           dispatch('stateCountWish/add', { ...stateCountWish, count: stateCountWish.count + 1 })
-          
-          dispatch('stateInPreveiwGoods/add', { id : productId , is_liked : !is_likedHook })
-          
+          dispatch('stateInPreveiwGoods/add', { id: productId, is_liked: !is_likedHook })
           setIs_likedHook(!is_likedHook)
         })
         .catch(err => {
@@ -309,7 +281,7 @@ useEffect(() => {
         })
         .then(res => {
           setIs_likedHook(!is_likedHook)
-          dispatch('stateInPreveiwGoods/add', { id : productId , is_liked : !is_likedHook })
+          dispatch('stateInPreveiwGoods/add', { id: productId, is_liked: !is_likedHook })
           dispatch('stateCountWish/add', { ...stateCountWish, count: stateCountWish.count - 1 })
         })
         .catch(err => {
@@ -318,7 +290,7 @@ useEffect(() => {
         })
     }
   };
-
+  // модалка 
   const openModalSuccessAddToCart = (currentColor, currentSize, prices) => {
     setCustomModalStates({
       ...customModalStates,
@@ -344,40 +316,40 @@ useEffect(() => {
     });
   };
 
-      // ******************************************************************************************************
+  // ******************************************************************************************************
   newProduct_sku = mediaHook;
-  const getColorForMedia = (colorData) =>{
+  const getColorForMedia = (colorData) => {
     setMediaFirstHook(media)
     let arr = Array.from(product_sku);
     let filterArr = arr.filter(item => item.color === colorData);
     console.log(`filter arr`, filterArr)
     setMediaHook(filterArr);
   }
-
-
-      // ******************************************************************************************************
-  const [changeColorBtn, setChangeColorBtn] = useState({ red: false, green: false });
-  const addToCart = ({ count = 1, openModalSucces,color,size }) => {
-  let realColor = color ? color : colorsn.id;
-  let realSize = size ? size : sizesn.id;
-  const params = {
-    product: productId,
-    color: realColor,
-    size: realSize,
-    qty: count || 1,
-    is_collection: collectionsHook,
-  };
+  // ******************************************************************************************************
+  const addToCart = ({ count = 1, openModalSucces, color, size }) => {
+    let realColor = color ? color : colorsn.id;
+    let realSize = size ? size : sizesn.id;
+    const params = {
+      product: productId,
+      color: realColor,
+      size: realSize,
+      qty: count || 1,
+      is_collection: collectionsHook,
+    };
     apiCart
       .addToCart(params)
       .then((res) => {
-        setChangeColorBtn({ red: false, green: false });
+        setChangeColorBtn({
+          red: false,
+          green: false
+        });
         setIn_cart_countHook(count)
         if (collectionsHook) dispatch('stateCountRestart/add', !stateCountRestart)
-        
 
-         if (openModalSucces && stateCountCart.in_cart === 0) {
+
+        if (openModalSucces && stateCountCart.in_cart === 0) {
           openModalSuccessAddToCart(colorsn, sizesn);
-         }
+        }
       })
       .catch((err) => {
         // нужно сделать попап для ошибки добавления и удаления количества товара в превью
@@ -392,28 +364,26 @@ useEffect(() => {
       });
   };
 
-  const lables = [
-    {
-      icon: labelSale,
-      isVisible: is_closeoutHook,
-    },
-    {
-      icon: labelNew,
-      isVisible: is_newHook,
-    },
-    {
-      icon: labelHit,
-      isVisible: is_bestsellerHook,
-    },
-    {
-      icon: labelOnsale,
-      isVisible: is_in_stockHook,
-      modifyClass: 'long',
-    },
+  const lables = [{
+    icon: labelSale,
+    isVisible: is_closeoutHook,
+  },
+  {
+    icon: labelNew,
+    isVisible: is_newHook,
+  },
+  {
+    icon: labelHit,
+    isVisible: is_bestsellerHook,
+  },
+  {
+    icon: labelOnsale,
+    isVisible: is_in_stockHook,
+    modifyClass: 'long',
+  },
   ];
 
   const heandlerAddCollections = (qty = 1, openModalSucces = false, color, size,) => {
-
     let params = {
       color: color,
       size: size,
@@ -423,13 +393,17 @@ useEffect(() => {
       .getProduct(productId, params)
       .then((res) => {
         let count = res.in_cart_count + 1;
-        addToCart({ count, openModalSucces, color, size })
+        addToCart({
+          count,
+          openModalSucces,
+          color,
+          size
+        })
       })
       .catch(err => console.error(`ERROR getProduct(productId, params) ${err}`))
-
   }
 
-  const heandlerPopup = ( ) => {
+  const heandlerPopup = () => {
     {
       setShowPopapInfoColection({
         ...showPopapInfoColection,
@@ -446,7 +420,7 @@ useEffect(() => {
           setIsOpen={setIsOpen}
           openTableModal={openTableModal}
           closeModal={closeModal}
-          site_configuration = {site_configuration}
+          site_configuration={site_configuration}
           modalStates={modalStates}
           styleModal={styleModal}
           AsyncWorldStandardSizesChart={AsyncWorldStandardSizesChart}
@@ -460,26 +434,23 @@ useEffect(() => {
           in_cart_countHook={in_cart_countHook}
           heandlerAddCollections={heandlerAddCollections}
           styleSocialItems={styleSocialItems}
-      >
-      </Popupe>
-    }) }
-  }  
+        >
+        </Popupe>
+      })
+    }
+  }
 
-  const [isOpen, setIsOpen]=useState();
   useEffect(() => {
     const body = document.querySelector('body');
     body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen])
 
-
   return (
     <Formik enableReinitialize onSubmit={submitProduct}>
       {({ handleSubmit, setFieldValue, handleChange, values, errors }) => {
-
         return (
           <GxForm noValidate onGx-submit={handleSubmit}>
             <ProductDetailsViews.SectionProdPage modalView={modalView}>
-
               <GxModal
                 onGx-after-hide={closeCustomModal}
                 open={customModalStates.show}
@@ -505,7 +476,6 @@ useEffect(() => {
                     <ModalContentViews.ContentBlock>
                       <AsyncWorldStandardSizesChart
                         site_configuration={site_configuration}
-                        // productTableVariant ????????????????????
                       />
                     </ModalContentViews.ContentBlock>
                   </ModalContentViews.ModalWrapper>
@@ -513,7 +483,7 @@ useEffect(() => {
 
                 {!modalView ? <Breadcrumbs breadcrumbs={breadcrumbs} /> : null}
                 <ProductDetailsViews.DataProductRow modalView={modalView}>
-                 {showPopapInfoColection.show?showPopapInfoColection.content:null}
+                  {showPopapInfoColection.show ? showPopapInfoColection.content : null}
 
                   <ProductDetailsViews.DataProductLeft>
                     <PreviewSlider
@@ -538,9 +508,9 @@ useEffect(() => {
                       media={mediaHook}
                     />
                     {
-                      role === ROLE.RETAIL || role === ROLE.UNREGISTRED?
-                      null
-                    :<ProductDetailsViews.BrandName name={brandHook} />
+                      role === ROLE.RETAIL || role === ROLE.UNREGISTRED ?
+                        null
+                        : <ProductDetailsViews.BrandName name={brandHook} />
                     }
                     {titleHook && titleHook !== 'title' ? (
                       <Title variant={'prodpage__title'} type={'h1'}>
@@ -576,7 +546,7 @@ useEffect(() => {
                       setSizesn={setSizesn}
                       sizesn={sizesn}
                       heandlerPopup={heandlerPopup}
-                      setIsOpen={ setIsOpen}
+                      setIsOpen={setIsOpen}
                       currenssies={currenssies}
                       pricesHook={pricesHook}
                     />

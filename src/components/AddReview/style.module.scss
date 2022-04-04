@@ -1,0 +1,26 @@
+.productreviews__form-textarea{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 121px;
+    font-family: var(--gx-input-font-family);
+    font-weight: var(--gx-input-font-weight);
+    line-height: var(--gx-line-height-normal);
+    letter-spacing: var(--gx-input-letter-spacing);
+    background-color: var(--gx-input-background-color);
+    border: solid var(--gx-input-border-width) var(--gx-input-border-color);
+    vertical-align: middle;
+    transition: var(--gx-transition-fast) color, var(--gx-transition-fast) border, var(--gx-transition-fast) box-shadow;
+    cursor: text;
+    flex: 1 1 auto;
+    color: var(--gx-input-color);
+    border-radius: var(--gx-input-border-radius-medium);
+    font-size: var(--gx-input-font-size-medium);
+    
+    padding: 0.5em var(--gx-input-spacing-medium);
+    &::placeholder{
+        color: var(--gx-input-placeholder-color);
+        user-select: none;
+    }
+}

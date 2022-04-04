@@ -1,17 +1,16 @@
 import React from 'react';
-import { GxTextarea } from '@garpix/garpix-web-components-react';
 import style from './styles/index.module.scss';
 
-const CommentOrder = ({ name, handleChange, value, placeholder }) => {
+const CommentOrder = ({ name, handleChange, value='', placeholder }) => {
   return (
     <>
-    <GxTextarea
+    <textarea
       name={name}
       value={value}
-      onGx-change={handleChange}
+      onChange={handleChange}
       className={style['comment-block']}
       placeholder={placeholder}
-    ></GxTextarea>
+    ></textarea>
     </>
   );
 };

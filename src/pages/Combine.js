@@ -180,7 +180,7 @@ const Combine = (props) => {
 
           if ( page.profile === undefined ){
               console.log('profile если undefined из combine')
-              alert('page.profile === undefined of Combine')
+              alert('page.profile === undefined of Combine, времменно оставляем для выявления 500')
               // window.location.reload()
           }
 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { GxTextarea, GxForm } from '@garpix/garpix-web-components-react';
+import { GxForm } from '@garpix/garpix-web-components-react';
 import ModalContentViews from '../../Views/ModalContentViews';
 import api from '../../api';
 import { Formik } from 'formik';
 import { Captcha } from '../Captha';
 import { ERROR_STATUS } from '../../const'
 import { Link } from 'react-router-dom';
-
+import style from './style.module.scss';
 const apiContent = api.contentApi;
 
 const ModalAddReview = ({
@@ -34,7 +34,7 @@ const ModalAddReview = ({
       profile: profile,
     };
     if (!params.stars || !params.content) {
-      return openModalFinalyAddReview(false, 'Неправильно введены данные!');
+      return openModalFinalyAddReview(false, `Неправильно введены данные! Вы не указали ${!params.stars?'оценку по звёздам':'текст отзыва'}`);
     }
     apiContent
       .postReviews(params)
@@ -65,13 +65,13 @@ const ModalAddReview = ({
         return (
           <GxForm novalidate onGx-submit={handleSubmit}>
             <ModalContentViews.FormAddReview>
-              <GxTextarea
-                value={values.content}
-                onGx-input={handleChange}
-                className="productreviews__form-textarea"
+              <textarea
+                // value={!!values.content?values.content:''}
+                onInput={handleChange}
+                className={style["productreviews__form-textarea"]}
                 placeholder="Текст отзыва"
                 name={'content'}
-              ></GxTextarea>
+              ></textarea>
               <ModalContentViews.FormAddReviewUploadImage
                 values={values}
                 setFieldValue={setFieldValue}

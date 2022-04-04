@@ -239,13 +239,17 @@
 
 .comment {
   &-block {
-    &::part(base) {
       font-size: 10px;
       background: rgba(243, 239, 243, 0.3);
       box-shadow: inset -2px 0px 4px rgba(0, 0, 0, 0.1), inset 2px 0px 4px rgba(0, 0, 0, 0.1);
       border-radius: 2px;
       margin-bottom: 30px;
       margin-top: 30px;
-    }
+      height: 90px;
+      padding: 0.5em var(--gx-input-spacing-medium);
+      &::placeholder{
+        color: var(--gx-input-placeholder-color);
+        user-select: none;
+      }
   }
 }

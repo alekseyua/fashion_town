@@ -100,7 +100,6 @@ const OrderComponent = ({
   //************************************** */
 
   const errorsMessenge = {};
-
   const onSubmit = () => {};
 
   //************************************** */
@@ -195,10 +194,8 @@ const OrderComponent = ({
 
   // **************************************************************************************************************************************
   const getNowCurrencyNowCountry = (country) => {
-
     if (fieldCountryOut !== 'country') {
       if (country === fieldCountryOut) {
-
         fieldCountryOut !== 'country'
         orderApi
           .getCountryDeliviry({ country: fieldCountryOut, currency: currenssies })
@@ -267,7 +264,7 @@ const OrderComponent = ({
             .createOrder(params)
             .then((res) => {
               dispatch('stateCountRestart/add', !stateCountRestart);
-            dispatch('stateUpdateBalance/update', !stateUpdateBalance)
+              dispatch('stateUpdateBalance/update', !stateUpdateBalance)
               history.push('orders');
             })
             .catch((err) => {
@@ -300,13 +297,10 @@ const OrderComponent = ({
          orderApi
           .createOrder(params)
           .then((res) => {
-
             const order_id = res.id;
             openModalPay(order_id, dataBalance.balance, params.total_cost);
             dispatch('stateCountRestart/add', !stateCountRestart);
             dispatch('stateUpdateBalance/update', !stateUpdateBalance)
-
-            // history.push('orders');
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay BALANCE, ${err}`);
@@ -320,9 +314,6 @@ const OrderComponent = ({
             //диалоговое окно оплаты по реквизитам
             openModalPay(order_id, dataBalance.balance, params.total_cost);
             dispatch('stateCountRestart/add', !stateCountRestart);
-
-            //document.location.href = "/ru/orders";//http://localhost:3000/order
-            // history.push('orders');
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay BALANCE, ${err}`);
@@ -340,8 +331,6 @@ const OrderComponent = ({
             //диалоговое окно оплаты по реквизитам
             openModalPay(order_id, dataBalance.balance, params.total_cost);
             dispatch('stateCountRestart/add', !stateCountRestart);
-            // history.push('orders');
-            //document.location.href = "/ru/orders";//http://localhost:3000/order
           })
           .catch((err) => {
             console.log(`ERROR creteOrder pay ONLINE, ${err}`);
@@ -349,18 +338,13 @@ const OrderComponent = ({
           });
       } else {
         if (params.total_cost < dataBalance.balance) {
-          //если достаточно денег на счету оформляется заказ сразу
-          //???????????????????????????????????????????????????????
           orderApi
             //создаём заказ когда списуют деньги со счёта
             .createOrder(params)
             .then((res) => {
-              // openModalPay(order_id,dataBalance.balance, params.total_cost);
               dispatch('stateCountRestart/add', !stateCountRestart);
               dispatch('stateUpdateBalance/update', !stateUpdateBalance)
-
               history.push('orders');
-              //document.location.href = "/ru/orders";//???????????????????????????????? с ru или без ru
             })
             .catch((err) => {
               console.log(`ERROR creteOrder pay BALANCE, ${err}`);
@@ -391,7 +375,6 @@ const OrderComponent = ({
 
   const getEnabledToPayments = (values, errors) => {
     //устанавливаем состояние как делать оплату online(1) или с баланса(3)
-    // debugger;
     if (!statusFildValue) {
       values.payment_methods === 1 ? setValueStatePay(1) : setValueStatePay(3);
       if (
@@ -400,13 +383,7 @@ const OrderComponent = ({
         values.selectedAdress &&
         agreeWitheRegulations
       ) {
-        /**
-         * необходимо исправить добавление и удаление стилей по React
-         */
         styleCar === 'orderCar disable' ? setStyleCar('orderCar'):null
-        // if (document.querySelector('.orderCar').classList.contains('disable')) {
-        //   document.querySelector('.orderCar').classList.remove('disable');
-        // }
         //?если нужен паспорт то проверим валидность введённых данных
         if (values.needPassport && !values.waitForCall) {
           if (Object.keys(errors).length == 0 && values.agree_personal_data) {
@@ -424,15 +401,10 @@ const OrderComponent = ({
       }
     } else {
       styleCar === 'orderCar disable' ? setStyleCar('orderCar'):null
-      // if (document.querySelector('.orderCar').classList.contains('disable')) {
-      //   document.querySelector('.orderCar').classList.remove('disable');
-      // }
       return true;
     }
   };
-
   // **************************************************************************************************************************************
-
   const openModalRejectedOrdering = (funcGoTo) => {
     setmodalStates({
       show: true,
@@ -462,7 +434,6 @@ const OrderComponent = ({
   };
 
   // ****************обновляем состояние доставки*****************************************************************************************
-
   useEffect(() => {
     if (orderCountryPayment.length > 0) {
       const delivery_priceCountry = orderCountryPayment.map((item) => {
@@ -484,19 +455,14 @@ const OrderComponent = ({
   }, [priceNowDilevery, fieldCountryOut]);
 
   // создадим новый моссив с товарами для отрисовки
-
   useEffect(() => {
       getNowCurrencyNowCountry(fieldCountryOut)
-      
     if (stateCountCart !== 0) {
-
       let newCartAlPerfomed = {};
       if (stateCountCart.is_performed) {
         let res_cartitem_set = [];
         let res_in_stock = [];
         let cart_items = [];
-        //********************************** */
-
         const createDataItemsOptDrop = (data) => {
           let res = [];
           data.items.map((el) => {
@@ -530,18 +496,6 @@ const OrderComponent = ({
             condition: data.condition,
           };
         };
-
-        const createDataItemsRetail = (data) => {
-          let res = [];
-          return {
-            id: data.id,
-            is_performed: data.is_performed,
-            items: res,
-            title: data.title,
-            condition: data.condition,
-          };
-        };
-
         // здесь мы перебираем все элементы в массиве которые имеют отметку и соответствуют условиям збора
         if (role === ROLE.WHOLESALE) {
           stateCountCart.cartitem_set.map((el) => {
@@ -552,7 +506,6 @@ const OrderComponent = ({
             el.selected ? res_cartitem_set.push(el) : null;
           });
         }
-
         //************************************ */
         const creteDataInstock = (data) => {
           let res = [];
@@ -604,42 +557,6 @@ const OrderComponent = ({
       setCart_contentOrder(newCartAlPerfomed);
     }
   }, [stateCountCart.in_cart, priceNowDilevery, fieldCountryOut, stateCountCart.total_price, currenssies]);
-
-  //************************************************************************************** */
-  // const inputNum = useRef();
-  // const [stateListTest1, setStateListTest1] = useState(null);
-  // const [stateListTest3, setStateListTest3] = useState(null);
-
-  // const [stateListTest2, setStateListTest2] = useState(null);
-
-  // const testingBtn1 = () => {
-  //   const fd = new FormData();
-  //   fd.set('product', 384);
-  //   fd.set('size', 1);
-  //   fd.set('color', 1);
-
-  //   orderApi
-  //     .createFakeEmptyCollection(fd)
-  //     .then((res) =>{
-  //       console.log('result',res);
-  //       setStateListTest1(res)
-  //       })
-  //     .catch((err) => console.error(`ERROR getOrderItemsList ${err}`, res));
-  // };
-  // const testingBtn2 = () => {
-  //   console.log('inputNum', inputNum.current.value);
-  //   setStateListTest3(inputNum.current.value)
-  //   const fb = new FormData();
-  //   fb.set('product', 384);
-
-  //   orderApi
-  //     .getOrderItemsList2(fb)
-  //     .then((res) => {
-  //       console.log('result', res)
-  //       setStateListTest2(res)})
-  //     .catch((err) => console.error(`ERROR getOrderItemsList ${err}`));
-  // };
-  // /************************************************************************************* */
 
   return (
     <React.Fragment>
@@ -695,33 +612,8 @@ const OrderComponent = ({
                   <Text text="ordering" />
                 </Title>
                 {statusFildValue ? <h4>Заказ № {listOrders.filter(item => item.id === statusFildValue)[0]?.order_number}</h4>:null}
-                {/* <pre>{listOrders ? (
-                      `
-                  
-                  test = ${listOrders.filter(item => item.id === statusFildValue)}
-                  ответ на запрос:
-                  ${JSON.stringify(listOrders, null, 2)}
-                  sdsad
-                  
-                 `
-               
-                ) : null}
-                </pre> */}
-
-                {/* <pre>{stateListTest2 ? (
-                  `
-                  запрос на товар с номером ${setStateListTest3}
-                  статус запроса: ${stateListTest2.status}
-                  ответ на запрос:
-                  ${JSON.stringify(stateListTest2.data, null, 2)}
-                  
-                  
-                  `
-
-                ) : null} </pre> */}
-
                 {
-                  cart_contentOrder.render ? ( //сдесь добавим условие показа
+                  cart_contentOrder.render ? ( 
                     <>
                       <OrderingCards
                         currenssies={currenssies}
@@ -776,7 +668,7 @@ const OrderComponent = ({
                   ) : (
                     <>
                       <Title variant={'cart'} type={'h1'}>
-                        <Text text="Не создан ни один заказ" />
+                        <Text text={"dont_one_order"} />
                       </Title>
                     </>
                   )
@@ -879,26 +771,15 @@ const OrderComponent = ({
                   <CartViews.CommentOrder
                     name={'comment_order'}
                     handleChange={handleChange}
-                    value={values.comment_order}
+                    value={!!values.comment_order?values.comment_order:''}
                     // placeholder={'Написать комментарий к заказу...'}
                     placeholder={
                       ROLE.RETAIL !== role?
                       'При желании укажите информацию для Менеджера по упаковке (например, что Вы желаете сделать отправку по своей накладной СDEK, отправить товар без бирок и тп...)'
                       :'При желании укажите информацию для Менеджера по упаковке'
-                      
                     }
                   />
-                  {/* <CartViews.LinkToFirmalization
-                  type={'btn'}
-                  onClick={() => creteOrder(values)}
-                  enabled={getEnabledToPayments(values, errors)}
-                  // to={checkout_slug}
-                >
-                  <Text text="proceedCheckout" />
-                </CartViews.LinkToFirmalization> */}
-
                   {/* выподающий список для добавления товара в существующий заказ */}
-
                   <div className={style['old-order']}>
                     <GxTooltip
                       content="Добавить товары к существующему заказу "
@@ -914,7 +795,7 @@ const OrderComponent = ({
                         placeholder="Добавить товары к существующему заказу"
                         options={options}
                         onGx-change={changeStatusOrder}
-                        variant='old-order__list'
+                        className='old-order__list'
                       ></Select>
                     </GxTooltip>
                   </div>

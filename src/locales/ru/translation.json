@@ -15,7 +15,6 @@
   "featured": "Рекомендованные",
   "top_rated": "С наилучшим рейтингом",
   "from_the_blog": "Из блога",
-
   "register": "Регистрация",
   "new_customer": "Новый покупатель",
   "i.understand": "Я понимаю",
@@ -316,6 +315,7 @@
   "payment.method": "Способ оплаты",
   "count": "Кол-во",
   "ordering": "Оформление заказа",
+  "dont_one_order": "Не создан ни один заказ",
   "download.selected": "Скачать выбранные",
   "name.promocode": "Название промокода",
   "options": "Опция"

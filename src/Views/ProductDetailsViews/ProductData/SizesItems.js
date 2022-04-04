@@ -36,7 +36,7 @@ const SizesItems = ({
     setClickDelay('')
     const delayClk = setTimeout(() => {
       setClickDelay(null)
-    }, 700);
+    }, 1000);
     return ()=>clearTimeout(delayClk)
   }, [sizes.length, sizesn.id])
   const sceletSizesRender = () => {
